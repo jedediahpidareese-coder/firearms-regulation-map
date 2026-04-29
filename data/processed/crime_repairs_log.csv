@@ -1,0 +1,2 @@
+state_abbr,year,repair_type,source_name,url,note
+ND,2022,state_reassignment,OpenCrime state trends,https://www.opencrime.us/downloads,Reassigned a mislabeled duplicate North Carolina 2022 row to North Dakota 2022 because the raw source duplicated NC and omitted ND.

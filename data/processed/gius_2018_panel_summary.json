@@ -1,0 +1,30 @@
+{
+  "panel_path": "C:\\Users\\jedre\\OneDrive - Creighton University\\Firearms Regulation\\data\\processed\\gius_2018_school_panel_1990_2014.csv",
+  "rows": 1250,
+  "years": [
+    1990,
+    2014
+  ],
+  "states": 50,
+  "paper_total_killed": 354,
+  "paper_total_wounded": 382,
+  "paper_total_victims": 736,
+  "raw_total_killed": 356,
+  "raw_total_wounded": 395,
+  "calibrated_total_victims": 736,
+  "exact_vs_approx": {
+    "exact": [
+      "Balanced 50-state 1990-2014 panel structure",
+      "Annual national killed and wounded totals from Gius (2018) figures",
+      "Federal assault-weapons-ban and federal background-check timing",
+      "Population, unemployment, land area, age 5-18 counts, alcohol series"
+    ],
+    "approximate": [
+      "State-year allocation of school-shooting victims within each year",
+      "Private-sale background-check law crosswalk from Tufts variables",
+      "Income control proxied with BEA per capita personal income",
+      "Pre-2008 annual bachelor's-degree shares interpolated between Census anchors",
+      "Firearm-suicide proxy based on a reconstructed state panel rather than the exact Gius source file"
+    ]
+  }
+}

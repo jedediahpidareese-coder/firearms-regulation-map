@@ -1,0 +1,8 @@
+check_name,value,detail
+rows_expected,1250,50 states x 25 years (1990-2014)
+rows_actual,1250,Observed rows in final panel
+distinct_states,50,Expected 50
+distinct_years,25,Expected 25
+duplicate_state_year_rows,0,Must equal 0
+missing_required_cells,0,Must equal 0
+annual_targets_matched,1,1 means calibrated state-year sums match the paper's yearly figures exactly

@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local/editor files
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+~$*
+.vscode/
+.idea/
+
+# Project scratch folders
+data/tmp_edu_test/
+data/tmp_demog_build/
+data/tmp_demog_inspect/
+
+# Environment files
+.env
+.env.*

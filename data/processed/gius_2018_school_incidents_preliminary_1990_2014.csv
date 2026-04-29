@@ -1,0 +1,231 @@
+incident_id,date,year,state_abbr,state,city,school,killed_raw,wounded_raw,killed_text,wounded_text,source_family,description,victims_raw
+31,1990-08-26,1990,NV,Nevada,Las Vegas,Eldorado High School,1,0,1 student,0,Klein (2012),,1
+32,1991-01-08,1991,TX,Texas,Richardson,Richardson High School,1,0,1 suicide,,Klein (2012),,1
+33,1991-04-23,1991,CA,California,Compton,Ralph J. Bunche Middle School,1,0,1 student,0,Klein (2012),,1
+34,1991-10-09,1991,NY,New York,Bronx,James Monroe High School,1,0,1 student,0,Klein (2012),,1
+35,1991-11-01,1991,IA,Iowa,Iowa City,University of Iowa,5,1,"4 professors, 1 administrator",1 receptionist,Klein (2012),,6
+36,1991-11-14,1991,TX,Texas,Houston,Milby High School,0,1,0,1 student,Klein (2012),,1
+37,1992-05-01,1992,CA,California,Olivehurst,Lindhurst High School,4,10,"3 students, 1 teacher",10 students Anti-School/ Masculinity (,Klein (2012),,14
+38,1992-05-14,1992,CA,California,Napa,Middle School,0,2,0,2 students,Klein (2012),,2
+39,1992-09-11,1992,TX,Texas,Amarillo,Palo Duro High School,0,6,0,6 students,Klein (2012),,6
+40,1992-10-12,1992,NE,Nebraska,Lincoln,University of Nebraska-Lincoln,0,0,0,0,Klein (2012),,0
+41,1992-12-14,1992,MA,Massachusetts,Great Barrington,Bard College at Simon's Rock: The Early College,2,4,"1 student, 1 teacher","3 students, 1 security guard",Klein (2012),,6
+42,1993-01-18,1993,KY,Kentucky,Grayson,East Carter High School,2,0,"1 teacher, 1 school custodian",0,Klein (2012),,2
+43,1993-02-01,1993,NY,New York,Amityville,Amityville High School,1,1,1 student,1 student,Klein (2012),,2
+44,1993-02-22,1993,CA,California,Los Angeles,Reseda High School,1,0,1 male student,,Klein (2012),,1
+45,1993-03-18,1993,GA,Georgia,Harlem,Harlem High School,1,1,1 male student,1 student Masculinity (,Klein (2012),,2
+46,1993-07-08,1993,UT,Utah,Ogden,Weber State University,1,2,1 police officer; 1perpetrator,2 students,Klein (2012),,3
+47,1993-09-17,1993,WY,Wyoming,Sheridan,Central Middle School,1,4,1 suicide,4 students,Klein (2012),,5
+48,1993-12-01,1993,WI,Wisconsin,Wauwatosa,Wauwatosa High School,1,0,1 associate principal,0,Klein (2012),,1
+49,1993-12-17,1993,MI,Michigan,Chelsea,Chelsea High School,1,2,1 district superintendent,"1 principal, 1",Klein (2012),,3
+50,1994-01-31,1994,WA,Washington,Seattle,Whitman Middle School,1,0,1 teacher Masculinity (,,Klein (2012),,1
+51,1994-03-23,1994,WA,Washington,Seattle,Ballard High School,1,1,1 student,1student,Klein (2012),,2
+52,1994-03-25,1994,GA,Georgia,Cherokee County,Etowah High School,1,0,1 suicide,,Klein (2012),,1
+53,1994-05-26,1994,KY,Kentucky,Union,Ryle High School,4,0,"2 parents, 2 sisters",,Klein (2012),,4
+54,1994-09-08,1994,CA,California,Hollywood,Hollywood High School,1,0,1 student,,Klein (2012),,1
+55,1994-10-12,1994,NC,North Carolina,Greensboro,Grimsley High School,1,0,1 student,0,Klein (2012),,1
+56,1994-11-05,1994,CA,California,San Leandro,Thomas Jefferson Elementary School,1,0, girl,0,Klein (2012),,1
+57,1994-11-07,1994,OH,Ohio,Wickliffe,Wickliffe Middle School shooting,1,3,1 custodian,"1 Assistant principal, 1 teacher, 1 police officer",Klein (2012),,4
+59,1995-01-26,1995,NC,North Carolina,Chapel Hill,University of North Carolina,2,2,2,"1 police officer, 1 other",Klein (2012),,4
+60,1995-08-12,1995,NY,New York,New York,New York City Technical College,1,0,1 lab technician,,Klein (2012),,1
+61,1995-08-29,1995,TX,Texas,Laredo,Memorial Middle School,1,0,1 student,0,Klein (2012),,1
+62,1995-10-12,1995,SC,South Carolina,Blackville,Blackville-Hilda High School,3,1,"2 math teachers, 1 suicide",1 teacher,Klein (2012),,4
+63,1995-11-15,1995,TN,Tennessee,43 Lynnville,Richland High School,2,1,"1 student, 1 teacher",1 teacher,Klein (2012),,3
+64,1996-02-02,1996,WA,Washington,Moses Lake,Frontier Middle School,3,1,"2 male students, 1 teacher",1 female student,Klein (2012),,4
+65,1996-02-08,1996,CA,California,Menlo Park,Mid-Peninsula High School,1,3,1suicide,3 students,Klein (2012),,4
+66,1996-03-25,1996,MO,Missouri,Patterson,Mountain Park Baptist Academy,1,0,1 student,0,Klein (2012),,1
+69,1996-04-11,1996,AL,Alabama,Talladega,Talladega High School,1,0,1 student,0,Klein (2012),,1
+67,1996-08-15,1996,CA,California,San Diego,San Diego State University,3,0,3 professors,,Klein (2012),,3
+70,1996-09-17,1996,PA,Pennsylvania,University Park,Penn State University,1,1,1 student,1 students,Klein (2012),,2
+68,1996-09-25,1996,GA,Georgia,Scottdale,DeKalb Alternative School,1,1,1 teacher,0 Motive Unknown,Klein (2012),,2
+71,1996-10-16,1996,IN,Indiana,West Lafayette,Purdue University,2,0,"1 Dorm counselor, 1 suicide",0,Klein (2012),,2
+72,1997-01-27,1997,FL,Florida,West Palm Beach,Conniston Middle School,1,0,1 male student,0,Klein (2012),,1
+73,1997-02-19,1997,AK,Alaska,Bethel,Bethel High School,2,2,"1 principal, 1 student",2 students,Klein (2012),,4
+74,1997-10-01,1997,MS,Mississippi,Pearl,Pearl High School,2,7,"2 female students, mother (Ex-girlfriend",7 students,Klein (2012),,9
+75,1997-10-22,1997,CA,California,Norwalk,John Glenn High School,2,0,"1 student, 1 suicide",,Klein (2012),,2
+76,1997-12-01,1997,KY,Kentucky,West Paducah,Heath High School,3,5,3 female students,5 students,Klein (2012),,8
+77,1997-12-15,1997,AR,Arkansas,Stamps,Stamps High School,0,2,,2 students Masculinity (,Klein (2012),,2
+78,1998-03-24,1998,AR,Arkansas,Jonesboro,Westside Middle School,5,11,"4 female students, 1 female teacher (pregnant)","9 females students, 1 male student, 1 male teacher",Klein (2012),,16
+79,1998-04-24,1998,PA,Pennsylvania,Edinborough,Parker Middle School,1,3,1 male teacher,"2 students, 1 teacher",Klein (2012),,4
+80,1998-05-19,1998,TN,Tennessee,Fayetteville,Central High School,1,0,1 male student,,Klein (2012),,1
+81,1998-05-21,1998,OR,Oregon,Springfield,Thurston High School,2,22,"2 male students, his parents",22 students,Klein (2012),,24
+82,1998-09-03,1998,CA,California,San Bernardino,San Bernardino Valley College,2,0,"1 college administrator, 1 suicide",0,Klein (2012),,2
+83,1999-01-08,1999,GA,Georgia,Carrollton,Central High School,2,0,2 suicides,0,Klein (2012),,2
+84,1999-02-11,1999,IL,Illinois,Elgin,Ombudsman Education Services Alternative Education Center,1,0,1 male student,0,Klein (2012),,1
+85,1999-04-20,1999,CO,Colorado,Littleton,Columbine High School,15,23,"8 female students, 4 male students, 1 coach, 2 suicides",23 students,Klein (2012),,38
+86,1999-05-20,1999,GA,Georgia,Conyers,Heritage High School,0,6,0,6 students,Klein (2012),,6
+87,1999-11-19,1999,NM,New Mexico,Deming,Deming Middle School,0,1,0,1 female student,Klein (2012),,1
+88,1999-12-06,1999,OK,Oklahoma,Fort Gibson,Fort Gibson Middle School,0,4,0,4 students,Klein (2012),,4
+89,2000-02-29,2000,MI,Michigan,Flint,Buell Elementary School,1,0,1 female student,0,Klein (2012),,1
+90,2000-05-26,2000,FL,Florida,Lake Worth,Lake Worth Middle School,1,0,1 male teacher,0,Klein (2012),,1
+91,2000-06-28,2000,WA,Washington,Seattle,University of Washington Medical Center,1,0,"1 teacher, 1suicide",0,Klein (2012),,1
+92,2000-08-28,2000,AR,Arkansas,Fayetteville,University of Arkansas,2,0,"1 teacher, 1 suicide",0,Klein (2012),,2
+93,2000-09-05,2000,OH,Ohio,Bidwell,Bidwell Porter Elementary,3,0,"2, 1 suicide and his wife",0,Klein (2012),,3
+94,2000-10-24,2000,NY,New York,Brooklyn,Bushwick High School,1,0,1,,Klein (2012),,1
+95,2001-02-14,2001,NY,New York,Elmira,Southside High School,0,0,0,0,Klein (2012),,0
+96,2001-03-02,2001,CA,California,San Diego,High School,1,0,1,0,Klein (2012),,1
+97,2001-03-05,2001,CA,California,Santee,Santana High School,2,13,2 male students,13 students,Klein (2012),,15
+98,2001-03-07,2001,PA,Pennsylvania,Williamsport,Bishop Neumann Junior-Senior High School,0,1,0,1 female student,Klein (2012),,1
+99,2001-03-22,2001,CA,California,El Cajon,Granite Hills High School,1,5,1 suicide (while in prison custody),"3 students, 2 teachers",Klein (2012),,6
+100,2001-03-22,2001,TX,Texas,Benavides,High School,0,0,0,0,Klein (2012),,0
+102,2001-03-30,2001,IN,Indiana,Gary,Lew Wallace High School,1,0,1 student,0,Klein (2012),,1
+103,2001-05-18,2001,WA,Washington,Pierce County,Pacific Lutheran University,2,0,"1 teacher, 1 suicide",0,Klein (2012),,2
+101,2001-11-12,2001,MI,Michigan,Caro,Caro Learning Center,1,0,1 suicide,0,Klein (2012),,1
+104,2002-01-15,2002,NY,New York,New York,Martin Luther King Jr. High School,0,2,,2 male students Masculinity (,Klein (2012),,2
+105,2002-01-16,2002,VA,Virginia,Grundy,Appalachian School of Law,3,3,"1 dean, 1 teacher, 1 student",3 students,Klein (2012),,6
+106,2002-10-28,2002,AZ,Arizona,Tucson,University of Arizona,4,0,"3 teachers, 1 suicide",,Klein (2012),,4
+107,2003-04-14,2003,LA,Louisiana,New Orleans,John McDonogh Senior High School,1,3,1 student,3 female students Masculinity (related to,Klein (2012),,4
+108,2003-04-24,2003,PA,Pennsylvania,Red Lion,Red Lion Area Junior High School,1,0,"Principal, 1 suicide",0,Klein (2012),,1
+109,2003-05-09,2003,OH,Ohio,Cleveland,Case Western Reserve University,1,2,1 student,2 students,Klein (2012),,3
+110,2003-09-24,2003,MN,Minnesota,Cold Spring,Rocori High School,2,0,2 students,0,Klein (2012),,2
+112,2004-05-24,2004,UT,Utah,Salt Lake City,West High School,2,0,"1 adult, 1 suicide",0,Klein (2012),,2
+113,2005-03-02,2005,TN,Tennessee,Cumberland City,,1,0,1 adult,0,Klein (2012),,1
+114,2005-03-21,2005,MN,Minnesota,Red Lake,Red Lake High School,10,0,"1 grandfather, 1 other adult, 1 teacher, 1 security guard, 5 students, 1 suicide",0,Klein (2012),,10
+115,2005-11-08,2005,TN,Tennessee,Jacksboro,Campbell County Comprehensive High School,1,2,1 assistant principal,2 administrators,Klein (2012),,3
+116,2006-01-13,2006,FL,Florida,Longwood,Milwee Middle School,1,0,1 perpetrator,,Klein (2012),,1
+117,2006-02-23,2006,OR,Oregon,Roseburg,Roseburg High School,1,1,1 student,0 Masculinity (related to,Klein (2012),,2
+118,2006-03-14,2006,NV,Nevada,Reno,Pine Middle School,0,2,0,2 students,Klein (2012),,2
+119,2006-06-06,2006,CA,California,Los Angeles,Venice High School,1,0,1 janitor,0,Klein (2012),,1
+120,2006-08-30,2006,NC,North Carolina,Hillsborough,Orange High School,3,0,"1 father, 2 students",0,Klein (2012),,3
+122,2006-08-30,2006,VT,Vermont,Essex,Essex Elementary School,2,3,"1 teacher, 1 adult","1 teacher, 1 other adult, 1 perpetrator Violence against girls/women /",Klein (2012),,5
+121,2006-09-03,2006,WV,West Virginia,Shepherdstown,Shepherd University,3,0,"2 sons, 1 suicide",0,Klein (2012),,3
+123,2006-09-17,2006,PA,Pennsylvania,Pittsburgh,Duquesne University,9,5,9 students,5 students Masculinity (,Klein (2012),,14
+124,2006-09-27,2006,CO,Colorado,Bailey,Platte Canyon High School,2,1,"1 female student, 1 suicide",six female students (sexually assaulted),Klein (2012),,3
+125,2006-09-29,2006,WI,Wisconsin,Cazenovia,Weston High School,1,1,1 principal,0 Masculinity (,Klein (2012),,2
+126,2006-10-02,2006,PA,Pennsylvania,Lancaster County,One room Amish schoolhouse,6,5,"5 female students, 1 suicide",5 girls,Klein (2012),,11
+127,2006-10-09,2006,MO,Missouri,Joplin,Memorial Middle School,0,0,0,0,Klein (2012),,0
+128,2007-01-03,2007,WA,Washington,Tacoma,Foss High School,1,0,1 student,0,Klein (2012),,1
+129,2007-03-07,2007,MI,Michigan,Midland,Herbert Henry Dow High School,1,1,1 suicide,1 girlfriend,Klein (2012),,2
+130,2007-04-02,2007,WA,Washington,Seattle,University of Washington,2,0,"1 ex-girlfriend, 1 suicide",0,Klein (2012),,2
+131,2007-04-10,2007,OR,Oregon,Gresham,Springwater Trail High School,0,10,0,10 students,Klein (2012),,10
+132,2007-04-16,2007,VA,Virginia,Blacksburg,Virginia Tech University,33,25,"27 students, 5 teachers, 1 suicide",25,Klein (2012),,58
+133,2007-04-18,2007,NC,North Carolina,Huntersville,North Mecklenberg High School,1,0,1 suicide,0,Klein (2012),,1
+134,2007-08-04,2007,NJ,New Jersey,Newark,Mount Vernon Elementary School,3,1,3 college students,1 college student,Klein (2012),,4
+135,2007-09-21,2007,DE,Delaware,Dover,Delaware State University,1,1,1 female student,1 female student,Klein (2012),,2
+136,2007-09-28,2007,CA,California,Oroville,Las Plumas High School,0,1,0,0 Masculinity (,Klein (2012),,1
+137,2007-09-30,2007,TN,Tennessee,Memphis,University of Memphis,1,1,1 student,0 Masculinity (,Klein (2012),,2
+138,2007-10-10,2007,OH,Ohio,Cleveland,Success Tech Academy,1,4,1 suicide,"2 students, 2 teachers",Klein (2012),,5
+139,2007-12-09,2007,CO,Colorado,Arvada,YWAM Missionary Center and New Life Church,6,5,"3 adults, 2 students, 1 suicide","3 adults, 2 students",Klein (2012),,11
+140,2007-12-21,2007,CA,California,Union City,James Logan High School,1,0,1 student,0,Klein (2012),,1
+141,2008-02-07,2008,OH,Ohio,Portsmouth,Elementary School,1,0,1 suicide,,Klein (2012),,1
+142,2008-02-08,2008,LA,Louisiana,Baton Rouge,Louisiana Technical College,3,0,"2 students, 1 suicide",0,Klein (2012),,3
+143,2008-02-12,2008,CA,California,Oxnard,E.O. Green Junior High School,1,0,1 student,0,Klein (2012),,1
+144,2008-02-14,2008,IL,Illinois,DeKalb,Northern Illinois University,6,21,"5 students, 1 suicide","20 students, 1 teacher",Klein (2012),,27
+147,2008-03-06,2008,AL,Alabama,Mobile,Davidson High School,1,0,1suicide,,Klein (2012),,1
+145,2008-08-21,2008,TN,Tennessee,Knoxville,"Central High School,",1,0,1 student,0,Klein (2012),,1
+148,2008-10-27,2008,AR,Arkansas,Conway,University of Central Arkansas,2,1,2 students,1 other Motive unknown,Klein (2012),,3
+149,2008-10-31,2008,ME,Maine,Stockton Springs,Stockton Springs Elementary School,0,0,0,0,Klein (2012),,0
+146,2008-11-12,2008,FL,Florida,Fort Lauderdale,Dillard High School,1,0,1 student,0,Klein (2012),,1
+150,2009-01-09,2009,IL,Illinois,Chicago,Dunbar Vocational Career Academy,0,5,0,5 students,Klein (2012),,5
+151,2009-02-07,2009,TX,Texas,Houston,University of Houston,1,1,1 homeless man,0 Masculinity (,Klein (2012),,2
+152,2009-03-06,2009,NC,North Carolina,Fayetteville,Westover High School,0,1,0,1 student,Klein (2012),,1
+153,2009-03-11,2009,PA,Pennsylvania,Drexel Hill,St. Andrew School,0,0,0,0,Klein (2012),,0
+154,2009-04-02,2009,VA,Virginia,Radford,Radford University,1,1,1 adult,0 Masculinity (,Klein (2012),,2
+155,2009-04-10,2009,MI,Michigan,Dearborn,Henry Ford Community College,2,0,"1 female student, 1 suicide",0,Klein (2012),,2
+156,2009-04-26,2009,VA,Virginia,Hampton,Hampton University,0,3,0,"1 security guard, 1 other adult, 1 attempted suicide",Klein (2012),,3
+157,2009-05-06,2009,CT,Connecticut,Middletown,Wesleyan University,1,0,1 woman,,Klein (2012),,1
+158,2009-05-18,2009,LA,Louisiana,Larose,Larose-Cut Off Middle School,1,0,1suicide,,Klein (2012),,1
+159,2009-05-18,2009,MA,Massachusetts,Cambridge,Harvard University,1,0,1 student,0,Klein (2012),,1
+160,2009-06-15,2009,CA,California,San Francisco,International Studies Academy High School,0,3,0,"2 students, 1 other",Klein (2012),,3
+161,2009-06-24,2009,IA,Iowa,Parkersburg,High School,1,0,1 football coach,0,Klein (2012),,1
+162,2009-09-02,2009,CA,California,San Bruno,Skyline College,0,1,0,1 student,Klein (2012),,1
+163,2009-09-11,2009,MI,Michigan,Owosso,Owosso High School,2,0,2 men,0,Klein (2012),,2
+164,2009-09-16,2009,CA,California,Antioch,Deer Valley High School,0,1,0,1 student,Klein (2012),,1
+165,2009-10-16,2009,SC,South Carolina,Carolina Forest,Carolina Forest High School,1,1,1 perpetrator (killed by police),1 police officer,Klein (2012),,2
+166,2009-10-21,2009,NY,New York,Monroe,Monroe-Woodbury High School.,0,0,0,0,Klein (2012),,0
+167,2009-10-30,2009,CA,California,Long Beach,High School,1,2,1 female student,2 male adults,Klein (2012),,3
+168,2010-01-20,2010,AL,Alabama,Livingston,Livingston High School,1,0,1 teacher,0,Klein (2012),,1
+169,2010-02-05,2010,AL,Alabama,Madison,Discovery Middle School,1,0,1 student,,Klein (2012),,1
+170,2010-02-12,2010,AL,Alabama,Huntsville,University of Alabama “Huntsville shooting”,3,3,3 teachers,3,Klein (2012),,6
+171,2010-02-19,2010,IL,Illinois,DeKalb,Northern Illinois University,0,1,0,1 student Violence against girls/women/ Masculinity (,Klein (2012),,1
+172,2010-02-23,2010,CO,Colorado,Littleton,Deer Creek Middle School,0,2,0,2 students,Klein (2012),,2
+173,2010-02-26,2010,WA,Washington,Tacoma,Birney Elementary School,2,0,"1 teacher, 1 perpetrator (killed by police)",0,Klein (2012),,2
+174,2010-03-09,2010,OH,Ohio,Columbus,Ohio State University,2,1,"1, school employee, 1 suicide",1,Klein (2012),,3
+175,2010-04-28,2010,VA,Virginia,Portsmouth,Woodrow Wilson High School,0,0,0,0,Klein (2012),,0
+176,2010-08-30,2010,TN,Tennessee,Blountville,Sullivan Central High School,1,1,1 perpetrator (shot by law enforcement),"0 Motive unknown Thomas targeted the Principal, Melanie Riden. School Resource Officer Carolyn Gudger held him off until back-up arrived; Thomas was killed in the standoff that followed.",Klein (2012),,2
+177,2010-09-28,2010,TX,Texas,Austin,University of Texas,1,1,1 suicide,1,Klein (2012),,2
+178,2010-10-01,2010,CA,California,Salinas,Alisal High School,1,0,1 male student,0,Klein (2012),,1
+179,2010-10-03,2010,NC,North Carolina,Elizabeth City,Mid-Atlantic Christian University,1,0,1,0,Klein (2012),,1
+180,2010-10-08,2010,CA,California,Carlsbad,Kelly Elementary School,0,2,0,2 students Violence Against Girls/ Women/Masculinity (,Klein (2012),,2
+181,2010-10-24,2010,KS,Kansas,Topeka,Topeka West High School,1,1,1 adult,1 student Motive unknown,Klein (2012),,2
+182,2010-11-29,2010,WI,Wisconsin,Marinette,Marinette High School,1,0,1 suicide,0,Klein (2012),,1
+183,2010-12-14,2010,FL,Florida,Panama City,School Board Meeting,1,0,1 suicide,0,Klein (2012),,1
+184,2011-01-05,2011,NE,Nebraska,Omaha,Millard South High School,2,2,"1 teacher, 1 suicide",2 teachers,Klein (2012),,4
+185,2011-01-18,2011,CA,California,Los Angeles,Garden High School,0,2,0,2 students,Klein (2012),,2
+186,2011-02-02,2011,CA,California,Placerville,Louisiana Schnell Elementary School,1,1,1 principal,0 Masculinity (,Klein (2012),,2
+187,2011-02-06,2011,OH,Ohio,Youngstown,Youngstown State University,1,11,1 student,"6 students, 5 others Masculinity (",Klein (2012),,12
+188,2011-03-30,2011,TX,Texas,Houston,Worthing High School,1,5,1 student,5,Klein (2012),,6
+189,2011-04-06,2011,AL,Alabama,Opelika,Southern Union Community College,1,3,1 wife,"2 adults, 1 child Domestic/Dating Violence /",Klein (2012),,4
+190,2011-11-15,2011,CA,California,Berkeley,"Haas Business School , UC Berkeley",1,0,1 shooter killed,0,Klein (2012),,1
+191,2011-12-08,2011,VA,Virginia,Blacksburg,Virginia Tech,2,0,"1 campus police officer, 1 suicide",0,Klein (2012),,2
+PW-001,2012-01-10,2012,TX,Texas,Houston,HS,0,1,,,Wikp,"A student opened fire with a handgun at¬†North Forest High School, wounding another student. The shooter said that he had been confronted by three students who had been bullying him and he shot in self-defense. He hit a 16-year-old bystander in the leg. The 18-year-old suspect was charged with aggravated assault with a deadly weapon.[407]",1
+PW-002,2012-02-27,2012,OH,Ohio,Chardon,HS,3,3,,,Pah / Wikp,"Chardon High School shooting: 17-year-old Thomas ""T. J."" Lane, took a semi-automatic handgun and a knife to¬†Chardon High School, where he fired ten shots at a group of students sitting in the cafeteria. He killed three boys and wounded three other students. One 16-year-old died immediately, two others died the following day. Lane was arrested early the next morning while standing near his car.[408]¬†He was charged as an adult with murder, attempted murder, and firearms offenses. In March 2013, he was convicted and sentenced to three life sentences without the possibility of parole.[409]",6
+PW-003,2012-03-06,2012,FL,Florida,Jacksonville,-,2,0,,,Wikp,"A murder-suicide resulted in two deaths on the campus of the Episcopal School of Jacksonville. Shane Schumerth, a Spanish teacher who had been fired that morning returned to the campus in the early afternoon via a pedestrian entrance, armed with an AK-47 which he concealed in a guitar case. He entered the office of the Head of School, Dale Regan, and fired multiple shots, fatally wounding her. Schumerth then killed himself, in the office.[410]",2
+PW-004,2012-03-06,2012,FL,Florida,Jacksonville,HS,1,0,,,Pah,,1
+PW-005,2012-03-24,2012,MS,Mississippi,Starkville,C,1,0,,,Pah,,1
+PW-006,2012-04-02,2012,CA,California,Oakland,C,7,3,,,Pah / Wikp,"Oikos University shooting: 43-year-old One L. Goh, was accused of shooting dead seven students with a handgun and wounding three others at¬†Oikos University, a Christian college. He fled the scene, stealing a victim's car, and was apprehended hours later nearby. Goh was charged with seven counts of murder. In January 2013, Goh was determined to be mentally unfit for trial and committed for treatment.[411]",10
+PW-007,2012-05-26,2012,NC,North Carolina,Chapel Hill,ES,1,0,,,Pah,,1
+PW-008,2012-08-16,2012,TN,Tennessee,Memphis,HS,0,2,,,Wikp,Two Hamilton High School students were wounded in the parking lot of the school. The attack was believed to be gang-related.[412],2
+PW-009,2012-08-27,2012,MD,Maryland,Perry Hall,HS,0,1,,,Wikp,"15-year-old Robert Gladden, fired two shots with a shotgun inside the cafeteria at Perry Hall School. He hit a 17-year-old senior in the lower back, causing critical wounds. The youth has¬†Down syndrome. Gladden was subdued by two school faculty members, and arrested. In February 2013, he was sentenced to thirty-five years in prison on attempted murder charges.[413]",1
+PW-010,2012-10-06,2012,AL,Alabama,Mobile,C,1,0,,,Wikp,"A¬†University of South Alabama¬†student, Gil Collar, was fatally shot by a campus police officer. Collar, 18, was at the time under the influence of a¬†hallucinogenic,¬†25I-NBOMe. Acting erratically, he had repeatedly approached the police officer ""in a fighting stance"", while naked and unarmed. Officer Trevis Austin, equipped with pepper spray and a baton, felt his life was threatened and shot him, once through the chest.[416]¬†Austin was cleared of any wrongdoing by the university.[417]",1
+PW-011,2012-10-19,2012,IL,Illinois,Chicago,HS,1,0,,,Wikp,"18-year-old Banner Academy South student, Terrance Wright, was killed during an attempted robbery. Wright was approached by five would-be robbers as he left the school about 3:40¬†p.m.. He was shot in the chest as he fought back when one assailant was going through his pockets. Wright had been picked on at his previous high school because he was gay, which led him to transfer to Banner.[418]",1
+PW-012,2012-10-31,2012,CA,California,Los Angeles,C,0,4,,,Wikp,"At a Halloween party on the¬†University of Southern California¬†campus, an argument escalated and 20-year-old Brandon Spencer, used a handgun to shoot rival gang member, Geno Hall, seven times, critically wounding him. Spencer wounded three other people, none were students at USC, they were hospitalized with less serious injuries. Spencer was arrested just minutes after the shooting, which took place outside USC‚Äôs Grand Ballroom at around 11:30¬†p.m.[419]¬†In April 2014, he was convicted of attempted murder and sentenced to forty years to life in prison.[420]",4
+PW-013,2012-12-14,2012,CT,Connecticut,Newtown,ES,28,2,,,Pah / Wikp,"Sandy Hook Elementary School shooting: 20-year-old¬†Adam Lanza, killed twenty-six people and himself. He first killed his mother at their shared home before taking her guns and driving to the school. Lanza brought four guns with him. He killed twenty first-grade children aged six and seven during the attack at school, along with six adults, including four teachers, the principal, and the school psychologist. Two other persons were injured. Lanza then killed himself as police arrived at the school.[408][421]",30
+PW-014,2013-01-07,2013,FL,Florida,Fort Myers,-,1,0,,,Wikp,"Shots were fired at Apostolic Revival Center Christian School, leaving 27-year-old Kristopher Smith dead in what was believed to be a retaliation killing, possibly for his talking with police about a previous incident.[422][423]",1
+PW-015,2013-01-07,2013,FL,Florida,Fort Myers,ES,1,0,,,Pah,,1
+PW-016,2013-01-10,2013,CA,California,Taft,HS,0,2,,,Wikp,"16-year-old student, Bryan Oliver, entered a science classroom of¬†Taft Union High School¬†with a shotgun and opened fire, critically wounding 16-year-old student Bowe Cleveland. He shot at but missed another student. The classroom teacher Ryan Heber convinced Oliver, to drop his weapon. He was later arrested. On January 14, he was charged with two counts of attempted murder and assault with a firearm.[424]¬†He was convicted and accepted a plea deal with a sentence of 27 years and 4 months.[425]¬†According to the attorney[426]¬†for the Cleveland family, they were not satisfied with the sentence.",2
+PW-017,2013-01-12,2013,MI,Michigan,Detroit,HS,0,1,,,Wikp,A 16-year-old¬†Osborn High School¬†student is wounded after a basketball game.[424],1
+PW-018,2013-01-15,2013,KY,Kentucky,Hazard,C,3,0,,,Pah / Wikp,"Two people were killed and a third person was wounded at the parking lot of¬†Hazard Community and Technical College.[429]¬†The third victim, 12-year-old Taylor Cornett, died from her wounds the next day.[430]¬†21-year-old Dalton Lee Stidham, was arrested and charged with three counts of murder.",3
+PW-019,2013-01-15,2013,MO,Missouri,St. Louis,C,0,2,,,Wikp,"A 34-year-old gunman wounded an administrator in his office on the fourth floor of¬†Stevens Institute of Business and Arts. The suspected gunman, Sean Johnson, a part-time student, wounded himself in a stairwell. Both the administrator and Johnson were hospitalized in stable conditions. Johnson was charged with three felony charges, including assault.[427][428]",2
+PW-020,2013-01-16,2013,IL,Illinois,Chicago,C,1,0,,,Wikp,"A 17-year-old boy, Tyrone Lawson, was killed in a parking lot of¬†Chicago State University. The shooting happened after high school basketball games held on the campus, where Lawson had been a spectator. Police arrested two brothers, Michael McNabb, 33, and Brian Hewlett (under the alias Stephen Gilbert), 30 after the shooting and recovered a weapon.[424][431][432]",1
+PW-021,2013-01-22,2013,TX,Texas,Houston,C,0,3,,,Wikp,"Lone Star College‚ÄìNorth Harris shooting: Outside Lone Star College‚ÄìNorth Harris, two men got into an argument. One wounded the other. He also wounded a maintenance man, and accidentally shot himself in the leg. The shooter fled into the woods and was arrested hours later. The charges against the initial suspect were dropped and another man was arrested.[433]",3
+PW-022,2013-01-31,2013,GA,Georgia,Atlanta,MS,0,2,,,Wikp,"A 14-year-old male student was wounded at Price Middle School. The gunman, a 15-year-old student, was believed to be arguing with the other student before using a handgun to shoot him. A teacher was also wounded. Afterward, the gunman was disarmed by a school resource officer and arrested; police charged him with aggravated assault.[435][436]",2
+PW-023,2013-03-18,2013,FL,Florida,Orlando,C,1,0,,,Pah / Wikp,"At the¬†University of Central Florida, 30-year-old student James Oliver Seevakumaran pulled a fire alarm at the Tower One dormitory, to attract a crowd. He pointed a handgun at his roommate and threatened to shoot him in their room; he released the roommate, who ran out and called¬†9-1-1. Seevakumaran then fatally shot himself in the head. Authorities found an assault weapon, a couple hundred rounds of ammunition and four homemade bombs inside his backpack.[437]",1
+PW-024,2013-04-12,2013,VA,Virginia,Dublin,C,0,2,,,Wikp,"New River Community College shooting incident: Two women were wounded during a shooting at the campus of New River Community College. 18-year-old Neil Allen MacInnis, was taken into custody. In June 2014, he was sentenced to 38 years in prison.[438]",2
+PW-025,2013-04-16,2013,LA,Louisiana,Grambling,C,0,3,,,Wikp,Three students were injured on the campus of¬†Grambling State University.[439],3
+PW-026,2013-04-18,2013,MA,Massachusetts,Cambridge,C,2,1,,,Pah / Wikp,"At the¬†Massachusetts Institute of Technology, near Building 32, the¬†Ray and Maria Stata Center, a campus police officer was shot multiple times and killed. The shooting was believed to be perpetrated by the suspects of the¬†Boston Marathon bombings¬†three days prior to this shooting. The two suspects were brothers¬†Dzhokhar Tsarnaev¬†and¬†Tamerlan Tsarnaev. About three hours after the MIT shooting, Tamerlan died in a gunfight with police in¬†Watertown, Massachusetts. Another officer was seriously wounded. Dzhokhar was arrested 18 hours afterward in Watertown, and was hospitalized in critical condition from a gunshot wound to the neck.[440]",3
+PW-027,2013-06-07,2013,CA,California,Santa Monica,C,6,4,,,Pah / Wikp,"2013 Santa Monica shooting: 23-year-old John Zawahri, began a killing spree at his home. After killing his 55-year-old father, Samir ""Sam"" Zawahri, and 25-year-old brother, Chris Zawahri, he set the house ablaze. Dressed all in black with body armor and wielding an AR-15-type semi-automatic rifle, Zawahri carjacked 41-year-old Laura Siska, shooting 50-year-old Debra Fine, as she attempted to intervene, before forcing Siska to drive to¬†Santa Monica College. Upon arriving on the college campus, Zawahri began shooting at passing vehicles, including a police car and a city bus, leaving three people with minor injuries. Zawahri next targeted a Ford Explorer, killing the driver, 68-year-old campus groundskeeper, Carlos Navarro Franco, and fatally wounding the passenger, his 26-year-old daughter Marcela Diaz-Franco, a student at the college, who died two days later. 68-year-old Margarita Gomez, who was collecting cans outside the library, died after being shot in the abdomen and chest. Zawahri opened fire on students who were trying to run away. It ended at the college library where he opened fire on students studying for finals, before being fatally wounded in an exchange of gunfire with responding police officers.[442]",10
+PW-028,2013-06-20,2013,FL,Florida,West Palm Beach,HS,2,0,,,Pah,,2
+PW-029,2013-08-23,2013,MS,Mississippi,Sardis,HS,1,2,,,Pah / Wikp,"15-year-old student, Roderick Bobo, was killed during a football game at North Panola High School in what was termed a gang-related shooting. Two others were injured in the shooting. Three men were charged as being responsible for the crime.[445]",3
+PW-030,2013-08-30,2013,NC,North Carolina,Winston-Salem,HS,0,1,,,Wikp,"A 15-year-old male student was shot at¬†Carver High School, at 2:30¬†p.m.. He was hospitalized with minor injuries.[443]¬†An 18-year-old male student was apprehended without further incident. The suspected gunman is charged with assault with a deadly weapon inflicting serious injury, carrying a concealed gun, possessing and discharging a firearm, and carrying a firearm onto educational property. The shooting was believed related to a dispute between the suspect and the victim.[446]",1
+PW-031,2013-10-04,2013,FL,Florida,Pine Hills,HS,0,2,,,Wikp,"A 16-year-old student was shot in the hip outside Agape Christian Academy after a fight broke out at 2¬†p.m.. An innocent bystander was hit by a stray bullet or shrapnel. The two victims were treated for minor injuries. The suspected shooter reportedly fled in a car with several other males, and was not caught.[447]",2
+PW-032,2013-10-21,2013,NV,Nevada,Sparks,MS,2,2,,,Pah / Wikp,"12-year-old seventh-grade student Jose Reyes opened fire with a handgun at the basketball courts of¬†Sparks Middle School, injuring one student in the shoulder. Michael Landsberry, a teacher and veteran, tried to intervene and was killed by Reyes. Reyes also wounded a student trying to help the teacher. Reyes then committed suicide by shooting himself in the head.[408][443]¬†The shooting happened before classes, and the school was evacuated and was closed for the week.[448]",4
+PW-033,2013-11-02,2013,NC,North Carolina,Greensboro,C,0,1,,,Wikp,A 21-year-old student was wounded at¬†North Carolina A&T State University. The victim was hospitalized for serious but non-life-threatening injuries. The university was temporarily locked down that night. No suspects are in custody.[449],1
+PW-034,2013-11-03,2013,GA,Georgia,Lithonia,HS,0,2,,,Wikp,A Stephenson High School student and a janitor were shot in an apparent confrontation between football team members and a group of teens who were not attending the school. Both were innocent bystanders.[450],2
+PW-035,2013-11-13,2013,PA,Pennsylvania,Pittsburgh,HS,0,3,,,Wikp,"After classes ended, at least one gunman came out of the woods and opened fire on three students as they were walking to their cars at¬†Brashear High School. One student was grazed in the head, another was struck in the neck and shoulder, and a third was hit in the leg and foot. Six people were taken into custody. The shooting is believed to be drug-related.[451]",3
+PW-036,2013-12-04,2013,FL,Florida,Winter Garden,HS,0,1,,,Wikp,"A 15-year-old student was wounded by a 17-year-old student near a soccer field on the campus of¬†West Orange High School. The shooting occurred after a fight broke out between the two students. The 17-year-old suspected shooter was taken into custody several miles away from the school, and is charged with attempted murder, aggravated battery with a firearm, possession of a firearm by a minor and possession of a firearm on school grounds. In October 2014, the shooter was sentenced to twenty-five years in prison.[452]",1
+PW-037,2013-12-13,2013,CO,Colorado,Centennial,HS,2,0,,,Pah / Wikp,"18-year-old Karl Pierson, shot 17-year-old student Claire Davis in the head, fatally injuring her, in a hallway in¬†Arapahoe High School. Pierson then took his own life.[408]¬†Pierson was armed with a shotgun, three¬†Molotov cocktails, and a machete. His intention was to shoot the librarian who had disciplined him. Claire Davis died from her injuries on December 21, 2013.[453]",2
+PW-038,2013-12-19,2013,CA,California,Fresno,HS,0,1,,,Wikp,"Four teens (16, 16, 16 and 17 years old) entered¬†Edison High School¬†in what was believed as a gang-initiation process. After accosting a 62-year-old woman about a mile away from school grounds, they found an athletic trainer who taught at Edison High and shot him several times in the leg and stomach.[454]",1
+PW-039,2014-01-09,2014,TN,Tennessee,Jackson,HS,0,1,,,Wikp,A 16-year-old student was charged with bringing a gun to school at Liberty Technology Magnet High School and shooting a classmate in the thigh. The incident occurred outside the front of the school.[455],1
+PW-040,2014-01-13,2014,CT,Connecticut,New Haven,HS,0,1,,,Wikp,"A 14-year-old boy was shot outside of a basketball game at the Hillhouse High School athletic facility, suffering wounds in his hand and leg.[cite]",1
+PW-041,2014-01-14,2014,NM,New Mexico,Roswell,MS,0,3,,,Wikp,"Two people were wounded inside the gymnasium of Berrendo Middle School, at about 8:10¬†a.m.. An 11-year-old boy and a 13-year-old girl were airlifted to a hospital in¬†Lubbock, Texas¬†in critical condition. The 12-year-old suspected shooter, Mason Campbell, a seventh grade student, was apprehended at the scene after he was talked down by a staff member and dropped the shotgun. A staff member received minor injuries. Campbell was charged with three counts of aggravated battery with a deadly weapon. He was sentenced to a maximum sentence of confinement in a juvenile detention facility until he is twenty one years old.[456]",3
+PW-042,2014-01-17,2014,PA,Pennsylvania,Philadelphia,HS,0,2,,,Wikp,"A student allegedly shot two other students in the gymnasium at Delaware Valley Charter School. Both victims, a male and a female, were shot in the arm. They were taken to a nearby hospital and are in stable condition, police say. Police Commissioner Charles Ramsey said at a news conference that the shooter ran out of the school after the shooting but was taken into custody near his home. 17-year-old Raisheem Rochwell was arrested and charged as an adult for aggravated assault, recklessly endangering another person and firearms offenses. Rochwell was sentenced to two years of juvenile detention.[457]",2
+PW-043,2014-01-20,2014,PA,Pennsylvania,Chester,C,0,1,,,Wikp,One person was critically injured at¬†Widener University. The incident occurred around 10¬†p.m. outside the university sport‚Äôs complex and led to an 8-hour university lock-down. The suspect was not immediately found.[458],1
+PW-044,2014-01-21,2014,IN,Indiana,West Lafayette,C,1,0,,,Wikp,"A 21-year-old student, Andrew Boldt, was killed in a classroom building on the campus of¬†Purdue University. 24-year-old student Cody Cousins was found guilty of the murder and was sentenced to sixty-five years of prison. In October 2014, Cousins committed suicide in his cell.[459]",1
+PW-045,2014-01-24,2014,SC,South Carolina,Orangeburg,C,1,0,,,Wikp,A 20-year-old student was killed at¬†South Carolina State University. A 19-year-old was arrested and charged with murder.[460],1
+PW-046,2014-01-25,2014,CA,California,Los Angeles,C,1,0,,,Wikp,A man was killed at¬†Los Angeles Valley College. Two suspects were arrested in the fatal shooting.[461],1
+PW-047,2014-01-27,2014,IL,Illinois,Carbondale,HS,0,1,,,Wikp,A group of students at Rebound High School got in an argument in the school's parking lot. One student pulled out a gun and shot another student in the ensuing altercation. An 18-year-old suspect is facing charges of attempted murder.[462],1
+PW-048,2014-01-28,2014,TN,Tennessee,Nashville,C,0,1,,,Wikp,One student was shot in the leg in an apparent altercation over a gambling debt at¬†Tennessee State University.[463],1
+PW-049,2014-01-30,2014,FL,Florida,Palm Bay,C,0,1,,,Wikp,Three students were fighting in a parking lot of¬†Eastern Florida State College¬†and one pulled out a gun and shot another of the students. All three students claimed self-defense.[464],1
+PW-050,2014-01-31,2014,IA,Iowa,Des Moines,HS,0,1,,,Wikp,"After a basketball game at¬†North High School, there was gunfire in a parking lot of the school. Six males in a black jeep had come moments before the shooting and returned at the time it happened. A 15-year-old girl was injured by a ricocheting bullet. While officers were gaining control of the area, teachers on the scene led students into the school building for safety.[465]",1
+PW-051,2014-02-10,2014,NC,North Carolina,Salisbury,HS,0,1,,,Wikp,"A 16-year-old student was shot in the stomach on the campus of¬†Salisbury High School¬†during a dispute in the school gym. 17-year-old suspect was charged with assault with a deadly weapon with intent to kill inflicting serious injury, possession of a firearm on school property and discharging a weapon on school property.[466]",1
+PW-052,2014-02-12,2014,CA,California,Los Angeles,C,0,1,,,Wikp,A male victim was shot in the back in a possible gang-related drive-by shooting near the¬†University of Southern California. The suspect fled into the University Campus. The victim was last reported in stable condition before being transported to a local hospital.[468],1
+PW-053,2014-02-22,2014,GA,Georgia,Augusta,C,0,1,,,Wikp,"A shooting involving a campus police officer occurred at a¬†Georgia Regents University¬†dormitory complex. A male suspect entered a vehicle and nearly struck an officer, who opened fire. The suspect was taken to Georgia Regents Medical Center with injuries that were not believed to be critical.[469]",1
+PW-054,2014-03-12,2014,FL,Florida,Miami,ES,1,0,,,Wikp,An elementary school teacher was killed outside The Academy of Knowledge Preschool by her husband.,1
+PW-055,2014-04-11,2014,MI,Michigan,Detroit,HS,1,0,,,Wikp,"After a Friday evening student awards ceremony called ""Grammy Night"", four men who were affiliated with a gang fired into a crowd in the parking lot of¬†East English Village Preparatory Academy. One 19-year-old, Darryl Smith, was fatally shot in the head. Smith was not a student at the academy.[472]",1
+PW-056,2014-05-04,2014,GA,Georgia,Augusta,C,0,1,,,Wikp,"Two men fired shots inside a dormitory at Paine College on Sunday, injuring one student in the head. Neither of the suspects were students at the college.[473]",1
+PW-057,2014-05-05,2014,GA,Georgia,Augusta,C,0,1,,,Wikp,An active shooter situation was reported at Paine College on Monday with one person reported to be shot. The suspect was apparently apprehended and in custody. It was the second shooting incident to occur at the college campus in two days.[474],1
+PW-058,2014-05-08,2014,GA,Georgia,Lawrenceville,C,0,1,,,Wikp,"A person was shot on a student parking lot roof at Georgia Gwinnett College, receiving an injury. The specific cause has not been identified.[475]",1
+PW-059,2014-05-14,2014,CA,California,Richmond,HS,0,1,,,Wikp,A 14-year-old student was injured during a drive-by shooting in front of¬†John F. Kennedy High School¬†at 8:30¬†a.m.. He was shot as he was running towards the school campus after a fight took place. The student suffered a serious but stable injury to his leg. Police are searching for a suspect.[476],1
+PW-060,2014-06-05,2014,WA,Washington,Seattle,C,1,2,,,Wikp,"19-year-old students, Paul Lee and Sarah Williams, and 24-year-old student, Thomas Fowler, were shot inside a hallway of Otto Miller Hall at¬†Seattle Pacific University.[477]¬†Freshman Lee was rushed to¬†Harborview Medical Center¬†but later died. The shooter was subdued with pepper spray and tackled to the ground by student building monitor, Jon Meis, as he paused to reload his shotgun. 26-year-old Aaron Rey Ybarra was arrested at the scene and has been charged with premeditated and attempted murder.[478]",3
+PW-061,2014-06-10,2014,OR,Oregon,Troutdale,HS,2,1,,,Wikp,"At around 8:30¬†a.m. shots were fired at¬†Reynolds High School. 14-year-old freshman Emilio Hoffman was killed, a physical education teacher was injured, and the gunman, 15-year-old Jared Padgett, exchanged gunfire with police officers and then committed suicide in a restroom stall.[408][479]",3
+PW-062,2014-09-09,2014,FL,Florida,Miami,-,0,1,,,Wikp,"Towards the end of the school day, one alternative school student in Miami was shot as a small group of students tussled. The injury was minor, requiring hospitalization, and five young adults were later questioned.[480]",1
+PW-063,2014-09-27,2014,IN,Indiana,Terre Haute,C,0,1,,,Wikp,"A 20-year-old¬†Indiana State University¬†student was shot by another student on Saturday inside a residence hall. The injuries were not fatal, and a full recovery was expected. The shooter was arrested on the following day.[481]",1
+PW-064,2014-09-30,2014,KY,Kentucky,Louisville,HS,0,1,,,Wikp,"One student was injured at¬†Fern Creek Traditional High School. The incident occurred around 1¬†p.m., reportedly after student became enraged in a hallway and pulled out a gun. The student was arrested later that day.[483]",1
+PW-065,2014-09-30,2014,NC,North Carolina,Albemarle,HS,0,1,,,Wikp,"Two students got in an argument at¬†Albemarle High School¬†around 7:30¬†a.m. on Tuesday, and one of the students shot the other twice including once in the leg. The student who committed the shooting was allegedly involved in a stabbing of a football player last year at West Montgomery High School, which is only 20 miles (32¬†km) away in Mount Gilead, North Carolina. The school had held an active shooter training over the summer, which prepared the school for this incident.[482]",1
+PW-066,2014-10-03,2014,GA,Georgia,Fairburn,HS,1,0,,,Wikp,"After a homecoming football game, a fatal shooting of 17-year-old Kristofer Hunter, occurred in the Langston Hughes High School parking lot. The assailant, 18-year-old Eric Dana Johnson Jr., turned himself in a week later.[484]",1
+PW-067,2014-10-24,2014,WA,Washington,Marysville,HS,5,1,,,Wikp,"Marysville Pilchuck High School shooting. 15-year-old freshman, Jaylen Fryberg, shot five students in the school cafeteria of¬†Marysville Pilchuck High School, fatally wounding four, before committing suicide.[408][485]",6
+PW-068,2014-11-20,2014,FL,Florida,Miami,HS,1,1,,,Wikp,Two teens were shot during a fight at¬†Miami Carol City High School. One of the boys died.[487],2
+PW-069,2014-11-20,2014,FL,Florida,Tallahassee,C,1,3,,,Wikp,"At around 12:40¬†a.m. EST, a gunman opened fired in or near the Strozier Library at¬†Florida State University. Three people suffered gunshot injuries and were taken to a local area hospital. One was in critical condition, another was in good condition, and the third was shortly released after treatment. The gunman, later identified as Myron May, an alumnus from the school, started firing towards responding police officers and was fatally shot by them on the steps of the library.[486]",4
+PW-070,2014-12-05,2014,OK,Oklahoma,Claremore,C,1,0,,,Wikp,"38-year-old Thomas Floyd Fees, a former Tulsa police officer, fired two gunshots within the campus of¬†Rogers State University¬†during an attempt to enter a university building, before committing suicide. He had previously been arrested the day before for entering a female student's dormitory room with observable intent to commit a sexual assault.[488]",1
+PW-071,2014-12-12,2014,OR,Oregon,Portland,HS,0,4,,,Wikp,"Rosemary Anderson High School shooting: A gunman shot three students and a man outside Rosemary Anderson High School in north Portland. A 16-year-old girl was in critical condition, while the others suffered minor injuries. Two men, aged eighteen and twenty-two, were arrested in connection with the shooting.[489]",4

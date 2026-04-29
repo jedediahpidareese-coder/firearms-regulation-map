@@ -1,0 +1,10 @@
+metric,value,detail
+analysis_panel_rows,2250,50 states x 1979-2023 after mortality merge
+analysis_panel_states,50,DC excluded because the core law panel is 50 states
+analysis_panel_years,45,1979-2023
+missing_firearm_suicides,0,Required for suicide outcomes
+missing_total_suicides,0,Required for suicide outcomes
+stacked_rows,4446,Main stacked sample
+stacked_distinct_states,40,States appearing in any stack
+included_treated_units,26,Treated state adoption stacks
+post_bruen_calendar_years_included,1,1 means 2022-2023 are included in the main analysis

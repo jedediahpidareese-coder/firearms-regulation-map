@@ -1,0 +1,51 @@
+state,state_abbr,treatment_variable,adoption_rule,adoption_year,included_in_mortality_sample,absorbing_after_adoption_through_2024,post_adoption_reversal_years,starts_permit_required,ends_permit_required
+Alabama,AL,permitconcealed,first 1-to-0 switch in permitconcealed,2023.0,True,True,,1,0
+Alaska,AK,permitconcealed,first 1-to-0 switch in permitconcealed,2003.0,True,True,,1,0
+Arizona,AZ,permitconcealed,first 1-to-0 switch in permitconcealed,2010.0,True,True,,1,0
+Arkansas,AR,permitconcealed,first 1-to-0 switch in permitconcealed,2021.0,True,True,,1,0
+California,CA,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+Colorado,CO,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+Connecticut,CT,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+Delaware,DE,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+Florida,FL,permitconcealed,first 1-to-0 switch in permitconcealed,2023.0,True,True,,1,0
+Georgia,GA,permitconcealed,first 1-to-0 switch in permitconcealed,2022.0,True,True,,1,0
+Hawaii,HI,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+Idaho,ID,permitconcealed,first 1-to-0 switch in permitconcealed,2016.0,True,True,,1,0
+Illinois,IL,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+Indiana,IN,permitconcealed,first 1-to-0 switch in permitconcealed,2022.0,True,True,,1,0
+Iowa,IA,permitconcealed,first 1-to-0 switch in permitconcealed,2021.0,True,True,,1,0
+Kansas,KS,permitconcealed,first 1-to-0 switch in permitconcealed,2015.0,True,True,,1,0
+Kentucky,KY,permitconcealed,first 1-to-0 switch in permitconcealed,2019.0,True,True,,1,0
+Louisiana,LA,permitconcealed,first 1-to-0 switch in permitconcealed,2024.0,False,True,,1,0
+Maine,ME,permitconcealed,first 1-to-0 switch in permitconcealed,2015.0,True,True,,1,0
+Maryland,MD,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+Massachusetts,MA,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+Michigan,MI,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+Minnesota,MN,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+Mississippi,MS,permitconcealed,first 1-to-0 switch in permitconcealed,2015.0,True,True,,1,0
+Missouri,MO,permitconcealed,first 1-to-0 switch in permitconcealed,2017.0,True,True,,1,0
+Montana,MT,permitconcealed,first 1-to-0 switch in permitconcealed,2021.0,True,True,,1,0
+Nebraska,NE,permitconcealed,first 1-to-0 switch in permitconcealed,2023.0,True,True,,1,0
+Nevada,NV,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+New Hampshire,NH,permitconcealed,first 1-to-0 switch in permitconcealed,2017.0,True,True,,1,0
+New Jersey,NJ,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+New Mexico,NM,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+New York,NY,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+North Carolina,NC,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+North Dakota,ND,permitconcealed,first 1-to-0 switch in permitconcealed,2017.0,True,True,,1,0
+Ohio,OH,permitconcealed,first 1-to-0 switch in permitconcealed,2022.0,True,True,,1,0
+Oklahoma,OK,permitconcealed,first 1-to-0 switch in permitconcealed,2019.0,True,True,,1,0
+Oregon,OR,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+Pennsylvania,PA,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+Rhode Island,RI,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+South Carolina,SC,permitconcealed,first 1-to-0 switch in permitconcealed,2024.0,False,True,,1,0
+South Dakota,SD,permitconcealed,first 1-to-0 switch in permitconcealed,2019.0,True,True,,1,0
+Tennessee,TN,permitconcealed,first 1-to-0 switch in permitconcealed,2021.0,True,True,,1,0
+Texas,TX,permitconcealed,first 1-to-0 switch in permitconcealed,2021.0,True,True,,1,0
+Utah,UT,permitconcealed,first 1-to-0 switch in permitconcealed,2021.0,True,True,,1,0
+Vermont,VT,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,0,0
+Virginia,VA,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+Washington,WA,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+West Virginia,WV,permitconcealed,first 1-to-0 switch in permitconcealed,2016.0,True,True,,1,0
+Wisconsin,WI,permitconcealed,first 1-to-0 switch in permitconcealed,,False,False,,1,1
+Wyoming,WY,permitconcealed,first 1-to-0 switch in permitconcealed,2011.0,True,True,,1,0

@@ -1,0 +1,41 @@
+{
+  "treatment_variable": "permitconcealed",
+  "treatment_interpretation": "permitless concealed carry; permitconcealed switches from 1 to 0",
+  "adoption_rule": "first observed 1-to-0 switch in permitconcealed",
+  "absorbing_assumption": "estimated as absorbing after the first 1-to-0 switch; reversals are audited in treatment_adoption_table.csv",
+  "partial_year_handling": "annual Tufts coding is used as given; the switch year is treated as event time 0 with no within-year proration",
+  "analysis_years": [
+    1979,
+    2023
+  ],
+  "event_window": [
+    -5,
+    3
+  ],
+  "omitted_event_time": -1,
+  "dc_excluded": true,
+  "post_bruen_years_in_main": "2022 and 2023 are included; 2024 is excluded because suicide outcomes end in 2023",
+  "comparison_group": "For each treated-state stack, controls must retain permitconcealed==1 and mayissue==0 for every year in the event window; later adopters can be controls only if untreated throughout that stack window.",
+  "controls": {
+    "no_controls": [],
+    "core_controls": [
+      "ln_population",
+      "unemployment_rate",
+      "ln_pcpi_real_2024",
+      "violent_rate",
+      "property_rate"
+    ],
+    "core_plus_alcohol": [
+      "ln_population",
+      "unemployment_rate",
+      "ln_pcpi_real_2024",
+      "violent_rate",
+      "property_rate",
+      "per_capita_alcohol_ethanol_14plus"
+    ]
+  },
+  "weights": "none",
+  "clustering": "state_abbr",
+  "log_rate_offset": 0.01,
+  "share_logit_continuity_correction": "firearm_suicides + 0.5 divided by nonfirearm_suicides + 0.5"
+}

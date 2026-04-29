@@ -1,0 +1,5 @@
+panel_name,start_year,end_year,rows_expected,rows_actual,states_expected,states_actual,years_actual,required_var_count,missing_required_cells,duplicate_state_year_rows,is_balanced
+panel_core,1979,2024,2300,2300,50,50,46,83,0,0,True
+panel_demographic,1990,2024,1750,1750,50,50,35,93,0,0,True
+panel_market,1999,2024,1300,1300,50,50,26,91,0,0,True
+panel_modern,2008,2024,850,850,50,50,17,102,0,0,True

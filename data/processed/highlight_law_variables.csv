@@ -1,0 +1,12 @@
+variable_name,description
+permitconcealed,State requires a permit for concealed carry
+mayissue,Concealed-carry permit issuance is discretionary (may-issue)
+gvro,State has an extreme risk protection order / gun violence restraining order law
+magazine,State bans large-capacity magazines
+assault,State bans assault weapons
+universal,Universal background checks required for all firearms
+universalh,Universal background checks required for handguns
+waiting,Waiting period required for firearm purchases
+onepermonth,One-gun-per-month purchase limit
+mcdvsurrender,Mandatory relinquishment for misdemeanor crime of domestic violence
+locked,State has child access prevention / locked storage requirement

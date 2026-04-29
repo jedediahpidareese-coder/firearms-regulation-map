@@ -1,0 +1,16 @@
+variable_name,group,label,description
+school_shooting_victims_gius_2018,Outcome,School shooting victims,Calibrated number of persons killed plus wounded in school shootings in the state-year. Annual national totals match Gius (2018) Figures 1 and 2.
+killed_gius_2018,Outcome,School shooting fatalities,Calibrated state-year fatalities with annual national totals matched to Figure 1 in Gius (2018).
+wounded_gius_2018,Outcome,School shooting injuries,Calibrated state-year injuries with annual national totals matched to Figure 2 in Gius (2018).
+incident_count_raw,Outcome,Raw school shooting incidents,Pre-calibration count of distinct school shooting incidents in the state-year from the cited source family used for the reconstruction.
+gius_assault_ban,Law,Assault weapons ban dummy,Equals 1 if a state assault weapons ban was in force or if the federal assault weapons ban was in effect (1994-2004).
+gius_state_private_sale_bg,Law,Private-sale background check dummy,"Equals 1 if the state required any background check for private firearm sales, using a broad Tufts-law crosswalk."
+gius_restrictive_ccw,Law,Restrictive concealed-carry dummy,"Equals 1 for may-issue or prohibited concealed-carry regimes, proxied with Tufts `mayissue`."
+gius_federal_bg,Law,Federal dealer background check dummy,Equals 1 in 1994-2014 for the Brady Act dealer background-check regime.
+population_density,Control,Population density,Annual resident population divided by Census land area in square miles.
+share_bachelors_plus,Control,Share with bachelor's degree or more,ACS actual values for 2008-2014 combined with interpolated 1990/2000/2008 Census anchors for 1990-2007.
+pcpi_nominal,Control,Per capita income proxy,"BEA per capita personal income in current dollars, used as the closest continuous state-year proxy for the paper's per-capita income control."
+unemployment_rate,Control,Unemployment rate,Annual average unemployment rate from the core panel.
+share_age_5_18,Control,Share age 5-18,"Population ages 5 through 18 divided by total population, using NBER/Census age-sex files."
+per_capita_alcohol_ethanol_14plus,Control,Per-capita alcohol consumption,"NIAAA apparent ethanol gallons per capita age 14 and older, beverage-type total."
+firearm_suicide_ratio,Control,Firearm suicide ratio,"Firearm suicides divided by total suicides, used as a gun-ownership proxy."

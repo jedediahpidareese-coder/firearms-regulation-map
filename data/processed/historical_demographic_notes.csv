@@ -1,0 +1,6 @@
+component,source_name,coverage,geography,notes
+Race / Hispanic origin / sex / age shares,Census state age-race-sex-Hispanic files,1990-1999,50 states + DC,Annual July 1 counts aggregated from sasrh90-sasrh99 text files; DC dropped after aggregation.
+Race / Hispanic origin / sex / age shares,Census 2000-2010 intercensal all-data,2000-2009,50 states + DC,Derived from st-est00int-alldata.csv using age-group totals and non-Hispanic race categories.
+Race / Hispanic origin / sex / age shares,Census 2010-2020 and 2020-2024 state all-data,2010-2024,50 states + DC,Derived from sc-est2020int-alldata6.csv for 2010-2019 and sc-est2024-alldata6.csv for 2020-2024.
+Median household income and poverty rate,Census SAIPE API,"1989, 1993, 1995-2024",50 states + DC,Panel uses actual SAIPE values when available and linearly interpolates 1990-1992 and 1994 within state.
+Educational attainment,Census Statistical Abstract Table 229 + ACS,"1990, 2000, 2008 anchors and 2008-2024 actuals",50 states,1991-1999 and 2001-2007 bachelor's-degree shares are interpolated between Census anchors; 2008-2024 use ACS values.

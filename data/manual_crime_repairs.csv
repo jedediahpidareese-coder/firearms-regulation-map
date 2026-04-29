@@ -1,0 +1,2 @@
+state,state_abbr,year,violent_crime,property_crime,repair_source_name,repair_url,repair_note
+North Dakota,ND,2022,2179,15545,North Dakota Criminal Justice Data Snapshot,https://justicereinvestmentinitiative.org/wp-content/uploads/2024/01/North-Dakota-Criminal-Justice-Data-Snapshot_accessible.pdf,"Filled the missing North Dakota 2022 violent and property crime counts from the CSG Justice Center / JRI snapshot, which cites FBI Uniform Crime Reporting Program SRS data."

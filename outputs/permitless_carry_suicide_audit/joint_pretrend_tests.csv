@@ -1,0 +1,9 @@
+sample,outcome,controls_spec,pre_periods_tested,wald_chi2,df,p_value_chi2,nobs,clusters
+main,firearm_suicide_rate,core_controls,-5;-4;-3;-2,15.92521785542721,4,0.00312116931120074,4446,40
+main,nonfirearm_suicide_rate,core_controls,-5;-4;-3;-2,4.614958771917328,4,0.3291331162173051,4446,40
+main,total_suicide_rate,core_controls,-5;-4;-3;-2,14.138101295246036,4,0.006867090214998873,4446,40
+main,firearm_suicide_share,core_controls,-5;-4;-3;-2,5.088467199345305,4,0.2783400656930416,4446,40
+main,ln_firearm_suicide_rate,core_controls,-5;-4;-3;-2,13.10827366506125,4,0.010758689832002906,4446,40
+main,ln_nonfirearm_suicide_rate,core_controls,-5;-4;-3;-2,6.15290329603671,4,0.18801665453593452,4446,40
+main,ln_total_suicide_rate,core_controls,-5;-4;-3;-2,12.835119574928044,4,0.012110170357762465,4446,40
+main,logit_firearm_suicide_share,core_controls,-5;-4;-3;-2,5.0349434052821795,4,0.2837308397992355,4446,40

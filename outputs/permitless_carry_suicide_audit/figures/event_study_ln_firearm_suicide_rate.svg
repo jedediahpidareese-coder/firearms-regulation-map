@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560">
+<rect width="100%" height="100%" fill="#ffffff" />
+<text x="450.00" y="28.00" font-family="Arial, sans-serif" font-size="18" fill="#222222" text-anchor="middle">Ln Firearm Suicide Rate</text>
+<line x1="92.00" y1="58.00" x2="92.00" y2="486.00" stroke="#222222" stroke-width="1.10" />
+<line x1="92.00" y1="486.00" x2="868.00" y2="486.00" stroke="#222222" stroke-width="1.10" />
+<line x1="92.00" y1="213.83" x2="868.00" y2="213.83" stroke="#777777" stroke-width="1.00" />
+<line x1="528.50" y1="58.00" x2="528.50" y2="486.00" stroke="#999999" stroke-width="1.00" />
+<line x1="87.00" y1="486.00" x2="868.00" y2="486.00" stroke="#dddddd" stroke-width="0.70" />
+<text x="82.00" y="490.00" font-family="Arial, sans-serif" font-size="11" fill="#333333" text-anchor="end">-0.121</text>
+<line x1="87.00" y1="379.00" x2="868.00" y2="379.00" stroke="#dddddd" stroke-width="0.70" />
+<text x="82.00" y="383.00" font-family="Arial, sans-serif" font-size="11" fill="#333333" text-anchor="end">-0.0736</text>
+<line x1="87.00" y1="272.00" x2="868.00" y2="272.00" stroke="#dddddd" stroke-width="0.70" />
+<text x="82.00" y="276.00" font-family="Arial, sans-serif" font-size="11" fill="#333333" text-anchor="end">-0.0259</text>
+<line x1="87.00" y1="165.00" x2="868.00" y2="165.00" stroke="#dddddd" stroke-width="0.70" />
+<text x="82.00" y="169.00" font-family="Arial, sans-serif" font-size="11" fill="#333333" text-anchor="end">0.0217</text>
+<line x1="87.00" y1="58.00" x2="868.00" y2="58.00" stroke="#dddddd" stroke-width="0.70" />
+<text x="82.00" y="62.00" font-family="Arial, sans-serif" font-size="11" fill="#333333" text-anchor="end">0.0694</text>
+<line x1="92.00" y1="486.00" x2="92.00" y2="491.00" stroke="#222222" stroke-width="1.00" />
+<text x="92.00" y="508.00" font-family="Arial, sans-serif" font-size="11" fill="#222222" text-anchor="middle">-5</text>
+<line x1="189.00" y1="486.00" x2="189.00" y2="491.00" stroke="#222222" stroke-width="1.00" />
+<text x="189.00" y="508.00" font-family="Arial, sans-serif" font-size="11" fill="#222222" text-anchor="middle">-4</text>
+<line x1="286.00" y1="486.00" x2="286.00" y2="491.00" stroke="#222222" stroke-width="1.00" />
+<text x="286.00" y="508.00" font-family="Arial, sans-serif" font-size="11" fill="#222222" text-anchor="middle">-3</text>
+<line x1="383.00" y1="486.00" x2="383.00" y2="491.00" stroke="#222222" stroke-width="1.00" />
+<text x="383.00" y="508.00" font-family="Arial, sans-serif" font-size="11" fill="#222222" text-anchor="middle">-2</text>
+<line x1="480.00" y1="486.00" x2="480.00" y2="491.00" stroke="#222222" stroke-width="1.00" />
+<text x="480.00" y="508.00" font-family="Arial, sans-serif" font-size="11" fill="#222222" text-anchor="middle">-1</text>
+<line x1="577.00" y1="486.00" x2="577.00" y2="491.00" stroke="#222222" stroke-width="1.00" />
+<text x="577.00" y="508.00" font-family="Arial, sans-serif" font-size="11" fill="#222222" text-anchor="middle">0</text>
+<line x1="674.00" y1="486.00" x2="674.00" y2="491.00" stroke="#222222" stroke-width="1.00" />
+<text x="674.00" y="508.00" font-family="Arial, sans-serif" font-size="11" fill="#222222" text-anchor="middle">1</text>
+<line x1="771.00" y1="486.00" x2="771.00" y2="491.00" stroke="#222222" stroke-width="1.00" />
+<text x="771.00" y="508.00" font-family="Arial, sans-serif" font-size="11" fill="#222222" text-anchor="middle">2</text>
+<line x1="868.00" y1="486.00" x2="868.00" y2="491.00" stroke="#222222" stroke-width="1.00" />
+<text x="868.00" y="508.00" font-family="Arial, sans-serif" font-size="11" fill="#222222" text-anchor="middle">3</text>
+<line x1="92.00" y1="375.63" x2="92.00" y2="233.38" stroke="#7BA7C4" stroke-width="1.40" />
+<line x1="88.00" y1="375.63" x2="96.00" y2="375.63" stroke="#7BA7C4" stroke-width="1.20" />
+<line x1="88.00" y1="233.38" x2="96.00" y2="233.38" stroke="#7BA7C4" stroke-width="1.20" />
+<line x1="189.00" y1="400.70" x2="189.00" y2="150.94" stroke="#7BA7C4" stroke-width="1.40" />
+<line x1="185.00" y1="400.70" x2="193.00" y2="400.70" stroke="#7BA7C4" stroke-width="1.20" />
+<line x1="185.00" y1="150.94" x2="193.00" y2="150.94" stroke="#7BA7C4" stroke-width="1.20" />
+<line x1="286.00" y1="292.36" x2="286.00" y2="88.10" stroke="#7BA7C4" stroke-width="1.40" />
+<line x1="282.00" y1="292.36" x2="290.00" y2="292.36" stroke="#7BA7C4" stroke-width="1.20" />
+<line x1="282.00" y1="88.10" x2="290.00" y2="88.10" stroke="#7BA7C4" stroke-width="1.20" />
+<line x1="383.00" y1="383.68" x2="383.00" y2="208.14" stroke="#7BA7C4" stroke-width="1.40" />
+<line x1="379.00" y1="383.68" x2="387.00" y2="383.68" stroke="#7BA7C4" stroke-width="1.20" />
+<line x1="379.00" y1="208.14" x2="387.00" y2="208.14" stroke="#7BA7C4" stroke-width="1.20" />
+<line x1="577.00" y1="266.16" x2="577.00" y2="120.29" stroke="#7BA7C4" stroke-width="1.40" />
+<line x1="573.00" y1="266.16" x2="581.00" y2="266.16" stroke="#7BA7C4" stroke-width="1.20" />
+<line x1="573.00" y1="120.29" x2="581.00" y2="120.29" stroke="#7BA7C4" stroke-width="1.20" />
+<line x1="674.00" y1="247.99" x2="674.00" y2="97.66" stroke="#7BA7C4" stroke-width="1.40" />
+<line x1="670.00" y1="247.99" x2="678.00" y2="247.99" stroke="#7BA7C4" stroke-width="1.20" />
+<line x1="670.00" y1="97.66" x2="678.00" y2="97.66" stroke="#7BA7C4" stroke-width="1.20" />
+<line x1="771.00" y1="242.22" x2="771.00" y2="87.52" stroke="#7BA7C4" stroke-width="1.40" />
+<line x1="767.00" y1="242.22" x2="775.00" y2="242.22" stroke="#7BA7C4" stroke-width="1.20" />
+<line x1="767.00" y1="87.52" x2="775.00" y2="87.52" stroke="#7BA7C4" stroke-width="1.20" />
+<line x1="868.00" y1="456.48" x2="868.00" y2="210.59" stroke="#7BA7C4" stroke-width="1.40" />
+<line x1="864.00" y1="456.48" x2="872.00" y2="456.48" stroke="#7BA7C4" stroke-width="1.20" />
+<line x1="864.00" y1="210.59" x2="872.00" y2="210.59" stroke="#7BA7C4" stroke-width="1.20" />
+<path d="M 92.00 304.50 L 189.00 275.82 L 286.00 190.23 L 383.00 295.91 L 577.00 193.23 L 674.00 172.82 L 771.00 164.87 L 868.00 333.54" fill="none" stroke="#125E8A" stroke-width="2" />
+<circle cx="92.00" cy="304.50" r="4" fill="#125E8A" />
+<circle cx="189.00" cy="275.82" r="4" fill="#125E8A" />
+<circle cx="286.00" cy="190.23" r="4" fill="#125E8A" />
+<circle cx="383.00" cy="295.91" r="4" fill="#125E8A" />
+<circle cx="577.00" cy="193.23" r="4" fill="#125E8A" />
+<circle cx="674.00" cy="172.82" r="4" fill="#125E8A" />
+<circle cx="771.00" cy="164.87" r="4" fill="#125E8A" />
+<circle cx="868.00" cy="333.54" r="4" fill="#125E8A" />
+<text x="480.00" y="532.00" font-family="Arial, sans-serif" font-size="12" fill="#222222" text-anchor="middle">Event time relative to permitless-carry adoption</text>
+<text x="20" y="272.00" font-family="Arial, sans-serif" font-size="12" fill="#222222" text-anchor="middle" transform="rotate(-90 20 272.00)">Coefficient relative to event time -1</text>
+</svg>

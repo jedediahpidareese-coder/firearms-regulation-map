@@ -1,0 +1,5 @@
+panel_name,description,start_year,end_year,states,observations,variables
+panel_core,"Long-run balanced panel with Tufts laws, crime outcomes, and core economic controls.",1979,2024,50,2300,86
+panel_demographic,Balanced 1990-2024 panel adding long-run demographic and socioeconomic controls reconstructed from Census historical files and SAIPE.,1990,2024,50,1750,96
+panel_market,Balanced panel adding annual NICS firearm background check measures.,1999,2024,50,1300,94
+panel_modern,Balanced panel adding ACS demographic and socioeconomic controls plus NICS.,2008,2024,50,850,105
