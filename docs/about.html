@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" class="about">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Definitions, sources, and methodology &mdash; firearm regulation map</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <div class="brand">
+      <h1>Definitions, sources, and methodology</h1>
+      <p class="tagline"><a href="index.html">&larr; Back to the map</a></p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section>
+    <h2>What this site shows</h2>
+    <p>
+      Each layer on the <a href="index.html">map</a> displays a single variable for a single year, across all
+      50 U.S. states. The full underlying dataset is a balanced state-year panel covering 1979&ndash;2024 for the
+      law and crime variables, with shorter coverage windows for variables whose source series start later
+      (NICS background checks from 1999; ACS demographics from 2008; RAND household ownership 1980&ndash;2016;
+      firearm suicide / homicide / FS&nbsp;ownership proxy 1979&ndash;2023). Year sliders gracefully gray out
+      states without data in that year.
+    </p>
+    <p>
+      The site is generated from CSV/JSON files in the same git repository. The data pipeline is in
+      <code>scripts/build_website_data.py</code>, which reads the project&rsquo;s balanced panels and emits
+      <code>docs/data/panel.json</code> and <code>docs/data/metadata.json</code>. To rebuild after a data
+      update: <code>python scripts/build_website_data.py</code>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Important caveats</h2>
+    <ul>
+      <li><strong>Background checks are not gun sales.</strong> NICS counts include some states&rsquo; permit
+        re-checks, and a single check can cover multiple firearms. Treat NICS as a market-activity flow proxy,
+        not a stock measure of gun owners.</li>
+      <li><strong>The FS/S ownership proxy is mechanically correlated with suicide outcomes.</strong> It is the
+        share of all suicides committed with a firearm, so it should never be used as an explanatory variable
+        when the outcome is suicide. The RAND HFR estimate (1980&ndash;2016) is the more defensible ownership
+        measure for cross-state work.</li>
+      <li><strong>FBI rape definition changed in 2013.</strong> Pre- and post-2013 rape rates are not directly
+        comparable.</li>
+      <li><strong>Tufts law coding stops at 2024.</strong> Bruen-era injunctions are not generally re-coded;
+        check the Tufts narrative report for state-specific exceptions.</li>
+      <li><strong>2026 data are incomplete.</strong> The map currently goes through 2024 because the latest
+        full-year FBI crime release covers 2024.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Manipulations applied to the raw data</h2>
+    <table>
+      <thead>
+        <tr><th>Variable family</th><th>What was done</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Granular crime (homicide, robbery, ...)</td>
+          <td>The OpenCrime feed double-listed North Carolina 2022 and omitted North Dakota 2022. The
+              second NC&nbsp;2022 row (population &asymp; 779k) was reassigned to ND.</td>
+          <td>Logged in <code>data/processed/crime_repairs_log.csv</code>. Applied identically in the website
+              build to keep all granular crime variables balanced.</td>
+        </tr>
+        <tr>
+          <td>Pre-ACS demographic shares (1990&ndash;2007)</td>
+          <td>Reconstructed annual non-Hispanic race shares, male share, and age-group shares from Census
+              ASRH (1990&ndash;1999), the 2000s intercensal all-data file, and PEP (2010&ndash;2024).</td>
+          <td>ACS 1-year tables are only available from 2008. The reconstruction matches Census published
+              denominators within rounding.</td>
+        </tr>
+        <tr>
+          <td>Bachelor&rsquo;s+ share before 2008</td>
+          <td>Linearly interpolated within state from Census Statistical Abstract Table 229 anchors
+              (1990, 2000, 2008) and ACS 2008&ndash;2024 actuals.</td>
+          <td>Single-year educational attainment estimates are not consistently available before ACS.</td>
+        </tr>
+        <tr>
+          <td>SAIPE income / poverty</td>
+          <td>Missing 1990&ndash;1992 and 1994 values are linearly interpolated within state.</td>
+          <td>SAIPE skipped those years; interpolation preserves a balanced panel.</td>
+        </tr>
+        <tr>
+          <td>Per-capita income, household income</td>
+          <td>BEA per-capita personal income and SAIPE median household income are deflated to 2024 dollars
+              using CPI-U.</td>
+          <td>Real-terms comparability across the long panel.</td>
+        </tr>
+        <tr>
+          <td>Firearm suicide rates / total suicide rates</td>
+          <td>Computed on the fly as <code>firearm_suicides / total_population &times; 100000</code> (and
+              similarly for total suicides) from the firearm-suicide-share dataset.</td>
+          <td>Source file ships counts and the FS/S ratio but not population-normalized rates.</td>
+        </tr>
+        <tr>
+          <td>Law-category indices</td>
+          <td>Derived as simple sums of the relevant Tufts binary indicators
+              (background checks, carry restrictions, banned weapons, buyer restrictions, DV prohibitors,
+              storage / GVRO).</td>
+          <td>Group-level totals are easier to read on a map than 72 individual indicators. The
+              category groupings are listed in <code>scripts/build_website_data.py</code>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>All variables</h2>
+    <p>Variables are grouped by category. Click a source link to open the original data provider in a new tab.</p>
+    <div id="variables-by-category">Loading variables...</div>
+  </section>
+
+  <section>
+    <h2>Data sources cited on this site</h2>
+    <ul>
+      <li><a href="https://www.tuftsctsi.org/state-firearm-laws/" target="_blank" rel="noopener">Tufts CTSI &mdash; State Firearm Laws Database (1976&ndash;2024)</a> &middot; coded by Michael Siegel et al., 72 binary indicators across 11 categories.</li>
+      <li><a href="https://cde.ucr.cjis.gov/" target="_blank" rel="noopener">FBI Uniform Crime Reports / Crime Data Explorer</a> &middot; via OpenCrime extraction (state annual counts and rates).</li>
+      <li><a href="https://www.data-liberation-project.org/datasets/nics-firearm-background-checks/" target="_blank" rel="noopener">FBI NICS background checks</a> &middot; via Data Liberation Project.</li>
+      <li><a href="https://www.rand.org/pubs/tools/TL354.html" target="_blank" rel="noopener">RAND TL-354 &mdash; State-Level Estimates of Household Firearm Ownership (1980&ndash;2016)</a> &middot; Schell, Peterson, Vegetabile, Scherling, Smart, Morral.</li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/37743886/" target="_blank" rel="noopener">Firearm suicide / homicide v2 dataset</a> &middot; long-run state firearm suicides, total suicides, firearm homicides, and the FS/S ownership proxy (1949&ndash;2023).</li>
+      <li><a href="https://www.census.gov/programs-surveys/popest.html" target="_blank" rel="noopener">U.S. Census Bureau Population Estimates Program</a> &middot; ASRH, intercensal all-data, PEP files.</li>
+      <li><a href="https://www.census.gov/programs-surveys/saipe/" target="_blank" rel="noopener">Census SAIPE</a> &middot; small-area income and poverty estimates.</li>
+      <li><a href="https://www.census.gov/programs-surveys/acs/data/data-via-api.html" target="_blank" rel="noopener">U.S. Census Bureau ACS 1-year detailed tables (2008&ndash;2024)</a>.</li>
+      <li><a href="https://fred.stlouisfed.org/" target="_blank" rel="noopener">FRED (Federal Reserve Bank of St. Louis)</a> &middot; BLS LAUS unemployment, BEA per-capita personal income.</li>
+      <li><a href="https://www.census.gov/library/publications/2010/compendia/statab/130ed.html" target="_blank" rel="noopener">Census Statistical Abstract Table 229</a> &middot; pre-ACS educational attainment anchors.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>How to reproduce</h2>
+    <ol>
+      <li>Clone this repository.</li>
+      <li>Install Python with <code>pandas</code>, <code>numpy</code>, and <code>openpyxl</code> in your environment.</li>
+      <li>Re-run the panel build:
+        <code>python scripts/build_firearms_panel.py</code> (rebuilds <code>data/processed/*.csv</code> from raw inputs).</li>
+      <li>Re-run the website data build:
+        <code>python scripts/build_website_data.py</code> (rebuilds <code>docs/data/*.json</code>).</li>
+      <li>Preview locally with any static file server: e.g. <code>python -m http.server 8000 -d docs</code> then open <code>http://localhost:8000</code>.</li>
+    </ol>
+  </section>
+
+  <p class="generated">Generated at <span id="generated-at">&mdash;</span></p>
+</main>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+(async function() {
+  const [meta, manifest] = await Promise.all([
+    d3.json("data/metadata.json"),
+    d3.json("data/manifest.json"),
+  ]);
+  document.getElementById("generated-at").textContent =
+    manifest.generated_at.replace("T", " ").replace("Z", " UTC");
+
+  const cats = {};
+  for (const [key, m] of Object.entries(meta)) {
+    (cats[m.category] = cats[m.category] || []).push({ key, ...m });
+  }
+  const root = document.getElementById("variables-by-category");
+  root.innerHTML = "";
+  Object.keys(cats).sort().forEach(cat => {
+    const h3 = document.createElement("h3");
+    h3.textContent = cat;
+    root.appendChild(h3);
+    cats[cat].sort((a,b) => a.label.localeCompare(b.label)).forEach(v => {
+      const block = document.createElement("div");
+      block.className = "var-block";
+      const obs = v.observed_year_range || v.year_range;
+      block.innerHTML = `
+        <div class="var-label">${v.label} <code style="font-weight:normal;font-size:12px;color:#777;">${v.key}</code></div>
+        <div class="var-meta"><strong>Unit:</strong> ${v.unit} &middot; <strong>Coverage:</strong> ${obs[0]}&ndash;${obs[1]} &middot;
+          <strong>Source:</strong> <a href="${v.source_url}" target="_blank" rel="noopener">${v.source}</a></div>
+        <div class="var-def">${v.definition}</div>
+        ${v.caveat ? `<div class="var-caveat"><strong>Caveat:</strong> ${v.caveat}</div>` : ""}
+      `;
+      root.appendChild(block);
+    });
+  });
+})();
+</script>
+</body>
+</html>

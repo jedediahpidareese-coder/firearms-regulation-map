@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>State firearm regulation, ownership, crime, and demographics &mdash; interactive map</title>
+<meta name="description" content="Interactive state-by-year map of U.S. firearm regulations, gun ownership proxies, crime, suicide, and demographics. Sources: Tufts, FBI UCR, FBI NICS, RAND, Census, BLS, BEA, CDC.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <div class="brand">
+      <h1>U.S. firearm regulation, ownership &amp; outcomes</h1>
+      <p class="tagline">Balanced state-year panel, 1979&ndash;2024. <a href="about.html">Definitions, sources, and methodology &rarr;</a></p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="controls" aria-label="Map controls">
+    <div class="control">
+      <label for="category-select">Category</label>
+      <select id="category-select" aria-controls="variable-select"></select>
+    </div>
+    <div class="control control-grow">
+      <label for="variable-select">Variable</label>
+      <select id="variable-select"></select>
+    </div>
+    <div class="control control-year">
+      <label for="year-slider">Year: <span id="year-display">&mdash;</span></label>
+      <div class="year-row">
+        <input type="range" id="year-slider" min="1979" max="2024" step="1" value="2024">
+        <button id="play-button" type="button" title="Play/pause animation">&#9654;</button>
+      </div>
+      <div class="year-bounds"><span id="year-min">1979</span><span id="year-max">2024</span></div>
+    </div>
+  </section>
+
+  <section class="map-row">
+    <div class="map-pane">
+      <svg id="map" role="img" aria-label="Choropleth map of U.S. states"></svg>
+      <div id="legend" aria-hidden="false"></div>
+      <p class="map-note" id="coverage-note"></p>
+    </div>
+    <aside class="info-pane" aria-label="Variable definition">
+      <h2 id="info-label">Variable</h2>
+      <p class="info-meta">
+        <span id="info-category" class="chip"></span>
+        <span id="info-unit" class="chip chip-muted"></span>
+        <span id="info-coverage" class="chip chip-muted"></span>
+      </p>
+      <p id="info-definition"></p>
+      <p class="info-source"><strong>Source:</strong> <span id="info-source"></span></p>
+      <p class="info-caveat" id="info-caveat" hidden></p>
+      <hr>
+      <h3>Selected state</h3>
+      <p id="hover-state" class="hover-state">Hover any state on the map.</p>
+      <table class="hover-table" id="hover-table"></table>
+    </aside>
+  </section>
+
+  <section class="footer-info">
+    <p>
+      All data are aggregated to state-year. The underlying variables are defined and sourced on the
+      <a href="about.html">about page</a>. The site is built from a balanced panel of 50 states &times; 46 years
+      maintained alongside this repository; the data file driving this page is
+      <code>docs/data/panel.json</code> with <code>docs/data/metadata.json</code>.
+    </p>
+    <p class="generated">
+      Page data generated at <span id="generated-at">&mdash;</span> &middot;
+      Built with <a href="https://d3js.org/">D3</a> and <a href="https://github.com/topojson/us-atlas">us-atlas</a>.
+    </p>
+  </section>
+</main>
+
+<div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://d3js.org/topojson.v3.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
