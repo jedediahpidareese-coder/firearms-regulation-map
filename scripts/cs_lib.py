@@ -55,6 +55,8 @@ STRICT_WINDOW = (-5, 5)
 
 OUTCOMES = OrderedDict([
     ("firearm_suicide_rate",      "Firearm suicide rate (per 100k)"),
+    ("nonfirearm_suicide_rate",   "Non-firearm suicide rate (per 100k) [substitution test]"),
+    ("total_suicide_rate",        "Total suicide rate (per 100k) [net effect]"),
     ("firearm_homicide_rate",     "Firearm homicide rate (per 100k)"),
     ("homicide_rate",             "Total homicide rate (per 100k)"),
     ("motor_vehicle_theft_rate",  "Motor vehicle theft rate (per 100k) [placebo]"),
@@ -67,6 +69,12 @@ def load_panel_core_augmented() -> pd.DataFrame:
     df = pd.read_csv(PROC / "panel_core_augmented.csv")
     df = df[(df["year"] >= ANALYSIS_YEARS[0]) & (df["year"] <= ANALYSIS_YEARS[1])]
     df = df[df["state_abbr"] != "DC"]
+    # Derive non-firearm suicide rate where the components exist.
+    if ("total_suicide_rate" in df.columns
+            and "firearm_suicide_rate" in df.columns
+            and "nonfirearm_suicide_rate" not in df.columns):
+        df["nonfirearm_suicide_rate"] = (df["total_suicide_rate"]
+                                         - df["firearm_suicide_rate"])
     return df.reset_index(drop=True)
 
 

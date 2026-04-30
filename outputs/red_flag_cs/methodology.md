@@ -52,6 +52,52 @@ for every year of the cohort's `[g-5, g+5]` window — drops the older
 LE-only ERPO states (CT, IN, FL, RI, VA), leaving 30 strict-pool
 controls.
 
+## Substitution test (firearm + non-firearm + total suicide)
+
+Added 2026-04-30. We extended `OUTCOMES` in `cs_lib.py` with
+`nonfirearm_suicide_rate` (derived as `total_suicide_rate −
+firearm_suicide_rate`) and `total_suicide_rate`.
+
+| Spec | Firearm suicide | Non-firearm suicide | Total suicide |
+|---|---|---|---|
+| OR / broad  | −0.21** (pre z = +5.1, BAD) | +0.08 (pre z = **+0.3**, clean) | −0.13 (NS) |
+| OR / strict | −0.24** (pre z = +5.4, BAD) | +0.04 (pre z = **+0.6**, clean) | −0.21 (NS) |
+| RA / broad  | −0.11 (pre z = +4.6, BAD) | +0.16** (pre z = **+1.0**, clean) | +0.05 (NS) |
+| RA / strict | −0.38** (pre z = +5.3, BAD) | +0.12** (pre z = +2.2) | −0.26** (pre z = +5.3, BAD) |
+
+This is interesting and somewhat surprising:
+
+- **Firearm-suicide direction is unreliable** — the pre-trend rejects
+  in every spec at z = +4 to +5 (consistent with the Ashenfelter-dip
+  story already documented). The Roth-Sant'Anna bounds (see
+  `outputs/roth_sa_bounds/`) confirm this finding does NOT survive
+  even moderate pre-trend adjustment.
+- **Non-firearm suicide shows a small, clean INCREASE** (+0.08 to
+  +0.16 per 100k) with pre-trends that mostly do not reject. This is
+  unusual — if the policy were operating as advertised, we'd expect
+  flat or falling non-firearm suicide. Possible interpretations:
+  (a) partial method substitution by would-be firearm-suicide victims
+  who lose access to firearms post-ERPO (an unintended consequence,
+  not a policy success); (b) some unrelated mental-health trend in
+  red-flag adopting states (mostly Democratic, urban, post-2016);
+  (c) noise. We cannot tell from this design which.
+- **Total suicide does not move clearly** in 3 of 4 specs (NS). In
+  strict/RA it falls (−0.26**) but the pre-trend rejects, so this
+  isn't trustworthy either.
+
+**The substitution test does NOT support the published-research
+interpretation that civil-petition red-flag laws reduce total
+suicide.** The firearm-suicide signal is confounded by Ashenfelter dip
+and the non-firearm-suicide series rises slightly, leaving total
+suicide essentially unchanged. This contradicts (e.g.) Swanson et
+al.'s findings on Connecticut and Indiana — but those studies use much
+richer designs (court-record matching, individual case studies) that
+ARE the right tools and that we do not implement here.
+
+Bottom line: the red-flag firearm-homicide finding (−0.14, broad/RA)
+remains the cleanest causal-style result in this project. The
+firearm-suicide story is unidentified in this design.
+
 ## Headline numbers (four specifications)
 
 Same 4-spec grid as the permitless-carry analysis: `{OR, RA} × {broad,

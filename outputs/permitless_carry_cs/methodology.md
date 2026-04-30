@@ -13,6 +13,37 @@ Callaway & Sant'Anna (2021) ATT(g, t) estimator says when applied to the
 same treatment, and we use a placebo outcome to show why the basic
 specification is not yet causal.
 
+## Substitution test (firearm + non-firearm + total suicide)
+
+Added 2026-04-30. We extended `OUTCOMES` in `cs_lib.py` to include
+`nonfirearm_suicide_rate` (derived as `total_suicide_rate −
+firearm_suicide_rate`) and `total_suicide_rate`. The substitution test
+asks: when the policy raises firearm suicide, do non-firearm suicides
+fall (method substitution, total unchanged) or stay flat (the policy
+genuinely raises total suicide)?
+
+| Spec | Firearm suicide | Non-firearm suicide | Total suicide |
+|---|---|---|---|
+| OR / broad | +0.86** | +0.04 (NS) | **+0.90** |
+| OR / strict | +0.59** | +0.02 (NS) | **+0.61** |
+| RA / broad | +0.64** | +0.004 (NS) | **+0.64** |
+| RA / strict | +0.30** | −0.14** | +0.16** |
+
+In 3 of 4 specifications, the pattern is unambiguous: **firearm
+suicide rises by ~+0.6 per 100k; non-firearm suicide is essentially
+flat; total suicide rises by approximately the same amount as firearm
+suicide.** This rules out the "it's just method substitution"
+explanation and supports interpreting the firearm-suicide ATT as a
+real increase in total suicidal deaths, not a re-shuffling between
+methods.
+
+The conservative strict/RA spec finds a small but significant
+non-firearm decline (−0.14), which would be consistent with partial
+substitution; even there, total suicide still rises (+0.16, p < 0.05).
+
+This substitution-test result is the most policy-substantive finding
+in the project's research portion.
+
 ## Headline numbers (four specifications)
 
 Average post-treatment ATT (per 100,000 population), state-cluster
