@@ -1,0 +1,4 @@
+state_abbr,adoption_year,dropped_reason
+AK,2003,adoption 2003 too early for 5-year pre-period in 1999+
+LA,2024,"audit excluded from mortality sample (e.g., 2024 adopters)"
+SC,2024,"audit excluded from mortality sample (e.g., 2024 adopters)"
