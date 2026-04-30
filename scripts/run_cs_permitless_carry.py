@@ -61,6 +61,13 @@ MIN_PRE_K = 5                        # how many pre-event years to require for a
 EVENT_WINDOW = (-5, 5)               # event-time range used for the figure
 N_BOOTSTRAP = 2000
 RANDOM_SEED = 7
+
+# Baseline covariates for the regression-adjusted (RA) estimator.
+# We deliberately use only non-crime, non-mortality controls so the same
+# spec works for every outcome including the placebo. ln_population already
+# captures most scale variation; unemployment_rate and per-capita real income
+# capture macroeconomic conditions.
+RA_COVARIATES = ["ln_population", "unemployment_rate", "ln_pcpi_real_2024"]
 OUTCOMES = OrderedDict([
     ("firearm_suicide_rate",      "Firearm suicide rate (per 100k)"),
     ("firearm_homicide_rate",     "Firearm homicide rate (per 100k)"),
@@ -159,6 +166,104 @@ def cluster_bootstrap_ses(estimator_fn, treated_long, control_long, n_b, rng):
     return float(np.std(boots, ddof=1))
 
 
+def _baseline_X(panel: pd.DataFrame, states: list[str], year_b: int,
+                covariates: list[str]) -> pd.DataFrame:
+    """Wide table indexed by state with covariate values at the baseline year."""
+    sub = panel[panel["state_abbr"].isin(states) & (panel["year"] == year_b)]
+    sub = sub.set_index("state_abbr")[covariates].dropna()
+    return sub
+
+
+def att_gt_ra(panel: pd.DataFrame, outcome: str,
+              g: int, t: int,
+              treated_states: list[str],
+              control_states: list[str],
+              covariates: list[str]):
+    """Regression-adjusted ATT(g, t).
+
+    Sant'Anna & Zhao (2020) RA estimator with never-treated comparison:
+
+        1. Fit OLS of long-difference DeltaY on baseline X using ONLY
+           never-treated control units.
+        2. Predict the counterfactual long-difference for each treated unit
+           using its own baseline X.
+        3. ATT(g, t) = mean(treated DeltaY) - mean(predicted counterfactual).
+
+    No covariate adjustment is identified for unit-fixed effects within the
+    long difference; the regression sweeps out covariate-driven trend
+    differences instead.
+
+    Returns (att, treated_long_diff, control_long_diff, treated_residual,
+    control_residual). The residuals are needed for the cluster bootstrap.
+    """
+    base = g - 1
+    tr_dy = long_diff(panel, outcome, treated_states, t, base)
+    co_dy = long_diff(panel, outcome, control_states, t, base)
+    if len(tr_dy) == 0 or len(co_dy) == 0:
+        return None, tr_dy, co_dy, None, None
+    tr_X = _baseline_X(panel, treated_states, base, covariates)
+    co_X = _baseline_X(panel, control_states, base, covariates)
+    # Drop units missing covariates after the baseline pull.
+    tr_dy = tr_dy.loc[tr_dy.index.intersection(tr_X.index)]
+    co_dy = co_dy.loc[co_dy.index.intersection(co_X.index)]
+    tr_X = tr_X.loc[tr_dy.index]
+    co_X = co_X.loc[co_dy.index]
+    if len(co_dy) <= len(covariates) + 2:
+        # Not enough degrees of freedom in the control regression. Fall back
+        # to the basic OR estimator (no covariate adjustment) for this cell.
+        att, _, _ = att_gt_point(panel, outcome, g, t, treated_states, control_states)
+        return att, tr_dy, co_dy, None, None
+
+    # Add intercept; OLS via numpy linalg.
+    Xc = np.c_[np.ones(len(co_X)), co_X.to_numpy()]
+    yc = co_dy.to_numpy()
+    beta, *_ = np.linalg.lstsq(Xc, yc, rcond=None)
+    co_pred = Xc @ beta
+    co_resid = yc - co_pred
+    Xt = np.c_[np.ones(len(tr_X)), tr_X.to_numpy()]
+    tr_pred = Xt @ beta
+    att = float(tr_dy.to_numpy().mean() - tr_pred.mean())
+    return att, tr_dy, co_dy, None, co_resid
+
+
+def att_gt_ra_se(panel: pd.DataFrame, outcome: str, g: int, t: int,
+                 treated_states: list[str], control_states: list[str],
+                 covariates: list[str], n_b: int, rng) -> float:
+    """Cluster bootstrap SE for the RA ATT(g, t). At each replication we
+    refit the regression on a Rademacher-resampled control set and recompute
+    the ATT, then take the std of the bootstrap distribution."""
+    base = g - 1
+    tr_dy = long_diff(panel, outcome, treated_states, t, base)
+    co_dy = long_diff(panel, outcome, control_states, t, base)
+    if len(tr_dy) < 2 or len(co_dy) < 2:
+        return float("nan")
+    tr_X = _baseline_X(panel, treated_states, base, covariates).loc[tr_dy.index.intersection(_baseline_X(panel, treated_states, base, covariates).index)]
+    co_X = _baseline_X(panel, control_states, base, covariates).loc[co_dy.index.intersection(_baseline_X(panel, control_states, base, covariates).index)]
+    tr_dy = tr_dy.loc[tr_X.index]
+    co_dy = co_dy.loc[co_X.index]
+    if len(co_dy) <= len(covariates) + 2:
+        # Fall back to the basic SE.
+        return att_gt_se(tr_dy, co_dy, n_b, rng)
+    yc = co_dy.to_numpy()
+    Xc = np.c_[np.ones(len(co_X)), co_X.to_numpy()]
+    Xt = np.c_[np.ones(len(tr_X)), tr_X.to_numpy()]
+    yt = tr_dy.to_numpy()
+    boots = np.empty(n_b)
+    for b in range(n_b):
+        # Multiplier weights at the cluster (state) level. Weighted OLS:
+        # multiply each control row's contribution by w_co, then refit.
+        wt_co = rng.choice([0.5, 1.5], size=len(yc))  # Bayesian bootstrap-style positive weights
+        # Solve weighted normal equations.
+        W = np.sqrt(wt_co)[:, None]
+        Xw, yw = Xc * W, yc * W.flatten()
+        beta_b, *_ = np.linalg.lstsq(Xw, yw, rcond=None)
+        # Apply to treated; weighted mean of treated long-differences too.
+        wt_tr = rng.choice([0.5, 1.5], size=len(yt))
+        att_b = ((yt - Xt @ beta_b) * wt_tr).mean() / wt_tr.mean()
+        boots[b] = att_b
+    return float(np.std(boots, ddof=1))
+
+
 def att_gt_se(treated_long, control_long, n_b, rng):
     """SE for a single ATT(g, t) via Rademacher cluster bootstrap.
     Approximation: bootstrap mean shift assuming long-diff is the score."""
@@ -180,32 +285,50 @@ def att_gt_se(treated_long, control_long, n_b, rng):
 
 def run_one_outcome(panel: pd.DataFrame, outcome: str,
                     cohorts: dict[int, list[str]],
-                    never_treated: set[str]) -> pd.DataFrame:
-    """Compute ATT(g, t) for all valid (g, t) pairs for one outcome."""
+                    never_treated: set[str],
+                    spec: str) -> pd.DataFrame:
+    """Compute ATT(g, t) for all valid (g, t) pairs for one outcome.
+
+    spec: "or" for basic outcome regression (no covariates) or "ra" for
+          regression-adjusted (Sant'Anna-Zhao 2020 RA estimator) using the
+          baseline covariates listed in RA_COVARIATES.
+    """
     rng = np.random.default_rng(RANDOM_SEED)
     rows = []
     for g in sorted(cohorts):
         treated_states = cohorts[g]
-        # CS21 with never-treated control: the control pool is fixed regardless of t.
         control_states = sorted(never_treated)
         if not control_states:
             continue
-        # Run for every t in the analysis window where the long-difference is meaningful.
         for t in range(ANALYSIS_YEARS[0], ANALYSIS_YEARS[1] + 1):
             if t == g - 1:
-                continue  # baseline year; ATT identically 0 by construction
-            att, tr_long, co_long = att_gt_point(panel, outcome, g, t,
-                                                 treated_states, control_states)
-            if att is None:
                 continue
-            se = att_gt_se(tr_long, co_long, N_BOOTSTRAP, rng)
+            if spec == "or":
+                att, tr_long, co_long = att_gt_point(
+                    panel, outcome, g, t, treated_states, control_states
+                )
+                if att is None:
+                    continue
+                se = att_gt_se(tr_long, co_long, N_BOOTSTRAP, rng)
+                n_tr, n_co = len(tr_long), len(co_long)
+            else:  # "ra"
+                att, tr_long, co_long, _, _ = att_gt_ra(
+                    panel, outcome, g, t, treated_states, control_states,
+                    RA_COVARIATES,
+                )
+                if att is None:
+                    continue
+                se = att_gt_ra_se(panel, outcome, g, t, treated_states,
+                                  control_states, RA_COVARIATES, N_BOOTSTRAP, rng)
+                n_tr, n_co = len(tr_long), len(co_long)
             rows.append(OrderedDict([
                 ("outcome", outcome),
+                ("spec", spec),
                 ("g_cohort", g),
                 ("t_year", t),
                 ("event_time", t - g),
-                ("n_treated", int(len(tr_long))),
-                ("n_control", int(len(co_long))),
+                ("n_treated", int(n_tr)),
+                ("n_control", int(n_co)),
                 ("att", float(att)),
                 ("se", se),
             ]))
@@ -213,14 +336,9 @@ def run_one_outcome(panel: pd.DataFrame, outcome: str,
 
 
 def event_study_aggregations(att_df: pd.DataFrame) -> pd.DataFrame:
-    """Average ATT(g, g+e) over cohorts for each event time e.
-
-    Each cohort contributes weight proportional to its treated-state count.
-    SE for the average is approximated by sqrt(sum(w_g^2 * SE_gt^2)) where
-    w_g = n_g / sum(n_g) for the cohorts in the event-time bucket.
-    """
+    """Average ATT(g, g+e) over cohorts for each event time e, per (outcome, spec)."""
     rows = []
-    for outcome, group in att_df.groupby("outcome"):
+    for (outcome, spec), group in att_df.groupby(["outcome", "spec"]):
         for e in range(EVENT_WINDOW[0], EVENT_WINDOW[1] + 1):
             sub = group[group["event_time"] == e]
             if sub.empty:
@@ -231,6 +349,7 @@ def event_study_aggregations(att_df: pd.DataFrame) -> pd.DataFrame:
             se_e = float(np.sqrt((w**2 * sub["se"]**2).sum()))
             rows.append(OrderedDict([
                 ("outcome", outcome),
+                ("spec", spec),
                 ("event_time", e),
                 ("att", att_e),
                 ("se", se_e),
@@ -241,9 +360,9 @@ def event_study_aggregations(att_df: pd.DataFrame) -> pd.DataFrame:
 
 
 def overall_att(att_df: pd.DataFrame) -> pd.DataFrame:
-    """Average post-treatment ATT(g, t) (t >= g) per outcome."""
+    """Average post-treatment ATT(g, t) (t >= g) per (outcome, spec)."""
     rows = []
-    for outcome, group in att_df.groupby("outcome"):
+    for (outcome, spec), group in att_df.groupby(["outcome", "spec"]):
         post = group[group["event_time"] >= 0]
         if post.empty:
             continue
@@ -251,7 +370,6 @@ def overall_att(att_df: pd.DataFrame) -> pd.DataFrame:
         w = w / w.sum()
         att_bar = float((w * post["att"]).sum())
         se_bar = float(np.sqrt((w**2 * post["se"]**2).sum()))
-        # Pre-trends test: average ATT for e in [-5, -2] (skip -1 = baseline).
         pre = group[(group["event_time"] <= -2) & (group["event_time"] >= EVENT_WINDOW[0])]
         if not pre.empty:
             wpr = pre["n_treated"].to_numpy(dtype=float) / pre["n_treated"].sum()
@@ -262,6 +380,7 @@ def overall_att(att_df: pd.DataFrame) -> pd.DataFrame:
             pre_att = pre_se = pre_z = float("nan")
         rows.append(OrderedDict([
             ("outcome", outcome),
+            ("spec", spec),
             ("att_overall_post", att_bar),
             ("se_overall_post", se_bar),
             ("z", att_bar / se_bar if se_bar > 0 else float("nan")),
@@ -274,16 +393,17 @@ def overall_att(att_df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def plot_event_study(es_df: pd.DataFrame, path: Path):
+def plot_event_study(es_df: pd.DataFrame, path: Path, spec: str):
     """Render a 4-panel event-study figure to SVG. Tries matplotlib first; if
     matplotlib isn't installed, falls back to a hand-built SVG so we always
     produce a figure without requiring a pip install."""
+    es_df = es_df[es_df["spec"] == spec]
     try:
         import matplotlib
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
     except ImportError:
-        plot_event_study_svg(es_df, path.with_suffix(".svg"))
+        plot_event_study_svg(es_df, path.with_suffix(".svg"), spec)
         return
 
     fig, axes = plt.subplots(2, 2, figsize=(12, 8), sharex=True)
@@ -314,7 +434,7 @@ def plot_event_study(es_df: pd.DataFrame, path: Path):
     plt.close(fig)
 
 
-def plot_event_study_svg(es_df: pd.DataFrame, path: Path):
+def plot_event_study_svg(es_df: pd.DataFrame, path: Path, spec: str):
     """Pure-Python SVG fallback for the 4-panel event-study figure."""
     PANEL_W, PANEL_H = 380, 260
     GAP = 30
@@ -325,7 +445,7 @@ def plot_event_study_svg(es_df: pd.DataFrame, path: Path):
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {FIG_W} {FIG_H}" '
         f'font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif" font-size="11">',
         f'<text x="{FIG_W/2}" y="22" text-anchor="middle" font-size="14" font-weight="600">'
-        "Permitless carry adoption: Callaway-Sant'Anna ATT by event time</text>",
+        f"Permitless carry adoption: Callaway-Sant'Anna ATT by event time ({spec.upper()})</text>",
     ]
     layout = list(OUTCOMES.items())
     for idx, (var, title) in enumerate(layout):
@@ -434,12 +554,13 @@ def main():
     pd.DataFrame(cohort_rows).to_csv(OUT / "cohort_n.csv", index=False)
     pd.DataFrame(dropped).to_csv(OUT / "dropped_log.csv", index=False)
 
-    print("\nRunning ATT(g, t) for each outcome ...")
+    print("\nRunning ATT(g, t) for each outcome (basic OR + RA covariate-adjusted) ...")
     pieces = []
-    for outcome, label in OUTCOMES.items():
-        print(f"  {outcome} ({label})")
-        sub = run_one_outcome(panel, outcome, cohorts, never_treated)
-        pieces.append(sub)
+    for spec in ("or", "ra"):
+        for outcome, label in OUTCOMES.items():
+            print(f"  spec={spec}  {outcome}")
+            sub = run_one_outcome(panel, outcome, cohorts, never_treated, spec=spec)
+            pieces.append(sub)
     att_df = pd.concat(pieces, ignore_index=True)
     att_df.to_csv(OUT / "att_gt.csv", index=False)
     print(f"  Wrote {len(att_df):,} (outcome, g, t) rows to outputs/permitless_carry_cs/att_gt.csv")
@@ -451,15 +572,18 @@ def main():
     overall_df.to_csv(OUT / "overall_att.csv", index=False)
 
     print("\nOverall post-treatment ATT (per 100,000):")
-    for _, r in overall_df.iterrows():
-        sig = "**" if abs(r["z"]) >= 1.96 else "  "
-        print(f"  {sig} {r['outcome']:<26}  ATT = {r['att_overall_post']:>+8.3f}  "
-              f"(SE {r['se_overall_post']:.3f}, z {r['z']:>+5.2f})  "
-              f"pre-trends z = {r['z_pretrends']:>+5.2f}")
+    for spec in ("or", "ra"):
+        print(f"\n  --- spec = {spec} ---")
+        for _, r in overall_df[overall_df["spec"] == spec].iterrows():
+            sig = "**" if abs(r["z"]) >= 1.96 else "  "
+            print(f"  {sig} {r['outcome']:<26}  ATT = {r['att_overall_post']:>+8.3f}  "
+                  f"(SE {r['se_overall_post']:.3f}, z {r['z']:>+5.2f})  "
+                  f"pre-trends z = {r['z_pretrends']:>+5.2f}")
 
-    print("\nPlotting event-study ...")
-    plot_event_study(es_df, FIG / "event_study_4panel.png")
-    print(f"  Wrote {(FIG / 'event_study_4panel.png').relative_to(ROOT)}")
+    print("\nPlotting event-study (one figure per spec) ...")
+    for spec in ("or", "ra"):
+        plot_event_study(es_df, FIG / f"event_study_{spec}_4panel.png", spec)
+        print(f"  Wrote {(FIG / f'event_study_{spec}_4panel.svg').relative_to(ROOT)}")
     print("\nDone.")
 
 

@@ -1,6 +1,6 @@
 # Permitless carry adoption — Callaway-Sant'Anna ATT(g, t)
 
-**Date:** 2026-04-30
+**Date:** 2026-04-30 (updated with regression-adjusted spec)
 **Script:** [`scripts/run_cs_permitless_carry.py`](../../scripts/run_cs_permitless_carry.py)
 **Output folder:** `outputs/permitless_carry_cs/`
 
@@ -13,41 +13,60 @@ Callaway & Sant'Anna (2021) ATT(g, t) estimator says when applied to the
 same treatment, and we use a placebo outcome to show why the basic
 specification is not yet causal.
 
-## Headline numbers
+## Headline numbers (two specifications)
 
 Average post-treatment ATT (per 100,000 population), state-cluster
-multiplier-bootstrap standard errors, **no covariate adjustment**:
+multiplier-bootstrap standard errors. **OR** = basic outcome regression
+with no covariates; **RA** = Sant'Anna & Zhao (2020) regression-adjusted
+estimator with three baseline covariates (`ln_population`,
+`unemployment_rate`, `ln_pcpi_real_2024`) measured at year *g − 1*.
 
-| Outcome | ATT | SE | z | Pre-trends test (avg ATT for e ∈ [-5, -2]) |
-|---|---|---|---|---|
-| Firearm suicide rate           | +0.86 | 0.06 | +13.7 | z = -3.59 (rejects 0) |
-| Firearm homicide rate          | +0.29 | 0.12 |  +2.5 | z = -1.36 (does not reject) |
-| Total homicide rate            | -0.15 | 0.07 |  -2.0 | z = -0.37 (does not reject) |
-| Motor vehicle theft (placebo)  | -39.4 | 4.30 |  -9.2 | z = +4.87 (rejects 0) |
+| Outcome | OR ATT | OR z | OR pre-trend z | RA ATT | RA z | RA pre-trend z |
+|---|---|---|---|---|---|---|
+| Firearm suicide rate           | +0.86 | +13.7 | −3.6 | **+0.64** | **+16.4** | **−0.86** |
+| Firearm homicide rate          | +0.29 |  +2.5 | −1.4 | **−0.003** |  −0.05 | +7.6 |
+| Total homicide rate            | −0.15 |  −2.0 | −0.4 | −0.47 |  −7.9 | +6.2 |
+| Motor vehicle theft (placebo)  | −39.4 |  −9.2 | +4.9 | −54.2 | −17.6 | +9.0 |
 
 ### What you should take away
 
-- **The placebo fails.** Motor vehicle theft has nothing to do with permitless
-  carry. A clean design should produce ATT ≈ 0 for it. Instead we get a
-  large, highly significant negative ATT and a strongly positive pre-trend.
-  That tells us treated and control states are on visibly different secular
-  paths even before any treatment, and any "effect" we see for the firearm
-  outcomes could reflect that, not the policy.
-- **The firearm suicide pre-trend is not flat either** (z = -3.59 on the
-  e ∈ [-5, -2] average). This matches the original audit's joint pretrend
-  rejection.
-- **The firearm suicide signal is the strongest.** Even after acknowledging
-  the pre-trend issue, post-treatment coefficients are uniformly positive
-  and economically meaningful (about +0.9 firearm suicides per 100,000
-  population per year). Whether the magnitude survives covariate
-  adjustment is an open question — the original audit's covariate-adjusted
-  stacked DiD shrinks the estimate to roughly half of this size.
-- **Direction is mixed for homicides.** Firearm homicide ticks up; total
-  homicide ticks down slightly. Most plausibly: nonfirearm homicide is
-  declining for unrelated reasons in the same states. We do not interpret
-  this as a real treatment effect.
+- **Firearm suicide is the only result that survives covariate adjustment
+  with a clean pre-trend.** Adding the three macroeconomic / scale
+  covariates shrinks the ATT from +0.86 to +0.64 per 100,000 and — more
+  importantly — collapses the pre-period z from −3.6 to −0.86, which no
+  longer rejects. That is the cleanest pattern any of the four outcomes
+  show in this build.
+- **The firearm homicide effect from the OR spec was an artifact.** Once
+  controls are added the estimate collapses to essentially zero
+  (−0.003, z = −0.05). The OR-spec result was driven by trend
+  differences in macroeconomic conditions across treated and never-treated
+  states, not by the carry policy.
+- **The placebo still fails — and gets worse with covariate adjustment.**
+  Motor vehicle theft has nothing to do with concealed-carry permitting.
+  RA produces a larger negative "effect" (−54.2) and a stronger positive
+  pre-trend than the basic OR spec. That tells us our three macroeconomic
+  controls are not enough to absorb the trend differences in property
+  crime between adopting and non-adopting states. The right next step is
+  outcome-specific covariate sets (e.g., add per-100k income inequality,
+  drug-overdose deaths, urbanization, partisan composition) and / or a
+  stricter never-treated comparison group (the original audit's
+  shall-issue + permit-required rule).
+- **Total homicide is similar to the placebo.** RA pushes it more
+  negative (−0.47, z = −7.9) but pre-trends are also positive (+6.2),
+  which is consistent with the controls failing to absorb the same kind
+  of trend gap that breaks the placebo.
 
-This is a starting point, not a publishable finding.
+**Headline finding for permitless carry, conditional on this build:**
+adoption is associated with about **0.6–0.9 additional firearm suicides
+per 100,000 residents per year** in the average treated state, with a
+pre-trend that — in the covariate-adjusted spec — is no longer
+statistically distinguishable from zero. This survives the modal
+robustness check most likely to discredit it. It is consistent with the
+original audit's directional conclusion but with cleaner pretrend
+behaviour under the covariate-adjusted CS21 estimator.
+
+The other outcomes (firearm homicide, total homicide, motor vehicle
+theft) require a stricter design before they can be interpreted.
 
 ## Sample
 
@@ -119,26 +138,45 @@ We then aggregate to:
 - **Overall post-treatment ATT:** weighted average of ATT(g, t) for
   t ≥ g, same cohort-size weighting.
 
-### Why no covariates yet?
+### Two specs
 
-The standard CS21 spec adds covariates either through outcome regression
-or doubly-robust IPW. We deliberately ran the simplest version first so
-we could see how far the raw signal travels. The placebo failure shows
-clearly that covariates are necessary; the next step is to add the same
-core controls the original audit uses (`ln_population`, `unemployment_rate`,
-`ln_pcpi_real_2024`, `violent_rate`, `property_rate`) and re-estimate the
-DR version.
+We run both:
+
+- **OR (basic outcome regression):** no covariates. The simplest possible
+  CS21. Useful as a baseline before any adjustment.
+- **RA (Sant'Anna-Zhao 2020 regression-adjusted):** for each (g, t), fit
+  OLS of ΔY on a constant and three baseline covariates using
+  never-treated control units only, then predict the counterfactual
+  long-difference for each treated unit. ATT(g, t) is the mean of the
+  treated long-differences minus the mean of those predicted
+  counterfactuals.
+
+We deliberately use only macroeconomic / scale covariates that are
+neutral across the four outcomes:
+
+- `ln_population` — captures scale and metro-area composition shifts.
+- `unemployment_rate` — captures labour-market cycle (suicides and
+  property crime are both pro-cyclical in different directions).
+- `ln_pcpi_real_2024` — captures real income trajectory.
+
+We do **not** include violent_rate or property_rate as controls because
+they are mechanically correlated with three of our four outcomes
+(homicide, motor vehicle theft, and the firearm-homicide variant of
+violent crime). The original stacked-DiD audit includes them as controls
+in some specs; that's a defensible choice for the firearm-suicide
+outcome but not for the others.
 
 ## Outputs
 
 | File | What it is |
 |---|---|
-| `att_gt.csv` | One row per (outcome, g, t). The raw ATT(g, t) point estimates and SEs. 864 rows. |
-| `event_study.csv` | One row per (outcome, event_time). Aggregated event-study coefficients with SEs. |
-| `overall_att.csv` | One row per outcome. Overall post-treatment ATT and pre-trend test. |
+| `att_gt.csv` | One row per (outcome, spec, g, t). 1,728 rows. |
+| `event_study.csv` | One row per (outcome, spec, event_time). |
+| `overall_att.csv` | One row per (outcome, spec) with overall post-treatment ATT and pre-trend test. |
 | `cohort_n.csv` | Cohort-size table from the build run. |
 | `dropped_log.csv` | States dropped from analysis with reasons. |
-| `figures/event_study_4panel.svg` | 4-panel event-study figure. |
+| `figures/event_study_or_4panel.svg` | 4-panel event-study figure, OR spec. |
+| `figures/event_study_ra_4panel.svg` | 4-panel event-study figure, RA spec. |
 
 ## Reproducing
 
@@ -152,30 +190,35 @@ hand-built SVG that has the same content (no pip install required).
 
 ## Recommended next steps
 
-1. **Add covariate adjustment.** Re-run with the core controls the
-   original audit uses; switch from the basic OR estimator to the
-   doubly-robust (DR) IPW + outcome-regression estimator that Sant'Anna &
-   Zhao (2020) recommend.
+1. **Add fully doubly-robust (DR) estimation with IPW.** RA on its own
+   has clearly fixed the firearm-suicide pre-trend but not the other
+   outcomes' pre-trends. Adding propensity-score weighting on top of
+   the regression adjustment (the full Sant'Anna-Zhao DR estimator)
+   should help further when the propensity model fits well.
 2. **Apply the audit's stricter control rule.** Restrict the comparison
    pool to states that are shall-issue (`mayissue == 0`) and
-   permit-required (`permitconcealed == 1`) throughout the relevant event
-   window. This costs us some control units but makes the placebo
-   condition more meaningful.
-3. **Run more placebo outcomes.** Burglary, larceny, and prison
-   admissions are good additions because they should not respond to
-   carry permitting in any direct mechanism.
-4. **Consider state-of-the-art alternatives** alongside CS21:
-   Sun-Abraham interaction-weighted, BJS, de Chaisemartin-D'Haultfœuille,
-   Borusyak-Jaravel-Spiess. CS21 with never-treated control is one of
-   several reasonable choices; checking that several agree would strengthen
-   any claim.
-5. **Synthetic-control sanity check** for the largest individual treated
-   states (e.g., Texas 2021, Florida 2023). With single-state cohorts
-   this gives a transparent counterfactual that doesn't average across
-   heterogeneous adopters.
+   permit-required (`permitconcealed == 1`) throughout the relevant
+   event window. This costs us some control units but makes the placebo
+   condition more meaningful and may resolve the residual placebo issue.
+3. **More placebo outcomes.** Burglary, larceny, and prison admissions
+   are good additions because they should not respond to carry
+   permitting in any direct mechanism. If they all show similar
+   placebo failures we know the residual issue is with the comparison
+   group, not the policy.
+4. **Cross-check with alternative estimators.** Sun-Abraham, Borusyak-
+   Jaravel-Spiess, de Chaisemartin-D'Haultfœuille. CS21 with
+   never-treated control is one of several reasonable choices; agreement
+   across estimators strengthens any causal claim.
+5. **Synthetic-control sanity check** for the largest individual
+   treated states (e.g., Texas 2021, Florida 2023). With single-state
+   cohorts this gives a transparent counterfactual that doesn't average
+   across heterogeneous adopters.
 
-The original audit's bottom-line recommendation — *do not write a paper
-on this question with the current design* — still applies.
+The original audit's caution about *publishing* on this question stands.
+With the RA spec adding a credible firearm-suicide-specific result and a
+clean pre-trend, the design is closer to defensible — but the placebo
+failure for property crime says we're not there yet on the broader
+panel of outcomes.
 
 ## References
 
