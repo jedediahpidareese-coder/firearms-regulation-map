@@ -60,17 +60,36 @@ const state = {
 };
 
 const fmtAuto = d3.format(",.2~f");
-const fmtPercent = d3.format(".1%");
+const fmtFraction = d3.format(".1%");      // 0.195 -> "19.5%"
+const fmtPercentPre = d3.format(".1f");    // 10.17 -> "10.2"   (already in percent units)
 const fmtInt = d3.format(",");
 
+// Map a metadata.format value to:
+//   tooltip / sidebar formatter: takes a number, returns a string
+//   legend-tick formatter:        takes a number, returns a short string for the axis
 function formatValue(val, meta) {
   if (val == null || Number.isNaN(val)) return "no data";
-  if (meta && meta.unit && meta.unit.startsWith("share")) return fmtPercent(val);
-  if (meta && meta.unit === "USD") return "$" + fmtInt(Math.round(val));
-  if (meta && meta.unit === "people") return fmtInt(Math.round(val));
-  if (meta && meta.unit === "0/1") return val == 1 ? "Yes (1)" : "No (0)";
-  if (Math.abs(val) >= 100) return fmtInt(Math.round(val));
-  return fmtAuto(val);
+  switch (meta && meta.format) {
+    case "binary":      return val == 1 ? "Yes" : "No";
+    case "percent":     return fmtFraction(val);
+    case "percent_pre": return fmtPercentPre(val) + "%";
+    case "currency":    return "$" + fmtInt(Math.round(val));
+    case "integer":     return fmtInt(Math.round(val));
+    case "rate":        return Math.abs(val) >= 100 ? fmtInt(Math.round(val)) : fmtAuto(val);
+    default:
+      return Math.abs(val) >= 100 ? fmtInt(Math.round(val)) : fmtAuto(val);
+  }
+}
+
+function tickFormatterFor(meta, hi) {
+  switch (meta && meta.format) {
+    case "percent":     return d3.format(".0%");
+    case "percent_pre": return v => d3.format(".0f")(v) + "%";
+    case "currency":    return v => "$" + d3.format(",.0f")(v);
+    case "integer":     return d3.format(",.0f");
+    case "binary":      return v => (v == 1 ? "Yes" : "No");
+    default:            return Math.abs(hi) >= 100 ? d3.format(",.0f") : d3.format(".2~f");
+  }
 }
 
 async function loadAll() {
@@ -204,12 +223,13 @@ function getDomainAcrossYears(varName) {
 }
 
 function buildScale(meta, varName) {
-  if (meta.scale === "binary") {
+  if (meta.format === "binary" || meta.scale === "binary") {
     return v => v == 1 ? BINARY_COLORS[1] : BINARY_COLORS[0];
   }
   const [lo, hi] = getDomainAcrossYears(varName);
   const palette = CATEGORY_PALETTE[meta.category] || d3.interpolateBlues;
-  const domainLo = meta.unit && meta.unit.startsWith("share") ? Math.min(0, lo) : lo;
+  // Anchor color domain to 0 for share/percent metrics so the gradient is interpretable.
+  const domainLo = (meta.format === "percent" || meta.format === "percent_pre") ? Math.min(0, lo) : lo;
   const scale = d3.scaleSequential(palette).domain([domainLo, hi]);
   scale._isBinary = false;
   scale._domain = [domainLo, hi];
@@ -306,39 +326,51 @@ function drawMap(valueByAbbr, colorScale, meta) {
 function drawLegend(colorScale, meta) {
   const container = d3.select("#legend");
   container.selectAll("*").remove();
-  if (meta.scale === "binary") {
-    const html = `
-      <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);">
-        <span style="display:inline-block;width:18px;height:14px;background:${BINARY_COLORS[0]};border:1px solid #c8c8c2;"></span> No (0)
-        <span style="display:inline-block;width:18px;height:14px;background:${BINARY_COLORS[1]};margin-left:14px;"></span> Yes (1)
-        <span style="margin-left:auto;">Year: ${state.year}</span>
-      </div>`;
-    container.html(html);
+  if (meta.format === "binary" || meta.scale === "binary") {
+    container.html(`
+      <div class="legend-binary">
+        <span class="swatch" style="background:${BINARY_COLORS[0]};border:1px solid #c8c8c2;"></span> No
+        <span class="swatch" style="background:${BINARY_COLORS[1]};margin-left:14px;"></span> Yes
+      </div>
+      <div class="legend-caption">
+        <span>${meta.unit}</span><span>Year: ${state.year}</span>
+      </div>
+    `);
     return;
   }
   const [lo, hi] = colorScale._domain || colorScale.domain();
-  const w = 320, h = 40, padX = 10;
-  const svg = container.append("svg").attr("viewBox", `0 0 ${w} ${h}`).attr("preserveAspectRatio","xMinYMid meet");
+  // SVG holds only the gradient bar and tick labels. Unit + year live in a caption row below.
+  const w = 320, h = 34, padX = 10;
+  const svg = container.append("svg")
+      .attr("viewBox", `0 0 ${w} ${h}`)
+      .attr("preserveAspectRatio", "xMinYMid meet");
   const defs = svg.append("defs");
   const grad = defs.append("linearGradient").attr("id", "legend-grad");
   const N = 16;
   for (let i = 0; i <= N; i++) {
     grad.append("stop")
-      .attr("offset", `${(i/N)*100}%`)
-      .attr("stop-color", colorScale(lo + (hi-lo)*i/N));
+      .attr("offset", `${(i / N) * 100}%`)
+      .attr("stop-color", colorScale(lo + (hi - lo) * i / N));
   }
-  svg.append("rect").attr("x", padX).attr("y", 4).attr("width", w-2*padX).attr("height", 12).attr("fill", "url(#legend-grad)");
+  svg.append("rect").attr("x", padX).attr("y", 4).attr("width", w - 2 * padX).attr("height", 12).attr("fill", "url(#legend-grad)");
   const ticks = 5;
-  const fmt = (meta.unit && meta.unit.startsWith("share")) ? d3.format(".0%") : (Math.abs(hi) >= 100 ? d3.format(",.0f") : d3.format(".2~f"));
+  const fmt = tickFormatterFor(meta, hi);
   for (let i = 0; i < ticks; i++) {
     const t = i / (ticks - 1);
-    const x = padX + (w - 2*padX) * t;
+    const x = padX + (w - 2 * padX) * t;
     const v = lo + (hi - lo) * t;
     svg.append("line").attr("x1", x).attr("x2", x).attr("y1", 16).attr("y2", 20).attr("stroke", "#666");
-    svg.append("text").attr("x", x).attr("y", 32).attr("text-anchor", "middle").attr("font-size", 10).attr("fill", "#444").text(fmt(v));
+    svg.append("text")
+        .attr("x", i === 0 ? x : (i === ticks - 1 ? x : x))
+        .attr("y", 30)
+        .attr("text-anchor", i === 0 ? "start" : (i === ticks - 1 ? "end" : "middle"))
+        .attr("font-size", 10)
+        .attr("fill", "#444")
+        .text(fmt(v));
   }
-  svg.append("text").attr("x", padX).attr("y", h-2).attr("font-size", 10).attr("fill", "#666").text(meta.unit);
-  svg.append("text").attr("x", w-padX).attr("y", h-2).attr("text-anchor", "end").attr("font-size", 10).attr("fill", "#666").text(`Year: ${state.year}`);
+  container.append("div")
+      .attr("class", "legend-caption")
+      .html(`<span>${meta.unit}</span><span>Year: ${state.year}</span>`);
 }
 
 function showHover(abbr) {

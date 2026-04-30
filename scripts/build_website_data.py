@@ -306,7 +306,8 @@ VARIABLE_METADATA = {
     "lawtotal": {
         "label": "Firearm law count (Tufts)",
         "category": "Regulation",
-        "unit": "number of laws",
+        "unit": "Laws (count)",
+        "format": "integer",
         "definition": "Sum of 72 binary firearm law indicators coded by Siegel et al. for the Tufts State Firearm Laws database. Higher values mean more restrictive policy.",
         "source": "Tufts State Firearm Laws (1976-2024)",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
@@ -317,7 +318,8 @@ VARIABLE_METADATA = {
     "law_bg_check_index": {
         "label": "Background check index",
         "category": "Regulation",
-        "unit": "indicator count",
+        "unit": "Provisions (count)",
+        "format": "integer",
         "definition": "Number of Tufts background-check-related provisions in force, including universal/handgun-only checks, gun-show checks, state-level checks, and ammunition checks.",
         "source": "Tufts State Firearm Laws",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
@@ -327,7 +329,8 @@ VARIABLE_METADATA = {
     "law_carry_restriction_index": {
         "label": "Carry restriction index",
         "category": "Regulation",
-        "unit": "indicator count",
+        "unit": "Provisions (count)",
+        "format": "integer",
         "definition": "Sum of restrictions on concealed and open carry, including may-issue concealed carry, permit requirements for concealed carry, and open carry restrictions for handguns and long guns.",
         "source": "Tufts State Firearm Laws",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
@@ -337,7 +340,8 @@ VARIABLE_METADATA = {
     "law_banned_weapons_index": {
         "label": "Banned-weapons index",
         "category": "Regulation",
-        "unit": "indicator count",
+        "unit": "Provisions (count)",
+        "format": "integer",
         "definition": "Sum of bans on assault weapons (general, list-based, one-feature), restrictions on grandfathered ownership, large-capacity magazine bans, and 10-round limits.",
         "source": "Tufts State Firearm Laws",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
@@ -347,7 +351,8 @@ VARIABLE_METADATA = {
     "law_buyer_restriction_index": {
         "label": "Buyer restriction index",
         "category": "Regulation",
-        "unit": "indicator count",
+        "unit": "Provisions (count)",
+        "format": "integer",
         "definition": "Sum of permit-to-purchase, registration, age-21 sale restrictions, lost/stolen reporting, one-gun-per-month limits, and waiting periods.",
         "source": "Tufts State Firearm Laws",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
@@ -357,7 +362,8 @@ VARIABLE_METADATA = {
     "law_dv_index": {
         "label": "Domestic-violence prohibitor index",
         "category": "Regulation",
-        "unit": "indicator count",
+        "unit": "Provisions (count)",
+        "format": "integer",
         "definition": "Sum of domestic-violence prohibitor laws covering misdemeanor crimes of domestic violence (MCDV), surrender requirements, ex parte orders, DVRO/stalking provisions, and incident-based removal.",
         "source": "Tufts State Firearm Laws",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
@@ -367,7 +373,8 @@ VARIABLE_METADATA = {
     "law_storage_cap_index": {
         "label": "Storage / GVRO / liability index",
         "category": "Regulation",
-        "unit": "indicator count",
+        "unit": "Provisions (count)",
+        "format": "integer",
         "definition": "Sum of locked-storage / child-access prevention, dealer liability, and gun violence restraining order (GVRO / red-flag) provisions.",
         "source": "Tufts State Firearm Laws",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
@@ -377,7 +384,8 @@ VARIABLE_METADATA = {
     "magazine": {
         "label": "Large-capacity magazine ban (binary)",
         "category": "Regulation",
-        "unit": "0/1",
+        "unit": "Yes / No",
+        "format": "binary",
         "definition": "1 if state bans the sale of large-capacity magazines beyond just assault-pistol ammunition.",
         "source": "Tufts State Firearm Laws",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
@@ -387,7 +395,8 @@ VARIABLE_METADATA = {
     "assault": {
         "label": "Assault weapons ban (binary)",
         "category": "Regulation",
-        "unit": "0/1",
+        "unit": "Yes / No",
+        "format": "binary",
         "definition": "1 if state bans the sale of assault weapons beyond assault pistols.",
         "source": "Tufts State Firearm Laws",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
@@ -397,7 +406,8 @@ VARIABLE_METADATA = {
     "gvro": {
         "label": "Red-flag / GVRO law (binary)",
         "category": "Regulation",
-        "unit": "0/1",
+        "unit": "Yes / No",
+        "format": "binary",
         "definition": "1 if state has a gun violence restraining order / extreme risk protection order law allowing temporary firearm removal.",
         "source": "Tufts State Firearm Laws",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
@@ -407,7 +417,8 @@ VARIABLE_METADATA = {
     "universal": {
         "label": "Universal background checks (binary)",
         "category": "Regulation",
-        "unit": "0/1",
+        "unit": "Yes / No",
+        "format": "binary",
         "definition": "1 if state requires background checks at point of purchase for all firearms by both licensed dealers and private sellers.",
         "source": "Tufts State Firearm Laws",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
@@ -417,7 +428,8 @@ VARIABLE_METADATA = {
     "permitconcealed": {
         "label": "Permit required to carry concealed (binary)",
         "category": "Regulation",
-        "unit": "0/1",
+        "unit": "Yes / No",
+        "format": "binary",
         "definition": "1 if state requires a permit to carry concealed weapons. 0 generally indicates permitless / constitutional carry.",
         "source": "Tufts State Firearm Laws",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
@@ -427,7 +439,8 @@ VARIABLE_METADATA = {
     "mayissue": {
         "label": "May-issue concealed carry (binary)",
         "category": "Regulation",
-        "unit": "0/1",
+        "unit": "Yes / No",
+        "format": "binary",
         "definition": "1 if concealed-carry permit issuance is discretionary (may-issue), or state bans all concealed weapons.",
         "source": "Tufts State Firearm Laws",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
@@ -439,7 +452,8 @@ VARIABLE_METADATA = {
     "violent_rate": {
         "label": "Violent crime rate",
         "category": "Crime",
-        "unit": "per 100,000",
+        "unit": "Per 100,000 people",
+        "format": "rate",
         "definition": "FBI UCR violent crime offenses per 100,000 population. Includes murder/nonnegligent manslaughter, rape, robbery, and aggravated assault.",
         "source": "FBI Uniform Crime Reports / OpenCrime extraction",
         "source_url": "https://cde.ucr.cjis.gov/",
@@ -449,7 +463,8 @@ VARIABLE_METADATA = {
     "property_rate": {
         "label": "Property crime rate",
         "category": "Crime",
-        "unit": "per 100,000",
+        "unit": "Per 100,000 people",
+        "format": "rate",
         "definition": "FBI UCR property crime offenses per 100,000 population. Includes burglary, larceny-theft, and motor vehicle theft.",
         "source": "FBI Uniform Crime Reports / OpenCrime extraction",
         "source_url": "https://cde.ucr.cjis.gov/",
@@ -459,7 +474,8 @@ VARIABLE_METADATA = {
     "homicide_rate": {
         "label": "Homicide rate",
         "category": "Crime",
-        "unit": "per 100,000",
+        "unit": "Per 100,000 people",
+        "format": "rate",
         "definition": "Murder and nonnegligent manslaughter per 100,000 population (FBI UCR / OpenCrime).",
         "source": "FBI Uniform Crime Reports / OpenCrime extraction",
         "source_url": "https://cde.ucr.cjis.gov/",
@@ -469,7 +485,8 @@ VARIABLE_METADATA = {
     "robbery_rate": {
         "label": "Robbery rate",
         "category": "Crime",
-        "unit": "per 100,000",
+        "unit": "Per 100,000 people",
+        "format": "rate",
         "definition": "Reported robbery offenses per 100,000 population (FBI UCR / OpenCrime).",
         "source": "FBI Uniform Crime Reports / OpenCrime extraction",
         "source_url": "https://cde.ucr.cjis.gov/",
@@ -479,7 +496,8 @@ VARIABLE_METADATA = {
     "rape_rate": {
         "label": "Rape rate",
         "category": "Crime",
-        "unit": "per 100,000",
+        "unit": "Per 100,000 people",
+        "format": "rate",
         "definition": "Reported rape offenses per 100,000 population (FBI UCR / OpenCrime). Definition broadened in 2013; pre/post-2013 levels are not directly comparable.",
         "source": "FBI Uniform Crime Reports / OpenCrime extraction",
         "source_url": "https://cde.ucr.cjis.gov/",
@@ -490,7 +508,8 @@ VARIABLE_METADATA = {
     "aggravated_assault_rate": {
         "label": "Aggravated assault rate",
         "category": "Crime",
-        "unit": "per 100,000",
+        "unit": "Per 100,000 people",
+        "format": "rate",
         "definition": "Reported aggravated assault per 100,000 population (FBI UCR / OpenCrime).",
         "source": "FBI Uniform Crime Reports / OpenCrime extraction",
         "source_url": "https://cde.ucr.cjis.gov/",
@@ -500,7 +519,8 @@ VARIABLE_METADATA = {
     "burglary_rate": {
         "label": "Burglary rate",
         "category": "Crime",
-        "unit": "per 100,000",
+        "unit": "Per 100,000 people",
+        "format": "rate",
         "definition": "Reported burglary offenses per 100,000 population (FBI UCR / OpenCrime).",
         "source": "FBI Uniform Crime Reports / OpenCrime extraction",
         "source_url": "https://cde.ucr.cjis.gov/",
@@ -510,7 +530,8 @@ VARIABLE_METADATA = {
     "larceny_rate": {
         "label": "Larceny rate",
         "category": "Crime",
-        "unit": "per 100,000",
+        "unit": "Per 100,000 people",
+        "format": "rate",
         "definition": "Reported larceny-theft per 100,000 population (FBI UCR / OpenCrime).",
         "source": "FBI Uniform Crime Reports / OpenCrime extraction",
         "source_url": "https://cde.ucr.cjis.gov/",
@@ -520,7 +541,8 @@ VARIABLE_METADATA = {
     "motor_vehicle_theft_rate": {
         "label": "Motor vehicle theft rate",
         "category": "Crime",
-        "unit": "per 100,000",
+        "unit": "Per 100,000 people",
+        "format": "rate",
         "definition": "Reported motor vehicle theft per 100,000 population (FBI UCR / OpenCrime).",
         "source": "FBI Uniform Crime Reports / OpenCrime extraction",
         "source_url": "https://cde.ucr.cjis.gov/",
@@ -532,7 +554,8 @@ VARIABLE_METADATA = {
     "firearm_suicide_rate": {
         "label": "Firearm suicide rate",
         "category": "Suicide & firearm deaths",
-        "unit": "per 100,000",
+        "unit": "Per 100,000 people",
+        "format": "rate",
         "definition": "Firearm suicides per 100,000 population, derived from the firearm-suicide-share dataset (Kalesan-style v2 file) for 1949-2023.",
         "source": "Firearm suicide / homicide v2 dataset (Kalesan supplement style)",
         "source_url": "https://pubmed.ncbi.nlm.nih.gov/37743886/",
@@ -542,7 +565,8 @@ VARIABLE_METADATA = {
     "total_suicide_rate": {
         "label": "Total suicide rate",
         "category": "Suicide & firearm deaths",
-        "unit": "per 100,000",
+        "unit": "Per 100,000 people",
+        "format": "rate",
         "definition": "All-method suicides per 100,000 population, derived from the firearm-suicide-share dataset for 1949-2023.",
         "source": "Firearm suicide / homicide v2 dataset",
         "source_url": "https://pubmed.ncbi.nlm.nih.gov/37743886/",
@@ -552,7 +576,8 @@ VARIABLE_METADATA = {
     "firearm_homicide_rate": {
         "label": "Firearm homicide rate",
         "category": "Suicide & firearm deaths",
-        "unit": "per 100,000",
+        "unit": "Per 100,000 people",
+        "format": "rate",
         "definition": "Firearm homicides per 100,000 population from the firearm-suicide-share v2 file.",
         "source": "Firearm suicide / homicide v2 dataset",
         "source_url": "https://pubmed.ncbi.nlm.nih.gov/37743886/",
@@ -564,7 +589,8 @@ VARIABLE_METADATA = {
     "ownership_rand": {
         "label": "Gun ownership rate (RAND HFR)",
         "category": "Gun ownership",
-        "unit": "share of adults (0-1)",
+        "unit": "Share of households",
+        "format": "percent",
         "definition": "RAND State-Level Household Firearm Ownership Rate (HFR), 1980-2016. Schell et al. structural equation model combining BRFSS, GSS, Pew, hunting licenses, Guns & Ammo subscriptions, NICS, and the Fem/Male firearm-suicide-share into a single estimate of the share of adults living in a household with any firearm. Most-cited modern state ownership measure; ends in 2016.",
         "source": "RAND TL-354 (Schell et al., 2020)",
         "source_url": "https://www.rand.org/pubs/tools/TL354.html",
@@ -575,7 +601,8 @@ VARIABLE_METADATA = {
     "ownership_fss": {
         "label": "Gun ownership proxy (FS/S)",
         "category": "Gun ownership",
-        "unit": "share (0-1)",
+        "unit": "Firearm-suicide ratio",
+        "format": "percent",
         "definition": "Firearm-suicide-share proxy for state household gun ownership: firearm suicides / all suicides. Most-used long-run proxy in the literature, but mechanically correlated with suicide outcomes; do NOT use as a regressor when the outcome is suicide.",
         "source": "Firearm suicide / homicide v2 dataset",
         "source_url": "https://pubmed.ncbi.nlm.nih.gov/37743886/",
@@ -586,7 +613,8 @@ VARIABLE_METADATA = {
     "nics_total_per_100k": {
         "label": "NICS background checks per 100k (market activity)",
         "category": "Gun ownership",
-        "unit": "checks per 100,000",
+        "unit": "Checks per 100,000 people",
+        "format": "rate",
         "definition": "Annual FBI NICS background checks per 100,000 population. A flow proxy for legal market activity, NOT a stock measure of gun owners. Background checks do not equal gun sales (multiple firearms per check; some states use NICS for permit re-checks). Do not interpret as ownership rate.",
         "source": "FBI NICS via Data Liberation Project",
         "source_url": "https://www.data-liberation-project.org/datasets/nics-firearm-background-checks/",
@@ -599,7 +627,8 @@ VARIABLE_METADATA = {
     "share_white_nh": {
         "label": "Share non-Hispanic white",
         "category": "Demographics",
-        "unit": "share (0-1)",
+        "unit": "Share of population",
+        "format": "percent",
         "definition": "Population share identifying as non-Hispanic white. Reconstructed from Census ASRH (1990-1999), intercensal (2000-2009), and Census/PEP (2010-2024) files; ACS 1-year 2008-2024 in the modern panel.",
         "source": "Census Bureau historical population estimates and ACS",
         "source_url": "https://www.census.gov/programs-surveys/popest.html",
@@ -609,7 +638,8 @@ VARIABLE_METADATA = {
     "share_black_nh": {
         "label": "Share non-Hispanic Black",
         "category": "Demographics",
-        "unit": "share (0-1)",
+        "unit": "Share of population",
+        "format": "percent",
         "definition": "Population share identifying as non-Hispanic Black. Same reconstruction approach as share_white_nh.",
         "source": "Census Bureau historical population estimates and ACS",
         "source_url": "https://www.census.gov/programs-surveys/popest.html",
@@ -619,7 +649,8 @@ VARIABLE_METADATA = {
     "share_hispanic": {
         "label": "Share Hispanic",
         "category": "Demographics",
-        "unit": "share (0-1)",
+        "unit": "Share of population",
+        "format": "percent",
         "definition": "Population share identifying as Hispanic or Latino, any race.",
         "source": "Census Bureau historical population estimates and ACS",
         "source_url": "https://www.census.gov/programs-surveys/popest.html",
@@ -629,7 +660,8 @@ VARIABLE_METADATA = {
     "share_male": {
         "label": "Share male",
         "category": "Demographics",
-        "unit": "share (0-1)",
+        "unit": "Share of population",
+        "format": "percent",
         "definition": "Population share male. Reconstructed from Census ASRH/intercensal/PEP files.",
         "source": "Census Bureau historical population estimates and ACS",
         "source_url": "https://www.census.gov/programs-surveys/popest.html",
@@ -639,7 +671,8 @@ VARIABLE_METADATA = {
     "share_age_15_24": {
         "label": "Share age 15-24",
         "category": "Demographics",
-        "unit": "share (0-1)",
+        "unit": "Share of population",
+        "format": "percent",
         "definition": "Population share aged 15-24, the high-violence-risk demographic window typically used in the gun-policy literature.",
         "source": "Census Bureau historical population estimates and ACS",
         "source_url": "https://www.census.gov/programs-surveys/popest.html",
@@ -649,7 +682,8 @@ VARIABLE_METADATA = {
     "share_age_25_44": {
         "label": "Share age 25-44",
         "category": "Demographics",
-        "unit": "share (0-1)",
+        "unit": "Share of population",
+        "format": "percent",
         "definition": "Population share aged 25-44.",
         "source": "Census Bureau historical population estimates and ACS",
         "source_url": "https://www.census.gov/programs-surveys/popest.html",
@@ -659,7 +693,8 @@ VARIABLE_METADATA = {
     "share_bachelors_plus": {
         "label": "Share with bachelor's degree or higher (25+)",
         "category": "Demographics",
-        "unit": "share (0-1)",
+        "unit": "Share of adults 25+",
+        "format": "percent",
         "definition": "Share of adults 25+ with a bachelor's degree or higher. Anchored on Census Statistical Abstract Table 229 (1990, 2000, 2008) and ACS 1-year 2008-2024; pre-ACS years are linearly interpolated within state.",
         "source": "Census Statistical Abstract + ACS",
         "source_url": "https://www.census.gov/library/publications/2010/compendia/statab/130ed.html",
@@ -672,7 +707,8 @@ VARIABLE_METADATA = {
     "median_hh_income_real_2024": {
         "label": "Median household income (real 2024 USD)",
         "category": "Economy",
-        "unit": "USD",
+        "unit": "U.S. dollars (2024)",
+        "format": "currency",
         "definition": "Median household income from Census SAIPE, deflated to 2024 dollars with CPI-U. SAIPE 1990-1992 and 1994 missing values are interpolated within state.",
         "source": "Census SAIPE deflated to real 2024 USD",
         "source_url": "https://www.census.gov/programs-surveys/saipe/",
@@ -683,7 +719,8 @@ VARIABLE_METADATA = {
     "poverty_rate": {
         "label": "Poverty rate",
         "category": "Economy",
-        "unit": "share (0-1)",
+        "unit": "Share in poverty",
+        "format": "percent",
         "definition": "Census SAIPE all-ages poverty rate. Same interpolation caveat as income.",
         "source": "Census SAIPE",
         "source_url": "https://www.census.gov/programs-surveys/saipe/",
@@ -693,7 +730,8 @@ VARIABLE_METADATA = {
     "unemployment_rate": {
         "label": "Unemployment rate",
         "category": "Economy",
-        "unit": "percent",
+        "unit": "Percent",
+        "format": "percent_pre",
         "definition": "BLS state unemployment rate (annual average of monthly LAUS).",
         "source": "BLS LAUS via FRED",
         "source_url": "https://fred.stlouisfed.org/",
@@ -703,7 +741,8 @@ VARIABLE_METADATA = {
     "pcpi_real_2024": {
         "label": "Per-capita personal income (real 2024 USD)",
         "category": "Economy",
-        "unit": "USD",
+        "unit": "U.S. dollars (2024)",
+        "format": "currency",
         "definition": "BEA per-capita personal income, deflated to 2024 dollars with CPI-U.",
         "source": "BEA via FRED",
         "source_url": "https://fred.stlouisfed.org/",
@@ -713,7 +752,8 @@ VARIABLE_METADATA = {
     "population": {
         "label": "Population",
         "category": "Demographics",
-        "unit": "people",
+        "unit": "People",
+        "format": "integer",
         "definition": "Annual state resident population from FRED / Census.",
         "source": "Census / FRED",
         "source_url": "https://fred.stlouisfed.org/",
