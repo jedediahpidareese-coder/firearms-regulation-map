@@ -1,0 +1,22 @@
+variable,definition
+county_fips,5-digit county FIPS (state FIPS + county FIPS); modern canonical.
+state_fips,2-digit state FIPS.
+year,Calendar year.
+county_name,County name from PEP.
+state_name,State name from PEP.
+population,Annual resident population from Census PEP (intercensal 2009; vintage 2010-2019 PEP for 2010-2019; vintage 2020-2024 PEP for 2020-2024).
+median_hh_income,Median household income (nominal USD) from Census SAIPE.
+poverty_pct_all_ages,All-ages poverty rate (percent) from Census SAIPE.
+median_hh_income_real_2024,Median household income deflated to 2024 USD using CPI-U annual averages.
+lawtotal,"Tufts state firearm law count, joined down by state."
+law_universal,1 if state requires universal background checks (joined from state).
+law_magazine,1 if state bans large-capacity magazines (joined from state).
+law_assault,1 if state bans assault weapons (joined from state).
+law_gvro,1 if state has a gun violence restraining order / red-flag law (joined from state).
+law_locked,1 if state requires firearms be stored locked (joined from state).
+law_permitconcealed,1 if state requires permit to carry concealed (joined from state).
+law_mayissue,1 if state has may-issue concealed-carry permitting (joined from state).
+law_waiting,1 if state requires waiting period for firearm purchases (joined from state).
+law_onepermonth,1 if state has one-gun-per-month purchase limit (joined from state).
+law_mcdvsurrender,1 if state mandates relinquishment for MCDV (joined from state).
+law_permit,1 if state requires permit-to-purchase any firearm (joined from state).

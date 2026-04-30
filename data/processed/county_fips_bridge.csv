@@ -1,0 +1,9 @@
+source_fips,canonical_fips,rule,rows_remapped,dataset
+02270,02158,rename,1,PEP
+46113,46102,rename,1,PEP
+51515,51019,absorb,1,PEP
+CT (all),DROPPED,drop_ct_2022_reorg,133,PEP
+02270,02158,rename,6,SAIPE
+46113,46102,rename,6,SAIPE
+51515,51019,absorb,5,SAIPE
+CT (all),DROPPED,drop_ct_2022_reorg,131,SAIPE
