@@ -30,3 +30,7 @@ law_waiting,1 if state requires waiting period for firearm purchases (joined fro
 law_onepermonth,1 if state has one-gun-per-month purchase limit (joined from state).
 law_mcdvsurrender,1 if state mandates relinquishment for MCDV (joined from state).
 law_permit,1 if state requires permit-to-purchase any firearm (joined from state).
+state_firearm_suicide_rate,"STATE-LEVEL firearm suicides per 100,000 from the firearm-suicide-share v2 file (1949-2023). Same value for every county in a state-year. Phase 2a placeholder; county-detailed mortality (Phase 2b) will overlay where available."
+state_total_suicide_rate,"STATE-LEVEL all-method suicides per 100,000 (v2 file). Same value for every county in a state-year."
+state_firearm_homicide_rate,"STATE-LEVEL firearm homicides per 100,000 (v2 file). Same value for every county in a state-year."
+state_ownership_fss,STATE-LEVEL FS/S ownership proxy (v2 file). Same value for every county in a state-year. Mechanically tied to suicide outcomes; do not use as a regressor when the outcome is suicide.

@@ -386,6 +386,59 @@ def load_acs_demographics() -> pd.DataFrame:
     return pd.concat(rows, ignore_index=True)
 
 
+# --------------------- State firearm mortality (Phase 2a) -------
+
+def load_state_firearm_mortality() -> pd.DataFrame:
+    """Pull state-year firearm suicide / homicide rates and the FS/S ownership
+    proxy from the firearm_suicide_homicide_dataset_v2.tab file.
+
+    These are STATE-level values that we will join down to every county in the
+    same state. There is no within-state variation in these columns - every
+    county in a given state-year shares the same value. Users who need true
+    county-level firearm mortality should look at Phase 2b (NCHS public-use
+    file aggregations for counties >=250k pop), which will overlay real
+    county detail where available.
+
+    The output is restricted to the panel window (2009-2024) and uses the
+    same two-letter state -> FIPS bridge as the law join.
+    """
+    df = pd.read_csv(DATA / "firearm_suicide_homicide_dataset_v2.tab", sep="\t")
+    df["state"] = df["state"].astype(str).str.strip().str.strip('"')
+    state_to_abbr = {
+        "Alabama":"AL","Alaska":"AK","Arizona":"AZ","Arkansas":"AR","California":"CA",
+        "Colorado":"CO","Connecticut":"CT","Delaware":"DE","District of Columbia":"DC",
+        "Florida":"FL","Georgia":"GA","Hawaii":"HI","Idaho":"ID","Illinois":"IL",
+        "Indiana":"IN","Iowa":"IA","Kansas":"KS","Kentucky":"KY","Louisiana":"LA",
+        "Maine":"ME","Maryland":"MD","Massachusetts":"MA","Michigan":"MI","Minnesota":"MN",
+        "Mississippi":"MS","Missouri":"MO","Montana":"MT","Nebraska":"NE","Nevada":"NV",
+        "New Hampshire":"NH","New Jersey":"NJ","New Mexico":"NM","New York":"NY",
+        "North Carolina":"NC","North Dakota":"ND","Ohio":"OH","Oklahoma":"OK","Oregon":"OR",
+        "Pennsylvania":"PA","Rhode Island":"RI","South Carolina":"SC","South Dakota":"SD",
+        "Tennessee":"TN","Texas":"TX","Utah":"UT","Vermont":"VT","Virginia":"VA",
+        "Washington":"WA","West Virginia":"WV","Wisconsin":"WI","Wyoming":"WY",
+    }
+    abbr_to_fips = {
+        "AL":"01","AK":"02","AZ":"04","AR":"05","CA":"06","CO":"08","CT":"09","DE":"10",
+        "DC":"11","FL":"12","GA":"13","HI":"15","ID":"16","IL":"17","IN":"18","IA":"19",
+        "KS":"20","KY":"21","LA":"22","ME":"23","MD":"24","MA":"25","MI":"26","MN":"27",
+        "MS":"28","MO":"29","MT":"30","NE":"31","NV":"32","NH":"33","NJ":"34","NM":"35",
+        "NY":"36","NC":"37","ND":"38","OH":"39","OK":"40","OR":"41","PA":"42","RI":"44",
+        "SC":"45","SD":"46","TN":"47","TX":"48","UT":"49","VT":"50","VA":"51","WA":"53",
+        "WV":"54","WI":"55","WY":"56",
+    }
+    df["state_fips"] = df["state"].map(state_to_abbr).map(abbr_to_fips)
+    df = df[df["state_fips"].notna() & df["year"].isin(YEARS)]
+    df["state_firearm_suicide_rate"]  = df["firearm_suicides"] / df["total_population"] * 1e5
+    df["state_total_suicide_rate"]    = df["total_suicides"]   / df["total_population"] * 1e5
+    df["state_firearm_homicide_rate"] = df["firearm_homicide_rate"]
+    df["state_ownership_fss"]         = df["fss"]
+    return df[[
+        "state_fips", "year",
+        "state_firearm_suicide_rate", "state_total_suicide_rate",
+        "state_firearm_homicide_rate", "state_ownership_fss",
+    ]]
+
+
 # --------------------- State laws -------------------------------
 
 def load_state_laws() -> pd.DataFrame:
@@ -509,6 +562,10 @@ def build_panel():
     laws = load_state_laws()
     print(f"  laws rows (state-year, in window): {len(laws):,}")
 
+    print("Loading state firearm mortality (Phase 2a; v2 file 1949-2023) ...")
+    state_mort = load_state_firearm_mortality()
+    print(f"  state mortality rows (state-year, in window): {len(state_mort):,}")
+
     # Build the canonical (county_fips, year) cross product on the intersection
     # of counties that are PRESENT in PEP for ALL years in the window.
     counties_per_year = pop.groupby("county_fips")["year"].nunique()
@@ -541,6 +598,10 @@ def build_panel():
 
     # Attach state laws via state_fips + year.
     base = base.merge(laws, on=["state_fips", "year"], how="left")
+
+    # Attach state-level firearm mortality (joined down to every county in
+    # the state). Phase 2a; will be supplemented by Phase 2b county detail.
+    base = base.merge(state_mort, on=["state_fips", "year"], how="left")
 
     # Sanity checks.
     rows_actual = len(base)
@@ -617,6 +678,10 @@ def build_panel():
         ("law_onepermonth", "1 if state has one-gun-per-month purchase limit (joined from state)."),
         ("law_mcdvsurrender", "1 if state mandates relinquishment for MCDV (joined from state)."),
         ("law_permit", "1 if state requires permit-to-purchase any firearm (joined from state)."),
+        ("state_firearm_suicide_rate", "STATE-LEVEL firearm suicides per 100,000 from the firearm-suicide-share v2 file (1949-2023). Same value for every county in a state-year. Phase 2a placeholder; county-detailed mortality (Phase 2b) will overlay where available."),
+        ("state_total_suicide_rate", "STATE-LEVEL all-method suicides per 100,000 (v2 file). Same value for every county in a state-year."),
+        ("state_firearm_homicide_rate", "STATE-LEVEL firearm homicides per 100,000 (v2 file). Same value for every county in a state-year."),
+        ("state_ownership_fss", "STATE-LEVEL FS/S ownership proxy (v2 file). Same value for every county in a state-year. Mechanically tied to suicide outcomes; do not use as a regressor when the outcome is suicide."),
     ], columns=["variable", "definition"])
     var_dict.to_csv(PROC / "county_variable_dictionary.csv", index=False)
 

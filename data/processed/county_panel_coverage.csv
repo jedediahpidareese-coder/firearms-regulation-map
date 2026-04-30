@@ -25,3 +25,7 @@ law_waiting,50112,50128,99.97
 law_onepermonth,50112,50128,99.97
 law_mcdvsurrender,50112,50128,99.97
 law_permit,50112,50128,99.97
+state_firearm_suicide_rate,46995,50128,93.75
+state_total_suicide_rate,46995,50128,93.75
+state_firearm_homicide_rate,46971,50128,93.7
+state_ownership_fss,46995,50128,93.75
