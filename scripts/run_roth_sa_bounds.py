@@ -57,23 +57,62 @@ OUT = ROOT / "outputs" / "roth_sa_bounds"
 OUT.mkdir(parents=True, exist_ok=True)
 
 INPUTS = [
+    # CS21 event-study tables. Have columns:
+    #   outcome, spec, control_rule, event_time, att, se, ...
     {
         "policy": "permitless_carry",
+        "estimator": "cs21",
         "es_path": ROOT / "outputs" / "permitless_carry_cs" / "event_study.csv",
+        "att_col": "att",
+        "specs": [("broad", "ra"), ("strict", "ra"),
+                  ("broad", "or"), ("strict", "or")],
     },
     {
         "policy": "red_flag",
+        "estimator": "cs21",
         "es_path": ROOT / "outputs" / "red_flag_cs" / "event_study.csv",
+        "att_col": "att",
+        "specs": [("broad", "ra"), ("strict", "ra"),
+                  ("broad", "or"), ("strict", "or")],
+    },
+    {
+        "policy": "ubc",
+        "estimator": "cs21",
+        "es_path": ROOT / "outputs" / "ubc_cs" / "event_study.csv",
+        "att_col": "att",
+        "specs": [("broad", "ra"), ("broad", "or")],
+    },
+    # Stacked-DiD event-study tables. Have columns:
+    #   outcome, spec, event_time, beta, se, ...   (no control_rule)
+    {
+        "policy": "permitless_carry",
+        "estimator": "stackdd",
+        "es_path": ROOT / "outputs" / "permitless_carry_stackdd" / "event_study.csv",
+        "att_col": "beta",
+        "specs": [(None, "unweighted"), (None, "ra"), (None, "eb")],
+    },
+    {
+        "policy": "red_flag",
+        "estimator": "stackdd",
+        "es_path": ROOT / "outputs" / "red_flag_stackdd" / "event_study.csv",
+        "att_col": "beta",
+        "specs": [(None, "unweighted"), (None, "ra"), (None, "eb")],
+    },
+    {
+        "policy": "ubc",
+        "estimator": "stackdd",
+        "es_path": ROOT / "outputs" / "ubc_stackdd" / "event_study.csv",
+        "att_col": "beta",
+        "specs": [(None, "unweighted"), (None, "ra"), (None, "eb")],
     },
 ]
 OUTCOMES_TO_BOUND = ["firearm_suicide_rate"]
-SPECS = [("broad", "ra"), ("strict", "ra"), ("broad", "or"), ("strict", "or")]
 PRE_E_MIN = -5
 PRE_E_MAX = -2  # skip -1 (baseline)
 SENSITIVITY_M = [0.0, 0.5, 1.0, 2.0]
 
 
-def fit_pre_trend(df_es: pd.DataFrame):
+def fit_pre_trend(df_es: pd.DataFrame, att_col: str = "att"):
     """Linear regression of ATT(e) on e for e in [PRE_E_MIN, PRE_E_MAX].
 
     Returns (b_hat, se_b) for the slope, plus the intercept (which we ignore
@@ -84,7 +123,7 @@ def fit_pre_trend(df_es: pd.DataFrame):
     if len(sub) < 2:
         return float("nan"), float("nan")
     e = sub["event_time"].to_numpy(dtype=float)
-    y = sub["att"].to_numpy(dtype=float)
+    y = sub[att_col].to_numpy(dtype=float)
     sigma2 = sub["se"].to_numpy(dtype=float) ** 2
     # Weighted OLS: weights = 1 / sigma2_e (so larger-SE pre-coefs matter less).
     # Prevent div by zero.
@@ -106,16 +145,16 @@ def fit_pre_trend(df_es: pd.DataFrame):
     return float(beta[1]), se_b
 
 
-def bounds_for_outcome(df_es: pd.DataFrame) -> pd.DataFrame:
-    """Compute Roth-Sant'Anna-style bounds for one (outcome, spec, control_rule)
+def bounds_for_outcome(df_es: pd.DataFrame, att_col: str = "att") -> pd.DataFrame:
+    """Compute Roth-Sant'Anna-style bounds for one (outcome, spec, ...)
     event-study series. Returns one row per (event_time, M)."""
-    b_hat, se_b = fit_pre_trend(df_es)
+    b_hat, se_b = fit_pre_trend(df_es, att_col=att_col)
     rows = []
     for _, r in df_es.iterrows():
         e = int(r["event_time"])
         if e < 0:
             continue
-        att = float(r["att"])
+        att = float(r[att_col])
         se = float(r["se"])
         for M in SENSITIVITY_M:
             offset = (e + 1) * b_hat       # extrapolated pre-trend at event-time e
@@ -142,22 +181,32 @@ def main():
     print("=" * 72)
     summary_rows = []
     for inp in INPUTS:
-        es_full = pd.read_csv(inp["es_path"])
+        try:
+            es_full = pd.read_csv(inp["es_path"])
+        except FileNotFoundError:
+            print(f"  skip (file missing): {inp['es_path']}")
+            continue
         for outcome in OUTCOMES_TO_BOUND:
-            for control_rule, spec in SPECS:
-                sub = es_full[(es_full["outcome"] == outcome)
-                              & (es_full["spec"] == spec)
-                              & (es_full["control_rule"] == control_rule)]
+            for control_rule, spec in inp["specs"]:
+                if control_rule is None:
+                    sub = es_full[(es_full["outcome"] == outcome)
+                                  & (es_full["spec"] == spec)]
+                    rule_label = "single"
+                else:
+                    sub = es_full[(es_full["outcome"] == outcome)
+                                  & (es_full["spec"] == spec)
+                                  & (es_full["control_rule"] == control_rule)]
+                    rule_label = control_rule
                 if sub.empty:
-                    print(f"  no data for {inp['policy']} / {control_rule} / {spec} / {outcome}; skipping")
+                    print(f"  no data for {inp['estimator']}/{inp['policy']}/"
+                          f"{rule_label}/{spec}/{outcome}; skipping")
                     continue
-                bdf = bounds_for_outcome(sub)
+                bdf = bounds_for_outcome(sub, att_col=inp["att_col"])
                 if bdf.empty:
                     continue
-                fname = f"{inp['policy']}_{control_rule}_{spec}_{outcome}_bounds.csv"
+                fname = (f"{inp['estimator']}_{inp['policy']}_{rule_label}_"
+                         f"{spec}_{outcome}_bounds.csv")
                 bdf.to_csv(OUT / fname, index=False)
-                print(f"  wrote {fname}")
-                # Summary row at M = 1.0 for the e = +1 (first full post-treatment year).
                 key_e = 1
                 pick = bdf[(bdf["event_time"] == key_e)].sort_values("M_sensitivity")
                 if pick.empty:
@@ -166,9 +215,10 @@ def main():
                 m1 = pick[pick["M_sensitivity"] == 1.0].iloc[0]
                 m2 = pick[pick["M_sensitivity"] == 2.0].iloc[0]
                 summary_rows.append(OrderedDict([
+                    ("estimator", inp["estimator"]),
                     ("policy", inp["policy"]),
                     ("outcome", outcome),
-                    ("control_rule", control_rule),
+                    ("control_rule", rule_label),
                     ("spec", spec),
                     ("pre_trend_slope_b_hat", float(base["pre_trend_slope_b_hat"])),
                     ("pre_trend_slope_se", float(base["pre_trend_slope_se"])),
@@ -184,7 +234,10 @@ def main():
     summary = pd.DataFrame(summary_rows)
     summary.to_csv(OUT / "summary_e1.csv", index=False)
     print("\nSummary at event-time e = +1 (first full post-treatment year):")
-    print(summary.to_string(index=False))
+    cols_to_show = ["estimator", "policy", "control_rule", "spec",
+                    "att_e1_original", "ci_e1_M0",
+                    "att_e1_M1", "ci_e1_M1", "ci_M1_includes_zero"]
+    print(summary[cols_to_show].to_string(index=False))
 
 
 if __name__ == "__main__":

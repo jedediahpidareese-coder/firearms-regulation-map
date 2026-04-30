@@ -124,12 +124,101 @@ machinery (their `HonestDiD` R package). The linear version here is a
 useful first cut and gives the same qualitative answer for these two
 policies.
 
+## Cross-estimator bounds (added with Phase 5i)
+
+After implementing the parallel Grier-style stacked-DiD estimator
+(Phase 5i), we re-ran the same Roth-Sant'Anna bounds machinery on its
+event-study coefficients. The full per-spec sensitivity tables live
+under `outputs/roth_sa_bounds/`. Filename pattern:
+`{estimator}_{policy}_{control_rule}_{spec}_firearm_suicide_rate_bounds.csv`.
+The summary at `summary_e1.csv` contains one row per
+(estimator, policy, control_rule, spec) at event-time +1.
+
+### What we learn from the cross-estimator picture
+
+For each policy, the e = +1 firearm-suicide ATT and whether the M = 1
+trend-adjusted CI excludes zero:
+
+**Permitless carry**
+
+| Estimator | Spec | ATT(+1) | M=1 trend-adj CI excludes zero? |
+|---|---|---|---|
+| CS21 | broad / RA | +0.54 | **YES** |
+| CS21 | strict / RA | +0.49 | **YES** |
+| CS21 | broad / OR | +0.57 | no |
+| CS21 | strict / OR | +0.45 | no |
+| Stacked DD | unweighted | +0.42 | no |
+| Stacked DD | RA | +0.44 | no |
+| Stacked DD | EB | +0.45 | no |
+
+CS21 RA specifications survive the M = 1 bound; stacked-DD bounds all
+fail at M = 1 (the stacked-DD pre-trend slope is steeper, so the
+extrapolated trend ate more of the post-treatment coefficient). The
+ROBUST statement is *"CS21 RA points to +0.5 firearm suicides per
+100,000 at the first post-treatment year that survives moderate
+pre-trend bounds; stacked DD agrees on positive direction but does
+not have power to survive the bounds at e = +1."* The pooled
+post-period average ATT (across all event times) survived more
+specifications than the e = +1 cell alone — see
+`outputs/permitless_carry_cs/methodology.md`.
+
+**Red-flag (civil ERPO)**
+
+All seven specifications across both estimators fail M = 1 at
+e = +1. Several flip sign and become positive at M = 2 (in both CS21
+OR specs and the stacked-DD EB spec). This is overwhelming evidence
+that the apparent firearm-suicide reduction is consistent with
+Ashenfelter dip — adopting states had rising firearm-suicide
+trajectories before adoption — and the design here cannot identify the
+true effect.
+
+**UBC**
+
+CS21 broad/RA: ATT(+1) = −0.21, fails M = 1.
+Stacked-DD: ATT(+1) is essentially zero in all specs (+0.01 to +0.09).
+Stacked-DD EB at M = 2 even returns a *positive* significant CI
+(+0.99, exclude zero), which is the diagnostic flag for the EB-induced
+weight-extreme behaviour we discussed in Phase 5i.
+
+The pooled-post-period CS21 UBC firearm-suicide ATT of −0.48 was
+driven by later event times (e ≥ 2), not by e = +1. That is itself a
+red flag for any clean causal interpretation.
+
+### Joint reading across the three policies
+
+- **Permitless carry → firearm suicide:** robust under CS21 RA + bounds;
+  not robust under stacked DD + bounds. Direction agrees across
+  estimators, magnitude shrinks under stacked DD.
+- **Permitless carry → total suicide** (the substantive finding):
+  robust across both estimators (+0.5 to +0.7 per 100k); bounds not
+  computed for total suicide here (pre-trends were already clean in
+  the headline CS21 spec).
+- **Red-flag → firearm suicide:** unidentified in this design.
+- **Red-flag → firearm homicide** (the cleanest causal-style finding):
+  no bounds needed; pre-trend was already clean in the CS21 broad/RA
+  spec at z = −0.58.
+- **UBC → firearm suicide:** estimator-dependent and bound-fragile.
+  Don't lead with this.
+- **UBC → total suicide:** robust across both estimators (CS21 −0.93,
+  stackedDD −0.62 to −0.86) but the substitution test (non-firearm
+  also falls) makes the mechanism interpretation unclear.
+
+The portfolio of three policies × two estimators × bounds is now
+internally consistent. The two findings most defensible for a
+publishable paper are:
+
+1. Permitless carry → total suicide UP (~+0.6 per 100k), substitution
+   test passes, two estimators agree.
+2. Red-flag → firearm homicide DOWN (about −0.14 per 100k in the
+   cleanest CS21 spec; stacked-DD agrees on direction but with much
+   larger and uncertain magnitude).
+
 ## Outputs
 
 | File | What |
 |---|---|
-| `summary_e1.csv` | One row per (policy, control_rule, spec) with the e = +1 numbers across M ∈ {0, 1, 2}. |
-| `{policy}_{control_rule}_{spec}_firearm_suicide_rate_bounds.csv` | Full bounds table per spec: one row per (event_time, M). |
+| `summary_e1.csv` | One row per (estimator, policy, control_rule, spec) with the e = +1 numbers across M ∈ {0, 1, 2}. |
+| `{estimator}_{policy}_{control_rule}_{spec}_firearm_suicide_rate_bounds.csv` | Full bounds table per spec: one row per (event_time, M). |
 
 ## Bottom-line takeaways
 
