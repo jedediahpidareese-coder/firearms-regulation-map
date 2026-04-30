@@ -493,53 +493,61 @@ California state suicide rate, applied to LA County. To analyze
 within-state county variation in mortality, wait for Phase 2b or use
 CDC WONDER directly.
 
-### 2.10 Phase 2b — county-detailed firearm mortality (deferred plan)
+### 2.10 Phase 2b — county-detailed firearm mortality (blocked by CDC policy)
 
-**What this would add.** Real county-3-year-window firearm suicide and
-firearm homicide counts/rates for the ~245 U.S. counties with
-population ≥250,000. Smaller counties remain on the state baseline
-from Phase 2a.
+**What we wanted.** Real county-3-year-window firearm suicide and
+firearm homicide counts/rates for every U.S. county.
 
-**Best-available data path.** Download the NCHS public-use Multiple
-Cause of Death files from
-<https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Datasets/DVS/mortality/>
-for the 2009–2023 panel window (15 files × ~120 MB each, ~1.8 GB
-total). Parse each year's fixed-width text file extracting only:
-year, state of residence, county of residence (suppressed for <250k
-pop counties), and ICD-10 underlying cause of death. Filter to
-firearm-related causes:
+**What we found after working through every public path.** True
+county-level firearm mortality cannot be obtained from any public CDC
+or NCHS source. We confirmed each candidate:
 
-- `X72`, `X73`, `X74` — intentional self-harm by firearm (suicide).
-- `X93`, `X94`, `X95` — assault by firearm (homicide).
-- `W32`, `W33`, `W34` — accidental firearm discharge.
-- `Y22`, `Y23`, `Y24` — firearm discharge of undetermined intent.
-- `*U01.4` — terrorism involving firearms (rare, included for completeness).
+1. **NCHS public-use Multiple Cause of Death files (CDC FTP).** We
+   downloaded most of these for 2009–2023 (~1.8 GB) and confirmed by
+   inspecting the records: starting with the 2005 release, NCHS removed
+   ALL geographic identifiers from public-use files (no county, no
+   state, not even region or division). The CDC documentation is
+   explicit: *"All public-use micro-data files from 2005-present
+   contain individual-level vital event data at the national level
+   only, and specifically contain no geographic identifiers at the
+   state, county, or city level."* These files are unusable for our
+   purpose. We removed the partial downloads from disk to reclaim space.
+2. **CDC WONDER API
+   (`https://wonder.cdc.gov/controller/datarequest/D77`).** The API is
+   alive and responds to authenticated POST requests, but the official
+   API documentation (the maintained example notebook for the D76
+   Detailed Mortality database, plus the equivalent D77 documentation)
+   is unambiguous: *"Queries for mortality and births statistics from
+   the National Vital Statistics System cannot limit or group results
+   by any location field, such as Region, Division, State or County."*
+   That is, the WONDER web interface lets you query by county on the
+   browser, but the API does not — only national-level grouping.
+3. **NCHS restricted-use files.** These DO contain county FIPS without
+   suppression. Access requires an IRB-approved research protocol, a
+   Data Use Agreement signed by an institutional officer, and a typical
+   review timeline of weeks to months. Out of scope for a website
+   build.
 
-Aggregate to (county_fips, 3-year-window, cause_category) → counts;
-divide by 3-year average population (already in the panel) for rates.
+**Net result.** The state firearm mortality joined down to every
+county (Section 2.9, the `state_*` columns) is the most county detail
+we can publish for firearm mortality without restricted-use access.
+This is not a code limitation; it is a CDC data-release policy that
+applies uniformly to anyone working from public data.
 
-Output columns to add when this lands:
+**If you want true county detail later.** The realistic path is to
+apply for NCHS restricted-use access through your institution's IRB.
+The application form and instructions are at
+<https://www.cdc.gov/nchs/data-linkage/research-data-center.htm>. Once
+approved, the workflow is the same as what Section 2.9 already
+implements, but with the restricted file's county FIPS column
+replacing the state-level baseline. Add an `county_firearm_*` column
+group; everything else in the county panel stays unchanged.
 
-- `county_firearm_suicide_count_3y`
-- `county_firearm_homicide_count_3y`
-- `county_firearm_suicide_rate_3y`
-- `county_firearm_homicide_rate_3y`
-- `county_mortality_county_detail_available` — boolean flag
-
-**Alternative path: CDC WONDER API.** The official Centers for Disease
-Control "Wide-ranging Online Data for Epidemiologic Research" tool has
-a documented HTTP POST API that returns the same county-year-cause
-aggregations and applies CDC's standard <10-deaths cell-suppression
-rule. The API is at
-`https://wonder.cdc.gov/controller/datarequest/D77` and accepts an
-XML query parameter set. We tested the endpoint and it responds (200
-on landing, 400 on malformed POSTs, with HTML error responses), but
-constructing a valid query specification is tedious and was deferred
-to a follow-up pass.
-
-**Why neither path landed in this checkpoint.** Time and bandwidth.
-Both paths are well-understood; either can be implemented when the
-user wants county-detailed mortality.
+**A cheaper alternative for spot-checking specific counties.** The CDC
+WONDER web UI does serve county-level firearm-cause queries with
+their <10-deaths cell-suppression rule. Anyone who wants a single
+county's firearm-suicide series can pull it manually from
+<https://wonder.cdc.gov/mcd.html> in a few minutes.
 
 ### 2.11 County-level crime from Jacob Kaplan's UCR Offenses Known (Phase 3)
 
@@ -758,24 +766,26 @@ python -m http.server 8765 -d docs
 # then open http://localhost:8765/
 ```
 
-### Phase 2b — what's still deferred
+### Phase 2b — county-detailed firearm mortality (blocked, see Section 2.10)
 
-County-detailed firearm mortality (the original Phase 2b plan) is documented
-in Section 2.10. Two paths exist when we want to pick it back up:
+We tried both promising public paths and found that **CDC has explicitly
+removed county/state grouping from public mortality data**:
 
-- Download CDC's NCHS Multiple Cause of Death public-use files from
-  <https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Datasets/DVS/mortality/>
-  for 2009–2023 (~1.8 GB total). These files give county detail only for
-  counties ≥250,000 population (about 245 counties). Smaller counties show
-  only state of residence. Aggregating to 3-year windows does not help with
-  this particular suppression form.
-- Use the CDC WONDER API (<https://wonder.cdc.gov/controller/datarequest/D77>)
-  with a careful XML query payload. This applies CDC's standard
-  "<10 deaths" cell-suppression rule per query, so 3-year aggregation
-  unsuppresses many small counties. Setting up the XML correctly is the
-  main engineering cost.
+- Public-use NCHS Multiple Cause of Death files (CDC FTP) have NO
+  geographic identifiers since 2005, by design.
+- The CDC WONDER API (`/controller/datarequest/D77`) accepts POSTs but the
+  documented service "cannot limit or group results by any location field".
 
-When this lands, the columns to add are listed in Section 2.10.
+The only public path with county detail is the WONDER **web interface**,
+which is suitable for occasional manual queries on specific counties of
+interest but not for a full programmatic build. The only programmatic
+path with county detail is the **NCHS restricted-use files**, which
+require an IRB-approved Data Use Agreement (weeks to months to obtain).
+
+Until restricted-use access is in hand, the county panel uses the
+state-level firearm mortality joined down to every county
+(`state_firearm_suicide_rate`, `state_firearm_homicide_rate`,
+`state_ownership_fss`) as documented in Section 2.9.
 
 ---
 
@@ -794,6 +804,8 @@ When this lands, the columns to add are listed in Section 2.10.
 | 2026-04-30 | Phase 3 attempt 1 | Tried the FBI Crime Data API at api.usa.gov/crime/fbi/sapi/. The api.data.gov gateway accepts our key, but every documented FBI endpoint returns 404 from the FBI side. Documentation host (`crime-data-explorer.fr.cloud.gov`) does not resolve. The API has been decommissioned. |
 | 2026-04-30 | Phase 3 final | Switched to Jacob Kaplan's openICPSR project 100707 V22 ("Offenses Known and Clearances by Arrest, 1960-2024"). User registered for a free openICPSR account and downloaded the 2 GB compressed bundle. We extracted the combined yearly CSV (908 MB), aggregated agency-level offenses to county-year, applied the same FIPS bridge as the rest of the county panel, and merged in. 21 new `county_*` crime columns at 99.81% coverage. |
 | 2026-04-30 | Phase 4 | Added county-mode to the public website. New scripts/build_website_county_data.py emits 16 per-year JSON files (~2 MB each) plus county_meta and county_manifest. Frontend (docs/js/app.js) refactored around a `mode` abstraction so state and county share one render pipeline. Year and selected variable carry across mode switches when compatible. About page now lists 40 state vars + 23 county vars in separate sections. |
+| 2026-04-30 | County names | Emit docs/data/county_names.json (107 KB, 3,133 entries) so the website hover sidebar and tooltip show "Los Angeles County, California" instead of the bare FIPS "06037". Renamed counties land on canonical modern names (Kusilvak, not Wade Hampton; Oglala Lakota, not Shannon). |
+| 2026-04-30 | Phase 2b investigation | Worked through every public path for county-level firearm mortality. NCHS public-use files have had ALL geographic identifiers stripped since 2005 (CDC policy). The CDC WONDER API does not allow location grouping for mortality (per CDC's own API docs). Only NCHS restricted-use files (IRB-approved DUA, weeks/months to obtain) have county detail without suppression. Section 2.10 now records this with citations; the state firearm mortality joined down to every county (Phase 2a) is the operational solution. |
 
 This file is updated at the end of every meaningful change. The most
 recent commits in <https://github.com/jedediahpidareese-coder/firearms-regulation-map/commits/main>
