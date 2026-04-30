@@ -174,6 +174,10 @@ a:hover { text-decoration: underline; }
   stroke: #1f2024;
   stroke-width: 1.4;
 }
+#map .state.pinned, #map .county.pinned {
+  stroke: #b9461a;
+  stroke-width: 2.2;
+}
 #map .state-border { pointer-events: none; }
 #map .state-label {
   font-size: 9px;
@@ -216,6 +220,78 @@ a:hover { text-decoration: underline; }
   color: var(--muted);
   margin: 6px 4px 0;
 }
+.map-tip {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 4px 4px 0;
+  font-style: italic;
+}
+.map-tip strong { font-style: normal; color: var(--accent); }
+
+.compare-section {
+  margin-top: 18px;
+  padding: 14px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.compare-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+.compare-header h2 {
+  margin: 0;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+}
+.compare-context {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+  letter-spacing: normal;
+  margin-left: 6px;
+}
+#compare-clear {
+  margin-left: auto;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-soft);
+  padding: 4px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+#compare-clear:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.compare-grid { overflow-x: auto; }
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.compare-table th, .compare-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border);
+  text-align: right;
+}
+.compare-table thead th {
+  background: #f1f1ec;
+  font-weight: 600;
+  text-align: right;
+  border-bottom: 2px solid var(--border);
+}
+.compare-table thead th:first-child,
+.compare-table tbody td.vname { text-align: left; color: var(--muted); }
+.compare-table td.diff { color: var(--accent); font-weight: 600; }
+.compare-table td.diff-na { color: var(--muted); font-weight: 400; }
+.compare-table tbody tr:hover { background: #fafaf7; }
 
 .info-pane {
   background: var(--surface);
@@ -267,7 +343,29 @@ a:hover { text-decoration: underline; }
   margin-top: 8px;
 }
 
-.hover-state { font-weight: 600; margin-top: 0; }
+.hover-state { font-weight: 600; margin: 0 0 4px; }
+.hover-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.hover-links .ext-link {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.hover-links .ext-link:hover {
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+}
 .hover-table {
   width: 100%;
   border-collapse: collapse;

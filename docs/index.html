@@ -50,6 +50,7 @@
       <svg id="map" role="img" aria-label="Choropleth map of U.S. states"></svg>
       <div id="legend" aria-hidden="false"></div>
       <p class="map-note" id="coverage-note"></p>
+      <p class="map-tip" id="map-tip">Tip: <strong>click</strong> a state to pin it for side-by-side comparison (up to 2).</p>
     </div>
     <aside class="info-pane" aria-label="Variable definition">
       <h2 id="info-label">Variable</h2>
@@ -64,8 +65,17 @@
       <hr>
       <h3 id="hover-heading">Selected state</h3>
       <p id="hover-state" class="hover-state">Hover any state on the map.</p>
+      <div id="hover-links" class="hover-links"></div>
       <table class="hover-table" id="hover-table"></table>
     </aside>
+  </section>
+
+  <section id="compare-section" class="compare-section" hidden>
+    <div class="compare-header">
+      <h2>Side-by-side comparison <span class="compare-context" id="compare-context"></span></h2>
+      <button id="compare-clear" type="button" title="Clear pinned places">Clear</button>
+    </div>
+    <div id="compare-grid" class="compare-grid" role="region" aria-label="Compare pinned places"></div>
   </section>
 
   <section class="footer-info">

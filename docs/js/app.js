@@ -27,6 +27,9 @@ const FIPS_TO_ABBR = {
   "45":"SC","46":"SD","47":"TN","48":"TX","49":"UT","50":"VT","51":"VA","53":"WA",
   "54":"WV","55":"WI","56":"WY"
 };
+const ABBR_TO_FIPS = Object.fromEntries(
+  Object.entries(FIPS_TO_ABBR).map(([f, a]) => [a, f])
+);
 const STATE_NAMES = {
   "AL":"Alabama","AK":"Alaska","AZ":"Arizona","AR":"Arkansas","CA":"California","CO":"Colorado",
   "CT":"Connecticut","DE":"Delaware","DC":"District of Columbia","FL":"Florida","GA":"Georgia",
@@ -59,7 +62,11 @@ const state = {
   hoveredKey: null,
   playing: false,
   playTimer: null,
+  // Pinned keys per mode for the side-by-side comparison panel.
+  // Up to 2 each. Switching modes resets to that mode's last pin set.
+  pinnedKeys: { state: [], county: [] },
 };
+const MAX_PINS = 2;
 
 const fmtAuto       = d3.format(",.2~f");
 const fmtFraction   = d3.format(".1%");
@@ -389,7 +396,12 @@ function ensureMapDrawn(mode) {
         showHover(k);
         showTooltip(event, k);
       })
-      .on("mouseleave", hideTooltip);
+      .on("mouseleave", hideTooltip)
+      .on("click", (event, d) => {
+        event.preventDefault();
+        const k = mode.keyForFeature(d);
+        togglePin(k);
+      });
 
   // For county mode, also overlay state borders so the map is readable.
   if (mode.name === "county" && mode.topology.objects.states) {
@@ -454,6 +466,8 @@ function render() {
     });
 
   drawLegend(colorScale, meta);
+  refreshPinnedHighlights();
+  renderComparePanel();
   if (state.hoveredKey) showHover(state.hoveredKey);
 }
 
@@ -505,6 +519,48 @@ function drawLegend(colorScale, meta) {
       .html(`<span>${meta.unit}</span><span>Year: ${state.year}</span>`);
 }
 
+// Build the small chip-style external links shown under the place name.
+// Census data.census.gov uses stable FIPS-based URLs (no slug guessing).
+function externalLinksFor(key) {
+  const mode = currentMode();
+  if (mode.name === "state") {
+    const abbr = key;
+    const fips = ABBR_TO_FIPS[abbr];
+    const stName = STATE_NAMES[abbr] || abbr;
+    const wikiName = stName === "District of Columbia"
+      ? "Washington,_D.C."
+      : stName.replace(/ /g, "_");
+    return [
+      { label: "Census",   url: `https://data.census.gov/profile?g=040XX00US${fips}` },
+      { label: "Wikipedia", url: `https://en.wikipedia.org/wiki/${wikiName}` },
+      { label: "FBI UCR",  url: `https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/explorer/crime/crime-trend?type=state&place=${abbr}` },
+    ];
+  } else {
+    // County mode. key is 5-digit FIPS; display name is "Name County, State".
+    const fips = key;
+    const display = mode.keyToDisplayName(key);
+    const wikiTitle = display.replace(/ /g, "_");
+    return [
+      { label: "Census",   url: `https://data.census.gov/profile?g=050XX00US${fips}` },
+      { label: "Wikipedia", url: `https://en.wikipedia.org/wiki/${wikiTitle}` },
+    ];
+  }
+}
+
+function renderLinks(container, key) {
+  container.innerHTML = "";
+  externalLinksFor(key).forEach(({ label, url }) => {
+    const a = document.createElement("a");
+    a.className = "ext-link";
+    a.href = url;
+    a.textContent = label;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.title = `Open ${label} for ${currentMode().keyToDisplayName(key)} in a new tab`;
+    container.appendChild(a);
+  });
+}
+
 function showHover(key) {
   const mode = currentMode();
   const meta = mode.metadata[state.variable];
@@ -512,6 +568,8 @@ function showHover(key) {
   const v = cell[state.variable];
   document.getElementById("hover-state").textContent =
     `${mode.keyToDisplayName(key)} (${state.year})`;
+  const linkRow = document.getElementById("hover-links");
+  if (linkRow) renderLinks(linkRow, key);
   const tbl = document.getElementById("hover-table");
   tbl.innerHTML = "";
   function row(label, val) {
@@ -558,6 +616,98 @@ function hideTooltip() {
   state.hoveredKey = null;
 }
 
+// ---------- pin / compare panel ----------
+
+function togglePin(key) {
+  const pins = state.pinnedKeys[state.modeName];
+  const i = pins.indexOf(key);
+  if (i >= 0) {
+    pins.splice(i, 1);                         // un-pin
+  } else {
+    if (pins.length >= MAX_PINS) pins.shift(); // FIFO when at cap
+    pins.push(key);
+  }
+  refreshPinnedHighlights();
+  renderComparePanel();
+}
+
+function clearPins() {
+  state.pinnedKeys[state.modeName] = [];
+  refreshPinnedHighlights();
+  renderComparePanel();
+}
+
+function refreshPinnedHighlights() {
+  const pins = new Set(state.pinnedKeys[state.modeName]);
+  d3.select("#map").select(".regions").selectAll("path")
+    .classed("pinned", function() {
+      return pins.has(this.getAttribute("data-key"));
+    });
+}
+
+function renderComparePanel() {
+  const section = document.getElementById("compare-section");
+  const grid = document.getElementById("compare-grid");
+  const ctx = document.getElementById("compare-context");
+  const mode = currentMode();
+  const pins = state.pinnedKeys[state.modeName];
+  if (pins.length === 0) {
+    section.hidden = true;
+    grid.innerHTML = "";
+    return;
+  }
+  section.hidden = false;
+  ctx.textContent = `(${state.year}, ${pins.length}/${MAX_PINS} pinned)`;
+
+  // Decide which variables to show: the active one first, then everything in
+  // the mode's contextVars list. Skip vars where neither pinned place has data.
+  const meta = mode.metadata[state.variable];
+  const wantedVars = [{ key: state.variable, label: meta.label, meta }];
+  for (const [v2, label] of mode.contextVars) {
+    if (v2 === state.variable) continue;
+    const m = mode.metadata[v2];
+    if (!m) continue;
+    wantedVars.push({ key: v2, label, meta: m });
+  }
+  const cells = pins.map(k => mode.contextRow(state.variable, k));
+  const usedVars = wantedVars.filter(({ key }) =>
+    cells.some(c => c[key] != null)
+  );
+
+  // Build a small comparison table per pinned place plus a delta column
+  // when there are exactly 2.
+  let html = `
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Variable</th>
+          ${pins.map(k => `<th>${mode.keyToDisplayName(k)}</th>`).join("")}
+          ${pins.length === 2 ? "<th>Difference</th>" : ""}
+        </tr>
+      </thead>
+      <tbody>
+  `;
+  for (const v of usedVars) {
+    const vals = cells.map(c => c[v.key]);
+    const cellsHtml = vals.map(val => `<td>${formatValue(val, v.meta)}</td>`).join("");
+    let diffHtml = "";
+    if (pins.length === 2 && vals[0] != null && vals[1] != null) {
+      const d = vals[1] - vals[0];
+      // Format the delta the same way; prepend sign for clarity.
+      const sign = d > 0 ? "+" : (d < 0 ? "−" : "");
+      const absVal = Math.abs(d);
+      // Use the variable's own formatter for magnitude.
+      const absStr = formatValue(absVal, v.meta);
+      diffHtml = `<td class="diff">${sign}${absStr}</td>`;
+    } else if (pins.length === 2) {
+      diffHtml = `<td class="diff diff-na">—</td>`;
+    }
+    html += `<tr><td class="vname">${v.label}</td>${cellsHtml}${diffHtml}</tr>`;
+  }
+  html += "</tbody></table>";
+  grid.innerHTML = html;
+}
+
 // ---------- mode switching + bootstrap ----------
 
 async function switchToMode(name) {
@@ -587,6 +737,21 @@ async function switchToMode(name) {
     // Geography toggle.
     document.querySelectorAll('input[name="geo-mode"]').forEach(r => {
       r.addEventListener("change", e => switchToMode(e.target.value));
+    });
+
+    // Clear-pins button.
+    document.getElementById("compare-clear").addEventListener("click", clearPins);
+
+    // Tip-line text adapts to mode.
+    function updateTipText() {
+      const tip = document.getElementById("map-tip");
+      if (!tip) return;
+      const word = state.modeName === "state" ? "state" : "county";
+      tip.innerHTML = `Tip: <strong>click</strong> a ${word} to pin it for side-by-side comparison (up to ${MAX_PINS}).`;
+    }
+    updateTipText();
+    document.querySelectorAll('input[name="geo-mode"]').forEach(r => {
+      r.addEventListener("change", updateTipText);
     });
 
     // Generated timestamp.
