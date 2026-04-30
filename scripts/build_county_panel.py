@@ -7,6 +7,10 @@ Produces a balanced county-year panel for 2009-2024 with:
    PEP 2020-2024 vintage for 2020-2024).
 - Small Area Income and Poverty Estimates (SAIPE) from the per-year XLS files
   for median household income and the all-ages poverty rate.
+- USDA ERS county unemployment file (BLS LAUS mirror), 2009-2023; 2024 is null.
+- BEA CAINC1 county per-capita personal income, 2009-2024.
+- ACS 5-year demographic shares (sex, race/Hispanic origin, age groups,
+  bachelor's-or-higher) via the Census API, 2009-2024.
 - State firearm laws joined down from the existing balanced state panel.
 
 FIPS bridge (renames preserved as the post-2014 canonical FIPS):
@@ -36,7 +40,11 @@ Outputs:
 
 from __future__ import annotations
 
+import json
 import re
+import time
+import urllib.request
+import urllib.error
 from collections import OrderedDict
 from pathlib import Path
 
@@ -206,6 +214,178 @@ def load_saipe() -> pd.DataFrame:
     return out
 
 
+# --------------------- LAUS unemployment via USDA ERS mirror -----
+
+def load_ers_unemployment() -> pd.DataFrame:
+    """Annual county unemployment rate, labor force, employment from the USDA
+    ERS county-level data file (BLS LAUS mirror). Covers 2000-2023; 2024 is
+    not yet released and will appear as null when joined."""
+    path = COUNTY / "ers_unemployment_2000_2023.xlsx"
+    raw = pd.read_excel(path, sheet_name=0, header=4)
+    # FIPS_Code is a 5-digit string; coerce to zero-padded.
+    raw["county_fips"] = (
+        raw["FIPS_Code"].astype(str).str.replace(r"\.0$", "", regex=True).str.zfill(5)
+    )
+    # Drop national (00000) and state (XX000) rows.
+    raw = raw[~raw["county_fips"].str.endswith("000")]
+    # Keep only county-level annual unemployment rate columns we want.
+    rows = []
+    for yr in YEARS:
+        col = f"Unemployment_rate_{yr}"
+        if col not in raw.columns:
+            continue  # series ends 2023; skip 2024
+        sub = raw[["county_fips", col]].rename(columns={col: "unemployment_rate"})
+        sub["unemployment_rate"] = pd.to_numeric(sub["unemployment_rate"], errors="coerce")
+        sub["year"] = yr
+        rows.append(sub)
+    return pd.concat(rows, ignore_index=True)[["county_fips", "year", "unemployment_rate"]]
+
+
+# --------------------- BEA per-capita personal income ------------
+
+def load_bea_pcpi() -> pd.DataFrame:
+    """BEA CAINC1 LineCode 3 (per-capita personal income), 2009-2024.
+
+    One CSV per state inside data/county/bea_cainc1/. GeoFIPS field is wrapped
+    in quotes and padded; we strip both. Returns nominal USD; the caller
+    deflates to 2024 dollars via CPI-U.
+    """
+    bea_dir = COUNTY / "bea_cainc1"
+    rows = []
+    for csv in sorted(bea_dir.glob("CAINC1_*_1969_2024.csv")):
+        df = pd.read_csv(csv, encoding="latin1", skipfooter=4, engine="python")
+        df = df[df["LineCode"] == 3].copy()  # per-capita personal income
+        df["county_fips"] = (
+            df["GeoFIPS"].astype(str)
+              .str.strip().str.strip('"').str.strip().str.zfill(5)
+        )
+        # Drop state-level rows (GeoFIPS ends in 000) and US (00000).
+        df = df[~df["county_fips"].str.endswith("000")]
+        for yr in YEARS:
+            ycol = str(yr)
+            if ycol not in df.columns:
+                continue
+            sub = df[["county_fips", ycol]].rename(columns={ycol: "pcpi_nominal"})
+            sub["pcpi_nominal"] = pd.to_numeric(sub["pcpi_nominal"], errors="coerce")
+            sub["year"] = yr
+            rows.append(sub)
+    out = pd.concat(rows, ignore_index=True)
+    return out[["county_fips", "year", "pcpi_nominal"]]
+
+
+# --------------------- ACS 5-year demographics via Census API ---
+
+# Always-present ACS variables (B01001 sex+age, B03002 race/Hispanic).
+ACS_VARS_BASE = [
+    "B01001_001E",                                        # total population
+    "B01001_002E",                                        # male
+    "B01001_006E", "B01001_007E", "B01001_008E",
+    "B01001_009E", "B01001_010E",                         # male 15-24
+    "B01001_011E", "B01001_012E", "B01001_013E", "B01001_014E",  # male 25-44
+    "B01001_030E", "B01001_031E", "B01001_032E",
+    "B01001_033E", "B01001_034E",                         # female 15-24
+    "B01001_035E", "B01001_036E", "B01001_037E", "B01001_038E",  # female 25-44
+    "B03002_001E",                                        # total (Hispanic-by-race denom)
+    "B03002_003E",                                        # not Hispanic, white alone
+    "B03002_004E",                                        # not Hispanic, Black alone
+    "B03002_012E",                                        # Hispanic or Latino
+]
+# Education varies by ACS vintage:
+#   2012+ uses B15003 (single table, age 25+ by attainment).
+#   pre-2012 uses B15002 (split by sex; sum male+female for bachelor's-or-higher).
+ACS_VARS_EDU_NEW = [
+    "B15003_001E",                                            # population 25+
+    "B15003_022E", "B15003_023E", "B15003_024E", "B15003_025E",  # bachelor's+
+]
+ACS_VARS_EDU_OLD = [
+    "B15002_001E",                                            # total 25+ (both sexes)
+    "B15002_015E", "B15002_016E", "B15002_017E", "B15002_018E",  # male bachelor's+
+    "B15002_032E", "B15002_033E", "B15002_034E", "B15002_035E",  # female bachelor's+
+]
+
+
+def _acs_vars_for_year(year: int) -> list[str]:
+    return ACS_VARS_BASE + (ACS_VARS_EDU_NEW if year >= 2012 else ACS_VARS_EDU_OLD)
+
+ACS_CACHE = COUNTY / "acs5_cache"
+
+
+def _fetch_acs_year(year: int) -> pd.DataFrame:
+    ACS_CACHE.mkdir(parents=True, exist_ok=True)
+    cache_path = ACS_CACHE / f"acs5_{year}.json"
+    if not cache_path.exists():
+        vars_for_year = _acs_vars_for_year(year)
+        url = (
+            f"https://api.census.gov/data/{year}/acs/acs5"
+            f"?get=NAME,{','.join(vars_for_year)}"
+            f"&for=county:*"
+        )
+        req = urllib.request.Request(url, headers={
+            "User-Agent": "firearms-regulation-map/1.0 (research data pipeline)",
+        })
+        for attempt in range(3):
+            try:
+                with urllib.request.urlopen(req, timeout=60) as r:
+                    data = json.loads(r.read().decode("utf-8"))
+                break
+            except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as e:
+                if attempt == 2:
+                    raise
+                time.sleep(2 ** attempt)
+        cache_path.write_text(json.dumps(data))
+    else:
+        data = json.loads(cache_path.read_text())
+    header, *body = data
+    df = pd.DataFrame(body, columns=header)
+    return df
+
+
+def load_acs_demographics() -> pd.DataFrame:
+    """Pull 16 years of ACS 5-year tables and compute county shares.
+
+    Coverage note: ACS 5-year value labelled `year=Y` is the rolling release
+    spanning calendar years Y-4 through Y. We treat that as a smoothed
+    estimate for year Y in the panel.
+    """
+    rows = []
+    for yr in YEARS:
+        try:
+            df = _fetch_acs_year(yr)
+        except Exception as e:
+            print(f"  ACS {yr}: fetch failed ({e}); skipping")
+            continue
+        df["county_fips"] = df["state"].astype(str).str.zfill(2) + df["county"].astype(str).str.zfill(3)
+        for c in _acs_vars_for_year(yr):
+            df[c] = pd.to_numeric(df[c], errors="coerce")
+        # Build aggregated counts.
+        tot = df["B01001_001E"]
+        male = df["B01001_002E"]
+        male_15_24 = df[["B01001_006E","B01001_007E","B01001_008E","B01001_009E","B01001_010E"]].sum(axis=1)
+        male_25_44 = df[["B01001_011E","B01001_012E","B01001_013E","B01001_014E"]].sum(axis=1)
+        fem_15_24 = df[["B01001_030E","B01001_031E","B01001_032E","B01001_033E","B01001_034E"]].sum(axis=1)
+        fem_25_44 = df[["B01001_035E","B01001_036E","B01001_037E","B01001_038E"]].sum(axis=1)
+        if yr >= 2012:
+            denom_25 = df["B15003_001E"]
+            bach_plus = df[["B15003_022E","B15003_023E","B15003_024E","B15003_025E"]].sum(axis=1)
+        else:
+            denom_25 = df["B15002_001E"]
+            bach_plus = df[["B15002_015E","B15002_016E","B15002_017E","B15002_018E",
+                            "B15002_032E","B15002_033E","B15002_034E","B15002_035E"]].sum(axis=1)
+        out = pd.DataFrame({
+            "county_fips": df["county_fips"],
+            "year": yr,
+            "share_male":            male / tot,
+            "share_white_nh":        df["B03002_003E"] / df["B03002_001E"],
+            "share_black_nh":        df["B03002_004E"] / df["B03002_001E"],
+            "share_hispanic":        df["B03002_012E"] / df["B03002_001E"],
+            "share_age_15_24":       (male_15_24 + fem_15_24) / tot,
+            "share_age_25_44":       (male_25_44 + fem_25_44) / tot,
+            "share_bachelors_plus":  bach_plus / denom_25,
+        })
+        rows.append(out)
+    return pd.concat(rows, ignore_index=True)
+
+
 # --------------------- State laws -------------------------------
 
 def load_state_laws() -> pd.DataFrame:
@@ -234,52 +414,67 @@ def load_state_laws() -> pd.DataFrame:
 
 # --------------------- FIPS bridge -------------------------------
 
-def apply_fips_bridge(pop: pd.DataFrame, saipe: pd.DataFrame):
-    """Apply documented renames; return bridged copies plus the bridge log."""
-    log_rows = []
-
-    def remap(df: pd.DataFrame, name: str):
-        df = df.copy()
-        for src, dst in FIPS_RENAMES.items():
-            mask = df["county_fips"] == src
-            n = int(mask.sum())
-            if n:
-                df.loc[mask, "county_fips"] = dst
-                log_rows.append(OrderedDict([
-                    ("source_fips", src), ("canonical_fips", dst),
-                    ("rule", "rename"), ("rows_remapped", n), ("dataset", name),
-                ]))
-        # VA Bedford City: aggregate into Bedford County for pre-2013 rows.
-        bedford_mask = df["county_fips"] == BEDFORD_CITY
-        if bedford_mask.any():
-            df.loc[bedford_mask, "county_fips"] = BEDFORD_COUNTY
+def _bridge_one(df: pd.DataFrame, name: str, log_rows: list) -> pd.DataFrame:
+    df = df.copy()
+    for src, dst in FIPS_RENAMES.items():
+        mask = df["county_fips"] == src
+        n = int(mask.sum())
+        if n:
+            df.loc[mask, "county_fips"] = dst
             log_rows.append(OrderedDict([
-                ("source_fips", BEDFORD_CITY), ("canonical_fips", BEDFORD_COUNTY),
-                ("rule", "absorb"), ("rows_remapped", int(bedford_mask.sum())),
-                ("dataset", name),
+                ("source_fips", src), ("canonical_fips", dst),
+                ("rule", "rename"), ("rows_remapped", n), ("dataset", name),
             ]))
-        # Drop CT entirely (will return with bridge in a later pass).
-        ct_mask = df["county_fips"].isin(DROP_FIPS)
-        if ct_mask.any():
-            log_rows.append(OrderedDict([
-                ("source_fips", "CT (all)"), ("canonical_fips", "DROPPED"),
-                ("rule", "drop_ct_2022_reorg"), ("rows_remapped", int(ct_mask.sum())),
-                ("dataset", name),
-            ]))
-            df = df[~ct_mask]
-        return df
+    bedford_mask = df["county_fips"] == BEDFORD_CITY
+    if bedford_mask.any():
+        df.loc[bedford_mask, "county_fips"] = BEDFORD_COUNTY
+        log_rows.append(OrderedDict([
+            ("source_fips", BEDFORD_CITY), ("canonical_fips", BEDFORD_COUNTY),
+            ("rule", "absorb"), ("rows_remapped", int(bedford_mask.sum())),
+            ("dataset", name),
+        ]))
+    ct_mask = df["county_fips"].isin(DROP_FIPS)
+    if ct_mask.any():
+        log_rows.append(OrderedDict([
+            ("source_fips", "CT (all)"), ("canonical_fips", "DROPPED"),
+            ("rule", "drop_ct_2022_reorg"), ("rows_remapped", int(ct_mask.sum())),
+            ("dataset", name),
+        ]))
+        df = df[~ct_mask]
+    return df
 
-    pop2 = remap(pop, "PEP")
-    saipe2 = remap(saipe, "SAIPE")
-    # Aggregate any rows that now share a (county_fips, year) after remap (Bedford).
+
+def apply_fips_bridge(pop: pd.DataFrame, saipe: pd.DataFrame,
+                      ers: pd.DataFrame, bea: pd.DataFrame, acs: pd.DataFrame):
+    """Apply documented renames to every source frame; return bridged copies
+    plus the per-source bridge log."""
+    log_rows: list = []
+    pop2 = _bridge_one(pop, "PEP", log_rows)
+    saipe2 = _bridge_one(saipe, "SAIPE", log_rows)
+    ers2 = _bridge_one(ers, "ERS_LAUS", log_rows)
+    bea2 = _bridge_one(bea, "BEA_CAINC1", log_rows)
+    acs2 = _bridge_one(acs, "ACS5", log_rows)
+    # Aggregate any (county_fips, year) duplicates created by Bedford absorption.
     pop2 = (pop2.groupby(["county_fips", "year"], as_index=False)
                   .agg({"state_fips": "first", "county_name": "first",
                         "state_name": "first", "population": "sum"}))
     saipe2 = saipe2.groupby(["county_fips", "year"], as_index=False).agg({
         "median_hh_income": "mean", "poverty_pct_all_ages": "mean",
     })
+    ers2 = ers2.groupby(["county_fips", "year"], as_index=False).agg({
+        "unemployment_rate": "mean",
+    })
+    bea2 = bea2.groupby(["county_fips", "year"], as_index=False).agg({
+        "pcpi_nominal": "mean",
+    })
+    acs2 = acs2.groupby(["county_fips", "year"], as_index=False).agg({
+        c: "mean" for c in [
+            "share_male", "share_white_nh", "share_black_nh", "share_hispanic",
+            "share_age_15_24", "share_age_25_44", "share_bachelors_plus",
+        ]
+    })
     bridge_log = pd.DataFrame(log_rows)
-    return pop2, saipe2, bridge_log
+    return pop2, saipe2, ers2, bea2, acs2, bridge_log
 
 
 # --------------------- Panel build -------------------------------
@@ -293,8 +488,20 @@ def build_panel():
     saipe = load_saipe()
     print(f"  SAIPE rows: {len(saipe):,} across {saipe['county_fips'].nunique()} counties")
 
+    print("Loading ERS county unemployment (2009-2023; 2024 not yet released) ...")
+    ers = load_ers_unemployment()
+    print(f"  ERS rows: {len(ers):,}")
+
+    print("Loading BEA per-capita personal income ...")
+    bea = load_bea_pcpi()
+    print(f"  BEA rows: {len(bea):,}")
+
+    print("Loading ACS 5y demographics via Census API (cached) ...")
+    acs = load_acs_demographics()
+    print(f"  ACS rows: {len(acs):,}")
+
     print("Applying FIPS bridge (AK, SD, VA Bedford; dropping CT) ...")
-    pop, saipe, bridge_log = apply_fips_bridge(pop, saipe)
+    pop, saipe, ers, bea, acs, bridge_log = apply_fips_bridge(pop, saipe, ers, bea, acs)
     bridge_log.to_csv(PROC / "county_fips_bridge.csv", index=False)
     print(f"  bridge log rows: {len(bridge_log)}")
 
@@ -318,12 +525,19 @@ def build_panel():
     # Attach SAIPE.
     base = base.merge(saipe, on=["county_fips", "year"], how="left")
 
-    # Compute real income (2024 dollars) using CPI-U.
-    base["median_hh_income_real_2024"] = base.apply(
-        lambda r: r["median_hh_income"] * (CPI_2024 / CPI_BY_YEAR[r["year"]])
-                  if pd.notna(r["median_hh_income"]) else np.nan,
-        axis=1,
-    )
+    # Attach ERS unemployment.
+    base = base.merge(ers, on=["county_fips", "year"], how="left")
+
+    # Attach BEA per-capita personal income.
+    base = base.merge(bea, on=["county_fips", "year"], how="left")
+
+    # Attach ACS demographic shares.
+    base = base.merge(acs, on=["county_fips", "year"], how="left")
+
+    # Compute real-USD versions using CPI-U.
+    cpi_factor = base["year"].map(lambda y: CPI_2024 / CPI_BY_YEAR.get(y, np.nan))
+    base["median_hh_income_real_2024"] = base["median_hh_income"] * cpi_factor
+    base["pcpi_real_2024"] = base["pcpi_nominal"] * cpi_factor
 
     # Attach state laws via state_fips + year.
     base = base.merge(laws, on=["state_fips", "year"], how="left")
@@ -377,10 +591,20 @@ def build_panel():
         ("year", "Calendar year."),
         ("county_name", "County name from PEP."),
         ("state_name", "State name from PEP."),
-        ("population", "Annual resident population from Census PEP (intercensal 2009; vintage 2010-2019 PEP for 2010-2019; vintage 2020-2024 PEP for 2020-2024)."),
+        ("population", "Annual resident population from Census PEP."),
         ("median_hh_income", "Median household income (nominal USD) from Census SAIPE."),
         ("poverty_pct_all_ages", "All-ages poverty rate (percent) from Census SAIPE."),
-        ("median_hh_income_real_2024", "Median household income deflated to 2024 USD using CPI-U annual averages."),
+        ("median_hh_income_real_2024", "Median household income deflated to 2024 USD via CPI-U annual averages."),
+        ("unemployment_rate", "Annual average unemployment rate from BLS LAUS via the USDA ERS county-level data file. 2024 not yet released and is null."),
+        ("pcpi_nominal", "Per-capita personal income (nominal USD) from BEA CAINC1 LineCode 3."),
+        ("pcpi_real_2024", "Per-capita personal income deflated to 2024 USD via CPI-U annual averages."),
+        ("share_male", "ACS 5y: share of population that is male."),
+        ("share_white_nh", "ACS 5y: share of population non-Hispanic white alone (B03002)."),
+        ("share_black_nh", "ACS 5y: share of population non-Hispanic Black alone (B03002)."),
+        ("share_hispanic", "ACS 5y: share of population Hispanic or Latino, any race (B03002)."),
+        ("share_age_15_24", "ACS 5y: share of population aged 15-24 (sum of male+female cells in B01001)."),
+        ("share_age_25_44", "ACS 5y: share of population aged 25-44 (sum of male+female cells in B01001)."),
+        ("share_bachelors_plus", "ACS 5y: share of adults 25+ with bachelor's degree or higher (B15003 numerator/denominator)."),
         ("lawtotal", "Tufts state firearm law count, joined down by state."),
         ("law_universal", "1 if state requires universal background checks (joined from state)."),
         ("law_magazine", "1 if state bans large-capacity magazines (joined from state)."),

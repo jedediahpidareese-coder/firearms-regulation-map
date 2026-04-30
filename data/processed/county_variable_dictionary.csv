@@ -4,10 +4,20 @@ state_fips,2-digit state FIPS.
 year,Calendar year.
 county_name,County name from PEP.
 state_name,State name from PEP.
-population,Annual resident population from Census PEP (intercensal 2009; vintage 2010-2019 PEP for 2010-2019; vintage 2020-2024 PEP for 2020-2024).
+population,Annual resident population from Census PEP.
 median_hh_income,Median household income (nominal USD) from Census SAIPE.
 poverty_pct_all_ages,All-ages poverty rate (percent) from Census SAIPE.
-median_hh_income_real_2024,Median household income deflated to 2024 USD using CPI-U annual averages.
+median_hh_income_real_2024,Median household income deflated to 2024 USD via CPI-U annual averages.
+unemployment_rate,Annual average unemployment rate from BLS LAUS via the USDA ERS county-level data file. 2024 not yet released and is null.
+pcpi_nominal,Per-capita personal income (nominal USD) from BEA CAINC1 LineCode 3.
+pcpi_real_2024,Per-capita personal income deflated to 2024 USD via CPI-U annual averages.
+share_male,ACS 5y: share of population that is male.
+share_white_nh,ACS 5y: share of population non-Hispanic white alone (B03002).
+share_black_nh,ACS 5y: share of population non-Hispanic Black alone (B03002).
+share_hispanic,"ACS 5y: share of population Hispanic or Latino, any race (B03002)."
+share_age_15_24,ACS 5y: share of population aged 15-24 (sum of male+female cells in B01001).
+share_age_25_44,ACS 5y: share of population aged 25-44 (sum of male+female cells in B01001).
+share_bachelors_plus,ACS 5y: share of adults 25+ with bachelor's degree or higher (B15003 numerator/denominator).
 lawtotal,"Tufts state firearm law count, joined down by state."
 law_universal,1 if state requires universal background checks (joined from state).
 law_magazine,1 if state bans large-capacity magazines (joined from state).

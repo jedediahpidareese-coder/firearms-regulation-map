@@ -2,7 +2,17 @@ variable,non_null,rows_total,coverage_pct
 population,50128,50128,100.0
 median_hh_income,50112,50128,99.97
 poverty_pct_all_ages,50112,50128,99.97
+unemployment_rate,46975,50128,93.71
+pcpi_nominal,49280,50128,98.31
+share_male,50128,50128,100.0
+share_white_nh,50128,50128,100.0
+share_black_nh,50128,50128,100.0
+share_hispanic,50128,50128,100.0
+share_age_15_24,50128,50128,100.0
+share_age_25_44,50128,50128,100.0
+share_bachelors_plus,50128,50128,100.0
 median_hh_income_real_2024,50112,50128,99.97
+pcpi_real_2024,49280,50128,98.31
 lawtotal,50112,50128,99.97
 law_universal,50112,50128,99.97
 law_magazine,50112,50128,99.97
