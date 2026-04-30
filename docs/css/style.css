@@ -63,6 +63,24 @@ a:hover { text-decoration: underline; }
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
+.geo-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+}
+.geo-toggle label {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--text);
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.geo-toggle input[type="radio"] { accent-color: var(--accent); }
 .control { display: flex; flex-direction: column; min-width: 180px; }
 .control-grow { flex-grow: 1; }
 .control-year { flex-grow: 2; min-width: 280px; }
@@ -136,17 +154,27 @@ a:hover { text-decoration: underline; }
   height: auto;
   aspect-ratio: 960 / 600;
 }
-#map .state {
-  stroke: #ffffff;
-  stroke-width: 0.6;
+#map .state, #map .county {
   cursor: crosshair;
   transition: opacity 120ms;
 }
-#map .state.no-data {
-  fill: var(--no-data);
-  stroke: var(--no-data-stroke);
+#map .state {
+  stroke: #ffffff;
+  stroke-width: 0.6;
 }
-#map .state:hover { stroke: #1f2024; stroke-width: 1.5; }
+#map .county {
+  stroke: rgba(255,255,255,0.6);
+  stroke-width: 0.18;
+}
+#map .state.no-data, #map .county.no-data {
+  fill: var(--no-data);
+}
+#map .state.no-data { stroke: var(--no-data-stroke); }
+#map .state:hover, #map .county:hover {
+  stroke: #1f2024;
+  stroke-width: 1.4;
+}
+#map .state-border { pointer-events: none; }
 #map .state-label {
   font-size: 9px;
   fill: rgba(0,0,0,0.5);

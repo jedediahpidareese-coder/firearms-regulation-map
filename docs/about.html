@@ -112,9 +112,15 @@
   </section>
 
   <section>
-    <h2>All variables</h2>
+    <h2>All variables &mdash; State view (1979&ndash;2024)</h2>
     <p>Variables are grouped by category. Click a source link to open the original data provider in a new tab.</p>
-    <div id="variables-by-category">Loading variables...</div>
+    <div id="variables-by-category">Loading state variables...</div>
+  </section>
+
+  <section>
+    <h2>All variables &mdash; County view (2009&ndash;2024)</h2>
+    <p>The county view exposes a different (smaller) set of variables: county crime from Jacob Kaplan's UCR aggregations, county demographics from ACS 5-year, county economy (SAIPE income/poverty + ERS unemployment + BEA per-capita income), and state firearm laws plus state firearm mortality joined down to every county in a state-year.</p>
+    <div id="county-variables-by-category">Loading county variables...</div>
   </section>
 
   <section>
@@ -128,8 +134,11 @@
       <li><a href="https://www.census.gov/programs-surveys/popest.html" target="_blank" rel="noopener">U.S. Census Bureau Population Estimates Program</a> &middot; ASRH, intercensal all-data, PEP files.</li>
       <li><a href="https://www.census.gov/programs-surveys/saipe/" target="_blank" rel="noopener">Census SAIPE</a> &middot; small-area income and poverty estimates.</li>
       <li><a href="https://www.census.gov/programs-surveys/acs/data/data-via-api.html" target="_blank" rel="noopener">U.S. Census Bureau ACS 1-year detailed tables (2008&ndash;2024)</a>.</li>
-      <li><a href="https://fred.stlouisfed.org/" target="_blank" rel="noopener">FRED (Federal Reserve Bank of St. Louis)</a> &middot; BLS LAUS unemployment, BEA per-capita personal income.</li>
+      <li><a href="https://fred.stlouisfed.org/" target="_blank" rel="noopener">FRED (Federal Reserve Bank of St. Louis)</a> &middot; BLS LAUS unemployment, BEA per-capita personal income (state).</li>
       <li><a href="https://www.census.gov/library/publications/2010/compendia/statab/130ed.html" target="_blank" rel="noopener">Census Statistical Abstract Table 229</a> &middot; pre-ACS educational attainment anchors.</li>
+      <li><a href="https://www.openicpsr.org/openicpsr/project/100707" target="_blank" rel="noopener">Jacob Kaplan's Concatenated Files: Offenses Known and Clearances by Arrest, 1960&ndash;2024</a> &middot; openICPSR project 100707, V22. Source for county-level UCR crime counts.</li>
+      <li><a href="https://www.ers.usda.gov/data-products/county-level-data-sets/" target="_blank" rel="noopener">USDA Economic Research Service county-level data sets</a> &middot; mirrors BLS LAUS county unemployment.</li>
+      <li><a href="https://www.bea.gov/data/economic-accounts/regional" target="_blank" rel="noopener">BEA CAINC1 county personal income tables</a> &middot; per-capita personal income at the county grain.</li>
     </ul>
   </section>
 
@@ -137,13 +146,14 @@
     <h2>How to reproduce</h2>
     <ol>
       <li>Clone this repository.</li>
-      <li>Install Python with <code>pandas</code>, <code>numpy</code>, and <code>openpyxl</code> in your environment.</li>
-      <li>Re-run the panel build:
-        <code>python scripts/build_firearms_panel.py</code> (rebuilds <code>data/processed/*.csv</code> from raw inputs).</li>
-      <li>Re-run the website data build:
-        <code>python scripts/build_website_data.py</code> (rebuilds <code>docs/data/*.json</code>).</li>
-      <li>Preview locally with any static file server: e.g. <code>python -m http.server 8000 -d docs</code> then open <code>http://localhost:8000</code>.</li>
+      <li>Install Python with <code>pandas</code>, <code>numpy</code>, and <code>openpyxl</code>.</li>
+      <li>State panels: <code>python scripts/build_firearms_panel.py</code> (rebuilds the original <code>data/processed/*.csv</code> from raw inputs), then <code>python scripts/audit_panels.py</code> and <code>python scripts/augment_panels.py</code>.</li>
+      <li>County panel (Phase 1+2a): <code>python scripts/build_county_panel.py</code>. Auto-fetches ACS 5-year via the Census API (cached) and reads PEP/SAIPE/ERS/BEA flat files from <code>data/county/</code>.</li>
+      <li>County crime (Phase 3): manually download <a href="https://www.openicpsr.org/openicpsr/project/100707" target="_blank" rel="noopener">Jacob Kaplan's openICPSR project 100707 V22</a> and unzip into <code>data/county/kaplan_offenses/</code>, then run <code>python scripts/build_county_crime.py</code>. Re-run <code>build_county_panel.py</code> to merge the crime layer in.</li>
+      <li>Website data files: <code>python scripts/build_website_data.py</code> (state) and <code>python scripts/build_website_county_data.py</code> (county per-year files).</li>
+      <li>Preview: <code>python -m http.server 8000 -d docs</code> then open <code>http://localhost:8000</code>.</li>
     </ol>
+    <p>The full prose log of every data source and manipulation lives in <a href="https://github.com/jedediahpidareese-coder/firearms-regulation-map/blob/main/data_appendix.md" target="_blank" rel="noopener"><code>data_appendix.md</code></a> at the repository root.</p>
   </section>
 
   <p class="generated">Generated at <span id="generated-at">&mdash;</span></p>
@@ -152,37 +162,49 @@
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
 (async function() {
-  const [meta, manifest] = await Promise.all([
+  const [stateMeta, stateMan, countyMeta, countyMan] = await Promise.all([
     d3.json("data/metadata.json"),
     d3.json("data/manifest.json"),
+    d3.json("data/county_meta.json").catch(() => null),
+    d3.json("data/county_manifest.json").catch(() => null),
   ]);
   document.getElementById("generated-at").textContent =
-    manifest.generated_at.replace("T", " ").replace("Z", " UTC");
+    stateMan.generated_at.replace("T", " ").replace("Z", " UTC");
 
-  const cats = {};
-  for (const [key, m] of Object.entries(meta)) {
-    (cats[m.category] = cats[m.category] || []).push({ key, ...m });
-  }
-  const root = document.getElementById("variables-by-category");
-  root.innerHTML = "";
-  Object.keys(cats).sort().forEach(cat => {
-    const h3 = document.createElement("h3");
-    h3.textContent = cat;
-    root.appendChild(h3);
-    cats[cat].sort((a,b) => a.label.localeCompare(b.label)).forEach(v => {
-      const block = document.createElement("div");
-      block.className = "var-block";
-      const obs = v.observed_year_range || v.year_range;
-      block.innerHTML = `
-        <div class="var-label">${v.label} <code style="font-weight:normal;font-size:12px;color:#777;">${v.key}</code></div>
-        <div class="var-meta"><strong>Unit:</strong> ${v.unit} &middot; <strong>Coverage:</strong> ${obs[0]}&ndash;${obs[1]} &middot;
-          <strong>Source:</strong> <a href="${v.source_url}" target="_blank" rel="noopener">${v.source}</a></div>
-        <div class="var-def">${v.definition}</div>
-        ${v.caveat ? `<div class="var-caveat"><strong>Caveat:</strong> ${v.caveat}</div>` : ""}
-      `;
-      root.appendChild(block);
+  function renderVars(meta, rootId) {
+    const cats = {};
+    for (const [key, m] of Object.entries(meta)) {
+      (cats[m.category] = cats[m.category] || []).push({ key, ...m });
+    }
+    const root = document.getElementById(rootId);
+    root.innerHTML = "";
+    Object.keys(cats).sort().forEach(cat => {
+      const h3 = document.createElement("h3");
+      h3.textContent = cat;
+      root.appendChild(h3);
+      cats[cat].sort((a,b) => a.label.localeCompare(b.label)).forEach(v => {
+        const block = document.createElement("div");
+        block.className = "var-block";
+        const obs = v.observed_year_range || v.year_range || [];
+        const cov = obs.length ? `${obs[0]}&ndash;${obs[1]}` : "(see source)";
+        block.innerHTML = `
+          <div class="var-label">${v.label} <code style="font-weight:normal;font-size:12px;color:#777;">${v.key}</code></div>
+          <div class="var-meta"><strong>Unit:</strong> ${v.unit} &middot; <strong>Coverage:</strong> ${cov} &middot;
+            <strong>Source:</strong> <a href="${v.source_url}" target="_blank" rel="noopener">${v.source}</a></div>
+          <div class="var-def">${v.definition}</div>
+          ${v.caveat ? `<div class="var-caveat"><strong>Caveat:</strong> ${v.caveat}</div>` : ""}
+        `;
+        root.appendChild(block);
+      });
     });
-  });
+  }
+  renderVars(stateMeta, "variables-by-category");
+  if (countyMeta) {
+    renderVars(countyMeta, "county-variables-by-category");
+  } else {
+    document.getElementById("county-variables-by-category").textContent =
+      "County metadata not available yet (run scripts/build_website_county_data.py).";
+  }
 })();
 </script>
 </body>

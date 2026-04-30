@@ -1,0 +1,327 @@
+{
+  "population": {
+    "label": "Population",
+    "category": "Demographics",
+    "unit": "People",
+    "format": "integer",
+    "definition": "County resident population from Census PEP.",
+    "source": "Census Population Estimates Program",
+    "source_url": "https://www.census.gov/programs-surveys/popest.html",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50128
+  },
+  "county_violent_crime_rate": {
+    "label": "Violent crime rate",
+    "category": "Crime",
+    "unit": "Per 100,000 people",
+    "format": "rate",
+    "definition": "Index violent crimes per 100,000 (Kaplan UCR aggregated to county-year).",
+    "source": "Jacob Kaplan UCR Offenses Known V22",
+    "source_url": "https://www.openicpsr.org/openicpsr/project/100707",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50032
+  },
+  "county_property_crime_rate": {
+    "label": "Property crime rate",
+    "category": "Crime",
+    "unit": "Per 100,000 people",
+    "format": "rate",
+    "definition": "Index property crimes per 100,000.",
+    "source": "Jacob Kaplan UCR Offenses Known V22",
+    "source_url": "https://www.openicpsr.org/openicpsr/project/100707",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50032
+  },
+  "county_murder_rate": {
+    "label": "Murder rate",
+    "category": "Crime",
+    "unit": "Per 100,000 people",
+    "format": "rate",
+    "definition": "Murder per 100,000.",
+    "source": "Jacob Kaplan UCR Offenses Known V22",
+    "source_url": "https://www.openicpsr.org/openicpsr/project/100707",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50032
+  },
+  "county_robbery_rate": {
+    "label": "Robbery rate",
+    "category": "Crime",
+    "unit": "Per 100,000 people",
+    "format": "rate",
+    "definition": "Robbery per 100,000.",
+    "source": "Jacob Kaplan UCR Offenses Known V22",
+    "source_url": "https://www.openicpsr.org/openicpsr/project/100707",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50032
+  },
+  "county_aggravated_assault_rate": {
+    "label": "Aggravated assault rate",
+    "category": "Crime",
+    "unit": "Per 100,000 people",
+    "format": "rate",
+    "definition": "Aggravated assault per 100,000.",
+    "source": "Jacob Kaplan UCR Offenses Known V22",
+    "source_url": "https://www.openicpsr.org/openicpsr/project/100707",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50032
+  },
+  "county_burglary_rate": {
+    "label": "Burglary rate",
+    "category": "Crime",
+    "unit": "Per 100,000 people",
+    "format": "rate",
+    "definition": "Burglary per 100,000.",
+    "source": "Jacob Kaplan UCR Offenses Known V22",
+    "source_url": "https://www.openicpsr.org/openicpsr/project/100707",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50032
+  },
+  "county_larceny_rate": {
+    "label": "Larceny rate",
+    "category": "Crime",
+    "unit": "Per 100,000 people",
+    "format": "rate",
+    "definition": "Larceny per 100,000.",
+    "source": "Jacob Kaplan UCR Offenses Known V22",
+    "source_url": "https://www.openicpsr.org/openicpsr/project/100707",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50032
+  },
+  "state_firearm_suicide_rate": {
+    "label": "State firearm suicide rate (joined down)",
+    "category": "Suicide & firearm deaths",
+    "unit": "Per 100,000 people",
+    "format": "rate",
+    "definition": "STATE-LEVEL firearm suicide rate, applied to every county in the state. No within-state variation.",
+    "source": "Firearm suicide / homicide v2 dataset (joined down by state)",
+    "source_url": "https://pubmed.ncbi.nlm.nih.gov/37743886/",
+    "caveat": "State value applied to every county. Not true county detail.",
+    "observed_year_range": [
+      2009,
+      2023
+    ],
+    "observed_obs": 46995
+  },
+  "state_firearm_homicide_rate": {
+    "label": "State firearm homicide rate (joined down)",
+    "category": "Suicide & firearm deaths",
+    "unit": "Per 100,000 people",
+    "format": "rate",
+    "definition": "STATE-LEVEL firearm homicide rate, applied to every county in the state.",
+    "source": "Firearm suicide / homicide v2 dataset (joined down by state)",
+    "source_url": "https://pubmed.ncbi.nlm.nih.gov/37743886/",
+    "caveat": "State value applied to every county. Not true county detail.",
+    "observed_year_range": [
+      2009,
+      2023
+    ],
+    "observed_obs": 46971
+  },
+  "state_ownership_fss": {
+    "label": "State FS/S ownership proxy (joined down)",
+    "category": "Gun ownership",
+    "unit": "Firearm-suicide ratio",
+    "format": "percent",
+    "definition": "STATE-LEVEL firearm-suicide-share proxy. Same value for every county in the state. Mechanically tied to suicide outcomes.",
+    "source": "Firearm suicide / homicide v2 dataset",
+    "source_url": "https://pubmed.ncbi.nlm.nih.gov/37743886/",
+    "caveat": "State value applied to every county; tied to suicide outcomes.",
+    "observed_year_range": [
+      2009,
+      2023
+    ],
+    "observed_obs": 46995
+  },
+  "share_white_nh": {
+    "label": "Share non-Hispanic white",
+    "category": "Demographics",
+    "unit": "Share of population",
+    "format": "percent",
+    "definition": "Share of population non-Hispanic white alone (ACS 5y B03002).",
+    "source": "ACS 5-year",
+    "source_url": "https://www.census.gov/programs-surveys/acs/",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50128
+  },
+  "share_black_nh": {
+    "label": "Share non-Hispanic Black",
+    "category": "Demographics",
+    "unit": "Share of population",
+    "format": "percent",
+    "definition": "Share of population non-Hispanic Black alone (ACS 5y B03002).",
+    "source": "ACS 5-year",
+    "source_url": "https://www.census.gov/programs-surveys/acs/",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50128
+  },
+  "share_hispanic": {
+    "label": "Share Hispanic",
+    "category": "Demographics",
+    "unit": "Share of population",
+    "format": "percent",
+    "definition": "Share of population Hispanic or Latino, any race.",
+    "source": "ACS 5-year",
+    "source_url": "https://www.census.gov/programs-surveys/acs/",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50128
+  },
+  "share_male": {
+    "label": "Share male",
+    "category": "Demographics",
+    "unit": "Share of population",
+    "format": "percent",
+    "definition": "Share of population male.",
+    "source": "ACS 5-year",
+    "source_url": "https://www.census.gov/programs-surveys/acs/",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50128
+  },
+  "share_age_15_24": {
+    "label": "Share age 15-24",
+    "category": "Demographics",
+    "unit": "Share of population",
+    "format": "percent",
+    "definition": "Share of population aged 15-24.",
+    "source": "ACS 5-year",
+    "source_url": "https://www.census.gov/programs-surveys/acs/",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50128
+  },
+  "share_age_25_44": {
+    "label": "Share age 25-44",
+    "category": "Demographics",
+    "unit": "Share of population",
+    "format": "percent",
+    "definition": "Share of population aged 25-44.",
+    "source": "ACS 5-year",
+    "source_url": "https://www.census.gov/programs-surveys/acs/",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50128
+  },
+  "share_bachelors_plus": {
+    "label": "Share with bachelor's degree or higher (25+)",
+    "category": "Demographics",
+    "unit": "Share of adults 25+",
+    "format": "percent",
+    "definition": "Share of adults age 25+ with bachelor's degree or higher (ACS 5y; B15003 from 2012 onward, B15002 for 2009-2011).",
+    "source": "ACS 5-year",
+    "source_url": "https://www.census.gov/programs-surveys/acs/",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50128
+  },
+  "median_hh_income_real_2024": {
+    "label": "Median household income (2024 USD)",
+    "category": "Economy",
+    "unit": "U.S. dollars (2024)",
+    "format": "currency",
+    "definition": "Census SAIPE median household income, deflated to 2024 dollars via CPI-U.",
+    "source": "Census SAIPE",
+    "source_url": "https://www.census.gov/programs-surveys/saipe/",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50112
+  },
+  "poverty_pct_all_ages": {
+    "label": "Poverty rate",
+    "category": "Economy",
+    "unit": "Percent",
+    "format": "percent_pre",
+    "definition": "Census SAIPE all-ages poverty rate.",
+    "source": "Census SAIPE",
+    "source_url": "https://www.census.gov/programs-surveys/saipe/",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50112
+  },
+  "unemployment_rate": {
+    "label": "Unemployment rate",
+    "category": "Economy",
+    "unit": "Percent",
+    "format": "percent_pre",
+    "definition": "BLS LAUS annual average unemployment rate (via USDA ERS mirror; 2024 not yet released).",
+    "source": "BLS LAUS via USDA ERS",
+    "source_url": "https://www.ers.usda.gov/data-products/county-level-data-sets/",
+    "observed_year_range": [
+      2009,
+      2023
+    ],
+    "observed_obs": 46975
+  },
+  "pcpi_real_2024": {
+    "label": "Per-capita personal income (2024 USD)",
+    "category": "Economy",
+    "unit": "U.S. dollars (2024)",
+    "format": "currency",
+    "definition": "BEA per-capita personal income, deflated to 2024 dollars via CPI-U.",
+    "source": "BEA CAINC1",
+    "source_url": "https://www.bea.gov/data/economic-accounts/regional",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 49280
+  },
+  "lawtotal": {
+    "label": "State firearm law count (joined down)",
+    "category": "Regulation",
+    "unit": "Laws (count)",
+    "format": "integer",
+    "definition": "Tufts state firearm law count, applied to every county in the state.",
+    "source": "Tufts State Firearm Laws",
+    "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50112
+  }
+}

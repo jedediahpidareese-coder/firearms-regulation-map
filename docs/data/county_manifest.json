@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-04-30T17:02:00Z",
+  "year_range": [
+    2009,
+    2024
+  ],
+  "years": [
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "variables": [
+    "population",
+    "county_violent_crime_rate",
+    "county_property_crime_rate",
+    "county_murder_rate",
+    "county_robbery_rate",
+    "county_aggravated_assault_rate",
+    "county_burglary_rate",
+    "county_larceny_rate",
+    "state_firearm_suicide_rate",
+    "state_firearm_homicide_rate",
+    "state_ownership_fss",
+    "share_white_nh",
+    "share_black_nh",
+    "share_hispanic",
+    "share_male",
+    "share_age_15_24",
+    "share_age_25_44",
+    "share_bachelors_plus",
+    "median_hh_income_real_2024",
+    "poverty_pct_all_ages",
+    "unemployment_rate",
+    "pcpi_real_2024",
+    "lawtotal"
+  ],
+  "categories": {
+    "Demographics": [
+      "population",
+      "share_age_15_24",
+      "share_age_25_44",
+      "share_bachelors_plus",
+      "share_black_nh",
+      "share_hispanic",
+      "share_male",
+      "share_white_nh"
+    ],
+    "Crime": [
+      "county_aggravated_assault_rate",
+      "county_burglary_rate",
+      "county_larceny_rate",
+      "county_murder_rate",
+      "county_property_crime_rate",
+      "county_robbery_rate",
+      "county_violent_crime_rate"
+    ],
+    "Suicide & firearm deaths": [
+      "state_firearm_homicide_rate",
+      "state_firearm_suicide_rate"
+    ],
+    "Gun ownership": [
+      "state_ownership_fss"
+    ],
+    "Economy": [
+      "median_hh_income_real_2024",
+      "pcpi_real_2024",
+      "poverty_pct_all_ages",
+      "unemployment_rate"
+    ],
+    "Regulation": [
+      "lawtotal"
+    ]
+  },
+  "default_variable": "county_violent_crime_rate",
+  "default_year": 2024,
+  "topo_url": "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json"
+}

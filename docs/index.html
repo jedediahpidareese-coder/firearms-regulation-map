@@ -12,7 +12,7 @@
   <div class="wrap">
     <div class="brand">
       <h1>U.S. firearm regulation, ownership &amp; outcomes</h1>
-      <p class="tagline">Balanced state-year panel, 1979&ndash;2024. <a href="about.html">Definitions, sources, and methodology &rarr;</a></p>
+      <p class="tagline">Balanced state and county panels. <a href="about.html">Definitions, sources, and methodology &rarr;</a></p>
     </div>
   </div>
 </header>
@@ -20,6 +20,13 @@
 <main class="wrap">
 
   <section class="controls" aria-label="Map controls">
+    <div class="control" role="radiogroup" aria-label="Geography">
+      <label>Geography</label>
+      <div class="geo-toggle">
+        <label><input type="radio" name="geo-mode" value="state" checked> State (1979&ndash;2024)</label>
+        <label><input type="radio" name="geo-mode" value="county"> County (2009&ndash;2024)</label>
+      </div>
+    </div>
     <div class="control">
       <label for="category-select">Category</label>
       <select id="category-select" aria-controls="variable-select"></select>
@@ -55,7 +62,7 @@
       <p class="info-source"><strong>Source:</strong> <span id="info-source"></span></p>
       <p class="info-caveat" id="info-caveat" hidden></p>
       <hr>
-      <h3>Selected state</h3>
+      <h3 id="hover-heading">Selected state</h3>
       <p id="hover-state" class="hover-state">Hover any state on the map.</p>
       <table class="hover-table" id="hover-table"></table>
     </aside>
@@ -63,10 +70,12 @@
 
   <section class="footer-info">
     <p>
-      All data are aggregated to state-year. The underlying variables are defined and sourced on the
-      <a href="about.html">about page</a>. The site is built from a balanced panel of 50 states &times; 46 years
-      maintained alongside this repository; the data file driving this page is
-      <code>docs/data/panel.json</code> with <code>docs/data/metadata.json</code>.
+      Data are aggregated to state-year (1979&ndash;2024) or county-year (2009&ndash;2024). The
+      underlying variables are defined and sourced on the
+      <a href="about.html">about page</a>. The state map is built from a balanced panel of 50 states
+      &times; 46 years (<code>docs/data/panel.json</code>); the county map loads one
+      year of <code>docs/data/county/{year}.json</code> at a time on demand
+      (3,133 counties &times; 16 years total).
     </p>
     <p class="generated">
       Page data generated at <span id="generated-at">&mdash;</span> &middot;
