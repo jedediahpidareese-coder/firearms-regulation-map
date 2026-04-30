@@ -13,20 +13,61 @@ Callaway & Sant'Anna (2021) ATT(g, t) estimator says when applied to the
 same treatment, and we use a placebo outcome to show why the basic
 specification is not yet causal.
 
-## Headline numbers (two specifications)
+## Headline numbers (four specifications)
 
 Average post-treatment ATT (per 100,000 population), state-cluster
-multiplier-bootstrap standard errors. **OR** = basic outcome regression
-with no covariates; **RA** = Sant'Anna & Zhao (2020) regression-adjusted
-estimator with three baseline covariates (`ln_population`,
-`unemployment_rate`, `ln_pcpi_real_2024`) measured at year *g − 1*.
+multiplier-bootstrap standard errors. We crossed two design choices:
 
-| Outcome | OR ATT | OR z | OR pre-trend z | RA ATT | RA z | RA pre-trend z |
-|---|---|---|---|---|---|---|
-| Firearm suicide rate           | +0.86 | +13.7 | −3.6 | **+0.64** | **+16.4** | **−0.86** |
-| Firearm homicide rate          | +0.29 |  +2.5 | −1.4 | **−0.003** |  −0.05 | +7.6 |
-| Total homicide rate            | −0.15 |  −2.0 | −0.4 | −0.47 |  −7.9 | +6.2 |
-| Motor vehicle theft (placebo)  | −39.4 |  −9.2 | +4.9 | −54.2 | −17.6 | +9.0 |
+- **Spec:** OR (basic outcome regression, no covariates) vs RA
+  (Sant'Anna-Zhao 2020 regression-adjusted with three baseline covariates:
+  `ln_population`, `unemployment_rate`, `ln_pcpi_real_2024`).
+- **Control rule:** *broad* uses every never-treated state (n=21);
+  *strict* applies the original audit's rule that a control state must
+  be shall-issue (`mayissue == 0`) AND permit-required
+  (`permitconcealed == 1`) for every year in the cohort's
+  ±5-year event window. Strict shrinks the control pool to 6–12 states
+  depending on the cohort's window (the may-issue Northeast / Pacific
+  states drop out).
+
+ATT values are per 100,000 residents per year. Bold = pre-trend test
+does not reject (the spec is "clean" in that sense).
+
+| Spec | Control | Firearm suicide | Firearm homicide | Total homicide | MV theft (placebo) |
+|---|---|---|---|---|---|
+| OR | broad | +0.86 (pre z = −3.6) | +0.29 (pre z = −1.4) | −0.15 (pre z = −0.4) | −39 (pre z = +4.9) |
+| OR | **strict** | **+0.59 (pre z = −1.4)** | **−0.01 (pre z = +0.9)** | −0.49 (pre z = +1.4) | −64 (pre z = +6.4) |
+| RA | **broad** | **+0.64 (pre z = −0.86)** | −0.003 (pre z = +7.6) | −0.47 (pre z = +6.2) | −54 (pre z = +9.0) |
+| RA | strict | +0.30 (pre z = +2.9) | −0.45 (pre z = +5.9) | −0.96 (pre z = +2.7) | −113 (pre z = +8.4) |
+
+### What the four-spec grid tells us
+
+- **Firearm suicide rate is robust.** Positive and statistically
+  significant in all four specifications, with point estimates ranging
+  from +0.30 to +0.86 per 100,000. The two specs with clean pre-trends
+  (broad/RA and strict/OR) put the effect at roughly **+0.6 firearm
+  suicides per 100,000 residents per year** in the average treated state.
+  Against a baseline U.S. firearm-suicide rate of about 7 per 100k, that
+  is roughly an 8–9% relative increase. This is the most defensible
+  finding the build produces.
+- **The other three outcomes do not have a clean spec.** Firearm
+  homicide and total homicide flip sign across specs and the placebo
+  fails badly everywhere. The persistent placebo failure tells us
+  treated and control states are on different secular paths for property
+  crime — and probably for at least some of the violence outcomes — and
+  the macro covariates we tried (population scale, unemployment, real
+  income) are not enough to absorb that gap.
+- **The strict control rule helps for headline outcomes but hurts the
+  pre-trends for some specs.** Restricting controls to shall-issue +
+  permit-required states yields a smaller, more conservative
+  firearm-suicide ATT (+0.30 to +0.59) and tightens the firearm-homicide
+  estimate to essentially zero in the strict/OR row. But strict + RA
+  combined over-corrects — the firearm-suicide pre-trend rejects again
+  (z = +2.9), suggesting the smaller strict pool, paired with regression
+  adjustment, picks up sample-specific noise.
+- **The placebo is the dominant constraint.** No combination of these
+  four specs eliminates the property-crime trend gap. That tells us the
+  causal-identification problem here is fundamentally one of
+  uncomparable comparison units, not estimator choice.
 
 ### What you should take away
 
@@ -170,13 +211,12 @@ outcome but not for the others.
 
 | File | What it is |
 |---|---|
-| `att_gt.csv` | One row per (outcome, spec, g, t). 1,728 rows. |
-| `event_study.csv` | One row per (outcome, spec, event_time). |
-| `overall_att.csv` | One row per (outcome, spec) with overall post-treatment ATT and pre-trend test. |
-| `cohort_n.csv` | Cohort-size table from the build run. |
+| `att_gt.csv` | One row per (outcome, spec, control_rule, g, t). 3,456 rows. |
+| `event_study.csv` | One row per (outcome, spec, control_rule, event_time). |
+| `overall_att.csv` | One row per (outcome, spec, control_rule) with overall post-treatment ATT and pre-trend test. |
+| `cohort_n.csv` | Cohort-size table. |
 | `dropped_log.csv` | States dropped from analysis with reasons. |
-| `figures/event_study_or_4panel.svg` | 4-panel event-study figure, OR spec. |
-| `figures/event_study_ra_4panel.svg` | 4-panel event-study figure, RA spec. |
+| `figures/event_study_{control_rule}_{spec}_4panel.svg` | 4-panel event-study figures, one per spec × control_rule combination (4 figures). |
 
 ## Reproducing
 
@@ -190,35 +230,41 @@ hand-built SVG that has the same content (no pip install required).
 
 ## Recommended next steps
 
-1. **Add fully doubly-robust (DR) estimation with IPW.** RA on its own
-   has clearly fixed the firearm-suicide pre-trend but not the other
-   outcomes' pre-trends. Adding propensity-score weighting on top of
-   the regression adjustment (the full Sant'Anna-Zhao DR estimator)
-   should help further when the propensity model fits well.
-2. **Apply the audit's stricter control rule.** Restrict the comparison
-   pool to states that are shall-issue (`mayissue == 0`) and
-   permit-required (`permitconcealed == 1`) throughout the relevant
-   event window. This costs us some control units but makes the placebo
-   condition more meaningful and may resolve the residual placebo issue.
-3. **More placebo outcomes.** Burglary, larceny, and prison admissions
-   are good additions because they should not respond to carry
-   permitting in any direct mechanism. If they all show similar
-   placebo failures we know the residual issue is with the comparison
-   group, not the policy.
-4. **Cross-check with alternative estimators.** Sun-Abraham, Borusyak-
-   Jaravel-Spiess, de Chaisemartin-D'Haultfœuille. CS21 with
-   never-treated control is one of several reasonable choices; agreement
-   across estimators strengthens any causal claim.
-5. **Synthetic-control sanity check** for the largest individual
-   treated states (e.g., Texas 2021, Florida 2023). With single-state
-   cohorts this gives a transparent counterfactual that doesn't average
-   across heterogeneous adopters.
+1. **Synthetic-control for the largest single-state cohorts.** Texas
+   2021 and Florida 2023 are the two biggest single-state-cohort
+   adoptions. Building a transparent synthetic counterfactual from a
+   weighted donor pool would let us see, state by state, what the
+   firearm-suicide-rate trajectory looks like with vs. without the
+   policy — without averaging over the heterogeneous cohort mix the
+   CS21 design has.
+2. **Outcome-specific placebo design for property crime.** The
+   persistent motor-vehicle-theft placebo failure tells us we have a
+   confounder that loads on property-crime trends. Adding an
+   outcome-specific covariate set (e.g., per-capita drug-overdose
+   deaths, share urban, share male 15-24) might absorb the gap
+   specifically for crime outcomes.
+3. **Cross-check the firearm-suicide finding with alternative
+   estimators.** Sun-Abraham, Borusyak-Jaravel-Spiess, and the original
+   stacked-DiD audit's spec all use different aggregation and weighting
+   schemes. Agreement across them on the +0.6/100k firearm-suicide
+   ATT would substantially strengthen the claim.
+4. **Full doubly-robust (DR) estimation.** Sant'Anna-Zhao DR combines
+   regression adjustment with inverse-propensity weighting. With our
+   small cohort sizes the IPW model is fragile; this should be done
+   carefully (probably with a low-dimensional propensity model on the
+   same three covariates).
+5. **Restricted-use NCHS data for county-level firearm suicide.** If
+   ever we get restricted-use mortality access (Section 2.10 of the
+   data appendix), we could replicate this CS21 design at the
+   county-year grain and watch whether the firearm-suicide effect
+   concentrates in certain county types (rural / high-ownership /
+   etc.).
 
-The original audit's caution about *publishing* on this question stands.
-With the RA spec adding a credible firearm-suicide-specific result and a
-clean pre-trend, the design is closer to defensible — but the placebo
-failure for property crime says we're not there yet on the broader
-panel of outcomes.
+**Bottom line:** the firearm-suicide-rate finding is robust enough
+across the four specs to be worth pursuing further with synthetic
+control and alternative estimators. The other three outcomes do not
+have a clean spec in this build, and the placebo failure is the
+honest reason why.
 
 ## References
 

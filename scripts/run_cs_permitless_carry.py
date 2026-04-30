@@ -68,6 +68,12 @@ RANDOM_SEED = 7
 # captures most scale variation; unemployment_rate and per-capita real income
 # capture macroeconomic conditions.
 RA_COVARIATES = ["ln_population", "unemployment_rate", "ln_pcpi_real_2024"]
+
+# Audit's stricter control-eligibility rule: a control state must be
+# shall-issue (mayissue == 0) AND require a permit to carry concealed
+# (permitconcealed == 1) for every year in the cohort's relevant event
+# window. We use [g-5, g+5] for any cohort g.
+STRICT_WINDOW = (-5, 5)
 OUTCOMES = OrderedDict([
     ("firearm_suicide_rate",      "Firearm suicide rate (per 100k)"),
     ("firearm_homicide_rate",     "Firearm homicide rate (per 100k)"),
@@ -120,6 +126,25 @@ def load_cohorts():
     nt = t[(t["adoption_year"].isna()) & (t["starts_permit_required"] == 1)]
     never_treated = set(nt["state_abbr"].tolist())
     return cohorts, never_treated, notes
+
+
+def strict_control_pool(panel: pd.DataFrame,
+                        candidates: list[str], g: int) -> list[str]:
+    """Filter candidate control states down to those that are shall-issue
+    (mayissue == 0) AND permit-required (permitconcealed == 1) for every year
+    in the cohort's [g-5, g+5] event window. Adopted from the audit's rule.
+    """
+    lo = g + STRICT_WINDOW[0]
+    hi = g + STRICT_WINDOW[1]
+    out = []
+    for s in candidates:
+        sub = panel[(panel["state_abbr"] == s)
+                    & (panel["year"] >= lo) & (panel["year"] <= hi)]
+        if sub.empty:
+            continue
+        if (sub["mayissue"] == 0).all() and (sub["permitconcealed"] == 1).all():
+            out.append(s)
+    return out
 
 
 def long_diff(panel: pd.DataFrame, outcome: str,
@@ -286,18 +311,24 @@ def att_gt_se(treated_long, control_long, n_b, rng):
 def run_one_outcome(panel: pd.DataFrame, outcome: str,
                     cohorts: dict[int, list[str]],
                     never_treated: set[str],
-                    spec: str) -> pd.DataFrame:
+                    spec: str,
+                    control_rule: str = "broad") -> pd.DataFrame:
     """Compute ATT(g, t) for all valid (g, t) pairs for one outcome.
 
     spec: "or" for basic outcome regression (no covariates) or "ra" for
           regression-adjusted (Sant'Anna-Zhao 2020 RA estimator) using the
           baseline covariates listed in RA_COVARIATES.
+    control_rule: "broad" uses every never-treated state; "strict" applies
+          the audit's shall-issue + permit-required rule cohort-by-cohort.
     """
     rng = np.random.default_rng(RANDOM_SEED)
     rows = []
     for g in sorted(cohorts):
         treated_states = cohorts[g]
-        control_states = sorted(never_treated)
+        if control_rule == "strict":
+            control_states = strict_control_pool(panel, sorted(never_treated), g)
+        else:
+            control_states = sorted(never_treated)
         if not control_states:
             continue
         for t in range(ANALYSIS_YEARS[0], ANALYSIS_YEARS[1] + 1):
@@ -324,6 +355,7 @@ def run_one_outcome(panel: pd.DataFrame, outcome: str,
             rows.append(OrderedDict([
                 ("outcome", outcome),
                 ("spec", spec),
+                ("control_rule", control_rule),
                 ("g_cohort", g),
                 ("t_year", t),
                 ("event_time", t - g),
@@ -338,7 +370,7 @@ def run_one_outcome(panel: pd.DataFrame, outcome: str,
 def event_study_aggregations(att_df: pd.DataFrame) -> pd.DataFrame:
     """Average ATT(g, g+e) over cohorts for each event time e, per (outcome, spec)."""
     rows = []
-    for (outcome, spec), group in att_df.groupby(["outcome", "spec"]):
+    for (outcome, spec, control_rule), group in att_df.groupby(["outcome", "spec", "control_rule"]):
         for e in range(EVENT_WINDOW[0], EVENT_WINDOW[1] + 1):
             sub = group[group["event_time"] == e]
             if sub.empty:
@@ -350,6 +382,7 @@ def event_study_aggregations(att_df: pd.DataFrame) -> pd.DataFrame:
             rows.append(OrderedDict([
                 ("outcome", outcome),
                 ("spec", spec),
+                ("control_rule", control_rule),
                 ("event_time", e),
                 ("att", att_e),
                 ("se", se_e),
@@ -362,7 +395,7 @@ def event_study_aggregations(att_df: pd.DataFrame) -> pd.DataFrame:
 def overall_att(att_df: pd.DataFrame) -> pd.DataFrame:
     """Average post-treatment ATT(g, t) (t >= g) per (outcome, spec)."""
     rows = []
-    for (outcome, spec), group in att_df.groupby(["outcome", "spec"]):
+    for (outcome, spec, control_rule), group in att_df.groupby(["outcome", "spec", "control_rule"]):
         post = group[group["event_time"] >= 0]
         if post.empty:
             continue
@@ -381,6 +414,7 @@ def overall_att(att_df: pd.DataFrame) -> pd.DataFrame:
         rows.append(OrderedDict([
             ("outcome", outcome),
             ("spec", spec),
+            ("control_rule", control_rule),
             ("att_overall_post", att_bar),
             ("se_overall_post", se_bar),
             ("z", att_bar / se_bar if se_bar > 0 else float("nan")),
@@ -554,13 +588,22 @@ def main():
     pd.DataFrame(cohort_rows).to_csv(OUT / "cohort_n.csv", index=False)
     pd.DataFrame(dropped).to_csv(OUT / "dropped_log.csv", index=False)
 
-    print("\nRunning ATT(g, t) for each outcome (basic OR + RA covariate-adjusted) ...")
+    print("\nRunning ATT(g, t) for each (outcome, spec, control_rule) combination ...")
+    # Quick visibility on how the strict rule shrinks the control pool.
+    strict_examples = {}
+    for g in sorted(cohorts):
+        strict_examples[g] = strict_control_pool(panel, sorted(never_treated), g)
+    print("  strict-rule control pool size by cohort:")
+    for g, ctrl in strict_examples.items():
+        print(f"    {g}: {len(ctrl)} states ({', '.join(ctrl)})")
     pieces = []
-    for spec in ("or", "ra"):
-        for outcome, label in OUTCOMES.items():
-            print(f"  spec={spec}  {outcome}")
-            sub = run_one_outcome(panel, outcome, cohorts, never_treated, spec=spec)
-            pieces.append(sub)
+    for control_rule in ("broad", "strict"):
+        for spec in ("or", "ra"):
+            for outcome, label in OUTCOMES.items():
+                print(f"  control_rule={control_rule}  spec={spec}  {outcome}")
+                sub = run_one_outcome(panel, outcome, cohorts, never_treated,
+                                      spec=spec, control_rule=control_rule)
+                pieces.append(sub)
     att_df = pd.concat(pieces, ignore_index=True)
     att_df.to_csv(OUT / "att_gt.csv", index=False)
     print(f"  Wrote {len(att_df):,} (outcome, g, t) rows to outputs/permitless_carry_cs/att_gt.csv")
@@ -572,18 +615,24 @@ def main():
     overall_df.to_csv(OUT / "overall_att.csv", index=False)
 
     print("\nOverall post-treatment ATT (per 100,000):")
-    for spec in ("or", "ra"):
-        print(f"\n  --- spec = {spec} ---")
-        for _, r in overall_df[overall_df["spec"] == spec].iterrows():
-            sig = "**" if abs(r["z"]) >= 1.96 else "  "
-            print(f"  {sig} {r['outcome']:<26}  ATT = {r['att_overall_post']:>+8.3f}  "
-                  f"(SE {r['se_overall_post']:.3f}, z {r['z']:>+5.2f})  "
-                  f"pre-trends z = {r['z_pretrends']:>+5.2f}")
+    for control_rule in ("broad", "strict"):
+        for spec in ("or", "ra"):
+            print(f"\n  --- control_rule = {control_rule},  spec = {spec} ---")
+            sub = overall_df[(overall_df["spec"] == spec)
+                             & (overall_df["control_rule"] == control_rule)]
+            for _, r in sub.iterrows():
+                sig = "**" if abs(r["z"]) >= 1.96 else "  "
+                print(f"  {sig} {r['outcome']:<26}  ATT = {r['att_overall_post']:>+8.3f}  "
+                      f"(SE {r['se_overall_post']:.3f}, z {r['z']:>+5.2f})  "
+                      f"pre-trends z = {r['z_pretrends']:>+5.2f}")
 
-    print("\nPlotting event-study (one figure per spec) ...")
-    for spec in ("or", "ra"):
-        plot_event_study(es_df, FIG / f"event_study_{spec}_4panel.png", spec)
-        print(f"  Wrote {(FIG / f'event_study_{spec}_4panel.svg').relative_to(ROOT)}")
+    print("\nPlotting event-study (one figure per spec x control_rule) ...")
+    for control_rule in ("broad", "strict"):
+        for spec in ("or", "ra"):
+            es_filtered = es_df[es_df["control_rule"] == control_rule]
+            plot_event_study(es_filtered,
+                             FIG / f"event_study_{control_rule}_{spec}_4panel.png", spec)
+            print(f"  Wrote {(FIG / f'event_study_{control_rule}_{spec}_4panel.svg').relative_to(ROOT)}")
     print("\nDone.")
 
 
