@@ -1,0 +1,101 @@
+panel,variable,status,recommendation
+panel_core,firearm_suicides,missing,Firearm suicides (count) - integrate from firearm_suicide_homicide_dataset_v2.tab (1979-2023)
+panel_demographic,firearm_suicides,missing,Firearm suicides (count) - integrate from firearm_suicide_homicide_dataset_v2.tab (1979-2023)
+panel_market,firearm_suicides,missing,Firearm suicides (count) - integrate from firearm_suicide_homicide_dataset_v2.tab (1979-2023)
+panel_modern,firearm_suicides,missing,Firearm suicides (count) - integrate from firearm_suicide_homicide_dataset_v2.tab (1979-2023)
+panel_core,total_suicides,missing,"Total suicides (count) - same source, 1979-2023"
+panel_demographic,total_suicides,missing,"Total suicides (count) - same source, 1979-2023"
+panel_market,total_suicides,missing,"Total suicides (count) - same source, 1979-2023"
+panel_modern,total_suicides,missing,"Total suicides (count) - same source, 1979-2023"
+panel_core,firearm_suicide_rate,missing,Firearm suicides per 100k - derive from counts and population
+panel_demographic,firearm_suicide_rate,missing,Firearm suicides per 100k - derive from counts and population
+panel_market,firearm_suicide_rate,missing,Firearm suicides per 100k - derive from counts and population
+panel_modern,firearm_suicide_rate,missing,Firearm suicides per 100k - derive from counts and population
+panel_core,total_suicide_rate,missing,Total suicides per 100k - derive from counts and population
+panel_demographic,total_suicide_rate,missing,Total suicides per 100k - derive from counts and population
+panel_market,total_suicide_rate,missing,Total suicides per 100k - derive from counts and population
+panel_modern,total_suicide_rate,missing,Total suicides per 100k - derive from counts and population
+panel_core,firearm_homicides,missing,Firearm homicides (count) - same source
+panel_demographic,firearm_homicides,missing,Firearm homicides (count) - same source
+panel_market,firearm_homicides,missing,Firearm homicides (count) - same source
+panel_modern,firearm_homicides,missing,Firearm homicides (count) - same source
+panel_core,nonfirearm_homicides,missing,Nonfirearm homicides (count) - same source
+panel_demographic,nonfirearm_homicides,missing,Nonfirearm homicides (count) - same source
+panel_market,nonfirearm_homicides,missing,Nonfirearm homicides (count) - same source
+panel_modern,nonfirearm_homicides,missing,Nonfirearm homicides (count) - same source
+panel_core,firearm_homicide_rate,missing,Firearm homicide per 100k - derive
+panel_demographic,firearm_homicide_rate,missing,Firearm homicide per 100k - derive
+panel_market,firearm_homicide_rate,missing,Firearm homicide per 100k - derive
+panel_modern,firearm_homicide_rate,missing,Firearm homicide per 100k - derive
+panel_core,nonfirearm_homicide_rate,missing,Nonfirearm homicide per 100k - derive
+panel_demographic,nonfirearm_homicide_rate,missing,Nonfirearm homicide per 100k - derive
+panel_market,nonfirearm_homicide_rate,missing,Nonfirearm homicide per 100k - derive
+panel_modern,nonfirearm_homicide_rate,missing,Nonfirearm homicide per 100k - derive
+panel_core,ownership_fss,missing,FS/S ownership proxy - same source (use only as descriptive)
+panel_demographic,ownership_fss,missing,FS/S ownership proxy - same source (use only as descriptive)
+panel_market,ownership_fss,missing,FS/S ownership proxy - same source (use only as descriptive)
+panel_modern,ownership_fss,missing,FS/S ownership proxy - same source (use only as descriptive)
+panel_core,ownership_rand,missing,RAND household firearm ownership rate (1980-2016) - integrate from TL-354
+panel_demographic,ownership_rand,missing,RAND household firearm ownership rate (1980-2016) - integrate from TL-354
+panel_market,ownership_rand,missing,RAND household firearm ownership rate (1980-2016) - integrate from TL-354
+panel_modern,ownership_rand,missing,RAND household firearm ownership rate (1980-2016) - integrate from TL-354
+panel_core,ownership_rand_se,missing,RAND HFR standard error - same source
+panel_demographic,ownership_rand_se,missing,RAND HFR standard error - same source
+panel_market,ownership_rand_se,missing,RAND HFR standard error - same source
+panel_modern,ownership_rand_se,missing,RAND HFR standard error - same source
+panel_core,homicide,missing,Homicide count - integrate from OpenCrime granular file (1979-2024)
+panel_demographic,homicide,missing,Homicide count - integrate from OpenCrime granular file (1979-2024)
+panel_market,homicide,missing,Homicide count - integrate from OpenCrime granular file (1979-2024)
+panel_modern,homicide,missing,Homicide count - integrate from OpenCrime granular file (1979-2024)
+panel_core,homicide_rate,missing,Homicide rate per 100k - derive
+panel_demographic,homicide_rate,missing,Homicide rate per 100k - derive
+panel_market,homicide_rate,missing,Homicide rate per 100k - derive
+panel_modern,homicide_rate,missing,Homicide rate per 100k - derive
+panel_core,robbery,missing,Robbery count - OpenCrime
+panel_demographic,robbery,missing,Robbery count - OpenCrime
+panel_market,robbery,missing,Robbery count - OpenCrime
+panel_modern,robbery,missing,Robbery count - OpenCrime
+panel_core,robbery_rate,missing,Robbery rate per 100k - derive
+panel_demographic,robbery_rate,missing,Robbery rate per 100k - derive
+panel_market,robbery_rate,missing,Robbery rate per 100k - derive
+panel_modern,robbery_rate,missing,Robbery rate per 100k - derive
+panel_core,rape,missing,Rape count - OpenCrime (note: 2013 definition change)
+panel_demographic,rape,missing,Rape count - OpenCrime (note: 2013 definition change)
+panel_market,rape,missing,Rape count - OpenCrime (note: 2013 definition change)
+panel_modern,rape,missing,Rape count - OpenCrime (note: 2013 definition change)
+panel_core,rape_rate,missing,Rape rate per 100k - derive
+panel_demographic,rape_rate,missing,Rape rate per 100k - derive
+panel_market,rape_rate,missing,Rape rate per 100k - derive
+panel_modern,rape_rate,missing,Rape rate per 100k - derive
+panel_core,aggravated_assault,missing,Agg assault count - OpenCrime
+panel_demographic,aggravated_assault,missing,Agg assault count - OpenCrime
+panel_market,aggravated_assault,missing,Agg assault count - OpenCrime
+panel_modern,aggravated_assault,missing,Agg assault count - OpenCrime
+panel_core,aggravated_assault_rate,missing,Agg assault rate per 100k - derive
+panel_demographic,aggravated_assault_rate,missing,Agg assault rate per 100k - derive
+panel_market,aggravated_assault_rate,missing,Agg assault rate per 100k - derive
+panel_modern,aggravated_assault_rate,missing,Agg assault rate per 100k - derive
+panel_core,burglary,missing,Burglary count - OpenCrime
+panel_demographic,burglary,missing,Burglary count - OpenCrime
+panel_market,burglary,missing,Burglary count - OpenCrime
+panel_modern,burglary,missing,Burglary count - OpenCrime
+panel_core,burglary_rate,missing,Burglary rate per 100k - derive
+panel_demographic,burglary_rate,missing,Burglary rate per 100k - derive
+panel_market,burglary_rate,missing,Burglary rate per 100k - derive
+panel_modern,burglary_rate,missing,Burglary rate per 100k - derive
+panel_core,larceny,missing,Larceny count - OpenCrime
+panel_demographic,larceny,missing,Larceny count - OpenCrime
+panel_market,larceny,missing,Larceny count - OpenCrime
+panel_modern,larceny,missing,Larceny count - OpenCrime
+panel_core,larceny_rate,missing,Larceny rate per 100k - derive
+panel_demographic,larceny_rate,missing,Larceny rate per 100k - derive
+panel_market,larceny_rate,missing,Larceny rate per 100k - derive
+panel_modern,larceny_rate,missing,Larceny rate per 100k - derive
+panel_core,motor_vehicle_theft,missing,MV theft count - OpenCrime
+panel_demographic,motor_vehicle_theft,missing,MV theft count - OpenCrime
+panel_market,motor_vehicle_theft,missing,MV theft count - OpenCrime
+panel_modern,motor_vehicle_theft,missing,MV theft count - OpenCrime
+panel_core,motor_vehicle_theft_rate,missing,MV theft rate per 100k - derive
+panel_demographic,motor_vehicle_theft_rate,missing,MV theft rate per 100k - derive
+panel_market,motor_vehicle_theft_rate,missing,MV theft rate per 100k - derive
+panel_modern,motor_vehicle_theft_rate,missing,MV theft rate per 100k - derive

@@ -1,6 +1,103 @@
 # U.S. Firearms Regulation, Crime, and Controls: Data Inventory
 
 Prepared on 2026-04-22 for research design, econometrics, and visualization work.
+Last updated 2026-04-29 with the augmentation pass and website launch.
+
+## Current state of the integrated dataset (2026-04-29 update)
+
+This section is an addendum to the original inventory below. It records what
+has actually been built and merged so far, and where any remaining gaps sit.
+
+### What is now in `data/processed/`
+
+Four balanced panels of 50 states &times; year are kept in two flavors:
+
+| Panel | Years | Rows | Vars (original) | Vars (augmented) |
+|---|---|---|---|---|
+| `panel_core_*.csv` | 1979&ndash;2024 | 2,300 | 86 | 110 |
+| `panel_demographic_*.csv` | 1990&ndash;2024 | 1,750 | 96 | 120 |
+| `panel_market_*.csv` | 1999&ndash;2024 | 1,300 | 94 | 118 |
+| `panel_modern_*.csv` | 2008&ndash;2024 | 850 | 105 | 129 |
+
+Both flavors are balanced (zero missing `(state, year)` cells). The augmented
+versions add:
+
+- **Granular FBI/OpenCrime components** (counts and per-100k rates, full panel coverage):
+  homicide, robbery, rape, aggravated assault, burglary, larceny, motor vehicle theft.
+  The same NC&rarr;ND&nbsp;2022 reassignment documented in
+  `data/processed/crime_repairs_log.csv` is applied identically here.
+- **Firearm suicide / homicide variables** (firearm_suicides, total_suicides,
+  firearm_homicides, nonfirearm_homicides, all per-100k rates, plus the
+  `homicide_rate_kalesan` cross-check) from
+  `data/firearm_suicide_homicide_dataset_v2.tab`. Coverage is 1979&ndash;2023, so
+  **2024 cells are intentionally null** for these variables (source has not
+  released 2024 yet).
+- **Gun ownership measures** (use with care):
+  - `ownership_fss` &mdash; firearm-suicide-share proxy from the v2 file (1979&ndash;2023).
+    Mechanically correlated with suicide outcomes; do not use as a regressor when
+    suicide is the outcome.
+  - `ownership_rand` and `ownership_rand_se` &mdash; RAND TL-354 household firearm
+    ownership rate (HFR) and standard error, **1980&ndash;2016**. Years outside that
+    window are null. Most defensible cross-state ownership measure for modern work.
+
+Coverage is documented per variable in
+`data/processed/panel_augmented_coverage.csv`.
+
+### What this looks like in the audit files
+
+- `data/processed/panel_audit_summary.csv` &mdash; one row per original panel.
+- `data/processed/panel_audit_variables.csv` &mdash; per-variable observed range.
+- `data/processed/panel_audit_gaps.csv` &mdash; the gaps that have now been filled
+  by the augmented panels.
+- `data/processed/panel_augmented_balance.csv` &mdash; balance check on augmented.
+- `data/processed/panel_audit_report.md` &mdash; human-readable summary of the audit.
+
+### Pipeline scripts
+
+- `scripts/build_firearms_panel.py` &mdash; original balanced-panel build from raw inputs.
+- `scripts/audit_panels.py` &mdash; rebuild the audit files above.
+- `scripts/augment_panels.py` &mdash; produce `data/processed/{panel}_augmented.csv`.
+- `scripts/build_website_data.py` &mdash; produce `docs/data/{panel,metadata,manifest}.json` for the public site.
+
+### Public website
+
+The `docs/` directory is a GitHub-Pages-ready static site exposing 40 of these
+variables on a 50-state choropleth with a year slider, definitions/methodology
+page, and per-variable source links. It is built from the same data files via
+`scripts/build_website_data.py`.
+
+### Remaining gaps versus the &ldquo;ideal econometric stack&rdquo;
+
+Still on the wishlist (not blocking; flagged for future passes):
+
+1. **CDC WONDER firearm mortality (1999+)** &mdash; would supplement / cross-check
+   the FS/S v2 file at the county-month level and extend through 2024 once CDC
+   releases full-year files. Pull is gated on accepting CDC&rsquo;s terms-of-use
+   click-through, which is best done by hand.
+2. **ATF Firearms Commerce / FFL counts per state per year** &mdash; market-side
+   control proxy beyond NICS.
+3. **BJS LEMAS officers per capita** &mdash; police capacity control. The series
+   is periodic (not annual), so it would enter as state fixed-effect-friendly
+   irregular waves rather than a balanced annual.
+4. **County-year build** &mdash; only the state-year build is in this repo.
+   `firearms_us_data_inventory.md` enumerates the planned NACJD/ICPSR + FBI/CDE
+   stack for that.
+5. **Permitless / constitutional carry as a distinct policy state** &mdash; Tufts
+   indicators carry this implicitly via `permitconcealed` flipping to 0 plus
+   `mayissue == 0`, but a clean explicit `permitless_carry` indicator would be
+   nicer for staggered-adoption designs.
+6. **Pre-2008 ACS-style detailed demographics** &mdash; the 1990&ndash;2007 race / sex /
+   age shares are reconstructed from Census ASRH/intercensal/PEP files;
+   `share_bachelors_plus` pre-2008 is interpolated between Statistical Abstract
+   Table&nbsp;229 anchors. Acceptable for headline use, but disclose the
+   interpolation when publishing.
+7. **2025&ndash;2026 partial data** &mdash; only NICS and select FRED series have
+   coverage past 2024 today. `data/processed/current_partial_2025_2026.csv`
+   records what exists.
+
+---
+
+
 
 ## Bottom line
 

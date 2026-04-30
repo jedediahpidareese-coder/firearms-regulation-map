@@ -1,0 +1,5 @@
+panel,year_range,rows,rows_expected,states,years,variables,balanced
+panel_core_augmented,1979-2024,2300,2300,50,46,110,True
+panel_demographic_augmented,1990-2024,1750,1750,50,35,120,True
+panel_market_augmented,1999-2024,1300,1300,50,26,118,True
+panel_modern_augmented,2008-2024,850,850,50,17,129,True

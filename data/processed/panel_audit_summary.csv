@@ -1,0 +1,5 @@
+panel,file,expected_year_range,rows_actual,rows_expected,states_actual,years_actual,years_expected,variables_total,duplicate_state_year_rows,is_balanced
+panel_core,panel_core_1979_2024.csv,1979-2024,2300,2300,50,46,46,86,0,True
+panel_demographic,panel_demographic_1990_2024.csv,1990-2024,1750,1750,50,35,35,96,0,True
+panel_market,panel_market_1999_2024.csv,1999-2024,1300,1300,50,26,26,94,0,True
+panel_modern,panel_modern_2008_2024.csv,2008-2024,850,850,50,17,17,105,0,True
