@@ -658,56 +658,124 @@ Kaplan are:
 ## Section 3 — The public website
 
 The map at <https://jedediahpidareese-coder.github.io/firearms-regulation-map/>
-is built from the same balanced state panels described above. The build
-script is [`scripts/build_website_data.py`](scripts/build_website_data.py),
-which produces three JSON files inside [`docs/data/`](docs/data/):
+serves both the state and county panels described above. The user picks
+one of two **modes** with the radio toggle in the header:
 
-- `panel.json` — every state, every year, every variable that appears on
-  the map. ~2 MB.
-- `metadata.json` — for every variable: its display label, units, the
-  format the website should use to display it (percent, currency, integer,
-  etc.), source link, definition, observed year range, and any caveat.
-- `manifest.json` — a small index used to populate the dropdowns and
-  set defaults.
+- **State mode (1979–2024):** loads the state-year panel once and renders 50
+  states. Topology: us-atlas `states-10m.json` from jsdelivr CDN.
+- **County mode (2009–2024):** loads the county manifest + metadata once,
+  then lazy-loads one year at a time as the visitor drags the year slider.
+  Renders 3,133 counties via us-atlas `counties-10m.json` (842 KB),
+  with state borders overlaid in dark gray for visual orientation.
+
+### Build scripts
+
+- [`scripts/build_website_data.py`](scripts/build_website_data.py) — emits the
+  state files: `docs/data/panel.json` (~2 MB), `docs/data/metadata.json`,
+  `docs/data/manifest.json`.
+- [`scripts/build_website_county_data.py`](scripts/build_website_county_data.py)
+  — emits the county files: 16 per-year files at
+  `docs/data/county/{year}.json` (~2 MB each, 32 MB total) plus
+  `docs/data/county_meta.json` and `docs/data/county_manifest.json`.
+
+### Why per-year files for counties
+
+A single combined county JSON would be 25–30 MB, painful for the first page
+load. Per-year files are smaller and cache well in the browser; the visitor
+only pays for the years they actually scrub through.
+
+### Frontend architecture
 
 The page itself ([`docs/index.html`](docs/index.html), [`docs/js/app.js`](docs/js/app.js))
-loads these JSON files at view time and renders the choropleth with D3 and
-TopoJSON. There is no server-side processing — it is a fully static site.
-A definitions page ([`docs/about.html`](docs/about.html)) is auto-generated
-from `metadata.json` so the website's variable list and this appendix can
-never drift apart.
+is plain D3 + TopoJSON, no build step. A `mode` object encapsulates each
+geography's specifics: how to map a TopoJSON feature to a key, how to look up
+values, what the cross-year color-scale domain is, what context variables to
+show in the hover sidebar. The render and legend code is identical for both.
+The definitions/methodology page ([`docs/about.html`](docs/about.html))
+auto-generates separate variable lists for the state view (40 variables) and
+the county view (23 variables) by reading `metadata.json` and
+`county_meta.json`, so the website and this appendix cannot drift apart.
 
-The U.S. state outlines come from the standard
-[us-atlas](https://github.com/topojson/us-atlas) topology
-(`states-10m.json`), loaded from the jsdelivr CDN.
+### What the county view exposes
+
+- **Crime (Kaplan UCR aggregated to county-year):** violent crime rate,
+  property crime rate, murder rate, robbery rate, rape rate, aggravated
+  assault rate, burglary rate, larceny rate.
+- **Demographics (ACS 5-year):** share non-Hispanic white / Black /
+  Hispanic, share male, share age 15–24 and 25–44, share with bachelor's
+  degree or higher (25+).
+- **Economy:** SAIPE median household income (real 2024 USD), SAIPE all-ages
+  poverty rate, BLS LAUS unemployment rate (via USDA ERS, 2009–2023; 2024
+  null until release), BEA per-capita personal income (real 2024 USD).
+- **State firearm mortality joined down (Phase 2a):** state firearm suicide
+  rate, state firearm homicide rate, state FS/S ownership proxy. Same value
+  for every county in a given state-year. Documented as such in the legend
+  caption and the variable's definition.
+- **Regulation:** state firearm law count joined down to county.
+- **Population:** county resident population (Census PEP).
 
 ---
 
 ## How to rebuild everything
 
 ```sh
-# 1. Rebuild the original state panels from raw inputs (slow).
+# ===== State panels =====
+
+# 1. Rebuild the four original balanced state-year panels from raw inputs (slow).
 python scripts/build_firearms_panel.py
 
 # 2. Audit them (writes data/processed/panel_audit_*.csv and panel_audit_report.md).
 python scripts/audit_panels.py
 
-# 3. Add the suicide / RAND ownership / granular crime layers.
+# 3. Add the suicide / RAND ownership / granular crime layers
+#    -> data/processed/{panel}_augmented.csv.
 python scripts/augment_panels.py
 
-# 4. Build the website data files.
+# 4. Build the state-mode website data files
+#    -> docs/data/{panel,metadata,manifest}.json.
 python scripts/build_website_data.py
 
-# 5. Build the county panel.
+# ===== County panel =====
+
+# 5. Phase 1+2a: build the county-year panel from PEP, SAIPE, ACS 5y, BLS LAUS
+#    (via USDA ERS), BEA, plus state laws and state firearm mortality joined
+#    down. ACS results are cached under data/county/acs5_cache/.
 python scripts/build_county_panel.py
 
-# 6. (Coming) Phase 2: county firearm mortality at 3-year windows.
-# python scripts/build_county_mortality.py
+# 6. Phase 3: county-level UCR crime from Kaplan's openICPSR project 100707.
+#    Manually download project 100707 V22 from openicpsr.org (free account)
+#    and unzip into data/county/kaplan_offenses/. Then:
+python scripts/build_county_crime.py
+python scripts/build_county_panel.py    # re-run to merge crime into the panel
 
-# Preview the website locally.
+# 7. Phase 4: build the county-mode website data files
+#    -> docs/data/county/{year}.json (16 files), docs/data/county_meta.json,
+#       docs/data/county_manifest.json.
+python scripts/build_website_county_data.py
+
+# ===== Preview =====
 python -m http.server 8765 -d docs
 # then open http://localhost:8765/
 ```
+
+### Phase 2b — what's still deferred
+
+County-detailed firearm mortality (the original Phase 2b plan) is documented
+in Section 2.10. Two paths exist when we want to pick it back up:
+
+- Download CDC's NCHS Multiple Cause of Death public-use files from
+  <https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Datasets/DVS/mortality/>
+  for 2009–2023 (~1.8 GB total). These files give county detail only for
+  counties ≥250,000 population (about 245 counties). Smaller counties show
+  only state of residence. Aggregating to 3-year windows does not help with
+  this particular suppression form.
+- Use the CDC WONDER API (<https://wonder.cdc.gov/controller/datarequest/D77>)
+  with a careful XML query payload. This applies CDC's standard
+  "<10 deaths" cell-suppression rule per query, so 3-year aggregation
+  unsuppresses many small counties. Setting up the XML correctly is the
+  main engineering cost.
+
+When this lands, the columns to add are listed in Section 2.10.
 
 ---
 
@@ -725,6 +793,7 @@ python -m http.server 8765 -d docs
 | 2026-04-29 | Phase 2b | _Deferred._ Plan documented in Section 2.10. NCHS public-use file approach (~1.8 GB download, ~245 large counties only) or CDC WONDER API (XML construction work). Will be picked up after Phase 3. |
 | 2026-04-30 | Phase 3 attempt 1 | Tried the FBI Crime Data API at api.usa.gov/crime/fbi/sapi/. The api.data.gov gateway accepts our key, but every documented FBI endpoint returns 404 from the FBI side. Documentation host (`crime-data-explorer.fr.cloud.gov`) does not resolve. The API has been decommissioned. |
 | 2026-04-30 | Phase 3 final | Switched to Jacob Kaplan's openICPSR project 100707 V22 ("Offenses Known and Clearances by Arrest, 1960-2024"). User registered for a free openICPSR account and downloaded the 2 GB compressed bundle. We extracted the combined yearly CSV (908 MB), aggregated agency-level offenses to county-year, applied the same FIPS bridge as the rest of the county panel, and merged in. 21 new `county_*` crime columns at 99.81% coverage. |
+| 2026-04-30 | Phase 4 | Added county-mode to the public website. New scripts/build_website_county_data.py emits 16 per-year JSON files (~2 MB each) plus county_meta and county_manifest. Frontend (docs/js/app.js) refactored around a `mode` abstraction so state and county share one render pipeline. Year and selected variable carry across mode switches when compatible. About page now lists 40 state vars + 23 county vars in separate sections. |
 
 This file is updated at the end of every meaningful change. The most
 recent commits in <https://github.com/jedediahpidareese-coder/firearms-regulation-map/commits/main>
