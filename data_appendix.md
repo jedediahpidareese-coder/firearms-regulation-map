@@ -541,7 +541,105 @@ to a follow-up pass.
 Both paths are well-understood; either can be implemented when the
 user wants county-detailed mortality.
 
-### 2.11 Summary of county-panel manipulations
+### 2.11 County-level crime from Jacob Kaplan's UCR Offenses Known (Phase 3)
+
+**What this is.** For each county, the count and per-100,000 rate of
+each major reported crime category (murder, manslaughter, rape, robbery,
+aggravated assault, burglary, larceny, motor vehicle theft, arson),
+plus the FBI "index violent" and "index property" totals — for each
+year 2009 through 2024.
+
+**Why this is hard.** The FBI's old public Crime Data API (the one at
+`api.usa.gov/crime/fbi/sapi/`) was decommissioned. Their developer
+documentation host doesn't even resolve anymore. The remaining clean
+publicly-available source is Jacob Kaplan's "Offenses Known and
+Clearances by Arrest" project on openICPSR, which Kaplan maintains by
+carefully reading the FBI's raw fixed-width annual files, applying the
+agency-to-county crosswalk, and re-publishing in a sane CSV/Stata/RDA
+format. Version 22 (the version we used) covers 1960 through 2024 in a
+single 908 MB CSV.
+
+**Source.** [Kaplan, Jacob (2025). Jacob Kaplan's Concatenated Files:
+Uniform Crime Reporting Program Data: Offenses Known and Clearances by
+Arrest, 1960-2024. openICPSR project 100707, Version 22.](https://www.openicpsr.org/openicpsr/project/100707)
+
+The raw download is ~2 GB compressed and ~5 GB unpacked, so it is
+**not committed to this repository**. It lives at
+`data/county/kaplan_offenses/` (gitignored). To reproduce: register a
+free openICPSR account, download project 100707 V22 as CSV, unzip into
+that directory, then run `python scripts/build_county_crime.py`. The
+processed output (`data/processed/county_crime_2009_2024.csv`,
+~9 MB) is committed.
+
+**What we did.**
+
+1. Read the combined `offenses_known_yearly_1960_2024.csv` file in
+   chunks, kept only year ≥ 2009 and year ≤ 2024, and only the columns
+   we use (FIPS state code, FIPS county code, year, the `actual_*`
+   offense counts).
+2. Dropped agency rows with no county FIPS — these are federal law
+   enforcement (FBI, DEA, ATF, US Marshals), Amtrak police, college
+   campus police, transit authorities, and similar non-geocoded
+   agencies. ~3,088 such rows in 2024, fewer in earlier years (logged
+   in `data/processed/county_crime_dropped_agencies.csv`).
+3. Applied the same FIPS bridge the rest of the county panel uses
+   (Kaplan publishes pre-rename FIPS for AK Wade Hampton, SD Shannon,
+   and VA Bedford City throughout the file, even for years after the
+   renames). Mapped 02270 → 02158, 46113 → 46102, 51515 → 51019.
+4. Summed agency-level offense counts to (county_fips, year). One
+   county can have many reporting agencies (e.g., a sheriff's office
+   plus several city PDs); we add them.
+5. Computed per-100,000 rates using the panel's PEP population for the
+   denominator.
+6. Merged the county-year crime layer into the main county panel by
+   (county_fips, year).
+
+**Coverage.** 99.81% — every county-year except 6 tiny entities × 16
+years = 96 rows missing. The 6 entities with zero LE reporting in
+Kaplan are:
+
+- Alaska: Denali Borough (02068), Lake & Peninsula Borough (02164),
+  Petersburg Census Area (02195), Southeast Fairbanks Census Area
+  (02240), Yakutat City and Borough (02282).
+- Hawaii: Kalawao County (15005) — population 80, no police force.
+
+**Spot checks.**
+
+- Los Angeles County 2024: 581 murders, 580/100k violent crime —
+  consistent with LA County's typical 500-700 annual murders.
+- Cook County (Chicago) 2024: 358/100k violent crime, down from
+  622/100k in 2018. The drop probably reflects Chicago PD's NIBRS
+  transition reporting issues; treat 2021-2024 Cook County violent
+  crime cautiously.
+- New York County 2024 (Manhattan only, FIPS 36061): 3,356/100k violent
+  crime. This is high because the denominator is residents (1.66 M),
+  not the daily workforce/tourist population (~3-4 M); a well-known
+  artifact for tourist-heavy or commuter-destination counties.
+- Loving County, TX 2024: population 48, 0 murders, 34 reported
+  property crimes — small-base noise on a county that has truck stops
+  on US-285 and a non-trivial transient population.
+
+**Caveats users should know.**
+
+1. **NIBRS transition.** Many large agencies were still adapting to
+   the NIBRS reporting standard during 2021-2024. Some published
+   counts for those years may be lower than the underlying truth
+   because not every agency in the county reported all 12 months.
+   Kaplan flags this in the underlying data; we do not adjust further.
+2. **Rape definition change.** The FBI revised its rape definition in
+   2013. Pre-2013 and post-2013 `county_rape_*` series are not
+   directly comparable.
+3. **Federal and special-jurisdiction agencies are excluded.** They
+   have no county FIPS; their incidents do not appear in our county
+   totals. For most analyses that's the right behavior, but for
+   border counties and big-city federal-building areas this can
+   modestly understate counts.
+4. **County rates use resident population.** Tourist or workforce
+   denominators would change rates dramatically in places like
+   Manhattan, the National Mall, or Disneyland-area Orange County
+   (CA). We disclose this rather than try to adjust.
+
+### 2.12 Summary of county-panel manipulations
 
 | Source | What we changed | Why |
 |---|---|---|
@@ -625,6 +723,8 @@ python -m http.server 8765 -d docs
 | 2026-04-29 | County Phase 1b | Added BLS LAUS unemployment (via USDA ERS mirror), BEA per-capita personal income, and ACS 5-year demographic shares (sex, race/Hispanic, age groups, bachelor's+) to the county panel. |
 | 2026-04-29 | Phase 2a | State-level firearm suicide / total-suicide / firearm-homicide rates plus the FS/S ownership proxy joined down to every county-year. State value, no within-state variation, 2009-2023 (2024 not yet released by the v2 source). |
 | 2026-04-29 | Phase 2b | _Deferred._ Plan documented in Section 2.10. NCHS public-use file approach (~1.8 GB download, ~245 large counties only) or CDC WONDER API (XML construction work). Will be picked up after Phase 3. |
+| 2026-04-30 | Phase 3 attempt 1 | Tried the FBI Crime Data API at api.usa.gov/crime/fbi/sapi/. The api.data.gov gateway accepts our key, but every documented FBI endpoint returns 404 from the FBI side. Documentation host (`crime-data-explorer.fr.cloud.gov`) does not resolve. The API has been decommissioned. |
+| 2026-04-30 | Phase 3 final | Switched to Jacob Kaplan's openICPSR project 100707 V22 ("Offenses Known and Clearances by Arrest, 1960-2024"). User registered for a free openICPSR account and downloaded the 2 GB compressed bundle. We extracted the combined yearly CSV (908 MB), aggregated agency-level offenses to county-year, applied the same FIPS bridge as the rest of the county panel, and merged in. 21 new `county_*` crime columns at 99.81% coverage. |
 
 This file is updated at the end of every meaningful change. The most
 recent commits in <https://github.com/jedediahpidareese-coder/firearms-regulation-map/commits/main>
