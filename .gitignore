@@ -27,3 +27,8 @@ data/tmp_demog_inspect/
 # Environment files
 .env
 .env.*
+
+# Large raw Kaplan UCR data (multi-GB; user-downloaded from openICPSR project 100707).
+# The processed data/processed/county_crime_*.csv files are committed instead;
+# rebuild from raw with: python scripts/build_county_crime.py
+data/county/kaplan_offenses/

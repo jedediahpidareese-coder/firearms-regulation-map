@@ -603,6 +603,17 @@ def build_panel():
     # the state). Phase 2a; will be supplemented by Phase 2b county detail.
     base = base.merge(state_mort, on=["state_fips", "year"], how="left")
 
+    # Phase 3 county crime, if scripts/build_county_crime.py has been run.
+    crime_path = PROC / "county_crime_2009_2024.csv"
+    if crime_path.exists():
+        crime = pd.read_csv(crime_path, dtype={"county_fips": str})
+        # Drop population from crime (it'd duplicate ours).
+        if "population" in crime.columns:
+            crime = crime.drop(columns=["population"])
+        base = base.merge(crime, on=["county_fips", "year"], how="left")
+        print(f"Merged Kaplan county crime ({len(crime):,} rows; "
+              f"{crime['county_fips'].nunique()} counties)")
+
     # Sanity checks.
     rows_actual = len(base)
     rows_expected = len(full_counties) * len(YEARS)
@@ -682,6 +693,26 @@ def build_panel():
         ("state_total_suicide_rate", "STATE-LEVEL all-method suicides per 100,000 (v2 file). Same value for every county in a state-year."),
         ("state_firearm_homicide_rate", "STATE-LEVEL firearm homicides per 100,000 (v2 file). Same value for every county in a state-year."),
         ("state_ownership_fss", "STATE-LEVEL FS/S ownership proxy (v2 file). Same value for every county in a state-year. Mechanically tied to suicide outcomes; do not use as a regressor when the outcome is suicide."),
+        ("county_murder",                  "Phase 3 (Kaplan): county-level murder count, summed across all reporting agencies in the county."),
+        ("county_manslaughter",            "Phase 3 (Kaplan): county-level manslaughter count."),
+        ("county_rape",                    "Phase 3 (Kaplan): county-level rape count. Note: FBI definition revised in 2013; pre/post-2013 not directly comparable."),
+        ("county_robbery",                 "Phase 3 (Kaplan): county-level robbery count."),
+        ("county_aggravated_assault",      "Phase 3 (Kaplan): county-level aggravated assault count."),
+        ("county_burglary",                "Phase 3 (Kaplan): county-level burglary count."),
+        ("county_larceny",                 "Phase 3 (Kaplan): county-level larceny-theft count."),
+        ("county_motor_vehicle_theft",     "Phase 3 (Kaplan): county-level motor vehicle theft count."),
+        ("county_arson",                   "Phase 3 (Kaplan): county-level arson count."),
+        ("county_violent_crime",           "Phase 3 (Kaplan): index violent-crime total (murder+rape+robbery+aggravated assault)."),
+        ("county_property_crime",          "Phase 3 (Kaplan): index property-crime total (burglary+larceny+motor vehicle theft)."),
+        ("county_all_index_crimes",        "Phase 3 (Kaplan): all index crimes (violent + property)."),
+        ("county_murder_rate",             "Phase 3 (Kaplan): county murder per 100,000 (county_murder / population x 100k)."),
+        ("county_robbery_rate",            "Phase 3 (Kaplan): county robbery per 100,000."),
+        ("county_rape_rate",               "Phase 3 (Kaplan): county rape per 100,000. Pre/post-2013 not directly comparable."),
+        ("county_aggravated_assault_rate", "Phase 3 (Kaplan): county aggravated assault per 100,000."),
+        ("county_burglary_rate",           "Phase 3 (Kaplan): county burglary per 100,000."),
+        ("county_larceny_rate",            "Phase 3 (Kaplan): county larceny per 100,000."),
+        ("county_violent_crime_rate",      "Phase 3 (Kaplan): index violent crime per 100,000."),
+        ("county_property_crime_rate",     "Phase 3 (Kaplan): index property crime per 100,000."),
     ], columns=["variable", "definition"])
     var_dict.to_csv(PROC / "county_variable_dictionary.csv", index=False)
 

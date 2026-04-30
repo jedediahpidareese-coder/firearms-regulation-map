@@ -1,2 +1,2 @@
 panel,year_range,rows,rows_expected,counties,states_plus_dc,variables,balanced
-county_panel_2009_2024,2009-2024,50128,50128,3133,50,35,True
+county_panel_2009_2024,2009-2024,50128,50128,3133,50,53,True
