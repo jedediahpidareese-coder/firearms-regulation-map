@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif" font-size="12">
+<rect x="0" y="0" width="720" height="380" fill="#fafaf7"/>
+<text x="360.0" y="22" text-anchor="middle" font-size="14" font-weight="600">Florida (2023): Firearm suicide rate (per 100k)</text>
+<polyline points="60.0,228.4 111.7,182.4 163.3,210.6 215.0,188.4 266.7,192.6 318.3,159.9 370.0,174.3 421.7,145.0 473.3,155.0 525.0,154.3 576.7,110.1 628.3,138.6 680.0,127.0" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,296.5 111.7,295.5 163.3,281.0 215.0,282.2 266.7,276.4 318.3,269.3 370.0,280.0 421.7,245.3 473.3,263.4 525.0,257.5 576.7,245.3 628.3,236.4 680.0,238.9" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,303.4 111.7,310.9 163.3,296.9 215.0,314.2 266.7,317.3 318.3,303.7 370.0,288.6 421.7,294.3 473.3,298.2 525.0,296.8 576.7,279.3 628.3,274.9 680.0,287.4" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,260.3 111.7,267.9 163.3,252.0 215.0,257.3 266.7,251.8 318.3,253.8 370.0,242.1 421.7,235.5 473.3,262.9 525.0,238.8 576.7,228.1 628.3,211.2 680.0,213.3" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,172.7 111.7,160.9 163.3,171.8 215.0,141.8 266.7,99.4 318.3,142.4 370.0,119.0 421.7,93.1 473.3,89.3 525.0,65.3 576.7,64.7 628.3,62.7 680.0,93.7" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,190.5 111.7,192.1 163.3,176.9 215.0,165.0 266.7,186.3 318.3,151.5 370.0,162.5 421.7,130.5 473.3,147.7 525.0,137.4 576.7,101.4 628.3,96.6 680.0,105.5" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,222.7 111.7,206.9 163.3,193.1 215.0,172.3 266.7,211.3 318.3,187.0 370.0,173.2 421.7,184.8 473.3,160.3 525.0,170.2 576.7,136.9 628.3,155.2 680.0,147.6" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,277.6 111.7,292.2 163.3,270.3 215.0,275.2 266.7,267.7 318.3,257.6 370.0,254.1 421.7,247.1 473.3,260.5 525.0,270.2 576.7,256.8 628.3,242.5 680.0,239.4" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,262.5 111.7,270.8 163.3,267.8 215.0,260.9 266.7,261.0 318.3,247.8 370.0,249.0 421.7,248.0 473.3,254.4 525.0,243.9 576.7,241.8 628.3,237.9 680.0,237.0" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,268.6 111.7,256.5 163.3,277.7 215.0,252.8 266.7,261.7 318.3,273.7 370.0,229.3 421.7,248.6 473.3,236.8 525.0,246.2 576.7,248.1 628.3,232.0 680.0,222.7" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,300.0 111.7,301.9 163.3,258.3 215.0,300.9 266.7,265.8 318.3,250.7 370.0,261.2 421.7,269.2 473.3,266.1 525.0,259.2 576.7,240.6 628.3,219.8 680.0,233.9" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,261.5 111.7,260.1 163.3,256.6 215.0,250.5 266.7,249.9 318.3,240.4 370.0,233.6 421.7,228.3 473.3,238.1 525.0,236.1 576.7,222.3 628.3,216.7 680.0,212.8" fill="none" stroke="#1f3a5f" stroke-width="2" stroke-dasharray="6 4"/>
+<polyline points="60.0,252.3 111.7,246.5 163.3,246.9 215.0,254.8 266.7,246.0 318.3,244.0 370.0,241.1 421.7,225.1 473.3,235.2 525.0,248.3 576.7,223.5 628.3,222.0 680.0,214.0" fill="none" stroke="#b9461a" stroke-width="2.4"/>
+<line x1="654.2" y1="50" x2="654.2" y2="330" stroke="#1f2024" stroke-width="0.8" stroke-dasharray="4 3"/>
+<text x="654.2" y="45" text-anchor="middle" fill="#1f2024" font-size="10">adoption (2023)</text>
+<line x1="60" y1="330" x2="680" y2="330" stroke="#444"/>
+<line x1="60" y1="50" x2="60" y2="330" stroke="#444"/>
+<line x1="60.0" y1="330" x2="60.0" y2="334" stroke="#444"/>
+<text x="60.0" y="348" text-anchor="middle" fill="#444">2011</text>
+<line x1="163.3" y1="330" x2="163.3" y2="334" stroke="#444"/>
+<text x="163.3" y="348" text-anchor="middle" fill="#444">2013</text>
+<line x1="266.7" y1="330" x2="266.7" y2="334" stroke="#444"/>
+<text x="266.7" y="348" text-anchor="middle" fill="#444">2015</text>
+<line x1="370.0" y1="330" x2="370.0" y2="334" stroke="#444"/>
+<text x="370.0" y="348" text-anchor="middle" fill="#444">2017</text>
+<line x1="473.3" y1="330" x2="473.3" y2="334" stroke="#444"/>
+<text x="473.3" y="348" text-anchor="middle" fill="#444">2019</text>
+<line x1="576.7" y1="330" x2="576.7" y2="334" stroke="#444"/>
+<text x="576.7" y="348" text-anchor="middle" fill="#444">2021</text>
+<line x1="680.0" y1="330" x2="680.0" y2="334" stroke="#444"/>
+<text x="680.0" y="348" text-anchor="middle" fill="#444">2023</text>
+<line x1="56" y1="330.0" x2="60" y2="330.0" stroke="#444"/>
+<text x="53" y="333.0" text-anchor="end" fill="#444">5.1</text>
+<line x1="56" y1="260.0" x2="60" y2="260.0" stroke="#444"/>
+<text x="53" y="263.0" text-anchor="end" fill="#444">7.5</text>
+<line x1="56" y1="190.0" x2="60" y2="190.0" stroke="#444"/>
+<text x="53" y="193.0" text-anchor="end" fill="#444">10</text>
+<line x1="56" y1="120.0" x2="60" y2="120.0" stroke="#444"/>
+<text x="53" y="123.0" text-anchor="end" fill="#444">12</text>
+<line x1="56" y1="50.0" x2="60" y2="50.0" stroke="#444"/>
+<text x="53" y="53.0" text-anchor="end" fill="#444">15</text>
+<rect x="520" y="60" width="190" height="60" fill="white" stroke="#e2e2dc"/>
+<line x1="530" y1="75" x2="560" y2="75" stroke="#b9461a" stroke-width="2.4"/>
+<text x="565" y="79" font-size="11">Florida (treated)</text>
+<line x1="530" y1="95" x2="560" y2="95" stroke="#1f3a5f" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="565" y="99" font-size="11">Synthetic counterfactual</text>
+<line x1="530" y1="112" x2="560" y2="112" stroke="#bbb" stroke-width="0.6"/>
+<text x="565" y="116" font-size="10">Donor states (gray)</text>
+</svg>

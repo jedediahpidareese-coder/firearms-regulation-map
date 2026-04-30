@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif" font-size="12">
+<rect x="0" y="0" width="720" height="380" fill="#fafaf7"/>
+<text x="360.0" y="22" text-anchor="middle" font-size="14" font-weight="600">Texas (2021): Motor vehicle theft rate (per 100k) [placebo]</text>
+<polyline points="60.0,260.5 104.3,269.7 148.6,272.7 192.9,266.1 237.1,264.5 281.4,265.3 325.7,243.9 370.0,221.6 414.3,208.6 458.6,210.1 502.9,213.6 547.1,160.0 591.4,91.7 635.7,62.7 680.0,110.7" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,243.8 104.3,249.9 148.6,259.2 192.9,258.6 237.1,262.4 281.4,273.1 325.7,282.0 370.0,276.7 414.3,279.5 458.6,287.3 502.9,285.9 547.1,283.8 591.4,272.5 635.7,253.1 680.0,248.6" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,291.9 104.3,292.1 148.6,295.5 192.9,293.8 237.1,297.5 281.4,295.2 325.7,298.0 370.0,293.5 414.3,285.6 458.6,285.2 502.9,278.3 547.1,259.9 591.4,259.4 635.7,245.6 680.0,253.8" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,273.5 104.3,281.2 148.6,287.6 192.9,290.8 237.1,297.8 281.4,301.1 325.7,302.3 370.0,296.1 414.3,293.9 458.6,293.2 502.9,285.9 547.1,280.5 591.4,282.4 635.7,278.6 680.0,255.2" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,233.1 104.3,258.4 148.6,256.4 192.9,255.5 237.1,246.6 281.4,241.1 325.7,199.6 370.0,145.8 414.3,147.2 458.6,176.4 502.9,188.7 547.1,195.2 591.4,176.0 635.7,154.4 680.0,162.0" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,180.1 104.3,213.8 148.6,222.7 192.9,218.5 237.1,220.5 281.4,220.3 325.7,207.6 370.0,187.9 414.3,194.0 458.6,207.6 502.9,218.2 547.1,228.5 591.4,193.5 635.7,171.3 680.0,102.7" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,256.0 104.3,264.4 148.6,265.3 192.9,255.3 237.1,259.1 281.4,256.8 325.7,254.2 370.0,232.5 414.3,201.5 458.6,205.6 502.9,216.9 547.1,208.5 591.4,178.8 635.7,151.3 680.0,200.4" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,299.5 104.3,303.2 148.6,302.8 192.9,307.9 237.1,311.8 281.4,313.9 325.7,316.5 370.0,313.8 414.3,314.1 458.6,313.7 502.9,315.7 547.1,307.0 591.4,302.6 635.7,290.9 680.0,254.9" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,297.0 104.3,302.9 148.6,307.1 192.9,310.4 237.1,313.1 281.4,317.3 325.7,315.4 370.0,308.4 414.3,307.2 458.6,304.9 502.9,307.1 547.1,305.0 591.4,302.8 635.7,291.9 680.0,287.8" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,221.2 104.3,211.9 148.6,218.5 192.9,210.1 237.1,202.5 281.4,193.4 325.7,213.8 370.0,189.3 414.3,206.9 458.6,216.0 502.9,232.4 547.1,221.3 591.4,183.4 635.7,117.5 680.0,103.1" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.6"/>
+<polyline points="60.0,242.9 104.3,252.9 148.6,260.2 192.9,257.7 237.1,260.2 281.4,265.3 325.7,265.0 370.0,254.4 414.3,253.8 458.6,260.3 502.9,261.1 547.1,250.0 591.4,226.6 635.7,205.2 680.0,200.8" fill="none" stroke="#1f3a5f" stroke-width="2" stroke-dasharray="6 4"/>
+<polyline points="60.0,238.5 104.3,252.9 148.6,260.2 192.9,260.1 237.1,260.6 281.4,258.6 325.7,261.4 370.0,261.0 414.3,263.7 458.6,261.9 502.9,252.6 547.1,246.4 591.4,240.8 635.7,230.0 680.0,202.6" fill="none" stroke="#b9461a" stroke-width="2.4"/>
+<line x1="569.3" y1="50" x2="569.3" y2="330" stroke="#1f2024" stroke-width="0.8" stroke-dasharray="4 3"/>
+<text x="569.3" y="45" text-anchor="middle" fill="#1f2024" font-size="10">adoption (2021)</text>
+<line x1="60" y1="330" x2="680" y2="330" stroke="#444"/>
+<line x1="60" y1="50" x2="60" y2="330" stroke="#444"/>
+<line x1="60.0" y1="330" x2="60.0" y2="334" stroke="#444"/>
+<text x="60.0" y="348" text-anchor="middle" fill="#444">2009</text>
+<line x1="148.6" y1="330" x2="148.6" y2="334" stroke="#444"/>
+<text x="148.6" y="348" text-anchor="middle" fill="#444">2011</text>
+<line x1="237.1" y1="330" x2="237.1" y2="334" stroke="#444"/>
+<text x="237.1" y="348" text-anchor="middle" fill="#444">2013</text>
+<line x1="325.7" y1="330" x2="325.7" y2="334" stroke="#444"/>
+<text x="325.7" y="348" text-anchor="middle" fill="#444">2015</text>
+<line x1="414.3" y1="330" x2="414.3" y2="334" stroke="#444"/>
+<text x="414.3" y="348" text-anchor="middle" fill="#444">2017</text>
+<line x1="502.9" y1="330" x2="502.9" y2="334" stroke="#444"/>
+<text x="502.9" y="348" text-anchor="middle" fill="#444">2019</text>
+<line x1="591.4" y1="330" x2="591.4" y2="334" stroke="#444"/>
+<text x="591.4" y="348" text-anchor="middle" fill="#444">2021</text>
+<line x1="680.0" y1="330" x2="680.0" y2="334" stroke="#444"/>
+<text x="680.0" y="348" text-anchor="middle" fill="#444">2023</text>
+<line x1="56" y1="330.0" x2="60" y2="330.0" stroke="#444"/>
+<text x="53" y="333.0" text-anchor="end" fill="#444">58</text>
+<line x1="56" y1="260.0" x2="60" y2="260.0" stroke="#444"/>
+<text x="53" y="263.0" text-anchor="end" fill="#444">2.5e+02</text>
+<line x1="56" y1="190.0" x2="60" y2="190.0" stroke="#444"/>
+<text x="53" y="193.0" text-anchor="end" fill="#444">4.4e+02</text>
+<line x1="56" y1="120.0" x2="60" y2="120.0" stroke="#444"/>
+<text x="53" y="123.0" text-anchor="end" fill="#444">6.3e+02</text>
+<line x1="56" y1="50.0" x2="60" y2="50.0" stroke="#444"/>
+<text x="53" y="53.0" text-anchor="end" fill="#444">8.3e+02</text>
+<rect x="520" y="60" width="190" height="60" fill="white" stroke="#e2e2dc"/>
+<line x1="530" y1="75" x2="560" y2="75" stroke="#b9461a" stroke-width="2.4"/>
+<text x="565" y="79" font-size="11">Texas (treated)</text>
+<line x1="530" y1="95" x2="560" y2="95" stroke="#1f3a5f" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="565" y="99" font-size="11">Synthetic counterfactual</text>
+<line x1="530" y1="112" x2="560" y2="112" stroke="#bbb" stroke-width="0.6"/>
+<text x="565" y="116" font-size="10">Donor states (gray)</text>
+</svg>
