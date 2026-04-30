@@ -155,10 +155,11 @@ async function buildStateMode() {
 }
 
 async function buildCountyMode() {
-  const [manifest, metadata, topology] = await Promise.all([
+  const [manifest, metadata, topology, names] = await Promise.all([
     d3.json("data/county_manifest.json"),
     d3.json("data/county_meta.json"),
     d3.json(TOPO_URLS.county),
+    d3.json("data/county_names.json"),
   ]);
   const yearCache = new Map();
   // Pre-load default year so the first render has data.
@@ -197,13 +198,7 @@ async function buildCountyMode() {
     topoObjectName: "counties",
     hoverHeading: "Selected county",
     keyForFeature: f => String(f.id).padStart(5, "0"),
-    keyToDisplayName: k => {
-      // The county FIPS is the key, but the display name lives in our cache.
-      const cur = yearCache.get(state.year) || {};
-      const cell = cur[k];
-      // We didn't ship name in the per-year files (size). Show FIPS.
-      return k;
-    },
+    keyToDisplayName: k => names[k] || k,
     valueByKey(varName, year) {
       const byCounty = yearCache.get(year);
       const out = new Map();

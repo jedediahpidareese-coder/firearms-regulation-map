@@ -219,6 +219,20 @@ def build():
     print(f"  {len(df):,} rows, {df['county_fips'].nunique()} counties, "
           f"{df['year'].nunique()} years")
 
+    # Emit a single county_names.json the page uses for hover labels.
+    # Pick the most recent (county_name, state_name) per county_fips so the
+    # AK/SD/VA renames land on canonical modern names.
+    last_names = (df.sort_values("year")
+                    .groupby("county_fips", as_index=False)
+                    .agg({"county_name": "last", "state_name": "last"}))
+    name_map = {
+        r["county_fips"]: f"{r['county_name']}, {r['state_name']}"
+        for _, r in last_names.iterrows()
+    }
+    (OUT / "county_names.json").write_text(json.dumps(name_map, separators=(",", ":")))
+    print(f"  Wrote docs/data/county_names.json: {len(name_map):,} entries, "
+          f"{(OUT / 'county_names.json').stat().st_size/1024:,.0f} KB")
+
     available = [v for v in COUNTY_VARS if v in df.columns]
     missing = [v for v in COUNTY_VARS if v not in df.columns]
     if missing:
