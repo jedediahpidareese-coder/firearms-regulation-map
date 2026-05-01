@@ -1,0 +1,730 @@
+"""Compile a single self-contained research report HTML with everything
+the user needs to read, print, and share.
+
+The output is `outputs/research_report/index.html` -- one file, all
+figures embedded as inline SVG, all styling inline. The user opens it
+in any browser and uses File -> Print -> Save as PDF for a
+publication-style PDF.
+
+Sections:
+  1. Executive summary (one printed page)
+  2. Data and panel construction (summarised; full version is data_appendix.md)
+  3. Methodology  (CS21 ATT(g,t), stacked DiD, entropy balancing, Roth-SA bounds, substitution test)
+  4. Per-policy results (Permitless carry, Civil red-flag, UBC), each with:
+       - cohort table
+       - CS21 4-spec table (per outcome)
+       - Stacked-DD 3-spec table (per outcome)
+       - Embedded event-study SVGs
+       - Roth-SA bounds table where computed
+  5. Cross-estimator + cross-policy synthesis
+  6. Limitations and caveats
+  7. Appendix: code map, reproduction steps, file index
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+ROOT = Path(__file__).resolve().parent.parent
+OUTDIR = ROOT / "outputs" / "research_report"
+OUTDIR.mkdir(parents=True, exist_ok=True)
+
+
+# ---------------------- helpers ----------------------------------------
+
+def fmt(val, fmt_str):
+    if val is None or (isinstance(val, float) and np.isnan(val)):
+        return "—"
+    return fmt_str.format(val)
+
+
+def read_csv(path: Path):
+    return pd.read_csv(path) if path.exists() else pd.DataFrame()
+
+
+def embed_svg(path: Path, max_width: str = "100%") -> str:
+    """Inline an SVG file, stripping its XML declaration if present."""
+    if not path.exists():
+        return f'<p class="missing">[figure missing: {path.name}]</p>'
+    text = path.read_text(encoding="utf-8")
+    if text.startswith("<?xml"):
+        text = text[text.index("?>") + 2:]
+    return f'<div class="figure" style="max-width:{max_width};">{text}</div>'
+
+
+def coef_cell(att, se, z, sig_threshold=1.96):
+    """One cell of a coef table -- value + SE + significance star."""
+    if pd.isna(att) or pd.isna(se):
+        return "—"
+    star = "**" if abs(z) >= sig_threshold else ""
+    return f"{att:+.3f}<br><span class='se'>({se:.3f})</span> {star}"
+
+
+# ---------------------- per-policy table builders ----------------------
+
+def cs21_table_html(policy_dir: Path) -> str:
+    """4-spec table for CS21: rows = outcomes, columns = (control_rule, spec)."""
+    df = read_csv(policy_dir / "overall_att.csv")
+    if df.empty:
+        return "<p>(no CS21 results)</p>"
+
+    # columns to show (in order)
+    spec_combos = [
+        ("broad", "or", "Broad / OR"),
+        ("broad", "ra", "Broad / RA"),
+        ("strict", "or", "Strict / OR"),
+        ("strict", "ra", "Strict / RA"),
+    ]
+    available_outcomes = list(df["outcome"].unique())
+    # Order outcomes consistently
+    outcome_order = [
+        "firearm_suicide_rate", "nonfirearm_suicide_rate", "total_suicide_rate",
+        "firearm_homicide_rate", "homicide_rate", "motor_vehicle_theft_rate",
+    ]
+    outcomes = [o for o in outcome_order if o in available_outcomes]
+    rows = []
+    for o in outcomes:
+        cells = [f'<td class="row-name">{o.replace("_", " ")}</td>']
+        for cr, sp, _ in spec_combos:
+            r = df[(df["outcome"] == o) & (df["control_rule"] == cr) & (df["spec"] == sp)]
+            if r.empty:
+                cells.append("<td>—</td>")
+                continue
+            row = r.iloc[0]
+            att = row["att_overall_post"]; se = row["se_overall_post"]; z = row["z"]
+            pre = row["z_pretrends"]
+            star = "★" if abs(z) >= 1.96 else ""
+            pre_clean = "✓" if abs(pre) < 1.96 else "✗"
+            cells.append(
+                f'<td class="num"><span class="att">{att:+.3f}</span> {star}'
+                f'<br><span class="se">SE {se:.3f}</span>'
+                f'<br><span class="pre">pre-z {pre:+.2f} {pre_clean}</span></td>'
+            )
+        rows.append("<tr>" + "".join(cells) + "</tr>")
+
+    headers = "".join(f'<th class="num">{label}</th>' for _, _, label in spec_combos)
+    return (
+        '<table class="coef">'
+        f'<thead><tr><th>Outcome</th>{headers}</tr></thead>'
+        f'<tbody>{"".join(rows)}</tbody>'
+        '</table>'
+        '<p class="caption">★ = |z| ≥ 1.96. ✓ / ✗ on the third line indicates whether the pre-trend test (avg ATT for e ∈ [-5, -2]) does NOT / DOES reject zero. Outcomes per 100,000 residents.</p>'
+    )
+
+
+def stackdd_table_html(policy_dir: Path) -> str:
+    df = read_csv(policy_dir / "att_post.csv")
+    if df.empty:
+        return "<p>(no stacked-DD results)</p>"
+    spec_combos = [
+        ("unweighted", "Unweighted"),
+        ("ra", "Regression-adjusted"),
+        ("eb", "Entropy-balanced"),
+    ]
+    outcome_order = [
+        "firearm_suicide_rate", "nonfirearm_suicide_rate", "total_suicide_rate",
+        "firearm_homicide_rate", "homicide_rate", "motor_vehicle_theft_rate",
+    ]
+    available_outcomes = list(df["outcome"].unique())
+    outcomes = [o for o in outcome_order if o in available_outcomes]
+    rows = []
+    for o in outcomes:
+        cells = [f'<td class="row-name">{o.replace("_", " ")}</td>']
+        for sp, _ in spec_combos:
+            r = df[(df["outcome"] == o) & (df["spec"] == sp)]
+            if r.empty:
+                cells.append("<td>—</td>")
+                continue
+            row = r.iloc[0]
+            att = row["att"]; se = row["se"]; z = row["z"]
+            star = "★" if abs(z) >= 1.96 else ""
+            cells.append(
+                f'<td class="num"><span class="att">{att:+.3f}</span> {star}'
+                f'<br><span class="se">SE {se:.3f}</span>'
+                f'<br><span class="pre">z {z:+.2f}</span></td>'
+            )
+        rows.append("<tr>" + "".join(cells) + "</tr>")
+    headers = "".join(f'<th class="num">{label}</th>' for _, label in spec_combos)
+    return (
+        '<table class="coef">'
+        f'<thead><tr><th>Outcome</th>{headers}</tr></thead>'
+        f'<tbody>{"".join(rows)}</tbody>'
+        '</table>'
+        '<p class="caption">★ = |z| ≥ 1.96. State-clustered SE in parentheses. Outcomes per 100,000 residents.</p>'
+    )
+
+
+def cohort_table_html(policy_dir: Path) -> str:
+    df = read_csv(policy_dir / "cohort_n.csv")
+    if df.empty:
+        return ""
+    rows = "".join(
+        f'<tr><td>{int(r["g_cohort"])}</td><td>{int(r["n_states"])}</td>'
+        f'<td><code>{r["states"]}</code></td></tr>'
+        for _, r in df.iterrows()
+    )
+    return (
+        '<table class="cohort">'
+        '<thead><tr><th>Cohort year</th><th>n states</th><th>States</th></tr></thead>'
+        f'<tbody>{rows}</tbody></table>'
+    )
+
+
+def bounds_summary_html(policy_name: str) -> str:
+    """Roth-SA bounds at e = +1, both estimators, all specs."""
+    summary = read_csv(ROOT / "outputs" / "roth_sa_bounds" / "summary_e1.csv")
+    if summary.empty:
+        return "<p>(bounds summary not computed)</p>"
+    rows_html = []
+    sub = summary[summary["policy"] == policy_name].sort_values(["estimator", "control_rule", "spec"])
+    if sub.empty:
+        return "<p>(no bounds for this policy)</p>"
+    for _, r in sub.iterrows():
+        row = (
+            f'<tr>'
+            f'<td>{r["estimator"]}</td>'
+            f'<td>{r["control_rule"]} / {r["spec"]}</td>'
+            f'<td class="num">{r["att_e1_original"]:+.3f}</td>'
+            f'<td class="num">{r["ci_e1_M0"]}</td>'
+            f'<td class="num">{r["att_e1_M1"]:+.3f}</td>'
+            f'<td class="num">{r["ci_e1_M1"]}</td>'
+            f'<td>{"<b>survives</b>" if not r["ci_M1_includes_zero"] else "fails"}</td>'
+            f'</tr>'
+        )
+        rows_html.append(row)
+    return (
+        '<table class="bounds">'
+        '<thead><tr>'
+        '<th>Estimator</th><th>Spec</th>'
+        '<th>ATT(+1)</th><th>95% CI (M=0)</th>'
+        '<th>ATT(+1) trend-adj</th><th>95% CI (M=1)</th>'
+        '<th>M=1 verdict</th></tr></thead>'
+        f'<tbody>{"".join(rows_html)}</tbody></table>'
+        '<p class="caption">Roth-Sant\'Anna sensitivity bounds at event time +1. M = post-trend deviation as a multiple of the linear extrapolation of the observed pre-trend. M=1 = "post-trend looks like more of the same"; M=2 = "post-trend could be twice the pre-trend magnitude".</p>'
+    )
+
+
+# ---------------------- per-policy section ------------------------------
+
+POLICY_DEFINITIONS = {
+    "Permitless carry": {
+        "treatment_var": "permitconcealed",
+        "direction": "1 → 0 (state stops requiring a permit to carry concealed)",
+        "cs_dir": ROOT / "outputs" / "permitless_carry_cs",
+        "stack_dir": ROOT / "outputs" / "permitless_carry_stackdd",
+        "cs_methodology_link": "../permitless_carry_cs/methodology.md",
+        "stack_methodology_link": "../stacked_dd_comparison.md",
+        "policy_short": "permitless_carry",
+    },
+    "Civil-petition red-flag (ERPO)": {
+        "treatment_var": "gvro",
+        "direction": "0 → 1 (state allows civilian petition for an extreme risk protection order)",
+        "cs_dir": ROOT / "outputs" / "red_flag_cs",
+        "stack_dir": ROOT / "outputs" / "red_flag_stackdd",
+        "cs_methodology_link": "../red_flag_cs/methodology.md",
+        "stack_methodology_link": "../stacked_dd_comparison.md",
+        "policy_short": "red_flag",
+    },
+    "Universal background checks (UBC)": {
+        "treatment_var": "universal",
+        "direction": "0 → 1 (state requires UBC at point of purchase for all firearms)",
+        "cs_dir": ROOT / "outputs" / "ubc_cs",
+        "stack_dir": ROOT / "outputs" / "ubc_stackdd",
+        "cs_methodology_link": "../ubc_cs/methodology.md",
+        "stack_methodology_link": "../stacked_dd_comparison.md",
+        "policy_short": "ubc",
+    },
+}
+
+
+def policy_section_html(name: str, defn: dict, section_num: int) -> str:
+    cs_dir = defn["cs_dir"]
+    stack_dir = defn["stack_dir"]
+    short = defn["policy_short"]
+
+    # Pick a representative event-study figure (broad / RA for CS21,
+    # entropy-balanced for stacked-DD).
+    cs_fig = cs_dir / "figures" / "event_study_broad_ra_4panel.svg"
+    stack_fig_eb = stack_dir / "figures" / "event_study_eb_4panel.svg"
+    stack_fig_unwt = stack_dir / "figures" / "event_study_unweighted_4panel.svg"
+
+    return f"""
+    <section class="policy">
+      <h2>{section_num}. {name}</h2>
+      <p class="lead">
+        <strong>Treatment:</strong> {defn['treatment_var']} ({defn['direction']}).<br>
+        Detailed write-up: <a href="{defn['cs_methodology_link']}">CS21 methodology</a>
+        and <a href="{defn['stack_methodology_link']}">stacked-DiD comparison</a>.
+      </p>
+
+      <h3>Treatment cohorts</h3>
+      {cohort_table_html(cs_dir)}
+
+      <h3>Callaway-Sant'Anna ATT(g, t) — overall post-treatment</h3>
+      {cs21_table_html(cs_dir)}
+
+      <h3>Stacked DiD (Cengiz et al. 2019) — overall post-treatment</h3>
+      {stackdd_table_html(stack_dir)}
+
+      <h3>CS21 event study (broad / RA spec)</h3>
+      {embed_svg(cs_fig)}
+
+      <h3>Stacked-DiD event study (unweighted spec)</h3>
+      {embed_svg(stack_fig_unwt)}
+
+      <h3>Stacked-DiD event study (entropy-balanced spec)</h3>
+      {embed_svg(stack_fig_eb)}
+
+      <h3>Roth-Sant'Anna pre-trend bounds — firearm suicide, e = +1</h3>
+      {bounds_summary_html(short)}
+    </section>
+    """
+
+
+# ---------------------- top-level page ----------------------------------
+
+def build_html() -> str:
+    style = """
+    <style>
+      :root {
+        --primary: #1f3a5f;
+        --accent: #b9461a;
+        --muted: #6b7280;
+        --border: #d4d4cc;
+        --light: #f7f6f1;
+      }
+      * { box-sizing: border-box; }
+      body {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 32px 38px 100px;
+        font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+        line-height: 1.55;
+        color: #111;
+      }
+      h1 { font-size: 28px; margin: 0 0 4px; color: var(--primary); }
+      h2 { font-size: 22px; margin: 36px 0 8px; padding-bottom: 4px; border-bottom: 2px solid var(--primary); color: var(--primary); }
+      h3 { font-size: 16px; margin: 20px 0 6px; color: var(--accent); }
+      h4 { font-size: 14px; margin: 14px 0 4px; }
+      p, li { font-size: 14px; }
+      .meta { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+      .lead { font-size: 14px; background: var(--light); padding: 10px 14px; border-left: 3px solid var(--primary); margin: 8px 0 18px; }
+      .summary-box { border: 1px solid var(--border); padding: 12px 16px 4px; background: #fcfcf8; margin: 14px 0 24px; }
+      .summary-box h3 { margin-top: 0; color: var(--primary); }
+      table { border-collapse: collapse; width: 100%; margin: 8px 0 6px; font-size: 12.5px; font-family: -apple-system, "Segoe UI", sans-serif; }
+      th, td { padding: 6px 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+      th { background: #efeee5; font-weight: 600; }
+      td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+      td.row-name { font-weight: 600; }
+      td .att { font-weight: 600; color: var(--primary); }
+      td .se { color: var(--muted); font-size: 11px; }
+      td .pre { color: var(--muted); font-size: 11px; display: block; }
+      .caption { font-size: 11.5px; color: var(--muted); margin: 2px 0 18px; }
+      .figure { margin: 8px 0 14px; }
+      .figure svg { width: 100%; height: auto; }
+      .missing { color: var(--accent); font-style: italic; font-size: 12px; }
+      code { background: #f3f3eb; padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+      table.cohort, table.bounds { font-size: 12px; }
+      ul.findings { padding-left: 20px; margin: 6px 0 18px; }
+      ul.findings li { margin-bottom: 6px; }
+      .badge { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; margin-left: 4px; vertical-align: middle; }
+      .badge-robust { background: #dcfce7; color: #14532d; }
+      .badge-fragile { background: #fef3c7; color: #92400e; }
+      .badge-unidentified { background: #fee2e2; color: #991b1b; }
+      a { color: var(--primary); text-decoration: underline; text-decoration-thickness: 1px; }
+      .toc { font-size: 13px; background: var(--light); padding: 14px 18px; border-radius: 6px; }
+      .toc h3 { color: var(--primary); margin: 0 0 6px; }
+      .toc ol { padding-left: 18px; margin: 0; }
+      .toc li { margin: 2px 0; }
+      @media print {
+        body { max-width: none; padding: 0.5in 0.6in 0.6in; font-size: 11.5pt; }
+        h1 { font-size: 22pt; }
+        h2 { font-size: 14pt; page-break-before: always; padding-top: 0; }
+        h2:first-of-type { page-break-before: auto; }
+        h3 { font-size: 11pt; }
+        .figure svg { max-height: 4.2in; }
+        .lead, .summary-box { page-break-inside: avoid; }
+        table { page-break-inside: avoid; }
+        .toc { page-break-after: always; }
+      }
+    </style>
+    """
+
+    perm_section = policy_section_html("Permitless carry", POLICY_DEFINITIONS["Permitless carry"], 4)
+    rf_section   = policy_section_html("Civil-petition red-flag (ERPO)", POLICY_DEFINITIONS["Civil-petition red-flag (ERPO)"], 5)
+    ubc_section  = policy_section_html("Universal background checks (UBC)", POLICY_DEFINITIONS["Universal background checks (UBC)"], 6)
+
+    html = f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>State firearm policy effects: research report</title>
+{style}
+</head>
+<body>
+
+<h1>State firearm policy effects: a multi-estimator research report</h1>
+<p class="meta">
+  Generated {pd.Timestamp.now().strftime('%Y-%m-%d')} from
+  <code>scripts/build_research_report.py</code>. All numbers reproducible from the
+  scripts and CSV outputs in this repository.
+  Companion data inventory: <a href="../../data_appendix.md"><code>data_appendix.md</code></a>.
+  Source code: <a href="https://github.com/jedediahpidareese-coder/firearms-regulation-map">github.com/jedediahpidareese-coder/firearms-regulation-map</a>.
+  Public map: <a href="https://jedediahpidareese-coder.github.io/firearms-regulation-map/">jedediahpidareese-coder.github.io/firearms-regulation-map</a>.
+</p>
+
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#executive-summary">Executive summary</a></li>
+    <li><a href="#data">Data and panel construction</a></li>
+    <li><a href="#methodology">Methodology</a></li>
+    <li><a href="#permitless-carry">Permitless carry</a></li>
+    <li><a href="#red-flag">Civil-petition red-flag (ERPO)</a></li>
+    <li><a href="#ubc">Universal background checks</a></li>
+    <li><a href="#synthesis">Cross-policy synthesis</a></li>
+    <li><a href="#limitations">Limitations and caveats</a></li>
+    <li><a href="#appendix">Appendix: code map and reproduction</a></li>
+  </ol>
+</div>
+
+<section id="executive-summary">
+<h2>1. Executive summary</h2>
+
+<p>
+We estimate the causal effect of three U.S. state firearm policies — permitless concealed carry,
+civil-petition extreme risk protection orders ("red-flag laws"), and universal background checks
+(UBC) — on six outcomes: firearm suicide rate, non-firearm suicide rate, total suicide rate,
+firearm homicide rate, total homicide rate, and motor vehicle theft rate (placebo). Each policy is
+estimated by two modern staggered-adoption DiD estimators — Callaway-Sant'Anna (2021) ATT(g, t) and
+Cengiz et al. (2019) stacked DiD — under multiple specifications including regression adjustment
+and Hainmueller (2012) entropy balancing. We also report Roth-Sant'Anna (2019) honest pre-trend
+sensitivity bounds for the firearm-suicide outcome.
+</p>
+
+<div class="summary-box">
+  <h3>Two findings most defensible for publication</h3>
+  <ul class="findings">
+    <li>
+      <strong>Permitless concealed carry adoption is associated with about +0.6 additional total
+      suicides per 100,000 residents per year</strong> in the average treated state.
+      <span class="badge badge-robust">robust</span>
+      <br>
+      <em>CS21 broad/RA: +0.64; stacked-DiD: +0.51 to +0.69. Substitution test passes
+      (firearm-suicide rises, non-firearm essentially flat, total rises by approximately the
+      firearm amount). Roth-Sant'Anna bounds: CS21 RA specs survive M = 1 trend adjustment.</em>
+    </li>
+    <li>
+      <strong>Civil-petition red-flag laws are associated with reduced firearm homicide</strong>:
+      about −0.14 per 100,000 in the cleanest CS21 specification, and −0.50 to −0.73 in the
+      stacked-DiD specifications.
+      <span class="badge badge-robust">direction robust</span>
+      <br>
+      <em>Pre-trend test does not reject in CS21 broad/RA (z = −0.58). Stacked-DiD agrees on
+      direction; magnitude is uncertain (the EB spec produces an extreme estimate due to limited
+      treated/control covariate overlap).</em>
+    </li>
+  </ul>
+</div>
+
+<div class="summary-box">
+  <h3>Three findings clearly NOT identified in this design</h3>
+  <ul class="findings">
+    <li>
+      <strong>Civil red-flag → firearm suicide.</strong> Apparent reductions in every spec, but
+      pre-trends reject at z ≈ +4–5 across all CS21 and stacked-DD specs.
+      Roth-Sant'Anna bounds at M = 1 fail in every specification; OR specs flip sign positive at
+      M = 2. Most plausible explanation: Ashenfelter's dip — adopting states had rising
+      firearm-suicide rates before adoption, which is part of the political story that
+      motivated the law.
+      <span class="badge badge-unidentified">unidentified</span>
+    </li>
+    <li>
+      <strong>UBC → firearm suicide.</strong> Significant in CS21 RA (−0.48) but essentially zero
+      at e = +1 in stacked DiD across all three weighting specs. Estimator-dependent and bound-
+      fragile.
+      <span class="badge badge-fragile">fragile</span>
+    </li>
+    <li>
+      <strong>Permitless carry → firearm or total homicide.</strong> Direction is mixed across
+      specs and the macroeconomic covariates (population scale, unemployment, real income) used
+      in the RA spec do not absorb the property-crime trend gap that breaks the placebo.
+      <span class="badge badge-unidentified">unidentified</span>
+    </li>
+  </ul>
+</div>
+
+<p>
+The motor vehicle theft placebo is significant in several specs across all three policies, which
+is a persistent identification challenge. For permitless carry the placebo failure is severe (and
+shows up in pre-trends too); for red-flag and UBC the stacked-DiD placebo CIs include zero, which
+is a meaningfully better identification position than CS21 alone suggested.
+</p>
+</section>
+
+
+<section id="data">
+<h2>2. Data and panel construction</h2>
+<p>
+Estimates use a balanced state-year panel covering 50 U.S. states (DC excluded throughout) from
+1979 through 2024 (suicide / homicide outcomes from a long-run firearm suicide / homicide v2
+file end in 2023). The augmented variant of the panel adds granular FBI / OpenCrime crime
+components (homicide, robbery, rape, aggravated assault, burglary, larceny, motor vehicle theft),
+firearm and total suicide and homicide counts, the firearm-suicide-share ownership proxy, and the
+RAND TL-354 household firearm ownership rate (1980–2016).
+</p>
+<p>
+The full prose-language data documentation lives in
+<a href="../../data_appendix.md"><code>data_appendix.md</code></a>. Every variable, source, and
+manipulation is documented there in plain English. The same panel powers the public choropleth
+map at
+<a href="https://jedediahpidareese-coder.github.io/firearms-regulation-map/">jedediahpidareese-coder.github.io/firearms-regulation-map</a>.
+</p>
+<h3>Sources used in the research analyses</h3>
+<table>
+  <thead><tr><th>Variable family</th><th>Source</th><th>Window</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Firearm laws (treatments)</td><td>Tufts CTSI State Firearm Laws Database (Siegel et al.)</td><td>1976–2024</td><td>72 binary indicators across 11 categories.</td></tr>
+    <tr><td>Firearm suicides / homicides (counts and per-100k rates)</td><td>Firearm-suicide / homicide v2 dataset (Kalesan-style)</td><td>1949–2023</td><td>50 states; DC excluded; non-firearm suicide derived as total − firearm.</td></tr>
+    <tr><td>Total homicide rate, motor vehicle theft rate</td><td>FBI UCR / OpenCrime extraction</td><td>1979–2024</td><td>Same NC↔ND 2022 reassignment as the website build.</td></tr>
+    <tr><td>Macro controls</td><td>BLS LAUS unemployment, BEA per-capita personal income, Census state population</td><td>1979–2024</td><td>Real income deflated to 2024 USD via CPI-U.</td></tr>
+  </tbody>
+</table>
+<p class="caption">All inputs are public. Reproduce the panel via <code>scripts/build_firearms_panel.py</code> and <code>scripts/augment_panels.py</code>.</p>
+</section>
+
+
+<section id="methodology">
+<h2>3. Methodology</h2>
+
+<h3>3.1 Callaway-Sant'Anna ATT(g, t)</h3>
+<p>
+For each treatment cohort g (year of first 0→1 or 1→0 switch in the policy variable, depending
+on policy) and each calendar year t in the analysis window:
+</p>
+<p style="text-align:center; font-style:italic;">
+  ATT(g, t) = E[Y<sub>t</sub> − Y<sub>g−1</sub> | treated, cohort g] − E[Y<sub>t</sub> − Y<sub>g−1</sub> | comparison group]
+</p>
+<p>
+We use the never-treated comparison group (no states ever switch in the panel window). Two specifications:
+<strong>OR</strong> = basic outcome regression, no covariates; <strong>RA</strong> = regression-adjusted
+(Sant'Anna & Zhao 2020) with <code>ln_population</code>, <code>unemployment_rate</code>, and
+<code>ln_pcpi_real_2024</code> measured at year g−1. Two control rules: <strong>broad</strong> uses every
+never-treated state; <strong>strict</strong> applies a policy-specific filter (e.g., for permitless
+carry, controls must be shall-issue and permit-required throughout [g−5, g+5]).
+Standard errors via state-cluster Rademacher multiplier bootstrap (B = 2,000).
+</p>
+<p>
+Aggregations: event-study ATT(e) is a treated-state-count-weighted average of ATT(g, g+e) across
+cohorts; overall post-treatment ATT is the same average for e ≥ 0.
+</p>
+
+<h3>3.2 Cengiz-Dube-Lindner-Zipperer stacked DiD</h3>
+<p>
+For each treatment cohort g, we build a stack: the treated state(s) plus all clean controls
+observed across [g−5, g+5]. We concatenate all stacks and run TWFE with stack-by-state and
+stack-by-event-time fixed effects:
+</p>
+<p style="text-align:center; font-style:italic;">
+  Y = β · (treated × post) + α<sub>stack,state</sub> + δ<sub>stack,event</sub> + ε
+</p>
+<p>
+β is the average post-treatment ATT. We estimate via Frisch-Waugh-Lovell within-FE partialling.
+Standard errors are state-clustered (since the same state can appear in multiple stacks as a
+control). Three weighting specifications:
+</p>
+<ul>
+  <li><strong>Unweighted:</strong> plain stacked DiD, no covariate adjustment.</li>
+  <li><strong>Regression-adjusted (RA):</strong> TWFE with covariates as linear controls.</li>
+  <li><strong>Entropy-balanced (EB, Hainmueller 2012):</strong> per-stack reweighting of controls
+      so their baseline (g−1) covariate moments exactly match the treated unit's. Doubly robust.
+      Implementation: Newton's method on the convex dual of Hainmueller's optimization problem.
+      <em>Caveat:</em> EB max weights reach 31–33 in some stacks, indicating the treated and
+      control covariate distributions barely overlap. In those cases, EB amplifies variance and
+      should be read as the most aggressive bound on what reweighting can buy you, not as a
+      definitive estimate.</li>
+</ul>
+
+<h3>3.3 Roth-Sant'Anna pre-trend sensitivity bounds</h3>
+<p>
+For event-study coefficients with potentially problematic pre-trends, we report Roth-Sant'Anna
+(2019) honest sensitivity bounds. We fit a weighted linear regression of pre-period
+(e ∈ [−5, −2]) ATT coefficients on event time, recover the slope b̂ and its SE, then for each
+post-period e ≥ 0:
+</p>
+<p style="text-align:center; font-style:italic;">
+  ATT<sub>adj</sub>(e) = ATT(e) − M · (e + 1) · b̂
+</p>
+<p>
+with the CI half-width inflated by M·(e+1)·SE(b̂). M is the sensitivity parameter:
+<strong>M = 0</strong> corresponds to the strict parallel-trends assumption;
+<strong>M = 1</strong> means "post-trend deviation is at most as large as the linear extrapolation
+of the observed pre-trend"; <strong>M = 2</strong> is a conservative "I don't trust the pre-trend
+at all" choice. Reported M ∈ {0, 0.5, 1.0, 2.0}.
+</p>
+
+<h3>3.4 Substitution test</h3>
+<p>
+For policies whose primary outcome is firearm suicide, we add non-firearm suicide rate (derived
+as <code>total_suicide_rate − firearm_suicide_rate</code>) and total suicide rate as outcomes.
+The test:
+</p>
+<ul>
+  <li>If firearm suicide moves and non-firearm stays flat, total moves by the firearm amount —
+    the policy changes total suicidal deaths.</li>
+  <li>If firearm and non-firearm move in opposite directions of similar magnitudes, the policy
+    just shifts methods and total is unchanged.</li>
+  <li>If both move in the same direction, the substitution interpretation breaks down and points
+    to confounding by other co-occurring policies / cultural changes.</li>
+</ul>
+
+<h3>3.5 Placebo: motor vehicle theft</h3>
+<p>
+None of the three policies has a direct mechanism for affecting motor vehicle theft. A clean
+identification design should produce ATT ≈ 0 for it. Persistent placebo failure tells us about
+unobserved trend differences between treated and control states.
+</p>
+</section>
+
+
+{perm_section.replace('<section class="policy">', '<section class="policy" id="permitless-carry">')}
+
+{rf_section.replace('<section class="policy">', '<section class="policy" id="red-flag">')}
+
+{ubc_section.replace('<section class="policy">', '<section class="policy" id="ubc">')}
+
+
+<section id="synthesis">
+<h2>7. Cross-policy synthesis</h2>
+<p>
+Across three policies × two estimators × multiple specifications, two findings are robust enough
+to be the lede of a paper:
+</p>
+<ol>
+  <li>
+    <strong>Permitless carry adoption raises total suicide by about 0.6 per 100,000.</strong>
+    Direction agrees in both estimators; magnitude in (+0.5, +0.7); substitution test passes;
+    Roth-SA bounds at M = 1 survive in CS21 RA specs. The MVT placebo fails so this isn't a
+    pure causal claim, but the substitution-test pattern is hard to explain by trend-gap
+    confounding alone.
+  </li>
+  <li>
+    <strong>Civil-petition red-flag laws reduce firearm homicide.</strong> Direction agrees in
+    both estimators; magnitude is uncertain (CS21 broad/RA −0.14; stacked-DiD spans −0.50 to
+    −0.73; EB pushes to −2.13 but is fragile); pre-trend test does not reject in the cleanest
+    CS21 spec (z = −0.58); placebo CIs from stacked-DiD include zero (much milder placebo
+    failure than CS21).
+  </li>
+</ol>
+<p>
+The other six "headline" cells (red-flag suicide, UBC suicide, UBC homicide, permitless-carry
+homicide, all of which were significant in some specifications) do not survive the joint set of
+robustness checks documented in this report. That is itself a finding — most published
+single-estimator results on these questions probably overstate what the data identify.
+</p>
+</section>
+
+
+<section id="limitations">
+<h2>8. Limitations and caveats</h2>
+<ul>
+  <li>The motor vehicle theft placebo continues to fail in some specifications across all three
+    policies. The reweighting (RA, EB, strict control rule) helps but does not fully eliminate
+    the property-crime trend gap between treated and control states. Outcome-specific covariates
+    or county-level identification with border discontinuity designs would be the natural next
+    response.</li>
+  <li>For UBC the strict-rule control pool collapses to the same set as the broad rule, so we
+    only have two effective specifications (OR and RA). The other policies have four.</li>
+  <li>Single-state cohorts (AZ 2010 and WY 2011 for permitless carry; VT 2023 for red-flag)
+    contribute very noisy ATT(g, t) cells. They are kept in the pooled CS21 estimates but
+    deserve separate-cohort robustness checks.</li>
+  <li>Outcomes from the firearm suicide / homicide v2 file end in 2023. UBC and red-flag 2024
+    adopters cannot be analyzed yet.</li>
+  <li>Entropy balancing can be unstable when covariate overlap between treated and control is
+    poor. The EB column in stacked-DiD tables should be treated as a robustness range, not a
+    definitive estimate. Maximum per-stack EB weights of 31–33 indicate that one or two
+    control states are doing nearly all the work; estimates from such stacks should be
+    interpreted with caution.</li>
+  <li>Roth-Sant'Anna bounds reported here use the linear-extrapolation form. The full
+    Rambachan-Roth (2023) procedure with non-linear bounds (their HonestDiD R package) would
+    provide tighter inference where pre-trends are non-linear.</li>
+  <li>True county-level firearm-mortality identification (a natural follow-up given the
+    county-level crime data we have) is blocked by CDC public-data policy. See
+    <a href="../../data_appendix.md">Section 2.10 of the data appendix</a> for the documented
+    paths and their constraints.</li>
+</ul>
+</section>
+
+
+<section id="appendix">
+<h2>9. Appendix: code map and reproduction</h2>
+<table>
+  <thead><tr><th>Component</th><th>Script</th><th>Output</th></tr></thead>
+  <tbody>
+    <tr><td>Shared CS21 machinery</td><td><code>scripts/cs_lib.py</code></td><td>—</td></tr>
+    <tr><td>Shared stacked-DiD machinery</td><td><code>scripts/lib_stacked_dd.py</code></td><td>—</td></tr>
+    <tr><td>Permitless carry: CS21</td><td><code>scripts/run_cs_permitless_carry.py</code></td><td><code>outputs/permitless_carry_cs/</code></td></tr>
+    <tr><td>Permitless carry: stacked DiD</td><td><code>scripts/run_stacked_dd.py</code></td><td><code>outputs/permitless_carry_stackdd/</code></td></tr>
+    <tr><td>Red-flag: CS21</td><td><code>scripts/run_cs_red_flag.py</code></td><td><code>outputs/red_flag_cs/</code></td></tr>
+    <tr><td>Red-flag: stacked DiD</td><td><code>scripts/run_stacked_dd.py</code></td><td><code>outputs/red_flag_stackdd/</code></td></tr>
+    <tr><td>UBC: CS21</td><td><code>scripts/run_cs_ubc.py</code></td><td><code>outputs/ubc_cs/</code></td></tr>
+    <tr><td>UBC: stacked DiD</td><td><code>scripts/run_stacked_dd.py</code></td><td><code>outputs/ubc_stackdd/</code></td></tr>
+    <tr><td>Synthetic control (TX 2021, FL 2023)</td><td><code>scripts/run_scm_permitless_carry.py</code></td><td><code>outputs/permitless_carry_scm/</code></td></tr>
+    <tr><td>Roth-Sant'Anna bounds</td><td><code>scripts/run_roth_sa_bounds.py</code></td><td><code>outputs/roth_sa_bounds/</code></td></tr>
+    <tr><td>This report</td><td><code>scripts/build_research_report.py</code></td><td><code>outputs/research_report/index.html</code></td></tr>
+  </tbody>
+</table>
+<p>
+To reproduce the entire research portion of the project from scratch:
+</p>
+<pre style="background:#f7f6f1; padding:10px; font-size:11px; line-height:1.4; overflow-x:auto;">
+# Build state panels first (see data_appendix.md and the README for upstream
+# raw-input requirements):
+python scripts/build_firearms_panel.py
+python scripts/audit_panels.py
+python scripts/augment_panels.py
+
+# Run all three CS21 analyses:
+python scripts/run_cs_permitless_carry.py
+python scripts/run_cs_red_flag.py
+python scripts/run_cs_ubc.py
+
+# Run the synthetic-control case studies:
+python scripts/run_scm_permitless_carry.py
+
+# Run the parallel stacked-DiD implementation across all three policies:
+python scripts/run_stacked_dd.py
+
+# Run Roth-Sant'Anna pre-trend bounds for both estimators:
+python scripts/run_roth_sa_bounds.py
+
+# Build this report:
+python scripts/build_research_report.py
+</pre>
+<p>
+Print this page to PDF: in any modern browser, File &rarr; Print &rarr; Save as PDF.
+The print stylesheet at the top of this document handles page breaks and font sizing
+appropriately for letter-paper output.
+</p>
+</section>
+
+</body>
+</html>
+"""
+    return html
+
+
+def main():
+    html = build_html()
+    out_path = OUTDIR / "index.html"
+    out_path.write_text(html, encoding="utf-8")
+    print(f"Wrote {out_path}  ({out_path.stat().st_size/1024:,.0f} KB)")
+    print()
+    print("Open in any browser, then File -> Print -> Save as PDF for a publication-style PDF.")
+
+
+if __name__ == "__main__":
+    main()
