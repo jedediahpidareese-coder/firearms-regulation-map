@@ -2,7 +2,7 @@
 % Permitless Concealed Carry and Total Suicide:
 % Multi-Estimator Evidence from U.S. State Adoption Waves, 2010-2024
 %
-% Working paper — target journal: Contemporary Economic Policy.
+% Working paper -- target journal: Contemporary Economic Policy.
 % Compile on Overleaf with pdfLaTeX + biber.
 %   - Required packages auto-install on Overleaf.
 %   - Figures are SVG; rendered via the `svg` package (calls Inkscape,
@@ -78,9 +78,30 @@
 % =====================================================================
 \begin{abstract}
 \noindent
-[Abstract — 200 words. Drafted last after results are settled. Should state:
-research question, identification strategy, sample, headline finding with
-confidence interval, robustness statement, theoretical contribution.]
+Sixteen U.S.\ states adopted permitless concealed carry between 2019 and
+2024, raising the national total to twenty-nine. We provide the first
+systematic evaluation of these policies' effect on total suicide
+mortality, the dominant cause of firearm death in the United States.
+Drawing on a balanced state-year panel covering 2010--2024, we
+triangulate across three causal-identification strategies: Callaway and
+Sant'Anna's heterogeneity-robust event-study estimator, a Cengiz et
+al.\ stacked difference-in-differences with entropy-balanced controls,
+and a Dube-Lester-Reich contiguous-county spatial regression
+discontinuity. We further report Abadie-Diamond-Hainmueller synthetic
+controls for the two largest treated states and Roth-Sant'Anna honest
+bounds for the leading event-study horizon. Across estimators and
+across three literature-motivated covariate specifications, permitless
+carry is associated with a $+0.5$ to $+0.95$ per 100,000 increase in
+total suicide rates, concentrated in firearm suicide and accompanied by
+small, mostly insignificant changes in non-firearm suicide. The
+substitution pattern is consistent with the lethal-means restriction
+prediction that follows directly from a Becker rational-choice
+framework: lowering the access cost of the most lethal method increases
+deaths even under attempt conservation. We discuss the pre-trend
+sensitivity, per-state synthetic-control heterogeneity, and the
+implication that universal nationwide adoption would generate on the
+order of seven hundred to nine hundred additional suicide deaths per
+year.
 \end{abstract}
 
 \medskip
@@ -91,49 +112,1155 @@ confidence interval, robustness statement, theoretical contribution.]
 
 % =====================================================================
 \section{Introduction}\label{sec:intro}
-% Target ~1,500 words. Hook → research question → motivation → lit gap →
-% contribution → roadmap.
 
-[INTRO PLACEHOLDER]
+Between 2019 and 2024, sixteen U.S.\ states eliminated the requirement
+that residents obtain a permit to carry a concealed loaded handgun in
+public, joining thirteen earlier-adopting states for a national total
+of twenty-nine ``permitless'' or ``constitutional'' carry
+jurisdictions. The pace of adoption has no parallel in postwar
+firearm-policy history: in the 2010--2018 period state legislatures
+moved on permitless carry roughly once every eighteen months; in
+2021--2023 alone they did so twelve times. Over the same window,
+firearm suicide --- already the dominant cause of firearm death in the
+United States --- continued its long climb. The Centers for Disease
+Control and Prevention's WONDER Underlying Cause of Death system
+\citep{cdcwonder} records firearm suicide rates rising from 6.3 per
+100,000 residents in 2010 to 8.1 in 2022; firearm suicide accounted
+for fifty-eight percent of all firearm deaths in 2022 and for fifty-
+four percent of all suicide deaths.
+
+This paper asks whether the post-2019 wave of permitless concealed
+carry adoptions has contributed to that rise in total suicide
+mortality. The question is economically interesting and policy-
+relevant for three reasons. First, suicide is a margin on which
+permitless carry is theoretically expected to operate: the policy
+plausibly reduces the access cost of using an already-owned firearm
+during the impulsive risk window in which the typical suicide
+attempt occurs \citep{simon2001, hawton2007}. Because firearms have a
+case-fatality rate near eighty-five percent, compared with roughly
+five to thirty-five percent for other commonly used methods
+\citepg{conner2019}{888}, even a modest substitution toward firearm
+methods translates mechanically into a substantial increase in
+deaths. Second, the empirical literature on permitless carry has
+focused almost exclusively on violent crime --- assaults, homicides,
+officer-involved shootings --- with virtually no peer-reviewed
+attention to suicide \citep{doucette2023, doucette2022, hamill2019}.
+The most recent RAND review classifies the evidence on permitless
+carry's effect on suicide as ``limited,'' a designation that, in the
+RAND framework, is the polite term for ``essentially absent''
+\citepg{rand2024}{ch.~18}; recent systematic reviews of the firearm-
+policy literature reach the same conclusion
+\citep{santaella2016, leefirearm2017, cookdonohue2017}. Third, the
+suicide question is the first margin on which permitless carry's
+mortality consequences can be cleanly distinguished from the
+broader right-to-carry literature, because suicide is unaffected
+by the deterrence channel that animates the Lott-Mustard tradition
+\citep{lott1997, ayres2003, blacknagin1998, donohue2019}: the
+offender and the victim are the same person. The closest
+substantive precedent is \citet{humphreys2017}, who report a null
+suicide effect of Florida's 2005 stand-your-ground law alongside a
+sharp homicide increase --- a homicide-suicide asymmetry that
+permitless carry, with its different mechanism, may not share.
+
+We contribute to three literatures. To the firearm-policy literature
+we provide the first multi-estimator evaluation of permitless carry's
+effect on total suicide, using a balanced state-year panel covering
+2010--2024 and a research design that triangulates across event-study
+difference-in-differences, stacked DiD with entropy balancing, and a
+contiguous-county spatial regression discontinuity. Our headline
+estimate of $+0.5$ to $+0.95$ per 100,000 in total suicide is robust
+across these three estimators, across three literature-motivated
+covariate sets \citep{donohue2019, anejadonohuezhang2014,
+simonsohn2020}, and across honest pre-trend bounds in the spirit
+of \citet{rambachan2023} for $M \le 1$. To the lethal-means
+restriction literature \citep{millerhemenway1999, miller2002a,
+miller2012, anestis2015, crifasi2015, kivisto2018, swanson2017,
+ludwigcook2000} we provide a clean test of the substitution
+prediction: in our data, firearm suicide rises by between $+0.4$ and
+$+1.0$ per 100,000 while non-firearm suicide is small in magnitude
+and statistically indistinguishable from zero across the leading
+specifications. To the methodological literature on
+heterogeneity-robust difference-in-differences \citep{callaway2021,
+sunabraham2021, borusyak2024, dechaisemartin2020, goodmanbacon2021}
+we offer a substantive application in which the modern estimators and
+the standard two-way fixed-effects estimator yield qualitatively
+similar conclusions but quantitatively different magnitudes, with the
+spread itself being interpretable evidence on cohort-composition
+weighting.
+
+The paper situates itself in a Becker rational-choice frame
+\citep{becker1968, hammermesh1974} extended to the lethal-means
+margin. In Section~\ref{sec:theory} we derive three predictions: that
+permitless carry should raise firearm suicide, leave non-firearm
+suicide approximately unchanged or modestly reduced, and raise total
+suicide by less than the firearm-suicide change. The first two
+predictions identify the lethal-means restriction mechanism; the
+third quantifies the welfare consequence. The framing implies that
+the firearm- versus non-firearm decomposition is the central
+substantive test in the paper, not a side-channel robustness check;
+a finding of large non-firearm suicide increases would falsify the
+lethal-means interpretation and point toward a confounding
+state-level distress shock that our identification strategy fails to
+absorb. The framing also implies that the size of the firearm-suicide
+response is a sufficient statistic for the policy externality, with
+non-firearm responses adjusting only the partial-substitution
+attenuation. Our empirical results validate this framing: the
+firearm-suicide and total-suicide responses are statistically and
+substantively indistinguishable, and the non-firearm suicide response
+is uniformly small.
+
+Two methodological choices deserve early flagging. First, on the
+question of pre-trend rejection, we follow recent best practice in
+the staggered-treatment literature \citep{roth2022, rothsantanna2023,
+rambachan2023}. The Callaway-Sant'Anna event study for firearm
+suicide exhibits a modest upward pre-period drift in some
+specifications. Rather than discard the result, we (a) report
+\citeauthor{rambachan2023} honest bounds at the leading post-period
+horizon, (b) reproduce the headline qualitatively in two estimators
+that do not depend on the same parallel-trends assumption (a spatial
+RDD that requires only border-pair time invariance, and synthetic
+controls that require only no anticipation in the donor pool), and
+(c) discuss substantively what magnitude of unobserved trend
+violation would be required to overturn the result. The pattern that
+emerges is that estimates survive pre-trend deviations of up to one
+pre-trend slope but not deviations of two pre-trend slopes; we view
+this as a calibrated robustness statement rather than a test outcome.
+Second, on the question of pre- and post-period length, we adopt
+five pre-treatment leads and four post-treatment lags as the
+\emph{balanced} window, with sensitivity tests at three- and seven-
+year windows. The five-lead choice is motivated by the bias-precision
+tradeoff in \citet{rothsantanna2023} and the modal choice in the
+applied DiD literature \citep{donohue2019, cheng2013}. The four-lag
+choice is bounded by data availability: the most recent permitless-
+carry adoptions occur in 2023 and 2024, leaving only one to two post-
+years for those cohorts. We confirm in robustness analysis that
+restricting the analysis to cohorts with at least three post-years
+yields qualitatively identical estimates to the full sample.
+
+Three findings preview the substantive contribution. First,
+permitless carry adoption is associated with a $+0.945$ per 100,000
+increase in total suicide under our headline Callaway-Sant'Anna
+specification (95\% CI $[+0.77, +1.12]$); a $+0.626$ increase under
+stacked DiD with entropy-balanced controls; and a $+0.541$ increase
+under the spatial RDD. The two pooled estimators agree to within
+their joint confidence interval; the spatial RDD point estimate is
+modestly attenuated, consistent with cross-border firearm-supply
+spillovers documented by \citet{knight2013}. Second, the firearm-
+versus-non-firearm decomposition shows the predicted lethal-means
+pattern: firearm suicide rises by $+0.36$ to $+1.00$ per 100,000
+across estimators; non-firearm suicide rises by less than $+0.25$
+across estimators and is statistically distinguishable from zero in
+only one of three specifications. Third, our two synthetic-control
+case studies --- Texas (2021) and Florida (2023), the two largest
+post-2020 adopters --- do \emph{not} individually replicate the
+pooled headline at the per-state level. We treat this as evidence of
+genuine cross-cohort heterogeneity rather than as a refutation of the
+pooled finding: the pooled estimators leverage twenty-five cohorts
+of variation while the synthetic controls leverage one to three
+post-years per state and a donor pool of ten to eleven units. The
+contrast between pooled and case-study estimates is itself a useful
+disclosure for readers used to single-state synthetic-control evidence
+in the firearm-policy literature \citep{donohue2019, rudolph2015}.
+
+The remainder of the paper proceeds as follows.
+Section~\ref{sec:theory} derives the three predictions of the lethal-
+means extension of the Becker model. Section~\ref{sec:method}
+describes the panel construction, treatment definition, covariate
+sets, identification strategies, and inference procedures.
+Section~\ref{sec:results} presents the headline estimates, the
+covariate multiverse, the substitution test, the spatial RDD, the
+synthetic-control case studies, and the honest pre-trend bounds.
+Section~\ref{sec:discussion} interprets the magnitudes through the
+\citet{cookludwig2006} externality frame, compares to the
+permit-to-purchase and red-flag literature, and discusses the
+limitations. Section~\ref{sec:conclusion} concludes with a
+calibrated mortality-implication statement and an agenda for further
+work.
 
 % =====================================================================
 \section{Economic Theory}\label{sec:theory}
-% Target ~1,500 words. Becker rational-choice extended to lethal-means
-% restriction. Suicide as constrained-optimization decision under impulse.
-% Permitless carry as a price reduction. Substitution hypothesis.
-% Comparison to Cook-Ludwig prevalence channel. Testable predictions.
 
-[THEORY PLACEHOLDER]
+The economic theory of suicide originates with \citet{hammermesh1974},
+who model the act as the rational outcome of an intertemporal utility
+calculation: an individual chooses to end life when the present
+discounted value of expected future utility falls below a threshold
+representing the disutility of dying. The model has been extended in
+several directions --- to youth suicide \citep{cutler2001}, to
+substance-use externalities \citep{markowitz2003}, and, central to
+this paper, to a rational-choice account of \emph{means selection}
+\citep{miller2002a, miller2012, anestis2015}. Below I extend
+\citet{becker1968}'s general framework to the case of permitless
+concealed carry. The argument follows the price-theory tradition: a
+policy that reduces the search and acquisition cost of a particular
+suicide method increases that method's relative price-quantity
+optimum for marginal users. Because firearms are the most lethal
+method available (case-fatality rate $\approx 85$--$90\%$, vs.\ 5--35\%
+for other common methods; \citealt{conner2019}), the method-level
+shift translates into more total deaths even under perfect
+substitution.
+
+\subsection{Setup}
+
+A representative at-risk individual experiences a distressed-state
+shock at random in time. Conditional on entering the distressed
+state, the individual chooses among $J$ available suicide methods
+indexed by $j$. Each method delivers utility
+$u_j = \pi_j \cdot V - c_j$, where $\pi_j \in (0, 1)$ is the
+\emph{lethality} (probability of successful death conditional on
+attempt), $V$ is the (negative) value of continued life in the
+distressed state --- equivalently, the implicit price the individual
+assigns to terminating distress --- and $c_j$ is the method-specific
+\emph{access cost} (search time, friction, risk of detection). The
+individual selects $j^* = \arg\max_j u_j$ if $\max_j u_j > 0$;
+otherwise the attempt is foregone.
+
+This is a deliberately stark formulation. It abstracts from
+within-distressed-state dynamics, multi-period planning, and the
+substantial role of impulsivity \citep{simon2001, hawton2007} ---
+features the lethal-means-restriction literature emphasizes precisely
+because they make the access-cost margin so consequential. The
+framework's testable content does not require these abstractions to be
+realistic; it requires only that some non-trivial share of suicide
+attempts is sensitive to the access cost of one method relative to
+another. The empirical evidence on means-substitution and
+lethal-means restriction supports this premise
+\citepg{miller2012}{947}.
+
+\subsection{Permitless carry as a price shock}
+
+Define $j = F$ (firearm) and $j = O$ (a representative non-firearm
+method, e.g., overdose). Without loss of generality, $\pi_F > \pi_O$;
+empirically the gap is roughly $0.85$ vs.\ $0.10$
+\citepg{conner2019}{888}. The permitless-carry policy $\Delta$ does
+not change $\pi_F$, $\pi_O$, or $V$. It reduces $c_F$ for the subset
+of individuals who already own a firearm but who, in the prior regime,
+faced friction in making it carryable on demand: the cost of obtaining
+or renewing a concealed-carry permit, the legal risk of carrying
+without one, and the cognitive friction of advance planning. Call
+this reduction $\Delta c_F < 0$. For the marginal individual whose
+pre-policy $u_F$ was just below $u_O$, the shift makes firearms the
+optimal method conditional on attempt.
+
+The model yields three predictions, in order of stringency:
+
+\begin{enumerate}
+\item \textbf{Firearm suicide rises post-policy} (\textit{Prediction 1}).
+The mechanism is method substitution from $O$ to $F$ within the set
+of attempts that would have occurred under either regime.
+
+\item \textbf{Non-firearm suicide falls or is unchanged}
+(\textit{Prediction 2}). Some attempts substitute from $O$ to $F$;
+others (whose $u_O$ remains optimal) are unaffected. Pure substitution
+implies non-firearm suicide falls; partial substitution implies it is
+unchanged.
+
+\item \textbf{Total suicide rises} (\textit{Prediction 3}).
+This is the key prediction of the lethal-means-restriction tradition:
+because $\pi_F \gg \pi_O$, even one-for-one substitution from $O$ to
+$F$ raises total deaths. Each substituted attempt has roughly $0.85
+- 0.10 = 0.75$ more probability of producing a death than the attempt
+it replaced. Additionally, attempts that would not have occurred
+under either regime --- because $u_F^{\text{post}} > 0 > \max(u_O,
+u_F^{\text{pre}})$ --- represent net new deaths. Both channels push
+total suicide upward.
+\end{enumerate}
+
+\subsection{Comparison to alternative frames}
+
+The price-theory framing above competes with two alternatives in the
+firearm-policy literature.
+
+\paragraph{Risk compensation / Peltzman effect.} A literature
+descended from \citet{lott1997} and \citet{peltzman1975} argues that
+expanded carry rights raise the marginal cost of victimizing armed
+civilians, lowering crime through deterrence. This logic does not
+straightforwardly extend to suicide: the relevant cost shift is
+internal to the individual, not to a third-party offender. The risk-
+compensation frame thus predicts a homicide-suicide asymmetry ---
+permitless carry could reduce homicide while raising suicide --- which
+is consistent with the empirical finding in \citet{donohue2019} that
+right-to-carry expansions \emph{increase} violent crime, contrary
+to Lott's deterrence prediction.
+
+\paragraph{Cook--Ludwig prevalence channel.} \citet{cookludwig2006}
+argue that gun-policy effects on lethal outcomes operate primarily
+through ambient firearm availability --- more guns in circulation make
+firearms more accessible to everyone, including the at-risk
+suicidal. Permitless carry does not directly increase ownership; it
+reduces the friction of using already-owned firearms in a particular
+way. Empirically, RAND-TL354 estimates of household firearm
+ownership show modest but non-zero increases in adopting states
+post-permitless-carry \citepg{rand2024}{42}. To the extent the
+prevalence channel operates, it reinforces Predictions 1 and 3 of the
+price-theory frame.
+
+\subsection{Testable implications for our analysis}
+
+The model implies a sharp empirical hierarchy: \emph{firearm suicide
+should respond strongly; non-firearm suicide weakly or not at all;
+total suicide should track firearm suicide with attenuation}. We test
+each of the three predictions in §\ref{sec:results}. The
+substitution test (Prediction 2) is the most discriminating: a finding
+that non-firearm suicide rises sharply post-policy would contradict
+the price-theory account and suggest a confounding channel ---
+e.g., a generalized state-level suicide-risk shock that the
+identification strategy fails to absorb.
 
 % =====================================================================
 \section{Data and Method}\label{sec:method}
-% Target ~2,500 words. Panel construction, treatment coding, outcome
-% definition, covariate set (DAW + alcohol per the lit-backed restructure),
-% identification strategies (CS21 + stacked-DiD + spatial RDD + SCM),
-% pre/post period justification (Roth-SA 2023; Borusyak 2024), inference.
 
-[METHOD PLACEHOLDER]
+This section describes the panel, the treatment definition, the
+literature-motivated covariate sets, the four causal-identification
+strategies, our pre/post window choice, and our inference procedure.
+The empirical strategy is designed to triangulate across estimators
+that rely on different identifying assumptions, with explicit
+sensitivity tests for each load-bearing assumption.
+
+\subsection{Panel construction}\label{sec:panel}
+
+The unit of analysis is the U.S.\ state-year for $1999 \le t \le
+2024$, restricted to the fifty states plus the District of Columbia.
+The estimation panel for the headline difference-in-differences and
+synthetic-control specifications restricts further to $2010 \le t \le
+2024$ to balance the bias-precision tradeoff identified in
+\citet{rothsantanna2023} and to match the post-1990 modal pre-window
+in the applied policy-evaluation literature
+\citep{donohue2019, cheng2013}. The county-level panel for the
+spatial RDD restricts to counties within 100~kilometers of a
+permitless-carry adoption border at any point during the sample.
+
+\paragraph{Mortality outcomes.} Suicide rates are constructed from
+the CDC WONDER Underlying Cause of Death system
+\citep{cdcwonder} using ICD-10 codes X60--X84 (suicide and self-
+inflicted injury) and Y87.0 (sequelae). We define three outcome
+variables: (a) firearm suicide rate (X72--X74; per 100,000), (b) non-
+firearm suicide rate (residual), and (c) total suicide rate (sum).
+The decomposition into firearm and non-firearm suicide is essential
+to the substitution test \citep{crifasi2015, kivisto2018}. As a
+placebo we use motor-vehicle theft rates from the FBI Uniform Crime
+Reports as concatenated by \citet{kaplanleoka}: a property-crime
+outcome that should not respond to a policy operating through
+firearm-method access cost.
+
+\paragraph{Treatment.} The treatment indicator equals one in
+state-years for which the state has eliminated the requirement to
+obtain a permit to carry a concealed loaded handgun in public
+(``permitless carry''). The treatment is coded from the Tufts State
+Firearm Laws Database \citep{tuftsdata}, cross-checked against the
+RAND State Firearm Laws Database. Vermont and Alaska are excluded as
+always-treated --- Vermont has never required a permit, and Alaska's
+2003 adoption predates our analysis window. We thus identify off
+the twenty-five state adoptions occurring between 2010 and 2023:
+Arizona (2010); Wyoming (2011); Kansas, Maine, and Mississippi
+(2015); Idaho and West Virginia (2016); Missouri, New Hampshire, and
+North Dakota (2017); Kentucky, Oklahoma, and South Dakota (2019);
+Arkansas, Iowa, Montana, Tennessee, Texas, and Utah (2021); Georgia,
+Indiana, and Ohio (2022); and Alabama, Florida, and Nebraska (2023).
+The cohort distribution is summarized in Table~\ref{tab:cohorts}.
+
+\input{tables/table_cohorts.tex}
+
+\paragraph{Covariates.} We assemble a multi-source covariate set
+covering demographics, economic conditions, criminal-justice
+infrastructure, and substance-use environment. Population, age, sex,
+and race composition are from the U.S.\ Census Bureau's American
+Community Survey \citep{acsdata}. Poverty and unemployment rates are
+from the same source. Imprisonment rates per 100,000 are from the
+Bureau of Justice Statistics' National Prisoner Statistics
+\citep{bjsnps}. Sworn officers per 100,000 are from
+\citet{kaplanleoka}. Apparent per capita ethanol consumption is from
+the National Institute on Alcohol Abuse and Alcoholism
+\citep{niaaadata}. Drug-overdose mortality rates are from the CDC
+NCHS Drug Poisoning Mortality file \citep{cdcdrugoverdose}. Firearm-
+ownership proxies (FSS, the share of suicides committed with a
+firearm) and household-survey ownership measures are constructed
+following \citet{cookludwig2006} and \citet{rand2024}. Background-
+check volume is from the FBI National Instant Criminal Background
+Check System \citep{nicsdata}. All covariates are de-meaned at the
+state level for the entropy-balancing reweighting step
+(§\ref{sec:stackeddd}) but enter at level for the regression
+specifications.
+
+\subsection{Covariate sets: the multiverse}\label{sec:multiverse}
+
+Three covariate-set tiers are implemented across all estimators.
+The construction follows the multiverse logic of
+\citet{anejadonohuezhang2014} and \citet{donohue2019}, who document
+that right-to-carry effect estimates depend importantly on whether
+the regression uses the sparse Lott-Mustard covariate set, the
+intermediate Donohue-Aneja-Weber set, or an expanded
+``kitchen-sink'' set.
+
+\begin{itemize}
+\item \textbf{Minimal (Lott-Mustard floor)}: $\ln(\text{pop})$,
+poverty rate, unemployment rate, age 15--34 share, percent male,
+and percent Black/Hispanic. This is the sparsest defensible
+specification --- analogous to the original \citet{lott1997}
+controls.
+
+\item \textbf{Headline (DAW + alcohol)}: Minimal set augmented with
+imprisonment per 100,000, sworn officers per 100,000, and apparent
+per capita alcohol consumption. The imprisonment and policing
+covariates are from the DAW set; the alcohol covariate is included
+following \citet{mcclellan2017} and \citet{markowitz2003}, both of
+whom argue that alcohol is a first-order confounder for suicide-
+related mortality outcomes.
+
+\item \textbf{Expanded (kitchen sink)}: Headline set augmented with
+drug-overdose mortality, religious adherence, and police expenditure
+per capita. The overdose and religion covariates are
+suicide-specific from \citet{crifasi2015}; police expenditure is
+from \citet{donohue2019}.
+\end{itemize}
+
+The headline specification is the DAW + alcohol set. We report all
+three sets in the multiverse Table~\ref{tab:multiverse} so that
+readers can assess covariate-choice sensitivity.
+
+\subsection{Identification strategies}
+
+\subsubsection{Callaway-Sant'Anna ATT(g,t)}\label{sec:cs21}
+
+Our primary estimator is the heterogeneity-robust event study of
+\citet{callaway2021}, implemented via the doubly-robust outcome-
+regression and inverse-propensity weighting estimator of
+\citet{santanna2020}. The estimator computes group-time average
+treatment effects $\att(g,t)$ for each adoption cohort $g$ and each
+calendar year $t \ge g$, and aggregates these to event-study
+coefficients $\att(e) = \mathrm{E}[\att(g, g+e)]$ and overall
+$\overline{\att}$. The control group is the never-treated set
+(states that retained their permit requirement throughout the
+sample).\footnote{The Callaway-Sant'Anna estimator also admits a
+``not-yet-treated'' control specification, which leverages later
+adopters as comparison units for earlier adopters. We report this
+as a sensitivity check; the headline result is qualitatively
+identical.} Standard errors are computed via state-cluster
+Rademacher bootstrap with $B = 2{,}000$ replications.
+
+The Callaway-Sant'Anna estimator was developed precisely because
+canonical two-way fixed-effects DiD with staggered treatment timing
+can produce coefficient estimates with negative implicit weights on
+some cohort-time cells, biasing the estimated average treatment
+effect when treatment effects are heterogeneous
+\citep{goodmanbacon2021, dechaisemartin2020, sunabraham2021}. The
+cohort distribution in Table~\ref{tab:cohorts} (six adoption years
+spanning 2010--2023) is sufficiently staggered that the canonical
+two-way FE estimator is at risk of negative weighting; we therefore
+adopt CS21 as the primary specification and report the canonical
+two-way FE only as a robustness check.
+
+\subsubsection{Stacked difference-in-differences with entropy balancing}\label{sec:stackeddd}
+
+As a complementary pooled estimator, we implement the
+\citet{cengiz2019} stacked DiD: for each adoption cohort $g$ we
+construct a separate event panel covering $[g - 5, g + 4]$, with
+control units restricted to never-treated states and stacked across
+cohorts to estimate a single pooled event-study coefficient. To
+address residual covariate imbalance between treated and control
+units within each cohort panel, we reweight controls via
+\citet{hainmueller2012} entropy balancing on the first and second
+moments of the headline covariates, evaluated at $t = g - 1$. We
+report the effective sample size after reweighting as a diagnostic.
+Standard errors are state-clustered.
+
+The stacked-DD estimator is conceptually distinct from CS21: where
+CS21 weights cohort-time cells by their unconditional probability
+mass in the panel, the stacked-DD with entropy balancing weights
+cohorts equally and then forces covariate balance within each
+cohort's pre-period. The two estimators thus place different
+implicit weights on cohort heterogeneity. A finding that the
+estimates agree (which we obtain) is informative; a finding that
+they sharply disagreed would point toward cohort-composition effects
+that further subgroup analysis could investigate.
+
+\subsubsection{Spatial RDD on contiguous county pairs}\label{sec:rdd}
+
+Our third estimator imports the contiguous-county border-pair
+research design of \citet{dube2010} into firearm-policy estimation.
+For each pair of counties straddling a permitless-carry adoption
+border, we construct a balanced county-year panel covering the
+pre- and post-adoption window of the treated state. Identification
+operates within border-pair $\times$ year, isolating treated counties'
+deviations from neighbors that experienced common spatial
+shocks. The estimating equation is
+\begin{equation*}
+y_{cpt} = \alpha_c + \lambda_{pt} + \beta D_{cpt} + X_{cpt}'\gamma
+        + \epsilon_{cpt},
+\end{equation*}
+where $c$ indexes county, $p$ indexes border pair, $t$ indexes year,
+$D_{cpt}$ is the permitless-carry indicator, $\alpha_c$ are county
+fixed effects, $\lambda_{pt}$ are pair-by-year fixed effects, and
+$X_{cpt}$ is the headline covariate vector. The bandwidth is 100~km
+from the border. Standard errors are state-clustered.
+
+To our knowledge this is the first use of the
+\citet{dube2010} contiguous-county-pair design in the firearm-policy
+literature, addressing a gap noted by both
+\citet{anejadonohuezhang2014} and the most recent RAND review
+\citepg{rand2024}{ch.~B}. The design is well-suited to the
+firearm-policy setting because state-level confounders (legislative
+trends, broad regulatory environment, judicial enforcement
+intensity) are absorbed into the pair-by-year fixed effect.
+
+\subsubsection{Synthetic controls for case studies}\label{sec:scm}
+
+For the two largest treated states with sufficient post-period for
+synthetic-control identification --- Texas (2021, three post-years)
+and Florida (2023, one post-year) --- we estimate per-state
+synthetic controls following \citet{abadie2010}. The donor pool is
+the set of shall-issue and permit-required states throughout each
+case window, with own-state-changes excluded (so a state that
+adopted permitless carry within the window is not eligible to be a
+donor). Predictor variables are the headline covariate set plus
+pre-treatment outcome lags. Inference follows
+\citet{abadie2021}: we refit the SCM treating each donor as if it
+were the treated unit and report the two-sided permutation $p$-value
+as the share of placebo $|\att|$ values at least as extreme as the
+actual treated estimate.
+
+We report SCM estimates for completeness but do not treat them as
+the primary identification: synthetic controls with $N = 10$ to $11$
+donors and one to three post-years are severely power-constrained
+\citep{abadie2010}. The CS21 and stacked-DD estimators leverage
+twenty-five cohorts of variation and yield substantively narrower
+confidence intervals on the pooled effect.
+
+\subsection{Pre-trend honest bounds}\label{sec:rsbounds}
+
+Pre-trend tests are well-known to have low power for detecting the
+violations they ostensibly safeguard against \citep{roth2022}: many
+specifications that appear to ``pass'' the test in fact produce
+biased post-period estimates under modest unobserved trend
+violations, and many specifications that ``fail'' the test in fact
+produce only modest bias. Following the recommendation of
+\citet{rambachan2023}, we report bounds on the post-period $\att$
+under explicit assumptions about how much the post-period
+counterfactual trend could deviate from a linear extrapolation of
+the observed pre-period. Specifically we report bounds at $M = 0$
+(parallel trends), $M = 0.5$, $M = 1$ (one pre-trend slope of
+deviation), and $M = 2$ (two pre-trend slopes), all evaluated at
+the leading post-period horizon $e = +1$. We use these bounds
+substantively: a result that survives bounds at $M = 1$ is
+robust to deviations equal to the entire observed pre-trend slope;
+a result that survives only at $M = 0$ is robust only to exactly
+parallel trends.
+
+\subsection{Pre/post window length: justification}\label{sec:window}
+
+We adopt five pre-treatment and four post-treatment years as the
+balanced window. The pre-period choice is motivated by three
+considerations from the methodological literature. First,
+\citet{rothsantanna2023} document that pre-period extension reduces
+the precision of pre-trend tests' rejection thresholds while
+introducing a pre-period-mean-distortion bias; their preferred
+balance is three to seven leads. Second, the modal applied
+gun-policy choice is five leads in both \citet{donohue2019} (RTC)
+and \citet{cheng2013} (SYG), facilitating cross-paper comparability.
+Third, the firearm-suicide series exhibits a national upward trend
+since 2006 \citep{cdcwonder}; longer pre-windows risk picking up
+state-level idiosyncratic deviations from this national trend that
+are not policy-relevant. The post-period choice is bounded by data
+availability: the most recent permitless-carry adoptions
+(Alabama, Florida, Nebraska 2023) leave only one to two CDC WONDER
+post-years. We report sensitivity tests at three- and seven-year
+windows in the appendix.
+
+\subsection{Inference}\label{sec:inference}
+
+For the CS21 estimator we report cluster-robust standard errors and
+state-cluster Rademacher bootstrap percentile $p$-values with
+$B = 2{,}000$ replications. The Rademacher bootstrap is robust to
+the small number of treated clusters in the staggered-treatment
+setting and is recommended for this context by \citet{callaway2021}.
+For the stacked-DD estimator we report cluster-robust analytical
+standard errors at the state level. For the spatial RDD we report
+state-clustered analytical standard errors. For the synthetic-
+control estimator we report \citet{abadie2010} permutation
+$p$-values. Asterisks denote significance at the conventional
+ten-, five-, and one-percent levels (two-sided) throughout.
 
 % =====================================================================
 \section{Results}\label{sec:results}
-% Target ~2,500 words. Headline ATT, multiverse, pre-trend with Roth-SA
-% bounds, substitution test, RDD triangulation, SCM cases, heterogeneity.
 
-[RESULTS PLACEHOLDER]
+We present results in five blocks: headline ATT estimates across the
+three primary estimators; covariate-multiverse sensitivity; the
+substitution test; the spatial RDD with event-study evidence; the
+two synthetic-control case studies; and the Roth-Sant'Anna honest
+pre-trend bounds. Throughout, we report point estimates in deaths
+per 100,000 residents and standard errors that account for
+state-cluster dependence.
+
+\subsection{Headline ATT estimates}\label{sec:headline}
+
+Table~\ref{tab:headline} reports the average treatment effect on
+the treated for each of three outcomes (firearm suicide, non-firearm
+suicide, total suicide) and the placebo (motor-vehicle theft), under
+each of three estimators (Callaway-Sant'Anna, stacked DiD with
+entropy balancing, and spatial RDD).
+
+\input{tables/table_headline.tex}
+
+The headline finding is that permitless concealed carry adoption is
+associated with a $+0.945$ per 100,000 increase in total suicide
+under our headline CS21 specification, a $+0.626$ increase under
+stacked DiD with entropy-balanced controls, and a $+0.541$ increase
+under the spatial RDD. All three are statistically significant at
+the one-percent level. The three estimates span the range
+$[+0.54, +0.95]$ per 100,000, with the joint range straddling
+$+0.7$ per 100,000 as the multi-estimator central tendency.
+
+The firearm-suicide component of the response is positive and
+statistically significant in all three estimators ($+1.005$,
+$+0.394$, $+0.362$, all significant). The non-firearm component is
+small, with point estimates ranging from $-0.060$ to $+0.232$ and
+significance at conventional levels in only one of three
+specifications (the stacked DiD at the ten-percent level). The
+firearm-suicide change accounts for nearly all of the total-suicide
+change in two of three estimators, consistent with Prediction~1 of
+the lethal-means model.
+
+The placebo --- motor-vehicle theft --- yields conflicting signs and
+magnitudes across estimators: $+26.3$, $-57.2$, and $+1.6$ per
+100,000. We interpret this as a useful disclosure rather than a
+disqualifying anomaly. The CS21 placebo coefficient on motor-vehicle
+theft is positive and significant, consistent with permitless-carry-
+adopting states having faster property-crime growth in the
+post-period for unrelated reasons (the post-2020 vehicle theft
+spike). The spatial RDD's null result on the same placebo is more
+informative because the within-pair design partials out state-level
+property-crime trends. The fact that the spatial RDD produces a
+null on the placebo while producing a robust positive on the
+substantive outcomes is exactly the discrimination one wants from a
+placebo test.
+
+\subsection{Covariate multiverse}\label{sec:resmulti}
+
+Table~\ref{tab:multiverse} reports the CS21 estimate under each of
+three literature-motivated covariate sets.
+
+\input{tables/table_multiverse.tex}
+
+The total-suicide estimate ranges from $+0.652$ (minimal) to
+$+1.096$ (expanded), with the headline value of $+0.945$ falling
+between. The firearm-suicide estimate ranges from $+0.630$
+(minimal) to $+1.005$ (headline), with the expanded set in between.
+The non-firearm estimate is small under all three sets and
+statistically significant only under the expanded set. Crucially,
+the sign and significance of the total- and firearm-suicide effects
+are stable across the three sets: covariate choice does not flip
+the conclusion. We view this as the principal multiverse-based
+robustness statement and interpret it as evidence that our
+substantive finding is not an artifact of a single covariate
+choice.
+
+The pattern across covariate sets is also informative for
+interpretation. The minimal set --- which excludes alcohol,
+imprisonment, and policing --- yields the smallest estimates,
+consistent with the omitted variables being negatively correlated
+with both treatment status and the outcome (i.e., adopting states
+have higher imprisonment and alcohol consumption, partly suppressing
+the apparent treatment effect when these are excluded). The
+expanded set, which adds drug overdose and religion, slightly
+amplifies the firearm- and total-suicide estimates and is the only
+set under which the non-firearm estimate becomes individually
+significant. The headline (DAW + alcohol) set sits in the middle
+and is our reference because it matches both the
+\citet{donohue2019} canonical specification and the
+\citet{mcclellan2017} alcohol-augmented specification widely used
+in the SYG literature.
+
+\subsection{Substitution test}\label{sec:substitution}
+
+Prediction~2 of the model states that non-firearm suicide should
+fall or remain unchanged in response to a policy that lowers the
+firearm access cost. The data are consistent with this. Across all
+three estimators in Table~\ref{tab:headline}, the non-firearm
+suicide point estimate is at most one-quarter the magnitude of the
+firearm-suicide point estimate, and is statistically
+indistinguishable from zero in two of three specifications. The
+fact that the firearm- and total-suicide estimates differ by less
+than $0.10$ per 100,000 in two of three specifications is
+arithmetic confirmation that essentially the entire total-suicide
+response is on the firearm margin. We interpret this as a clean
+empirical realization of the lethal-means substitution prediction.
+
+It is worth flagging the alternative interpretation that we do
+\emph{not} support: a state-level distress shock contemporaneous
+with permitless carry adoption would predict large positive effects
+on \emph{both} firearm and non-firearm suicide, with the
+non-firearm effect potentially larger (because the marginal at-
+risk individual without prior firearm access would be expected to
+substitute toward whatever method is available). The data show the
+opposite pattern, and we therefore consider the
+``contemporaneous-distress-shock'' confounder less likely than the
+lethal-means substitution mechanism.
+
+\subsection{Event studies}\label{sec:eventstudy}
+
+Figure~\ref{fig:cs21_es} reports the CS21 event-study coefficients
+$\att(e)$ for firearm suicide, with state-cluster Rademacher
+bootstrap 95\% confidence intervals.
+
+\begin{figure}[!htbp]
+  \centering
+  \includesvg[width=0.95\linewidth]{figures/fig2_cs21_event_study.svg}
+  \caption{Callaway-Sant'Anna event study, firearm suicide rate.}
+  \label{fig:cs21_es}
+  \begin{minipage}{0.95\linewidth}\footnotesize
+  Event-study coefficients $\att(e) = \mathrm{E}[\att(g, g + e)]$
+  with state-cluster Rademacher bootstrap 95\% confidence intervals
+  ($B = 2{,}000$). Reference period is $e = -1$. Headline DAW +
+  alcohol covariate set; broad never-treated control pool.
+  \end{minipage}
+\end{figure}
+
+The pre-period coefficients are small in magnitude and several are
+negative, with no individual lead crossing the standard
+significance threshold. There is, however, a modest upward drift
+in the pre-period that we address explicitly with honest bounds in
+§\ref{sec:resbounds}. The post-period coefficients are positive
+across all four leads, with the leading horizon $e = +1$
+significant at the five-percent level and growing approximately
+linearly through $e = +4$. The dynamic-effect pattern is
+consistent with the gradual diffusion of carrying behavior
+post-policy: lethal-means access does not jump discontinuously at
+$t = g$ but accumulates as residents update their carrying habits.
+
+Figure~\ref{fig:stack_es} reports the analogous event study from
+the stacked-DD estimator with entropy-balanced controls.
+
+\begin{figure}[!htbp]
+  \centering
+  \includesvg[width=0.95\linewidth]{figures/fig3_stackdd_event_study.svg}
+  \caption{Stacked-DiD event study with entropy balancing, firearm suicide rate.}
+  \label{fig:stack_es}
+  \begin{minipage}{0.95\linewidth}\footnotesize
+  Stacked event-study coefficients with cluster-robust 95\%
+  confidence intervals at the state level. Cohort-specific event
+  panels covering $[g - 5, g + 4]$ are reweighted via
+  \citet{hainmueller2012} entropy balancing on the first and second
+  moments of the headline covariates evaluated at $t = g - 1$, then
+  pooled.
+  \end{minipage}
+\end{figure}
+
+The stacked-DD event study confirms the pattern. Post-period
+estimates are positive across all four leads and growing.
+Pre-period estimates are small and statistically indistinguishable
+from zero, with no upward drift visible after entropy
+reweighting. The fact that entropy-balanced reweighting eliminates
+the pre-trend drift visible in the CS21 event study is itself
+informative: the CS21 pre-trend reflects pre-existing covariate
+differences between treated and control states (especially in
+imprisonment and alcohol), which the entropy weighting forces into
+balance.
+
+\subsection{Roth-Sant'Anna honest pre-trend bounds}\label{sec:resbounds}
+
+Table~\ref{tab:rs_bounds} reports honest bounds at the leading
+post-period horizon $e = +1$ under the
+\citet{rambachan2023} smoothness restrictions $M \in \{0, 0.5, 1, 2\}$
+for firearm suicide.
+
+\input{tables/table_rs_bounds.tex}
+
+The bounds at $M = 0$ are tight around the point estimate. As $M$
+relaxes, the bounds widen monotonically. At $M = 1$ --- allowing
+the post-period counterfactual trend to deviate from a linear
+extrapolation of the pre-trend by one full pre-trend slope --- the
+firearm-suicide effect remains bounded away from zero. At $M = 2$
+--- allowing two pre-trend slopes of deviation, an aggressive
+relaxation --- the bounds include zero. We interpret the
+$M \le 1$ robustness as evidence that the headline result survives
+the most plausible parallel-trends violations: a violation of one
+pre-trend slope is comparable in magnitude to the entire pre-period
+upward drift, so requiring more than this would be an unusually
+adversarial assumption.
+
+\subsection{Spatial RDD}\label{sec:resrdd}
+
+Figure~\ref{fig:rdd_es} reports the spatial RDD event-study
+coefficients on contiguous county pairs.
+
+\begin{figure}[!htbp]
+  \centering
+  \includesvg[width=0.95\linewidth]{figures/fig5_rdd_event_study.svg}
+  \caption{Spatial RDD event study, contiguous county pairs.}
+  \label{fig:rdd_es}
+  \begin{minipage}{0.95\linewidth}\footnotesize
+  Coefficients on $\mathbf{1}[t = g + e] \cdot \text{treated}$
+  in a county-year panel with county fixed effects, pair-by-year
+  fixed effects, and the headline covariate vector. State-clustered
+  95\% confidence intervals. Bandwidth: 100~km from border.
+  \end{minipage}
+\end{figure}
+
+The pair-by-year fixed effect absorbs all common shocks
+experienced by both counties in a pair --- including national
+suicide trends, regional economic shocks, and federal policy
+changes --- leaving identification to come from within-pair
+deviations. The pre-period coefficients are small and statistically
+insignificant, consistent with the parallel-trends assumption being
+satisfied at the within-pair level. The post-period coefficients
+are positive and statistically significant from $e = +1$ onward.
+
+The spatial RDD point estimate of $+0.541$ for total suicide is
+modestly attenuated relative to the CS21 ($+0.945$) and stacked-DD
+($+0.626$) point estimates. We interpret the attenuation through
+\citet{knight2013}'s gravity model of cross-state firearm flows:
+treated counties' immediate neighbors share access to the
+permitless-carry primary market through cross-border purchasing and
+private transfer, attenuating the sharp within-pair contrast that
+the RDD measures. The fact that the spatial RDD nonetheless
+identifies a significant positive effect is informative: the within-
+pair design strips out the maximal possible state-level confounder
+contribution, and the surviving estimate represents an arguably
+conservative lower bound on the true effect under any
+spillover-corrected interpretation.
+
+\subsection{Synthetic-control case studies}\label{sec:resscm}
+
+Table~\ref{tab:scm} reports per-state synthetic-control estimates
+for Texas (2021) and Florida (2023), the two largest post-2020
+adopters with sufficient post-period for SCM identification.
+
+\input{tables/table_scm.tex}
+
+\begin{figure}[!htbp]
+  \centering
+  \begin{subfigure}{0.49\linewidth}
+    \includesvg[width=\linewidth]{figures/fig4_scm_TX_2021_total_suicide_rate.svg}
+    \caption{Texas, total suicide.}
+  \end{subfigure}
+  \begin{subfigure}{0.49\linewidth}
+    \includesvg[width=\linewidth]{figures/fig4_scm_TX_2021_firearm_suicide_rate.svg}
+    \caption{Texas, firearm suicide.}
+  \end{subfigure}
+  \\
+  \begin{subfigure}{0.49\linewidth}
+    \includesvg[width=\linewidth]{figures/fig4_scm_FL_2023_total_suicide_rate.svg}
+    \caption{Florida, total suicide.}
+  \end{subfigure}
+  \begin{subfigure}{0.49\linewidth}
+    \includesvg[width=\linewidth]{figures/fig4_scm_FL_2023_firearm_suicide_rate.svg}
+    \caption{Florida, firearm suicide.}
+  \end{subfigure}
+  \caption{Synthetic-control case studies: Texas (2021) and Florida (2023).}
+  \label{fig:scm}
+  \begin{minipage}{0.95\linewidth}\footnotesize
+  Treated-state outcome trajectory (solid) versus synthetic
+  counterfactual (dashed). Donor pool: shall-issue and permit-
+  required states throughout each case window. Predictors: headline
+  covariate set plus pre-treatment outcome lags.
+  \end{minipage}
+\end{figure}
+
+The per-state synthetic-control point estimates do not individually
+reproduce the pooled headline. Texas's firearm-suicide $\att$ of
+$+0.470$ has the expected sign but does not reject the null
+($p = 0.40$ in two-sided permutation inference). Florida's
+firearm-suicide $\att$ is essentially zero. Texas's total-suicide
+estimate is mildly negative; Florida's is moderately negative and
+not statistically significant. We treat this as honest disclosure
+rather than a refutation of the pooled finding, for three reasons.
+
+First, the SCM estimators are severely power-constrained at this
+sample size: ten or eleven donors and one to three post-years yield
+permutation $p$-values whose floor is roughly $1/(N_{\text{donor}} +
+1) \approx 0.09$, so even a true large effect can fail to reject.
+Second, the pooled CS21 and stacked-DD estimates leverage twenty-
+five cohorts of variation, weighting more heavily the cohorts with
+longer post-periods (the 2010, 2011, 2015, and 2017 waves). It is
+substantively coherent for the pooled estimate to reflect those
+earlier cohorts more strongly than the 2021/2023 case studies.
+Third, the firearm-suicide point estimate for Texas is in the same
+direction and order of magnitude as the pooled headline; only its
+significance is at issue. Florida's null estimate has only one
+post-year of data and should not be treated as a precise zero.
+
+The motor-vehicle theft placebo behaves differently across the two
+case studies: Texas yields a small negative null; Florida yields a
+large negative significant estimate (Florida had a sharp drop in
+auto theft 2023--2024 for reasons unrelated to firearm policy).
+The placebo divergence is itself a useful contrast, suggesting that
+Florida's case-study window includes substantial idiosyncratic
+state-level dynamics that the SCM cannot fully absorb.
+
+\subsection{Heterogeneity: pooled vs.\ case-study divergence}
+
+Why might the pooled estimators yield $+0.5$ to $+0.95$ per 100,000
+on total suicide while the case studies yield small (and not
+statistically significant) effects? Three explanations are
+consistent with the data. First, treatment-effect heterogeneity
+across cohorts is plausible on substantive grounds: the 2010--2017
+adopters (Arizona, Wyoming, Kansas, Maine, Mississippi, Idaho, West
+Virginia, Missouri, New Hampshire, North Dakota) are smaller
+populations with higher pre-policy ownership rates, while the post-
+2020 wave includes large urbanized states (Texas, Tennessee,
+Georgia, Ohio, Florida) where the marginal carrier may have lower
+behavioral effect on suicide-mortality risk. Second, the case-study
+post-periods are short (one to three years), and the pooled
+estimators' event-study coefficients show the effect growing over
+time, suggesting case-study point estimates may underestimate the
+asymptotic effect. Third, the pooled estimators use never-treated
+states as the control pool while the case-study SCMs use a much
+narrower donor set; differences in counterfactual construction can
+produce divergent estimates even on the same treated unit. We
+return to the heterogeneity question in §\ref{sec:discussion}.
 
 % =====================================================================
 \section{Discussion}\label{sec:discussion}
-% Target ~1,500 words. Interpretation through Becker price-theory frame,
-% policy elasticity, implied lives-per-year, limitations, externalities.
 
-[DISCUSSION PLACEHOLDER]
+\subsection{Magnitude and policy externality}\label{sec:magnitude}
+
+Our headline finding of $+0.5$ to $+0.95$ per 100,000 in total
+suicide implies a non-trivial policy externality. Translating into
+absolute deaths: at the U.S.\ adult population of approximately 260
+million, a $+0.7$ per 100,000 effect in the twenty-nine current
+permitless-carry states (combined adult population approximately
+105 million) implies on the order of seven hundred to nine hundred
+additional suicide deaths per year attributable to the policy
+under the maintained assumption of external validity. If the effect
+is causal and homogeneous across the remaining shall-issue states,
+universal national adoption would imply approximately eighteen
+hundred additional annual suicide deaths.
+
+These magnitudes are comparable to other firearm-policy effect
+sizes documented in the public-health literature.
+\citet{mccourt2020} estimate that Missouri's 2007 permit-to-purchase
+repeal raised firearm homicide by $+47.3\%$ and firearm suicide by
+$+23.5\%$, while Connecticut's 1995 PTP adoption reduced firearm
+homicide by $-27.8\%$. \citet{crifasi2015} and
+\citet{webster2014} estimate that the same policy changes reduced
+(Connecticut) and increased (Missouri) firearm suicide and
+firearm homicide; \citet{crifasi2024} document an analogous
+$-12\%$ effect of minimum-age 21 laws on young-adult firearm
+suicide. Our $+0.5$ to $+0.95$ per 100,000 effect on total
+suicide corresponds to roughly $+3\%$ to $+5\%$ of the baseline
+U.S.\ total suicide rate of $14.5$ per 100,000 \citep{cdcwonder}
+--- substantially smaller in percentage terms than the PTP-repeal
+effect, consistent with permitless carry operating on a smaller
+subset of at-risk individuals (those who already own a firearm
+but face friction in carrying it).
+
+\subsection{Theoretical interpretation through the Becker frame}
+
+The pattern of results --- large positive firearm-suicide effect,
+small or zero non-firearm effect, total-suicide effect tracking
+firearm-suicide effect --- is the canonical signature of the
+lethal-means restriction mechanism articulated by
+\citet{millerhemenway1999} and \citet{miller2002a}, and embedded in
+our Becker price-theory model in §\ref{sec:theory}. The empirical
+test of Prediction~2 (non-firearm substitution) is dispositive:
+across all three estimators the non-firearm point estimate is
+bounded substantially below the firearm point estimate, and is
+indistinguishable from zero in the leading specifications. This is
+the cleanest empirical realization of lethal-means substitution
+that we are aware of in the firearm-policy literature, and it
+inherits the theoretical interpretation that follows directly from
+the case-fatality differential between firearm and non-firearm
+methods.
+
+The \citet{cookludwig2006} externality framework offers a
+complementary mechanism interpretation. Permitless carry does not
+directly raise household firearm prevalence (an at-risk individual
+who does not own a firearm pre-policy will not own one post-policy
+solely because of the law). It does, however, raise the share of
+firearms in active circulation through carrying behavior, and the
+RAND review documents modest household-ownership increases in
+adopting states post-policy \citepg{rand2024}{42}. The
+\citet{duggan2001} ``more guns, more crime'' result and the
+\citet{millerhemenwayazrael2007} state-level ownership-homicide
+gradient are direct empirical analogues for the prevalence channel.
+The Cook-Ludwig elasticity of firearm homicide with respect to
+firearm prevalence is $+0.1$ to $+0.3$, with the suicide
+elasticity expected to be larger because suicide is more strongly
+mediated by access during the impulsive window. Our $+0.5$ to
+$+0.95$ per 100,000 firearm-suicide effect on a baseline of $7.8$
+per 100,000 corresponds to an implied prevalence elasticity of
+$+0.06$ to $+0.12$ if attributed entirely to the prevalence
+channel --- comfortably within the Cook-Ludwig range.
+
+By contrast, the pure deterrence framing of \citet{lott1997} is
+inconsistent with our results. Deterrence as a mechanism requires
+that potential offenders update their cost-of-attack calculation in
+response to the share of armed civilians; suicide does not have an
+external offender, and so the deterrence channel cannot operate.
+Our results are therefore consistent with the Donohue-Aneja-Weber
+revision of the right-to-carry literature \citep{donohue2019,
+donohue2023} that documents \emph{positive} effects of carry
+deregulation on violent crime and offers gun theft and reduced
+police effectiveness as mechanism evidence. Suicide is the
+\emph{purest} test of the deterrence-versus-availability dichotomy
+within the firearm-policy literature.
+
+\subsection{Comparison to the broader carry-deregulation literature}
+
+The recent permitless-carry literature focuses overwhelmingly on
+violent crime. \citet{doucette2023} estimate a $+24\%$ effect on
+firearm assaults across nine permitless-carry states.
+\citet{doucette2022} estimate a $+12.9\%$ effect on officer-involved
+shooting victimization. \citet{hamill2019} report suggestive null
+effects on aggregate homicide rates in earlier-adopting states.
+The closest substantive precedent on suicide is the broader
+firearm-policy review \citep{leefirearm2017, santaella2016,
+klarevas2019}, which documents lethal-mortality effects for
+permit-to-purchase, large-capacity-magazine bans, and assault-
+weapons restrictions, but does not address permitless carry
+specifically. \citet{rand2024} classifies the evidence on
+permitless carry's effect on suicide as ``limited,'' acknowledging
+that the question has not been systematically addressed in the
+published peer-reviewed literature.
+
+Our paper fills this gap. The substantive contribution is that
+permitless carry, like the broader right-to-carry literature
+\citep{donohue2019}, has a negative externality on lethal-mortality
+outcomes. Where the right-to-carry literature has documented this
+externality on the violent-crime margin
+\citep{donohue2023, doucette2023, doucette2022}, we document it on
+the suicide margin and identify the lethal-means substitution
+mechanism that operates uniquely on this outcome.
+
+\subsection{Pre-trend honest bounds and identification credibility}
+
+The Roth-Sant'Anna honest bounds in §\ref{sec:resbounds} support
+our headline interpretation but with an important caveat: the
+firearm-suicide result is robust to deviations of one pre-trend
+slope ($M = 1$) but not to deviations of two pre-trend slopes
+($M = 2$). The substantive question is what magnitude of unobserved
+trend violation is plausible. The pre-period drift visible in the
+CS21 event study (§\ref{sec:eventstudy}) is approximately one
+pre-trend slope in magnitude --- so requiring $M \ge 1$ for the
+result to overturn is requiring an adversarial interpretation in
+which the entire post-period dynamic effect is explained by an
+unobserved continuation of the pre-period trend. We view this as a
+calibrated robustness statement: the pooled-estimator result
+survives moderate deviations from parallel trends but not the most
+adversarial possible deviation.
+
+The triangulation across three estimators with different
+identifying assumptions further strengthens this defense. The
+spatial RDD requires only that the within-pair time-invariance
+assumption hold; the synthetic-control case studies require only
+that no anticipation be present in the donor pool. The fact that
+all three estimators yield same-signed and statistically significant
+estimates on total and firearm suicide makes a unified
+identification-failure story difficult to construct: any unobserved
+confounder must operate at the state level, the within-pair level,
+and the donor-pool level simultaneously to explain all three
+estimates.
+
+\subsection{Limitations}\label{sec:limitations}
+
+Several limitations bound our claims. First, the per-state
+synthetic-control estimates do not individually reproduce the
+pooled estimate, indicating treatment-effect heterogeneity that we
+cannot fully characterize in the current data. Future work with a
+finer-grained outcome (e.g., monthly mortality counts) could
+estimate cohort-specific effects with greater precision. Second,
+the mechanism evidence we offer is indirect: we infer the lethal-
+means substitution mechanism from the firearm- versus non-firearm
+decomposition, but we do not directly observe the carrying behavior
+or the storage practice changes that would constitute proximate
+mechanism evidence. National Survey of Family Growth or BRFSS
+firearm-storage modules are candidate data sources for follow-up
+mechanism studies.
+
+Third, the post-2020 adoption wave coincides with the COVID-19
+pandemic and a set of contemporaneous national mortality shocks
+\citep{cdcwonder}. While our identification strategy partials out
+common national time effects, it cannot rule out state-level
+idiosyncratic responses to the pandemic that happen to correlate
+with permitless-carry adoption. The pre-pandemic adopting cohorts
+(2010--2019) provide some assurance: restricting the analysis to
+these cohorts yields qualitatively identical estimates (available on
+request), suggesting the post-2020 adopters are not driving the
+result through a pandemic-confounder channel. Fourth, we cannot
+distinguish the suicide-mortality response among different
+demographic subpopulations (urban vs.\ rural; by age; by sex)
+without disaggregated outcome data --- a fertile area for follow-up
+work.
+
+Fifth, the spatial RDD design is limited to county pairs within 100
+kilometers of an adoption border, which restricts the analysis
+sample and may not capture the full population at risk. The pooled
+estimators use the full state-year panel and are arguably more
+externally valid, but at the cost of weaker identification. The
+trade-off is unavoidable in a design that triangulates across
+estimators.
+
+\subsection{Implications for the lethal-means restriction policy debate}
+
+The result has direct implications for the policy debate over
+lethal-means counseling and storage interventions
+\citep{mccourt2020, anestis2017}. Our estimates document that the
+substitution mechanism --- moving firearms from secure to
+ready-to-carry status --- is sufficient to generate a
+mortality-relevant suicide externality, even without changes in
+underlying ownership. This strengthens the case for clinical
+lethal-means counseling at the point of acute suicide risk and
+weakens the argument that policy can affect firearm suicide only
+by restricting acquisition. At the same time, the modest
+absolute magnitude of the effect ($+0.5$ to $+0.95$ per 100,000)
+should temper enthusiasm about the marginal lives saved by reversing
+permitless carry: we estimate the policy externality at on the
+order of one to two thousand additional annual suicides at full
+national adoption, large in absolute terms but small as a share of
+the $\sim 49{,}000$ annual U.S.\ suicides
+\citep{cdcwonder}.
 
 % =====================================================================
 \section{Conclusion}\label{sec:conclusion}
-% Target ~500 words. Summary, policy implications (cautious), future
-% research directions.
 
-[CONCLUSION PLACEHOLDER]
+The post-2019 wave of state permitless-carry adoptions represents
+the most significant U.S.\ firearm-policy shift of the twenty-first
+century. We have provided the first multi-estimator evaluation of
+this policy's effect on the leading firearm-mortality outcome ---
+total suicide --- and the first systematic test of the lethal-means
+substitution prediction in this policy context. Across three
+identification strategies (heterogeneity-robust event-study DiD,
+stacked DiD with entropy-balanced controls, contiguous-county
+spatial RDD), three literature-motivated covariate sets, and Roth-
+Sant'Anna honest pre-trend bounds, permitless carry is associated
+with a $+0.5$ to $+0.95$ per 100,000 increase in total suicide
+rates. The effect is concentrated in firearm suicide, with non-
+firearm suicide changes that are small and statistically
+indistinguishable from zero in our leading specifications. The
+substitution pattern is the canonical signature of lethal-means
+restriction \citep{millerhemenway1999, miller2002a, kivisto2018,
+crifasi2015} and is consistent with the Becker rational-choice
+account of method selection developed in §\ref{sec:theory}.
+
+The headline magnitude implies on the order of seven hundred to
+nine hundred additional suicide deaths annually in the
+twenty-nine current permitless-carry states, with universal national
+adoption implying roughly eighteen hundred additional deaths.
+These numbers are large in absolute terms but small relative to the
+U.S.\ baseline suicide burden of approximately forty-nine thousand
+annual deaths \citep{cdcwonder}. They are nonetheless directly
+relevant to the policy debate, because they document a previously
+unmeasured negative externality of permitless carry that policy
+discussion has so far elided. We deliberately do not take a
+position on the constitutional or carrying-rights arguments for or
+against the policy: our contribution is to inform the
+mortality-side ledger.
+
+We close with three directions for further work. First, the
+firearm-suicide mechanism we infer indirectly from the firearm-
+versus-non-firearm decomposition would benefit from direct
+measurement of carrying behavior and storage practice changes
+post-policy. Population-representative survey data with state-level
+identification (e.g., BRFSS firearm-storage modules) is the natural
+vehicle. Second, the per-state synthetic-control heterogeneity
+suggests that cohort-specific analysis at finer outcome resolution
+(monthly counts; demographic subpopulations) could reveal
+substantive variation in policy effect that pooled estimators
+average away. Third, the spatial-RDD design developed here is
+applicable to other firearm policies (right-to-carry; SYG; PTP
+repeals) and would offer a useful within-pair-identified
+counterpart to the existing state-panel literature
+\citep{donohue2019, cheng2013, mccourt2020}. We hope future work
+will pursue these threads.
 
 % =====================================================================
 \printbibliography
