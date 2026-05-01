@@ -1,0 +1,4023 @@
+{
+ "02013": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3084 (max 3632). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Aleutians East Borough",
+  "state_name": "Alaska"
+ },
+ "02060": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 830 (max 1030). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Bristol Bay Borough",
+  "state_name": "Alaska"
+ },
+ "02068": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1583 (max 2097). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Denali Borough",
+  "state_name": "Alaska"
+ },
+ "02070": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4626 (max 4991). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Dillingham Census Area",
+  "state_name": "Alaska"
+ },
+ "02100": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2075 (max 2577). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Haines Borough",
+  "state_name": "Alaska"
+ },
+ "02105": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2085 (max 2354). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hoonah-Angoon Census Area",
+  "state_name": "Alaska"
+ },
+ "02164": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1315 (max 1667). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Lake and Peninsula Borough",
+  "state_name": "Alaska"
+ },
+ "02195": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3219 (max 3775). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Petersburg Census Area",
+  "state_name": "Alaska"
+ },
+ "02230": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 962 (max 1240). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Skagway Municipality",
+  "state_name": "Alaska"
+ },
+ "02275": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2064 (max 2538). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Wrangell City and Borough",
+  "state_name": "Alaska"
+ },
+ "02282": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 579 (max 710). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Yakutat City and Borough",
+  "state_name": "Alaska"
+ },
+ "05013": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4664 (max 5421). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Calhoun County",
+  "state_name": "Arkansas"
+ },
+ "06003": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1047 (max 1203). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Alpine County",
+  "state_name": "California"
+ },
+ "06091": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2951 (max 3298). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sierra County",
+  "state_name": "California"
+ },
+ "08009": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3363 (max 3807). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Baca County",
+  "state_name": "Colorado"
+ },
+ "08017": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1712 (max 1879). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Cheyenne County",
+  "state_name": "Colorado"
+ },
+ "08023": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3481 (max 3887). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Costilla County",
+  "state_name": "Colorado"
+ },
+ "08027": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4190 (max 5553). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Custer County",
+  "state_name": "Colorado"
+ },
+ "08033": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1977 (max 2525). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Dolores County",
+  "state_name": "Colorado"
+ },
+ "08053": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 747 (max 844). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hinsdale County",
+  "state_name": "Colorado"
+ },
+ "08057": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1273 (max 1408). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Jackson County",
+  "state_name": "Colorado"
+ },
+ "08061": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1342 (max 1452). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Kiowa County",
+  "state_name": "Colorado"
+ },
+ "08079": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 704 (max 933). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Mineral County",
+  "state_name": "Colorado"
+ },
+ "08091": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4395 (max 5197). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Ouray County",
+  "state_name": "Colorado"
+ },
+ "08095": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4265 (max 4531). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Phillips County",
+  "state_name": "Colorado"
+ },
+ "08111": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 657 (max 821). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "San Juan County",
+  "state_name": "Colorado"
+ },
+ "08115": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2248 (max 2400). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sedgwick County",
+  "state_name": "Colorado"
+ },
+ "08121": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4701 (max 4921). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Washington County",
+  "state_name": "Colorado"
+ },
+ "13007": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2732 (max 3560). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Baker County",
+  "state_name": "Georgia"
+ },
+ "13061": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2815 (max 3201). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Clay County",
+  "state_name": "Georgia"
+ },
+ "13101": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3694 (max 4064). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Echols County",
+  "state_name": "Georgia"
+ },
+ "13125": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2893 (max 3107). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Glascock County",
+  "state_name": "Georgia"
+ },
+ "13239": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2224 (max 2512). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Quitman County",
+  "state_name": "Georgia"
+ },
+ "13249": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4488 (max 5257). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Schley County",
+  "state_name": "Georgia"
+ },
+ "13259": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4634 (max 6621). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Stewart County",
+  "state_name": "Georgia"
+ },
+ "13265": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1537 (max 1774). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Taliaferro County",
+  "state_name": "Georgia"
+ },
+ "13307": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2315 (max 2781). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Webster County",
+  "state_name": "Georgia"
+ },
+ "15005": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 80 (max 93). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Kalawao County",
+  "state_name": "Hawaii"
+ },
+ "16003": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3863 (max 4998). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Adams County",
+  "state_name": "Idaho"
+ },
+ "16023": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2566 (max 2915). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Butte County",
+  "state_name": "Idaho"
+ },
+ "16025": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1043 (max 1247). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Camas County",
+  "state_name": "Idaho"
+ },
+ "16033": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 793 (max 980). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Clark County",
+  "state_name": "Idaho"
+ },
+ "16037": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4059 (max 4597). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Custer County",
+  "state_name": "Idaho"
+ },
+ "16061": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3524 (max 3884). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Lewis County",
+  "state_name": "Idaho"
+ },
+ "16071": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4178 (max 4976). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Oneida County",
+  "state_name": "Idaho"
+ },
+ "17003": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4594 (max 8295). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Alexander County",
+  "state_name": "Illinois"
+ },
+ "17013": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4224 (max 5096). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Calhoun County",
+  "state_name": "Illinois"
+ },
+ "17059": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4690 (max 5631). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Gallatin County",
+  "state_name": "Illinois"
+ },
+ "17069": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3550 (max 4344). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hardin County",
+  "state_name": "Illinois"
+ },
+ "17151": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3703 (max 4498). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Pope County",
+  "state_name": "Illinois"
+ },
+ "17153": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4879 (max 6164). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Pulaski County",
+  "state_name": "Illinois"
+ },
+ "17171": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4850 (max 5373). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Scott County",
+  "state_name": "Illinois"
+ },
+ "19003": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3553 (max 4047). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Adams County",
+  "state_name": "Iowa"
+ },
+ "19159": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4608 (max 5119). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Ringgold County",
+  "state_name": "Iowa"
+ },
+ "20007": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4070 (max 4923). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Barber County",
+  "state_name": "Kansas"
+ },
+ "20017": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2507 (max 2784). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Chase County",
+  "state_name": "Kansas"
+ },
+ "20019": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3250 (max 3691). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Chautauqua County",
+  "state_name": "Kansas"
+ },
+ "20023": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2612 (max 2743). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Cheyenne County",
+  "state_name": "Kansas"
+ },
+ "20025": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1861 (max 2242). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Clark County",
+  "state_name": "Kansas"
+ },
+ "20033": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1667 (max 1950). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Comanche County",
+  "state_name": "Kansas"
+ },
+ "20039": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2681 (max 2980). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Decatur County",
+  "state_name": "Kansas"
+ },
+ "20047": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2731 (max 3054). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Edwards County",
+  "state_name": "Kansas"
+ },
+ "20049": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2431 (max 2914). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Elk County",
+  "state_name": "Kansas"
+ },
+ "20063": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2611 (max 2794). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Gove County",
+  "state_name": "Kansas"
+ },
+ "20065": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2370 (max 2635). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Graham County",
+  "state_name": "Kansas"
+ },
+ "20071": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1152 (max 1302). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Greeley County",
+  "state_name": "Kansas"
+ },
+ "20075": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2445 (max 2707). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hamilton County",
+  "state_name": "Kansas"
+ },
+ "20081": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3573 (max 4273). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Haskell County",
+  "state_name": "Kansas"
+ },
+ "20083": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1673 (max 1957). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hodgeman County",
+  "state_name": "Kansas"
+ },
+ "20089": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2845 (max 3091). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Jewell County",
+  "state_name": "Kansas"
+ },
+ "20093": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3803 (max 4002). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Kearny County",
+  "state_name": "Kansas"
+ },
+ "20097": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2404 (max 2570). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Kiowa County",
+  "state_name": "Kansas"
+ },
+ "20101": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1482 (max 1779). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Lane County",
+  "state_name": "Kansas"
+ },
+ "20105": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2907 (max 3249). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Lincoln County",
+  "state_name": "Kansas"
+ },
+ "20109": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2678 (max 2818). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Logan County",
+  "state_name": "Kansas"
+ },
+ "20119": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3892 (max 4596). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Meade County",
+  "state_name": "Kansas"
+ },
+ "20129": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2485 (max 3240). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Morton County",
+  "state_name": "Kansas"
+ },
+ "20135": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2617 (max 3118). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Ness County",
+  "state_name": "Kansas"
+ },
+ "20141": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3353 (max 3913). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Osborne County",
+  "state_name": "Kansas"
+ },
+ "20147": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4733 (max 5632). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Phillips County",
+  "state_name": "Kansas"
+ },
+ "20153": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2432 (max 2574). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Rawlins County",
+  "state_name": "Kansas"
+ },
+ "20157": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4608 (max 5045). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Republic County",
+  "state_name": "Kansas"
+ },
+ "20163": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4748 (max 5221). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Rooks County",
+  "state_name": "Kansas"
+ },
+ "20165": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2810 (max 3314). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Rush County",
+  "state_name": "Kansas"
+ },
+ "20171": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4823 (max 5133). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Scott County",
+  "state_name": "Kansas"
+ },
+ "20179": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2397 (max 2575). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sheridan County",
+  "state_name": "Kansas"
+ },
+ "20183": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3541 (max 3860). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Smith County",
+  "state_name": "Kansas"
+ },
+ "20185": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3901 (max 4429). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Stafford County",
+  "state_name": "Kansas"
+ },
+ "20187": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1977 (max 2246). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Stanton County",
+  "state_name": "Kansas"
+ },
+ "20195": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2757 (max 3006). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Trego County",
+  "state_name": "Kansas"
+ },
+ "20199": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1469 (max 1560). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Wallace County",
+  "state_name": "Kansas"
+ },
+ "20203": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2061 (max 2259). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Wichita County",
+  "state_name": "Kansas"
+ },
+ "20207": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3086 (max 3322). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Woodson County",
+  "state_name": "Kansas"
+ },
+ "21039": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4723 (max 5113). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Carlisle County",
+  "state_name": "Kentucky"
+ },
+ "21105": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4380 (max 4945). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hickman County",
+  "state_name": "Kentucky"
+ },
+ "21189": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3928 (max 4806). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Owsley County",
+  "state_name": "Kentucky"
+ },
+ "21201": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2108 (max 2382). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Robertson County",
+  "state_name": "Kentucky"
+ },
+ "22023": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4678 (max 7013). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Cameron Parish",
+  "state_name": "Louisiana"
+ },
+ "22107": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3844 (max 5311). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Tensas Parish",
+  "state_name": "Louisiana"
+ },
+ "26083": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2059 (max 2181). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Keweenaw County",
+  "state_name": "Michigan"
+ },
+ "27011": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4990 (max 5285). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Big Stone County",
+  "state_name": "Minnesota"
+ },
+ "27069": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3992 (max 4561). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Kittson County",
+  "state_name": "Minnesota"
+ },
+ "27077": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3727 (max 4043). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Lake of the Woods County",
+  "state_name": "Minnesota"
+ },
+ "27125": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3882 (max 4130). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Red Lake County",
+  "state_name": "Minnesota"
+ },
+ "27155": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3134 (max 3600). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Traverse County",
+  "state_name": "Minnesota"
+ },
+ "28055": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1280 (max 1443). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Issaquena County",
+  "state_name": "Mississippi"
+ },
+ "28125": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3234 (max 5076). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sharkey County",
+  "state_name": "Mississippi"
+ },
+ "29087": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4191 (max 4915). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Holt County",
+  "state_name": "Missouri"
+ },
+ "29103": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3736 (max 4125). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Knox County",
+  "state_name": "Missouri"
+ },
+ "29129": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3452 (max 3776). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Mercer County",
+  "state_name": "Missouri"
+ },
+ "29171": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4539 (max 4988). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Putnam County",
+  "state_name": "Missouri"
+ },
+ "29197": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4010 (max 4660). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Schuyler County",
+  "state_name": "Missouri"
+ },
+ "29199": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4653 (max 4948). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Scotland County",
+  "state_name": "Missouri"
+ },
+ "29227": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1872 (max 2199). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Worth County",
+  "state_name": "Missouri"
+ },
+ "30011": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1136 (max 1416). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Carter County",
+  "state_name": "Montana"
+ },
+ "30019": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1625 (max 1797). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   },
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Fort Peck Reservation (eastern portion)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Daniels County",
+  "state_name": "Montana"
+ },
+ "30025": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2846 (max 3171). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Fallon County",
+  "state_name": "Montana"
+ },
+ "30033": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1171 (max 1299). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Garfield County",
+  "state_name": "Montana"
+ },
+ "30037": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 810 (max 897). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Golden Valley County",
+  "state_name": "Montana"
+ },
+ "30039": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3042 (max 3602). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Granite County",
+  "state_name": "Montana"
+ },
+ "30045": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1931 (max 2111). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Judith Basin County",
+  "state_name": "Montana"
+ },
+ "30051": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1934 (max 2416). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Liberty County",
+  "state_name": "Montana"
+ },
+ "30055": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1664 (max 1745). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "McCone County",
+  "state_name": "Montana"
+ },
+ "30059": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1821 (max 2065). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Meagher County",
+  "state_name": "Montana"
+ },
+ "30061": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4124 (max 5195). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Mineral County",
+  "state_name": "Montana"
+ },
+ "30065": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4478 (max 5452). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Musselshell County",
+  "state_name": "Montana"
+ },
+ "30069": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 474 (max 543). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Petroleum County",
+  "state_name": "Montana"
+ },
+ "30071": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3954 (max 4252). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Phillips County",
+  "state_name": "Montana"
+ },
+ "30075": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1682 (max 1777). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Powder River County",
+  "state_name": "Montana"
+ },
+ "30079": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1070 (max 1183). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Prairie County",
+  "state_name": "Montana"
+ },
+ "30091": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3309 (max 3673). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sheridan County",
+  "state_name": "Montana"
+ },
+ "30097": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3581 (max 3757). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sweet Grass County",
+  "state_name": "Montana"
+ },
+ "30101": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4736 (max 5343). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Toole County",
+  "state_name": "Montana"
+ },
+ "30103": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 673 (max 768). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Treasure County",
+  "state_name": "Montana"
+ },
+ "30107": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2039 (max 2184). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Wheatland County",
+  "state_name": "Montana"
+ },
+ "30109": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 904 (max 1101). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Wibaux County",
+  "state_name": "Montana"
+ },
+ "31005": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 416 (max 479). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Arthur County",
+  "state_name": "Nebraska"
+ },
+ "31007": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 655 (max 745). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Banner County",
+  "state_name": "Nebraska"
+ },
+ "31009": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 428 (max 498). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Blaine County",
+  "state_name": "Nebraska"
+ },
+ "31015": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1700 (max 2105). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Boyd County",
+  "state_name": "Nebraska"
+ },
+ "31017": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2877 (max 3155). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Brown County",
+  "state_name": "Nebraska"
+ },
+ "31029": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3761 (max 4015). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Chase County",
+  "state_name": "Nebraska"
+ },
+ "31049": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1794 (max 1959). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Deuel County",
+  "state_name": "Nebraska"
+ },
+ "31057": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1565 (max 2008). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Dundy County",
+  "state_name": "Nebraska"
+ },
+ "31061": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2812 (max 3244). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Franklin County",
+  "state_name": "Nebraska"
+ },
+ "31063": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2503 (max 2772). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Frontier County",
+  "state_name": "Nebraska"
+ },
+ "31065": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4468 (max 4945). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Furnas County",
+  "state_name": "Nebraska"
+ },
+ "31069": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1804 (max 2075). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Garden County",
+  "state_name": "Nebraska"
+ },
+ "31071": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1707 (max 2035). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Garfield County",
+  "state_name": "Nebraska"
+ },
+ "31073": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1808 (max 2080). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Gosper County",
+  "state_name": "Nebraska"
+ },
+ "31075": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 567 (max 665). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Grant County",
+  "state_name": "Nebraska"
+ },
+ "31077": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2179 (max 2546). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Greeley County",
+  "state_name": "Nebraska"
+ },
+ "31083": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3018 (max 3488). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Harlan County",
+  "state_name": "Nebraska"
+ },
+ "31085": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 840 (max 987). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hayes County",
+  "state_name": "Nebraska"
+ },
+ "31087": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2460 (max 2906). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hitchcock County",
+  "state_name": "Nebraska"
+ },
+ "31091": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 666 (max 743). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hooker County",
+  "state_name": "Nebraska"
+ },
+ "31103": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 760 (max 824). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Keya Paha County",
+  "state_name": "Nebraska"
+ },
+ "31105": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3305 (max 3834). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Kimball County",
+  "state_name": "Nebraska"
+ },
+ "31113": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 661 (max 792). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Logan County",
+  "state_name": "Nebraska"
+ },
+ "31115": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 582 (max 664). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Loup County",
+  "state_name": "Nebraska"
+ },
+ "31117": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 374 (max 551). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "McPherson County",
+  "state_name": "Nebraska"
+ },
+ "31123": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4485 (max 5039). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Morrill County",
+  "state_name": "Nebraska"
+ },
+ "31125": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3261 (max 3740). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Nance County",
+  "state_name": "Nebraska"
+ },
+ "31129": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4071 (max 4514). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Nuckolls County",
+  "state_name": "Nebraska"
+ },
+ "31133": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2511 (max 2791). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Pawnee County",
+  "state_name": "Nebraska"
+ },
+ "31135": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2779 (max 2978). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Perkins County",
+  "state_name": "Nebraska"
+ },
+ "31149": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1234 (max 1550). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Rock County",
+  "state_name": "Nebraska"
+ },
+ "31161": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4927 (max 5498). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sheridan County",
+  "state_name": "Nebraska"
+ },
+ "31163": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2949 (max 3164). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sherman County",
+  "state_name": "Nebraska"
+ },
+ "31165": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1099 (max 1330). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sioux County",
+  "state_name": "Nebraska"
+ },
+ "31169": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4855 (max 5235). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Thayer County",
+  "state_name": "Nebraska"
+ },
+ "31171": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 634 (max 722). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Thomas County",
+  "state_name": "Nebraska"
+ },
+ "31175": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4029 (max 4265). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Valley County",
+  "state_name": "Nebraska"
+ },
+ "31181": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3326 (max 3809). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Webster County",
+  "state_name": "Nebraska"
+ },
+ "31183": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 775 (max 825). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Wheeler County",
+  "state_name": "Nebraska"
+ },
+ "32009": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 720 (max 873). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Esmeralda County",
+  "state_name": "Nevada"
+ },
+ "32011": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1853 (max 2049). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Eureka County",
+  "state_name": "Nevada"
+ },
+ "32017": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4345 (max 5371). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Lincoln County",
+  "state_name": "Nevada"
+ },
+ "32021": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4376 (max 4786). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Mineral County",
+  "state_name": "Nevada"
+ },
+ "32029": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3795 (max 4171). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Storey County",
+  "state_name": "Nevada"
+ },
+ "35003": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3476 (max 3803). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Catron County",
+  "state_name": "New Mexico"
+ },
+ "35011": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1657 (max 2031). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "De Baca County",
+  "state_name": "New Mexico"
+ },
+ "35019": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4300 (max 4695). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Guadalupe County",
+  "state_name": "New Mexico"
+ },
+ "35021": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 625 (max 719). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Harding County",
+  "state_name": "New Mexico"
+ },
+ "35023": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3966 (max 5019). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hidalgo County",
+  "state_name": "New Mexico"
+ },
+ "35033": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4096 (max 4893). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Mora County",
+  "state_name": "New Mexico"
+ },
+ "35059": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3926 (max 4541). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Union County",
+  "state_name": "New Mexico"
+ },
+ "36041": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4416 (max 5114). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hamilton County",
+  "state_name": "New York"
+ },
+ "37095": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4514 (max 5811). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hyde County",
+  "state_name": "North Carolina"
+ },
+ "37177": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3234 (max 4415). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Tyrrell County",
+  "state_name": "North Carolina"
+ },
+ "38001": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2106 (max 2397). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Adams County",
+  "state_name": "North Dakota"
+ },
+ "38007": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 783 (max 1063). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Billings County",
+  "state_name": "North Dakota"
+ },
+ "38011": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2870 (max 3277). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Bowman County",
+  "state_name": "North Dakota"
+ },
+ "38013": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1962 (max 2344). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Burke County",
+  "state_name": "North Dakota"
+ },
+ "38019": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3567 (max 3987). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Cavalier County",
+  "state_name": "North Dakota"
+ },
+ "38021": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4848 (max 5278). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Dickey County",
+  "state_name": "North Dakota"
+ },
+ "38023": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2020 (max 2459). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Divide County",
+  "state_name": "North Dakota"
+ },
+ "38025": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3513 (max 4578). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Dunn County",
+  "state_name": "North Dakota"
+ },
+ "38027": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2278 (max 2393). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Eddy County",
+  "state_name": "North Dakota"
+ },
+ "38029": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3209 (max 3568). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Emmons County",
+  "state_name": "North Dakota"
+ },
+ "38031": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3207 (max 3388). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Foster County",
+  "state_name": "North Dakota"
+ },
+ "38033": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1657 (max 1879). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Golden Valley County",
+  "state_name": "North Dakota"
+ },
+ "38037": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2247 (max 2399). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Grant County",
+  "state_name": "North Dakota"
+ },
+ "38039": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2227 (max 2420). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Griggs County",
+  "state_name": "North Dakota"
+ },
+ "38041": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2418 (max 2657). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hettinger County",
+  "state_name": "North Dakota"
+ },
+ "38043": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2360 (max 2480). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Kidder County",
+  "state_name": "North Dakota"
+ },
+ "38045": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4046 (max 4142). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "LaMoure County",
+  "state_name": "North Dakota"
+ },
+ "38047": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1849 (max 1998). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Logan County",
+  "state_name": "North Dakota"
+ },
+ "38051": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2461 (max 2840). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "McIntosh County",
+  "state_name": "North Dakota"
+ },
+ "38063": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2879 (max 3130). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Nelson County",
+  "state_name": "North Dakota"
+ },
+ "38065": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1841 (max 1959). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Oliver County",
+  "state_name": "North Dakota"
+ },
+ "38069": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3853 (max 4446). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Pierce County",
+  "state_name": "North Dakota"
+ },
+ "38075": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2267 (max 2613). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Renville County",
+  "state_name": "North Dakota"
+ },
+ "38081": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3710 (max 3920). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sargent County",
+  "state_name": "North Dakota"
+ },
+ "38083": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1262 (max 1351). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sheridan County",
+  "state_name": "North Dakota"
+ },
+ "38085": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3659 (max 4459). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   },
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Standing Rock Indian Reservation (entire county)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Sioux County",
+  "state_name": "North Dakota"
+ },
+ "38087": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 660 (max 781). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Slope County",
+  "state_name": "North Dakota"
+ },
+ "38091": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1766 (max 1991). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Steele County",
+  "state_name": "North Dakota"
+ },
+ "38095": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2036 (max 2292). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   },
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Turtle Mountain Indian Reservation). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Towner County",
+  "state_name": "North Dakota"
+ },
+ "38103": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3803 (max 4235). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Wells County",
+  "state_name": "North Dakota"
+ },
+ "40007": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4991 (max 5634). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Beaver County",
+  "state_name": "Oklahoma"
+ },
+ "40025": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2133 (max 2495). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Cimarron County",
+  "state_name": "Oklahoma"
+ },
+ "40043": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4253 (max 4984). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Dewey County",
+  "state_name": "Oklahoma"
+ },
+ "40045": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3601 (max 4223). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Ellis County",
+  "state_name": "Oklahoma"
+ },
+ "40053": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4088 (max 4563). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Grant County",
+  "state_name": "Oklahoma"
+ },
+ "40057": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2315 (max 2934). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Harmon County",
+  "state_name": "Oklahoma"
+ },
+ "40059": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3175 (max 3894). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Harper County",
+  "state_name": "Oklahoma"
+ },
+ "40129": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3304 (max 3773). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Roger Mills County",
+  "state_name": "Oklahoma"
+ },
+ "41021": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1856 (max 2035). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Gilliam County",
+  "state_name": "Oregon"
+ },
+ "41055": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1689 (max 2002). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sherman County",
+  "state_name": "Oregon"
+ },
+ "41069": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1319 (max 1459). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Wheeler County",
+  "state_name": "Oregon"
+ },
+ "42023": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4348 (max 5106). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Cameron County",
+  "state_name": "Pennsylvania"
+ },
+ "46003": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2701 (max 2796). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Aurora County",
+  "state_name": "South Dakota"
+ },
+ "46007": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3289 (max 3473). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Bennett County",
+  "state_name": "South Dakota"
+ },
+ "46017": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1825 (max 2098). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   },
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Crow Creek Indian Reservation). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Buffalo County",
+  "state_name": "South Dakota"
+ },
+ "46021": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1342 (max 1471). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Campbell County",
+  "state_name": "South Dakota"
+ },
+ "46025": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3594 (max 3974). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Clark County",
+  "state_name": "South Dakota"
+ },
+ "46031": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3747 (max 4208). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   },
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Cheyenne River Indian Reservation (northern portion)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Corson County",
+  "state_name": "South Dakota"
+ },
+ "46039": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4253 (max 4379). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Deuel County",
+  "state_name": "South Dakota"
+ },
+ "46043": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2797 (max 3017). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Douglas County",
+  "state_name": "South Dakota"
+ },
+ "46045": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3829 (max 4103). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Edmunds County",
+  "state_name": "South Dakota"
+ },
+ "46049": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2117 (max 2368). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Faulk County",
+  "state_name": "South Dakota"
+ },
+ "46053": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3954 (max 4270). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Gregory County",
+  "state_name": "South Dakota"
+ },
+ "46055": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1830 (max 1953). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Haakon County",
+  "state_name": "South Dakota"
+ },
+ "46059": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3087 (max 3435). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hand County",
+  "state_name": "South Dakota"
+ },
+ "46061": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3330 (max 3507). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hanson County",
+  "state_name": "South Dakota"
+ },
+ "46063": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1244 (max 1329). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Harding County",
+  "state_name": "South Dakota"
+ },
+ "46069": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1190 (max 1429). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hyde County",
+  "state_name": "South Dakota"
+ },
+ "46071": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2737 (max 3344). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   },
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Pine Ridge Indian Reservation (southern portion)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Jackson County",
+  "state_name": "South Dakota"
+ },
+ "46073": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1641 (max 2091). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Jerauld County",
+  "state_name": "South Dakota"
+ },
+ "46075": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 862 (max 1011). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Jones County",
+  "state_name": "South Dakota"
+ },
+ "46077": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4926 (max 5282). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Kingsbury County",
+  "state_name": "South Dakota"
+ },
+ "46085": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3701 (max 3900). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Lyman County",
+  "state_name": "South Dakota"
+ },
+ "46089": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2307 (max 2469). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "McPherson County",
+  "state_name": "South Dakota"
+ },
+ "46091": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4298 (max 4945). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Marshall County",
+  "state_name": "South Dakota"
+ },
+ "46095": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1834 (max 2076). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Mellette County",
+  "state_name": "South Dakota"
+ },
+ "46097": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2200 (max 2407). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Miner County",
+  "state_name": "South Dakota"
+ },
+ "46105": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2807 (max 3032). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Perkins County",
+  "state_name": "South Dakota"
+ },
+ "46107": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2153 (max 2474). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Potter County",
+  "state_name": "South Dakota"
+ },
+ "46111": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2318 (max 2435). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sanborn County",
+  "state_name": "South Dakota"
+ },
+ "46117": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2906 (max 3098). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Stanley County",
+  "state_name": "South Dakota"
+ },
+ "46119": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1367 (max 1485). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sully County",
+  "state_name": "South Dakota"
+ },
+ "46137": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2322 (max 2879). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   },
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Standing Rock Indian Reservation (eastern portion)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Ziebach County",
+  "state_name": "South Dakota"
+ },
+ "47137": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4999 (max 5139). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Pickett County",
+  "state_name": "Tennessee"
+ },
+ "48011": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1809 (max 1953). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Armstrong County",
+  "state_name": "Texas"
+ },
+ "48023": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3456 (max 3726). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Baylor County",
+  "state_name": "Texas"
+ },
+ "48033": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 557 (max 670). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Borden County",
+  "state_name": "Texas"
+ },
+ "48045": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1403 (max 1659). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Briscoe County",
+  "state_name": "Texas"
+ },
+ "48079": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2483 (max 3147). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Cochran County",
+  "state_name": "Texas"
+ },
+ "48081": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3180 (max 3396). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Coke County",
+  "state_name": "Texas"
+ },
+ "48087": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2561 (max 3100). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Collingsworth County",
+  "state_name": "Texas"
+ },
+ "48095": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2683 (max 4140). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Concho County",
+  "state_name": "Texas"
+ },
+ "48101": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1263 (max 1512). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Cottle County",
+  "state_name": "Texas"
+ },
+ "48103": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4333 (max 4995). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Crane County",
+  "state_name": "Texas"
+ },
+ "48105": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2799 (max 3790). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   },
+   {
+    "type": "transient_workforce",
+    "label": "Resident vs. daily population denominator",
+    "note": "Permian Basin oil-patch county (Crockett TX); transient oil-field workforce inflates per-capita property-crime rates."
+   }
+  ],
+  "county_name": "Crockett County",
+  "state_name": "Texas"
+ },
+ "48107": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4990 (max 6057). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Crosby County",
+  "state_name": "Texas"
+ },
+ "48109": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2159 (max 2403). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Culberson County",
+  "state_name": "Texas"
+ },
+ "48125": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1711 (max 2447). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Dickens County",
+  "state_name": "Texas"
+ },
+ "48129": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3177 (max 3734). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Donley County",
+  "state_name": "Texas"
+ },
+ "48137": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1383 (max 2012). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Edwards County",
+  "state_name": "Texas"
+ },
+ "48151": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3618 (max 4014). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Fisher County",
+  "state_name": "Texas"
+ },
+ "48155": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1053 (max 1361). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Foard County",
+  "state_name": "Texas"
+ },
+ "48169": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4527 (max 6560). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Garza County",
+  "state_name": "Texas"
+ },
+ "48173": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1117 (max 1409). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Glasscock County",
+  "state_name": "Texas"
+ },
+ "48191": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2799 (max 3359). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hall County",
+  "state_name": "Texas"
+ },
+ "48197": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3417 (max 4159). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hardeman County",
+  "state_name": "Texas"
+ },
+ "48205": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4996 (max 6090). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hartley County",
+  "state_name": "Texas"
+ },
+ "48211": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3134 (max 4277). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hemphill County",
+  "state_name": "Texas"
+ },
+ "48229": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3193 (max 4886). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hudspeth County",
+  "state_name": "Texas"
+ },
+ "48235": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1512 (max 1610). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Irion County",
+  "state_name": "Texas"
+ },
+ "48243": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1778 (max 2344). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Jeff Davis County",
+  "state_name": "Texas"
+ },
+ "48247": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4583 (max 5328). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Jim Hogg County",
+  "state_name": "Texas"
+ },
+ "48261": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 330 (max 447). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Kenedy County",
+  "state_name": "Texas"
+ },
+ "48263": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 703 (max 825). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Kent County",
+  "state_name": "Texas"
+ },
+ "48267": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4293 (max 4623). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Kimble County",
+  "state_name": "Texas"
+ },
+ "48269": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 215 (max 292). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "King County",
+  "state_name": "Texas"
+ },
+ "48271": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3120 (max 3711). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Kinney County",
+  "state_name": "Texas"
+ },
+ "48275": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3255 (max 3801). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Knox County",
+  "state_name": "Texas"
+ },
+ "48295": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2855 (max 3559). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Lipscomb County",
+  "state_name": "Texas"
+ },
+ "48301": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 46 (max 169). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   },
+   {
+    "type": "transient_workforce",
+    "label": "Resident vs. daily population denominator",
+    "note": "Permian Basin oil-patch county; resident pop ~50, daily working population in the thousands. Oil-field site theft + truck-stop incidents on US-285 inflate per-capita rates."
+   }
+  ],
+  "county_name": "Loving County",
+  "state_name": "Texas"
+ },
+ "48311": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 565 (max 828). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "McMullen County",
+  "state_name": "Texas"
+ },
+ "48317": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4710 (max 5771). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Martin County",
+  "state_name": "Texas"
+ },
+ "48319": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3912 (max 4274). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Mason County",
+  "state_name": "Texas"
+ },
+ "48327": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1911 (max 2230). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Menard County",
+  "state_name": "Texas"
+ },
+ "48333": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4450 (max 4968). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Mills County",
+  "state_name": "Texas"
+ },
+ "48345": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1015 (max 1232). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Motley County",
+  "state_name": "Texas"
+ },
+ "48359": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1736 (max 2118). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Oldham County",
+  "state_name": "Texas"
+ },
+ "48383": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3139 (max 3849). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Reagan County",
+  "state_name": "Texas"
+ },
+ "48385": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2750 (max 3477). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Real County",
+  "state_name": "Texas"
+ },
+ "48393": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 802 (max 942). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Roberts County",
+  "state_name": "Texas"
+ },
+ "48413": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2302 (max 3503). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Schleicher County",
+  "state_name": "Texas"
+ },
+ "48417": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3109 (max 3383). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Shackelford County",
+  "state_name": "Texas"
+ },
+ "48421": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2710 (max 3101). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sherman County",
+  "state_name": "Texas"
+ },
+ "48431": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1137 (max 1417). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sterling County",
+  "state_name": "Texas"
+ },
+ "48433": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1213 (max 1496). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Stonewall County",
+  "state_name": "Texas"
+ },
+ "48435": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3227 (max 4272). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Sutton County",
+  "state_name": "Texas"
+ },
+ "48443": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 693 (max 1011). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Terrell County",
+  "state_name": "Texas"
+ },
+ "48447": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1451 (max 1654). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Throckmorton County",
+  "state_name": "Texas"
+ },
+ "48461": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3128 (max 3690). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Upton County",
+  "state_name": "Texas"
+ },
+ "48483": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4801 (max 5716). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Wheeler County",
+  "state_name": "Texas"
+ },
+ "49009": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 950 (max 1162). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Daggett County",
+  "state_name": "Utah"
+ },
+ "49017": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4952 (max 5320). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Garfield County",
+  "state_name": "Utah"
+ },
+ "49031": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 1407 (max 1565). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Piute County",
+  "state_name": "Utah"
+ },
+ "49033": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2253 (max 2752). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Rich County",
+  "state_name": "Utah"
+ },
+ "49055": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2506 (max 2788). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Wayne County",
+  "state_name": "Utah"
+ },
+ "51017": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4070 (max 4743). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Bath County",
+  "state_name": "Virginia"
+ },
+ "51045": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4827 (max 5198). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Craig County",
+  "state_name": "Virginia"
+ },
+ "51091": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2190 (max 2363). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Highland County",
+  "state_name": "Virginia"
+ },
+ "51720": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3478 (max 4135). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Norton city",
+  "state_name": "Virginia"
+ },
+ "53013": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3953 (max 4094). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Columbia County",
+  "state_name": "Washington"
+ },
+ "53023": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2201 (max 2404). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Garfield County",
+  "state_name": "Washington"
+ },
+ "53069": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 3983 (max 4800). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Wahkiakum County",
+  "state_name": "Washington"
+ },
+ "54105": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4924 (max 5838). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Wirt County",
+  "state_name": "West Virginia"
+ },
+ "55037": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4294 (max 4708). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Florence County",
+  "state_name": "Wisconsin"
+ },
+ "55078": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4191 (max 4599). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   },
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Menominee Indian Reservation (entire county)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Menominee County",
+  "state_name": "Wisconsin"
+ },
+ "56017": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 4413 (max 4831). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Hot Springs County",
+  "state_name": "Wyoming"
+ },
+ "56027": {
+  "caveats": [
+   {
+    "type": "small_population",
+    "label": "Very small population",
+    "note": "Minimum annual population in this county was 2301 (max 2544). Per-100,000 rates are highly sensitive to single events at this scale -- a single murder produces a rate of 20-100/100k just from arithmetic. Read year-to-year changes with care."
+   }
+  ],
+  "county_name": "Niobrara County",
+  "state_name": "Wyoming"
+ },
+ "46041": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Cheyenne River Sioux Reservation (most of county)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Dewey County",
+  "state_name": "South Dakota"
+ },
+ "46121": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Rosebud Indian Reservation (entire county)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Todd County",
+  "state_name": "South Dakota"
+ },
+ "46102": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Pine Ridge Indian Reservation (entire county; formerly Shannon County)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Shannon County",
+  "state_name": "South Dakota"
+ },
+ "46135": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Yankton Sioux Reservation). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Yankton County",
+  "state_name": "South Dakota"
+ },
+ "38079": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Spirit Lake Indian Reservation). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Rolette County",
+  "state_name": "North Dakota"
+ },
+ "38105": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Fort Berthold Indian Reservation (eastern portion)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Williams County",
+  "state_name": "North Dakota"
+ },
+ "04001": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Navajo Nation + Apache reservations (most of county)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Apache County",
+  "state_name": "Arizona"
+ },
+ "04017": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Navajo Nation (most of county)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Navajo County",
+  "state_name": "Arizona"
+ },
+ "04007": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (San Carlos Apache Reservation (eastern portion)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Gila County",
+  "state_name": "Arizona"
+ },
+ "35031": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Navajo Nation (western portion) + Pueblo lands). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "McKinley County",
+  "state_name": "New Mexico"
+ },
+ "35045": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Navajo Nation (large portion)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "San Juan County",
+  "state_name": "New Mexico"
+ },
+ "35006": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Navajo Nation (most of county)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Cibola County",
+  "state_name": "New Mexico"
+ },
+ "30035": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Blackfeet Indian Reservation). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Glacier County",
+  "state_name": "Montana"
+ },
+ "30009": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Crow Indian Reservation). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Carbon County",
+  "state_name": "Montana"
+ },
+ "30087": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Northern Cheyenne Reservation). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Rosebud County",
+  "state_name": "Montana"
+ },
+ "30005": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Fort Belknap Reservation). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Blaine County",
+  "state_name": "Montana"
+ },
+ "30085": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Fort Peck Reservation). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Roosevelt County",
+  "state_name": "Montana"
+ },
+ "53077": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Yakama Indian Reservation (large portion of county)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Yakima County",
+  "state_name": "Washington"
+ },
+ "53047": {
+  "caveats": [
+   {
+    "type": "reservation",
+    "label": "Reservation / tribal-land county",
+    "note": "County contains substantial tribal land (Colville Indian Reservation (eastern portion)). Tribal police, BIA, and federal Indian Country prosecutors all report incidents to FBI UCR; reporting completeness varies year-to-year, producing spurious volatility in crime rates that does NOT reflect real victimization changes. National Crime Victimization Survey supplements (BJS) document genuinely elevated victimization rates in tribal communities, so SOME of the elevated rates are real signal."
+   }
+  ],
+  "county_name": "Okanogan County",
+  "state_name": "Washington"
+ },
+ "36061": {
+  "caveats": [
+   {
+    "type": "transient_workforce",
+    "label": "Resident vs. daily population denominator",
+    "note": "Manhattan (NY): resident pop ~1.66M but daily commuter+tourist pop ~3-4M. Per-100k rates vs. resident denominator overstate by ~2-3x."
+   }
+  ],
+  "county_name": "New York County",
+  "state_name": "New York"
+ },
+ "11001": {
+  "caveats": [
+   {
+    "type": "transient_workforce",
+    "label": "Resident vs. daily population denominator",
+    "note": "DC: resident pop ~700k but daily commuter+tourist pop substantially higher. Federal-jurisdiction incidents + National Mall events inflate per-resident rates."
+   }
+  ],
+  "county_name": "District of Columbia",
+  "state_name": "District of Columbia"
+ },
+ "32003": {
+  "caveats": [
+   {
+    "type": "transient_workforce",
+    "label": "Resident vs. daily population denominator",
+    "note": "Clark County NV (Las Vegas Strip): tourist pop ~40M/year vs ~2.3M residents. Per-resident crime rates are misleading."
+   }
+  ],
+  "county_name": "Clark County",
+  "state_name": "Nevada"
+ },
+ "06059": {
+  "caveats": [
+   {
+    "type": "transient_workforce",
+    "label": "Resident vs. daily population denominator",
+    "note": "Orange County CA (Disneyland area): tourist + theme-park workforce inflate the daily population denominator."
+   }
+  ],
+  "county_name": "Orange County",
+  "state_name": "California"
+ },
+ "04012": {
+  "caveats": [
+   {
+    "type": "transient_workforce",
+    "label": "Resident vs. daily population denominator",
+    "note": "La Paz County AZ: hosts Quartzsite (winter snowbird population ~50k vs ~17k residents); also Colorado River Indian Tribes jurisdictional overlap."
+   }
+  ],
+  "county_name": "La Paz County",
+  "state_name": "Arizona"
+ }
+}

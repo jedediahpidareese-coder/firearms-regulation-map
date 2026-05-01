@@ -193,12 +193,17 @@ async function buildStateMode() {
 }
 
 async function buildCountyMode() {
-  const [manifest, metadata, topology, names] = await Promise.all([
+  const [manifest, metadata, topology, names, caveats] = await Promise.all([
     d3.json("data/county_manifest.json"),
     d3.json("data/county_meta.json"),
     d3.json(TOPO_URLS.county),
     d3.json("data/county_names.json"),
+    d3.json("data/county_caveats.json").catch(() => ({})),
   ]);
+  // Stash the caveats map at module scope so showHover / showCompareState
+  // can look it up by county_fips. State-mode currently has no equivalent
+  // caveats source.
+  state.countyCaveats = caveats || {};
   const yearCache = new Map();
   // Pre-load default year so the first render has data.
   const defYear = manifest.default_year;
@@ -679,22 +684,39 @@ function renderLinks(container, key) {
   });
 }
 
-function showHover(key) {
+// Internal: render a state/county's full details into a target pane
+// (one of the two state-grid columns). Shared by showHover (left pane)
+// and showCompareState (right pane).
+function _renderStatePane(key, paneSel) {
   const mode = currentMode();
   const meta = mode.metadata[state.variable];
   const cell = mode.contextRow(state.variable, key);
   const v = cell[state.variable];
-  document.getElementById("hover-state").textContent =
-    `${mode.keyToDisplayName(key)} (${state.year})`;
-  const linkRow = document.getElementById("hover-links");
-  if (linkRow) renderLinks(linkRow, key);
-  const tbl = document.getElementById("hover-table");
-  tbl.innerHTML = "";
+  paneSel.label.textContent = `${mode.keyToDisplayName(key)} (${state.year})`;
+  if (paneSel.links) renderLinks(paneSel.links, key);
+  // Caveats box (county mode only; state mode has no per-state caveats yet).
+  const cavBox = paneSel.caveats;
+  if (cavBox) {
+    cavBox.innerHTML = "";
+    cavBox.hidden = true;
+    if (state.modeName === "county" && state.countyCaveats) {
+      const entry = state.countyCaveats[key];
+      if (entry && entry.caveats && entry.caveats.length) {
+        const items = entry.caveats.map(c =>
+          `<li><strong>${c.label}:</strong> ${c.note}</li>`
+        ).join("");
+        cavBox.innerHTML =
+          `<strong>&#9888; Data caveats for this county:</strong><ul>${items}</ul>`;
+        cavBox.hidden = false;
+      }
+    }
+  }
+  paneSel.table.innerHTML = "";
   function row(label, val) {
     const tr = document.createElement("tr");
     const td1 = document.createElement("td"); td1.textContent = label;
     const td2 = document.createElement("td"); td2.textContent = val;
-    tr.appendChild(td1); tr.appendChild(td2); tbl.appendChild(tr);
+    tr.appendChild(td1); tr.appendChild(td2); paneSel.table.appendChild(tr);
   }
   row(displayLabel(meta), formatValue(v, meta));
   for (const [v2, label] of mode.contextVars) {
@@ -704,6 +726,56 @@ function showHover(key) {
     const val = cell[v2];
     if (val == null) continue;
     row(label, formatValue(val, m));
+  }
+}
+
+const _PRIMARY_PANE = {
+  label:    () => document.getElementById("hover-state"),
+  links:    () => document.getElementById("hover-links"),
+  caveats:  () => document.getElementById("state-caveats"),
+  table:    () => document.getElementById("hover-table"),
+};
+const _COMPARE_PANE = {
+  label:    () => document.getElementById("compare-state"),
+  links:    () => document.getElementById("compare-links"),
+  caveats:  () => document.getElementById("compare-caveats"),
+  table:    () => document.getElementById("compare-table-side"),
+};
+function _resolvePane(p) {
+  return {
+    label: p.label(), links: p.links(), caveats: p.caveats(), table: p.table(),
+  };
+}
+
+function showHover(key) {
+  _renderStatePane(key, _resolvePane(_PRIMARY_PANE));
+  // Also refresh the compare pane in case the user just pinned a second state.
+  _refreshComparePane();
+}
+
+function _refreshComparePane() {
+  const pane = _resolvePane(_COMPARE_PANE);
+  const pins = state.pinnedKeys[state.modeName] || [];
+  const locked = state.lockedKey[state.modeName];
+  // The compare-pane shows the pinned state that ISN'T the primary focus.
+  // If two states are pinned, show whichever isn't locked (or the second
+  // if neither matches lock). If only one is pinned and it equals the
+  // locked focus, the compare pane stays at its placeholder.
+  let compareKey = null;
+  if (pins.length >= 2) {
+    compareKey = (pins[0] === locked) ? pins[1] : pins[0];
+  } else if (pins.length === 1 && pins[0] !== locked) {
+    compareKey = pins[0];
+  }
+  if (compareKey) {
+    _renderStatePane(compareKey, pane);
+    pane.label.parentNode.classList.remove("placeholder");
+  } else {
+    pane.label.textContent = "Click a second state on the map to pin it here.";
+    pane.table.innerHTML = "";
+    if (pane.links) pane.links.innerHTML = "";
+    if (pane.caveats) { pane.caveats.innerHTML = ""; pane.caveats.hidden = true; }
+    pane.label.parentNode.classList.add("placeholder");
   }
 }
 
@@ -747,12 +819,14 @@ function togglePin(key) {
   }
   refreshPinnedHighlights();
   renderComparePanel();
+  _refreshComparePane();
 }
 
 function clearPins() {
   state.pinnedKeys[state.modeName] = [];
   refreshPinnedHighlights();
   renderComparePanel();
+  _refreshComparePane();
 }
 
 function refreshPinnedHighlights() {

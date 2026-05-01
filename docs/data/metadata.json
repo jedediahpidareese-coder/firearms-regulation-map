@@ -195,7 +195,7 @@
     "category": "Regulation",
     "unit": "Yes / No",
     "format": "binary",
-    "definition": "1 if state requires background checks at point of purchase for all firearms by both licensed dealers and private sellers.",
+    "definition": "1 if the state requires a background check on every firearm transfer, INCLUDING private sales between individuals (gun shows, online, person-to-person). 0 means only federally-licensed dealers (FFLs) must run NICS checks; private sales between residents are exempt under federal law unless a state statute closes that gap.",
     "source": "Tufts State Firearm Laws",
     "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
     "year_range": [
@@ -214,7 +214,7 @@
     "category": "Regulation",
     "unit": "Yes / No",
     "format": "binary",
-    "definition": "1 if state requires a permit to carry concealed weapons. 0 generally indicates permitless / constitutional carry.",
+    "definition": "1 if the state requires a state-issued permit to carry a concealed firearm in public. 0 means \"permitless carry\" (sometimes called \"constitutional carry\") \u2014 any adult who can legally possess a firearm may carry it concealed without first obtaining a permit. The opposite of this variable, when it switches from 1 to 0, is the operational definition of \"adopted permitless carry\" used in the project's causal analyses.",
     "source": "Tufts State Firearm Laws",
     "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
     "year_range": [
@@ -233,7 +233,7 @@
     "category": "Regulation",
     "unit": "Yes / No",
     "format": "binary",
-    "definition": "1 if concealed-carry permit issuance is discretionary (may-issue), or state bans all concealed weapons.",
+    "definition": "1 if the state's concealed-carry permitting authority has DISCRETION over whether to issue a permit (\"may-issue\" / \"good cause required\"), or if the state outright bans concealed carry. 0 means \"shall-issue\" \u2014 the authority MUST issue a permit to any applicant who meets objective statutory criteria. The 2022 NYSRPA v. Bruen Supreme Court decision made many remaining may-issue regimes unconstitutional, so this variable is mostly historical post-2022.",
     "source": "Tufts State Firearm Laws",
     "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
     "year_range": [
