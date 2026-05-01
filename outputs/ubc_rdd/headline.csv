@@ -1,0 +1,10 @@
+policy,spec_name,outcome,outcome_label,outcome_stratum,bandwidth_km,donut_km,fe,cluster,covariates,drop_spillover_pairs,beta,se,z,n,n_counties,n_pairs,n_treated_post,n_straddling_pair_years
+ubc,headline,county_violent_crime_rate,"County violent crime rate (per 100,000)",primary,100,0,pair_year,state,,0,19.038244576799485,8.992129900451236,2.1172119161494902,31248,1953,101,2391,292
+ubc,headline,county_murder_rate,"County murder rate (per 100,000)",primary,100,0,pair_year,state,,0,-0.5977747986321247,0.15376937388408402,-3.8874763129538743,31248,1953,101,2391,292
+ubc,headline,county_property_crime_rate,"County property crime rate (per 100,000)",primary,100,0,pair_year,state,,0,95.90753526061424,47.95029319648377,2.0001449181471784,31248,1953,101,2391,292
+ubc,headline,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",primary,100,0,pair_year,state,,0,42.44074991611802,22.58284580654412,1.8793357701543276,31248,1953,101,2391,292
+ubc,headline,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",primary,100,0,pair_year,state,,0,-2.7258286385689297,9.467358631535417,-0.28791859954362525,31248,1953,101,2391,292
+ubc,headline,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,-0.2592836830930974,0.11841777895167693,-2.1895671865193824,29295,1953,101,2086,265
+ubc,headline,state_total_suicide_rate,"State total suicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,-0.4398354575903669,0.13140619006094306,-3.3471441291036723,29295,1953,101,2086,265
+ubc,headline,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",secondary,100,0,pair_year,state,,0,-0.18055177449726903,0.09644267369180597,-1.8721149838114577,29295,1953,101,2086,265
+ubc,headline,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,0.05726725386666991,0.24888029697546793,0.23009958828647142,29271,1953,101,2072,264

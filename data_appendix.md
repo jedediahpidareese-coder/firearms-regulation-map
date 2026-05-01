@@ -729,7 +729,248 @@ Aleutian centroid), as expected.
   geometry layer the per-policy border samples and sharp-RDD models will be
   built on top of in a follow-up pass.
 
-### 2.13 Summary of county-panel manipulations
+### 2.13 Criminal-justice controls (Phase 4)
+
+**What this is.** A small companion file
+([`data/processed/state_cj_controls_1979_2024.csv`](data/processed/state_cj_controls_1979_2024.csv))
+that gives every state-year a vector of criminal-justice "posture"
+variables, plus a thin county-year companion
+([`data/processed/county_cj_controls_2009_2024.csv`](data/processed/county_cj_controls_2009_2024.csv))
+that exposes the one variable observed at the county grain (sworn
+officers per capita). These controls feed both the existing CS21 /
+stacked-DiD specs and the new spatial-RDD design, where they
+robustify identification by absorbing state-level CJ context (which is
+plausibly correlated with both gun-policy adoption and the
+crime/mortality outcomes of interest). The CJ layer joins to the
+analysis frame at run-time via `(state_fips, state_abbr, year)` for
+the state vars and `(county_fips, year)` for the county-grain vars; it
+does NOT modify the existing `panel_*.csv` or
+`county_panel_2009_2024.csv` outputs.
+
+**Outputs.**
+
+| File | Rows | Columns of interest |
+|---|---|---|
+| `data/processed/state_cj_controls_1979_2024.csv` | 51 states × 46 years = 2,346 | `imprisonment_rate`, `police_expenditure_per_capita_real_2024`, `has_death_penalty`, `executions_count`, `sworn_officers_per_100k` |
+| `data/processed/state_cj_controls_coverage.csv` | per-variable per-year coverage table | diagnostic only |
+| `data/processed/county_cj_controls_2009_2024.csv` | 3,133 counties × 16 years = 50,128 | `county_sworn_officers_per_100k` |
+
+**Build scripts.**
+[`scripts/build_state_cj_controls.py`](scripts/build_state_cj_controls.py)
+builds the four state-level vars from BJS, Census, and DPIC sources;
+[`scripts/build_county_leoka.py`](scripts/build_county_leoka.py)
+builds the county-grain sworn-officers var from Kaplan LEOKA and
+also writes the state-level rollup back into the state file in place.
+Raw inputs live under `data/state_cj_raw/` and `data/county/kaplan_leoka/`
+(both gitignored — same convention as `data/county/kaplan_offenses/`;
+rebuild by re-running the scripts after re-downloading the source
+files documented below).
+
+#### 2.13.1 Imprisonment rate (state-year)
+
+**What this is.** Total prisoners under state jurisdiction (year-end
+stock) divided by state resident population, expressed as the rate per
+100,000 residents. Same denominator the project uses elsewhere
+([`data/processed/state_population_1900_2025.csv`](data/processed/state_population_1900_2025.csv)).
+
+**Source.** U.S. Bureau of Justice Statistics, National Prisoner
+Statistics Program (NPS-1A), distributed as a series of annual
+"Prisoners in 20XX" reports. Landing page:
+<https://bjs.ojp.gov/data-collection/national-prisoner-statistics-nps-program>.
+Each report's Table 2 (post-2014) or Table 3 (pre-2014) lists the
+state-by-state stock for the report year and the prior year. We
+downloaded one report per available year and stitched them.
+
+**What we did** (in `scripts/build_state_cj_controls.py`):
+
+1. Downloaded the available BJS report tables to `data/state_cj_raw/`.
+2. For each report, extracted the per-state TOTAL prisoner stock for
+   the report year and the prior year, using a per-report column-position
+   map (the layouts differ across editions). Where multiple reports cover
+   the same state-year, we keep the value from the later-publication
+   report (BJS revises prior-year counts between editions; the later
+   edition is canonical).
+3. Divided by state population from `state_population_1900_2025.csv` and
+   multiplied by 100,000.
+
+**Coverage.** 1,921 of 2,346 state-years (81.9%). Year-by-year:
+1979–1980 ~37/51; **1981 0/51** (PDF table parse failure);
+1982–1983 ~39/51; **1984 0/51** (no `p84.pdf` in BJS legacy archive);
+1985–1992 43–49/51; **1993–1995 0/51** (no PDF reports in archive);
+1996 49/51; 1997–1998 50/51 (DC missing); 1999–2023 49–51/51 (DC missing
+post-2001 because DC closed Lorton in 2001 and transferred prisoners
+to BOP); **2024 0/51** ("Prisoners in 2024" not yet released).
+
+**Caveats.** Pre-1996 has gaps (1981, 1984, 1993–1995) because the
+corresponding BJS PDFs were not in the legacy archive at build time.
+The variable is the state stock only; federal prisoners (BOP) are
+excluded. BJS counts are jurisdictional (where the prisoner is legally
+held) since 1977 — that definition is consistent across our window.
+
+#### 2.13.2 Police protection expenditure per capita (state-year, real 2024 USD)
+
+**What this is.** State + local government combined expenditure on
+"Police protection" per capita, deflated to 2024 dollars using BLS
+CPI-U annual averages. Census of Governments / Annual Survey of State
+and Local Government Finances reports this as one of the major
+expenditure categories.
+
+**Source.** U.S. Census Bureau, Annual Survey of State and Local
+Government Finances. Landing page:
+<https://www.census.gov/programs-surveys/gov-finances.html>.
+
+**What we did** (in `scripts/build_state_cj_controls.py`):
+
+1. For each annual workbook in `data/state_cj_raw/`, auto-detected the
+   per-state column block layout (3-column pre-2009 = State&Local /
+   State / Local; 5-column 2009+ adds coefficient-of-variation columns).
+2. Extracted the State&Local "Police protection" expenditure (in
+   thousands of nominal dollars).
+3. Divided by state population and deflated to 2024 USD.
+4. Linearly interpolated within state across the gap years (2003–2008
+   and 2012–2016) so analysts have a continuous series; the
+   `police_expenditure_imputed_flag` column marks interpolated values.
+
+**Coverage.** 1,071 of 2,346 state-years (45.7%) — covers 51 states ×
+years 2002 and 2009–2022, with 2003–2008 and 2012–2016 interpolated.
+Pre-2002 and 2023+ remain NaN (the Census 2023 release was an
+Individual-Unit-File only with no summary table).
+
+**Caveats.** Census is fiscal-year, not calendar-year (most FYs end
+June 30). Police-budget shocks happen in waves (post-9/11, post-Ferguson,
+post-COVID), so treat interpolated values as a smoothed approximation.
+Includes both salaries and capital outlays.
+
+#### 2.13.3 Capital punishment status (state-year)
+
+**What this is.** Two variables: `has_death_penalty` (binary state-year,
+1 if the state had an active statute on Dec 31 of that year) and
+`executions_count` (count of state-jurisdiction executions in that
+state-year; federal executions excluded).
+
+**Source.** Death Penalty Information Center (DPIC) executions database.
+Landing page: <https://deathpenaltyinfo.org/>. Direct CSV download:
+<http://deathpenaltyinfo.org/query/executions.csv> (1,664 rows, one
+per execution, 1977–April 2026). Records are post-Gregg.
+
+**What we did** (in `scripts/build_state_cj_controls.py`):
+
+1. Downloaded `executions.csv` to `data/state_cj_raw/`.
+2. Filtered to `Federal == 'No'` and grouped by state-abbr × year for
+   `executions_count`.
+3. Hand-coded `has_death_penalty` from the published timeline of
+   abolitions and reinstatements (NM 2009, IL 2011, CT 2012, MD 2013,
+   NE 2015, DE 2016, NE-reinstated 2016, WA 2018, NH 2019, CO 2020,
+   VA 2021; pre-Gregg holdouts AK/HI/IA/ME/MI/MN/ND/VT/WV/WI plus DC
+   coded as 0 throughout; NJ 2007, RI 1984, MA 1984; NY coded
+   abolished 2007 after *People v. Taylor*).
+
+**Coverage.** 100% (all 2,346 state-years). The binary is computed from
+the timeline; the execution count defaults to 0 for state-years with
+no DPIC record.
+
+**Caveats.** `has_death_penalty == 1` means statute on the books, NOT
+that executions are actively occurring. We do NOT encode moratoria —
+California (Newsom moratorium 2019+) and Pennsylvania (Wolf moratorium
+2015+) remain coded as 1. To use "active practice", gate on
+`executions_count > 0` over the past N years.
+
+#### 2.13.4 Sworn officers per 100,000 residents
+
+**What this is.** Full-time sworn (peace-officer-status) law-enforcement
+personnel, divided by state and county resident population. State and
+county versions both built from the same agency-level Kaplan LEOKA
+source.
+
+**Source.** Jacob Kaplan's openICPSR project 102180, V15 (2025-08
+release): "Uniform Crime Reporting Program Data: Police Employees
+(LEOKA) Data, 1960-2024." The bundle ships an agency-level CSV with
+one row per ORI-year. Login required at
+<https://www.openicpsr.org/openicpsr/project/102180>.
+
+**What we did** (in [`scripts/build_county_leoka.py`](scripts/build_county_leoka.py)):
+
+1. The user dropped the openICPSR project zip (~765 MB) into
+   `data/county/kaplan_leoka/` (gitignored).
+2. The build script streams the CSV directly via Python's `zipfile`
+   module — the project zip is **double-nested**: outer
+   `102180-V15.zip` → inner `LEOKA_csv_1960_2024_year.zip` → CSV
+   `leoka_yearly_1960_2024.csv` (~1 GB uncompressed). The inner zip
+   bytes (~30 MB) are read into memory; the CSV is streamed from there
+   in chunks via pandas. No unzipping required.
+3. Kept only the `total_employees_officers` column (full-time sworn
+   officers) plus FIPS state/county codes and year. Filtered to
+   1960-2024.
+4. Aggregated to county-year (sum across agencies in each county).
+   Applied the same FIPS bridge as the crime panel
+   (Wade Hampton → Kusilvak, Shannon → Oglala Lakota, Bedford City →
+   Bedford County).
+5. Computed `county_sworn_officers_per_100k` = officers / population × 100,000
+   using the county panel's PEP population denominator.
+6. Aggregated again to state-year (sum across counties) and updated
+   `state_cj_controls_1979_2024.csv` in-place to fill the
+   `sworn_officers_per_100k` column.
+
+**Coverage.**
+- **County:** 50,032 of 50,128 county-years (99.8%). The 96 missing
+  rows are the same 6 zero-LE-reporting tiny entities × 16 years that
+  have no Kaplan crime data either — five small Alaska boroughs plus
+  Kalawao County HI (population 80, no police force).
+- **State:** 2,024 of 2,346 state-years (86.3%). Pre-1985 has the
+  most gaps; LEOKA agency response was sparser in early years.
+
+**Caveats.**
+
+1. Federal LE (FBI, DEA, ATF, US Marshals) and special-jurisdiction
+   agencies (Amtrak, transit, university PD) have no county FIPS and
+   are excluded. For "all sworn LE in this geography" measures
+   including federal, this is a slight undercount.
+2. NIBRS-transition years (2021–2024) may have lower agency response
+   rates that bias state totals slightly downward.
+3. The state-level rollup is sum across counties; statewide-only
+   agencies whose ORIs lack a county FIPS are excluded from the state
+   total. Cross-checked against published state-level FBI tables for
+   sanity; differences are typically within 2–4%.
+
+#### 2.13.5 Tier 2 variables (deferred)
+
+The original brief listed three additional sentencing controls as
+Tier 2, to be built only if Tier 1 work completed under half the
+budget. Tier 1 work (especially the multi-vintage BJS prisoners parsing)
+consumed most of the budget; the following remain v2 work:
+
+- **Three-strikes laws** (state-year binary): coding the year of
+  adoption per state from a legal source. 26 states have some form;
+  CA 1994 was first.
+- **Truth-in-sentencing laws** (state-year binary): tied to the 1994
+  federal Violent Crime Control Act incentive grants; ~30 states
+  adopted some version.
+- **Mandatory-minimum sentences for firearm offenses** (state-year
+  binary): the Tufts firearm-laws panel already has several
+  mandatory-minimum-related indicators; a v2 pass should harmonize
+  those into a single composite.
+
+Each of these is a few-hour hand-coding job from existing legal
+references. They cluster 1992–1998, well before the firearm-policy
+treatments of interest, so they are time-invariant within most policy
+windows and would absorb little additional identifying variation.
+
+#### 2.13.6 Summary of CJ-controls build manipulations
+
+| Source | What we did | Why |
+|---|---|---|
+| BJS Prisoners-in-XX CSV (1998–2023) | Per-report column-position map; took the "Total" column only | Each report has a different layout that breaks naïve "first N numbers" parsing |
+| BJS Prisoners-in-XX PDF (1980–1996) | Extracted text from pages 1–2 only; required state-name regex match plus year-over-year ratio in 0.7–1.5 | Avoids picking up values from "change"/"release"/"capacity" tables that appear later in the document |
+| BJS PDF text with OCR'd periods | Pre-processed `\d{1,3}\.\d{3}` to `\d{1,3}\d{3}` (treat "87.297" as "87,297") | Period-as-thousands-separator artifact common in early-1990s scanned reports |
+| Multiple BJS reports covering same state-year | Kept the value from the **later** report | BJS revises prior-year counts between editions; the later edition is canonical |
+| Census State&Local Finance per-state column blocks | Auto-detected layout (3-col pre-2009, 5-col 2009+) | Layout changed with the 2017 publication overhaul |
+| Police expenditure across years | Linear interpolation within state across observed-window gaps | Census Annual Survey skipped 2003–2008 and 2012–2016; interpolation preserves the panel |
+| All current-USD financial values | Deflated to 2024 USD using BLS CPI-U annual averages | So expenditures are comparable across years |
+| DC imprisonment | Left as NaN | DC closed Lorton in 2001 and transferred prisoners to BOP; no state stock to report |
+| Kaplan LEOKA double-nested zip | Streamed inner CSV from `outer.zip → inner.zip → .csv` via Python `zipfile` and `BytesIO` (no on-disk unzipping) | Saves ~1 GB of disk; matches the user's preference for keeping raw data zipped |
+| LEOKA agency-to-state aggregation | Summed `total_employees_officers` across agencies within county FIPS, then within state FIPS | LEOKA ships agency-level rows; we aggregate up to the levels the analysis needs |
+
+### 2.14 Summary of county-panel manipulations
 
 | Source | What we changed | Why |
 |---|---|---|
@@ -742,6 +983,7 @@ Aleutian centroid), as expected.
 | FIPS codes (CT) | Dropped all CT counties from v1 | The 2022 reorganization replaced 8 counties with 9 non-coterminous planning regions |
 | FIPS codes (AK Valdez-Cordova) | Dropped 02063, 02066, 02261 | The 2019 split leaves none of the three with continuous 16-year coverage |
 | All nominal-USD income variables | Deflated to 2024 USD using CPI-U annual averages | So values are comparable across years |
+| Kaplan UCR motor vehicle theft column | Renamed offense-column key from `actual_mtr_veh_theft_total` to `actual_motor_vehicle_theft_total` | Kaplan column name is the unabbreviated form; the typo silently dropped MVT from county_crime until 2026-05-01 |
 
 ---
 

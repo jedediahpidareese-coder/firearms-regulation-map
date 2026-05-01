@@ -1,0 +1,10 @@
+policy,spec_name,outcome,outcome_label,outcome_stratum,bandwidth_km,donut_km,fe,cluster,covariates,drop_spillover_pairs,beta,se,z,n,n_counties,n_pairs,n_treated_post,n_straddling_pair_years
+permitless_carry,headline,county_violent_crime_rate,"County violent crime rate (per 100,000)",primary,100,0,pair_year,state,,0,-1.3073446420391088,6.4759461104720035,-0.20187701066953787,31248,1953,101,6895,405
+permitless_carry,headline,county_murder_rate,"County murder rate (per 100,000)",primary,100,0,pair_year,state,,0,-1.1827690276151517,0.5472433708842923,-2.1613218003973467,31248,1953,101,6895,405
+permitless_carry,headline,county_property_crime_rate,"County property crime rate (per 100,000)",primary,100,0,pair_year,state,,0,46.62966513622156,23.922365158640243,1.9492079828645175,31248,1953,101,6895,405
+permitless_carry,headline,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",primary,100,0,pair_year,state,,0,11.906783783819144,6.250232761143207,1.9050144592761244,31248,1953,101,6895,405
+permitless_carry,headline,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",primary,100,0,pair_year,state,,0,1.6395104506018332,3.517884757668922,0.4660500737062894,31248,1953,101,6895,405
+permitless_carry,headline,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,0.36178999002292755,0.10990745627808095,3.291769296411967,29295,1953,101,5582,373
+permitless_carry,headline,state_total_suicide_rate,"State total suicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,0.5409581376457561,0.16676385874445532,3.2438571625684585,29295,1953,101,5582,373
+permitless_carry,headline,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",secondary,100,0,pair_year,state,,0,0.1791681476228283,0.10029991580841546,1.7863240081383553,29295,1953,101,5582,373
+permitless_carry,headline,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,0.2836051639170153,0.13314067455795175,2.1301166218259717,29271,1953,101,5558,373

@@ -1,0 +1,228 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 620" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif" font-size="11">
+<text x="410.0" y="22" text-anchor="middle" font-size="14" font-weight="600">Within-pair (treated - control) outcome gap by year (ubc)</text>
+<rect x="15" y="40" width="380" height="260" fill="#fafaf7" stroke="#e2e2dc"/>
+<text x="205.0" y="58" text-anchor="middle" font-weight="600">Violent crime (per 100k)</text>
+<line x1="75" y1="141.2" x2="377" y2="141.2" stroke="#aaaaaa" stroke-width="0.7"/>
+<line x1="75" y1="250" x2="377" y2="250" stroke="#444"/>
+<line x1="75" y1="90" x2="75" y2="250" stroke="#444"/>
+<line x1="75" y1="250.0" x2="377" y2="250.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="75" y1="210.0" x2="377" y2="210.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="75" y1="170.0" x2="377" y2="170.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="75" y1="130.0" x2="377" y2="130.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="75" y1="90.0" x2="377" y2="90.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="159.9" y1="90" x2="159.9" y2="250" stroke="#b9461a" stroke-dasharray="3 3"/>
+<polyline points="84.4,215.5 103.3,242.7 122.2,129.5 141.1,207.1 159.9,126.2 178.8,117.5 197.7,176.0 216.6,149.9 235.4,142.9 254.3,169.9 273.2,97.3 292.1,175.0 310.9,163.2 329.8,128.7 348.7,123.5 367.6,115.0" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>
+<circle cx="84.4" cy="215.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="103.3" cy="242.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="122.2" cy="129.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="141.1" cy="207.1" r="2.6" fill="#1f3a5f"/>
+<circle cx="159.9" cy="126.2" r="2.6" fill="#1f3a5f"/>
+<circle cx="178.8" cy="117.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="197.7" cy="176.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="216.6" cy="149.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="235.4" cy="142.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="254.3" cy="169.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="273.2" cy="97.3" r="2.6" fill="#1f3a5f"/>
+<circle cx="292.1" cy="175.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="310.9" cy="163.2" r="2.6" fill="#1f3a5f"/>
+<circle cx="329.8" cy="128.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="348.7" cy="123.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="367.6" cy="115.0" r="2.6" fill="#1f3a5f"/>
+<line x1="84.4" y1="250" x2="84.4" y2="253" stroke="#444"/>
+<text x="84.4" y="265" text-anchor="middle" fill="#444">2009</text>
+<line x1="122.2" y1="250" x2="122.2" y2="253" stroke="#444"/>
+<text x="122.2" y="265" text-anchor="middle" fill="#444">2011</text>
+<line x1="159.9" y1="250" x2="159.9" y2="253" stroke="#444"/>
+<text x="159.9" y="265" text-anchor="middle" fill="#444">2013</text>
+<line x1="197.7" y1="250" x2="197.7" y2="253" stroke="#444"/>
+<text x="197.7" y="265" text-anchor="middle" fill="#444">2015</text>
+<line x1="235.4" y1="250" x2="235.4" y2="253" stroke="#444"/>
+<text x="235.4" y="265" text-anchor="middle" fill="#444">2017</text>
+<line x1="273.2" y1="250" x2="273.2" y2="253" stroke="#444"/>
+<text x="273.2" y="265" text-anchor="middle" fill="#444">2019</text>
+<line x1="310.9" y1="250" x2="310.9" y2="253" stroke="#444"/>
+<text x="310.9" y="265" text-anchor="middle" fill="#444">2021</text>
+<line x1="348.7" y1="250" x2="348.7" y2="253" stroke="#444"/>
+<text x="348.7" y="265" text-anchor="middle" fill="#444">2023</text>
+<line x1="72" y1="250.0" x2="75" y2="250.0" stroke="#444"/>
+<text x="69" y="253.0" text-anchor="end" fill="#444">-76.1</text>
+<line x1="72" y1="210.0" x2="75" y2="210.0" stroke="#444"/>
+<text x="69" y="213.0" text-anchor="end" fill="#444">-48.1</text>
+<line x1="72" y1="170.0" x2="75" y2="170.0" stroke="#444"/>
+<text x="69" y="173.0" text-anchor="end" fill="#444">-20.1</text>
+<line x1="72" y1="130.0" x2="75" y2="130.0" stroke="#444"/>
+<text x="69" y="133.0" text-anchor="end" fill="#444">7.8</text>
+<line x1="72" y1="90.0" x2="75" y2="90.0" stroke="#444"/>
+<text x="69" y="93.0" text-anchor="end" fill="#444">35.8</text>
+<text x="226.0" y="284" text-anchor="middle" fill="#444">Year</text>
+<text x="27" y="170.0" text-anchor="middle" fill="#444" transform="rotate(-90 27 170.0)">Mean gap (per 100k)</text>
+<rect x="425" y="40" width="380" height="260" fill="#fafaf7" stroke="#e2e2dc"/>
+<text x="615.0" y="58" text-anchor="middle" font-weight="600">Murder (per 100k)</text>
+<line x1="485" y1="163.6" x2="787" y2="163.6" stroke="#aaaaaa" stroke-width="0.7"/>
+<line x1="485" y1="250" x2="787" y2="250" stroke="#444"/>
+<line x1="485" y1="90" x2="485" y2="250" stroke="#444"/>
+<line x1="485" y1="250.0" x2="787" y2="250.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="485" y1="210.0" x2="787" y2="210.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="485" y1="170.0" x2="787" y2="170.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="485" y1="130.0" x2="787" y2="130.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="485" y1="90.0" x2="787" y2="90.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="569.9" y1="90" x2="569.9" y2="250" stroke="#b9461a" stroke-dasharray="3 3"/>
+<polyline points="494.4,242.7 513.3,215.7 532.2,176.7 551.1,184.2 569.9,165.9 588.8,133.6 607.7,156.7 626.6,194.4 645.4,163.8 664.3,147.8 683.2,116.6 702.1,165.6 720.9,174.2 739.8,97.3 758.7,153.7 777.6,153.2" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>
+<circle cx="494.4" cy="242.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="513.3" cy="215.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="532.2" cy="176.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="551.1" cy="184.2" r="2.6" fill="#1f3a5f"/>
+<circle cx="569.9" cy="165.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="588.8" cy="133.6" r="2.6" fill="#1f3a5f"/>
+<circle cx="607.7" cy="156.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="626.6" cy="194.4" r="2.6" fill="#1f3a5f"/>
+<circle cx="645.4" cy="163.8" r="2.6" fill="#1f3a5f"/>
+<circle cx="664.3" cy="147.8" r="2.6" fill="#1f3a5f"/>
+<circle cx="683.2" cy="116.6" r="2.6" fill="#1f3a5f"/>
+<circle cx="702.1" cy="165.6" r="2.6" fill="#1f3a5f"/>
+<circle cx="720.9" cy="174.2" r="2.6" fill="#1f3a5f"/>
+<circle cx="739.8" cy="97.3" r="2.6" fill="#1f3a5f"/>
+<circle cx="758.7" cy="153.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="777.6" cy="153.2" r="2.6" fill="#1f3a5f"/>
+<line x1="494.4" y1="250" x2="494.4" y2="253" stroke="#444"/>
+<text x="494.4" y="265" text-anchor="middle" fill="#444">2009</text>
+<line x1="532.2" y1="250" x2="532.2" y2="253" stroke="#444"/>
+<text x="532.2" y="265" text-anchor="middle" fill="#444">2011</text>
+<line x1="569.9" y1="250" x2="569.9" y2="253" stroke="#444"/>
+<text x="569.9" y="265" text-anchor="middle" fill="#444">2013</text>
+<line x1="607.7" y1="250" x2="607.7" y2="253" stroke="#444"/>
+<text x="607.7" y="265" text-anchor="middle" fill="#444">2015</text>
+<line x1="645.4" y1="250" x2="645.4" y2="253" stroke="#444"/>
+<text x="645.4" y="265" text-anchor="middle" fill="#444">2017</text>
+<line x1="683.2" y1="250" x2="683.2" y2="253" stroke="#444"/>
+<text x="683.2" y="265" text-anchor="middle" fill="#444">2019</text>
+<line x1="720.9" y1="250" x2="720.9" y2="253" stroke="#444"/>
+<text x="720.9" y="265" text-anchor="middle" fill="#444">2021</text>
+<line x1="758.7" y1="250" x2="758.7" y2="253" stroke="#444"/>
+<text x="758.7" y="265" text-anchor="middle" fill="#444">2023</text>
+<line x1="482" y1="250.0" x2="485" y2="250.0" stroke="#444"/>
+<text x="479" y="253.0" text-anchor="end" fill="#444">-3.1</text>
+<line x1="482" y1="210.0" x2="485" y2="210.0" stroke="#444"/>
+<text x="479" y="213.0" text-anchor="end" fill="#444">-1.7</text>
+<line x1="482" y1="170.0" x2="485" y2="170.0" stroke="#444"/>
+<text x="479" y="173.0" text-anchor="end" fill="#444">-0.23</text>
+<line x1="482" y1="130.0" x2="485" y2="130.0" stroke="#444"/>
+<text x="479" y="133.0" text-anchor="end" fill="#444">1.2</text>
+<line x1="482" y1="90.0" x2="485" y2="90.0" stroke="#444"/>
+<text x="479" y="93.0" text-anchor="end" fill="#444">2.7</text>
+<text x="636.0" y="284" text-anchor="middle" fill="#444">Year</text>
+<text x="437" y="170.0" text-anchor="middle" fill="#444" transform="rotate(-90 437 170.0)">Mean gap (per 100k)</text>
+<rect x="15" y="330" width="380" height="260" fill="#fafaf7" stroke="#e2e2dc"/>
+<text x="205.0" y="348" text-anchor="middle" font-weight="600">Property crime (per 100k)</text>
+<line x1="75" y1="532.7" x2="377" y2="532.7" stroke="#aaaaaa" stroke-width="0.7"/>
+<line x1="75" y1="540" x2="377" y2="540" stroke="#444"/>
+<line x1="75" y1="380" x2="75" y2="540" stroke="#444"/>
+<line x1="75" y1="540.0" x2="377" y2="540.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="75" y1="500.0" x2="377" y2="500.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="75" y1="460.0" x2="377" y2="460.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="75" y1="420.0" x2="377" y2="420.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="75" y1="380.0" x2="377" y2="380.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="159.9" y1="380" x2="159.9" y2="540" stroke="#b9461a" stroke-dasharray="3 3"/>
+<polyline points="84.4,504.1 103.3,488.3 122.2,407.4 141.1,485.0 159.9,530.4 178.8,504.9 197.7,486.4 216.6,434.5 235.4,519.1 254.3,489.2 273.2,455.1 292.1,459.7 310.9,448.0 329.8,388.4 348.7,387.3 367.6,432.9" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>
+<circle cx="84.4" cy="504.1" r="2.6" fill="#1f3a5f"/>
+<circle cx="103.3" cy="488.3" r="2.6" fill="#1f3a5f"/>
+<circle cx="122.2" cy="407.4" r="2.6" fill="#1f3a5f"/>
+<circle cx="141.1" cy="485.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="159.9" cy="530.4" r="2.6" fill="#1f3a5f"/>
+<circle cx="178.8" cy="504.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="197.7" cy="486.4" r="2.6" fill="#1f3a5f"/>
+<circle cx="216.6" cy="434.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="235.4" cy="519.1" r="2.6" fill="#1f3a5f"/>
+<circle cx="254.3" cy="489.2" r="2.6" fill="#1f3a5f"/>
+<circle cx="273.2" cy="455.1" r="2.6" fill="#1f3a5f"/>
+<circle cx="292.1" cy="459.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="310.9" cy="448.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="329.8" cy="388.4" r="2.6" fill="#1f3a5f"/>
+<circle cx="348.7" cy="387.3" r="2.6" fill="#1f3a5f"/>
+<circle cx="367.6" cy="432.9" r="2.6" fill="#1f3a5f"/>
+<line x1="84.4" y1="540" x2="84.4" y2="543" stroke="#444"/>
+<text x="84.4" y="555" text-anchor="middle" fill="#444">2009</text>
+<line x1="122.2" y1="540" x2="122.2" y2="543" stroke="#444"/>
+<text x="122.2" y="555" text-anchor="middle" fill="#444">2011</text>
+<line x1="159.9" y1="540" x2="159.9" y2="543" stroke="#444"/>
+<text x="159.9" y="555" text-anchor="middle" fill="#444">2013</text>
+<line x1="197.7" y1="540" x2="197.7" y2="543" stroke="#444"/>
+<text x="197.7" y="555" text-anchor="middle" fill="#444">2015</text>
+<line x1="235.4" y1="540" x2="235.4" y2="543" stroke="#444"/>
+<text x="235.4" y="555" text-anchor="middle" fill="#444">2017</text>
+<line x1="273.2" y1="540" x2="273.2" y2="543" stroke="#444"/>
+<text x="273.2" y="555" text-anchor="middle" fill="#444">2019</text>
+<line x1="310.9" y1="540" x2="310.9" y2="543" stroke="#444"/>
+<text x="310.9" y="555" text-anchor="middle" fill="#444">2021</text>
+<line x1="348.7" y1="540" x2="348.7" y2="543" stroke="#444"/>
+<text x="348.7" y="555" text-anchor="middle" fill="#444">2023</text>
+<line x1="72" y1="540.0" x2="75" y2="540.0" stroke="#444"/>
+<text x="69" y="543.0" text-anchor="end" fill="#444">-17.7</text>
+<line x1="72" y1="500.0" x2="75" y2="500.0" stroke="#444"/>
+<text x="69" y="503.0" text-anchor="end" fill="#444">79.6</text>
+<line x1="72" y1="460.0" x2="75" y2="460.0" stroke="#444"/>
+<text x="69" y="463.0" text-anchor="end" fill="#444">177</text>
+<line x1="72" y1="420.0" x2="75" y2="420.0" stroke="#444"/>
+<text x="69" y="423.0" text-anchor="end" fill="#444">274</text>
+<line x1="72" y1="380.0" x2="75" y2="380.0" stroke="#444"/>
+<text x="69" y="383.0" text-anchor="end" fill="#444">372</text>
+<text x="226.0" y="574" text-anchor="middle" fill="#444">Year</text>
+<text x="27" y="460.0" text-anchor="middle" fill="#444" transform="rotate(-90 27 460.0)">Mean gap (per 100k)</text>
+<rect x="425" y="330" width="380" height="260" fill="#fafaf7" stroke="#e2e2dc"/>
+<text x="615.0" y="348" text-anchor="middle" font-weight="600">Burglary (per 100k)</text>
+<line x1="485" y1="475.2" x2="787" y2="475.2" stroke="#aaaaaa" stroke-width="0.7"/>
+<line x1="485" y1="540" x2="787" y2="540" stroke="#444"/>
+<line x1="485" y1="380" x2="485" y2="540" stroke="#444"/>
+<line x1="485" y1="540.0" x2="787" y2="540.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="485" y1="500.0" x2="787" y2="500.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="485" y1="460.0" x2="787" y2="460.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="485" y1="420.0" x2="787" y2="420.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="485" y1="380.0" x2="787" y2="380.0" stroke="#eeeeee" stroke-width="0.5"/>
+<line x1="569.9" y1="380" x2="569.9" y2="540" stroke="#b9461a" stroke-dasharray="3 3"/>
+<polyline points="494.4,461.9 513.3,421.3 532.2,387.3 551.1,426.7 569.9,532.7 588.8,503.1 607.7,508.9 626.6,480.7 645.4,510.9 664.3,464.5 683.2,440.6 702.1,468.8 720.9,469.6 739.8,437.3 758.7,453.4 777.6,462.8" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>
+<circle cx="494.4" cy="461.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="513.3" cy="421.3" r="2.6" fill="#1f3a5f"/>
+<circle cx="532.2" cy="387.3" r="2.6" fill="#1f3a5f"/>
+<circle cx="551.1" cy="426.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="569.9" cy="532.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="588.8" cy="503.1" r="2.6" fill="#1f3a5f"/>
+<circle cx="607.7" cy="508.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="626.6" cy="480.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="645.4" cy="510.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="664.3" cy="464.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="683.2" cy="440.6" r="2.6" fill="#1f3a5f"/>
+<circle cx="702.1" cy="468.8" r="2.6" fill="#1f3a5f"/>
+<circle cx="720.9" cy="469.6" r="2.6" fill="#1f3a5f"/>
+<circle cx="739.8" cy="437.3" r="2.6" fill="#1f3a5f"/>
+<circle cx="758.7" cy="453.4" r="2.6" fill="#1f3a5f"/>
+<circle cx="777.6" cy="462.8" r="2.6" fill="#1f3a5f"/>
+<line x1="494.4" y1="540" x2="494.4" y2="543" stroke="#444"/>
+<text x="494.4" y="555" text-anchor="middle" fill="#444">2009</text>
+<line x1="532.2" y1="540" x2="532.2" y2="543" stroke="#444"/>
+<text x="532.2" y="555" text-anchor="middle" fill="#444">2011</text>
+<line x1="569.9" y1="540" x2="569.9" y2="543" stroke="#444"/>
+<text x="569.9" y="555" text-anchor="middle" fill="#444">2013</text>
+<line x1="607.7" y1="540" x2="607.7" y2="543" stroke="#444"/>
+<text x="607.7" y="555" text-anchor="middle" fill="#444">2015</text>
+<line x1="645.4" y1="540" x2="645.4" y2="543" stroke="#444"/>
+<text x="645.4" y="555" text-anchor="middle" fill="#444">2017</text>
+<line x1="683.2" y1="540" x2="683.2" y2="543" stroke="#444"/>
+<text x="683.2" y="555" text-anchor="middle" fill="#444">2019</text>
+<line x1="720.9" y1="540" x2="720.9" y2="543" stroke="#444"/>
+<text x="720.9" y="555" text-anchor="middle" fill="#444">2021</text>
+<line x1="758.7" y1="540" x2="758.7" y2="543" stroke="#444"/>
+<text x="758.7" y="555" text-anchor="middle" fill="#444">2023</text>
+<line x1="482" y1="540.0" x2="485" y2="540.0" stroke="#444"/>
+<text x="479" y="543.0" text-anchor="end" fill="#444">-80.2</text>
+<line x1="482" y1="500.0" x2="485" y2="500.0" stroke="#444"/>
+<text x="479" y="503.0" text-anchor="end" fill="#444">-30.7</text>
+<line x1="482" y1="460.0" x2="485" y2="460.0" stroke="#444"/>
+<text x="479" y="463.0" text-anchor="end" fill="#444">18.8</text>
+<line x1="482" y1="420.0" x2="485" y2="420.0" stroke="#444"/>
+<text x="479" y="423.0" text-anchor="end" fill="#444">68.3</text>
+<line x1="482" y1="380.0" x2="485" y2="380.0" stroke="#444"/>
+<text x="479" y="383.0" text-anchor="end" fill="#444">118</text>
+<text x="636.0" y="574" text-anchor="middle" fill="#444">Year</text>
+<text x="437" y="460.0" text-anchor="middle" fill="#444" transform="rotate(-90 437 460.0)">Mean gap (per 100k)</text>
+<text x="805" y="608" text-anchor="end" fill="#888" font-size="10">Vertical dashed line at modal cohort year (2013). Gap averaged over state-pairs that ever straddled the policy.</text>
+</svg>

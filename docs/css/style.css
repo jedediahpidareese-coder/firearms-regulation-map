@@ -161,10 +161,15 @@ a:hover { text-decoration: underline; }
 #map .state {
   stroke: #ffffff;
   stroke-width: 0.6;
+  vector-effect: non-scaling-stroke;
 }
 #map .county {
   stroke: rgba(255,255,255,0.6);
   stroke-width: 0.18;
+  vector-effect: non-scaling-stroke;
+}
+#map .state-border {
+  vector-effect: non-scaling-stroke;
 }
 #map .state.no-data, #map .county.no-data {
   fill: var(--no-data);
@@ -178,6 +183,22 @@ a:hover { text-decoration: underline; }
   stroke: #b9461a;
   stroke-width: 2.2;
 }
+/* Locked focus indicator for the info-sidebar lock. Uses a darker accent
+   stroke and a soft glow so it stays distinguishable from .pinned (orange)
+   when a feature is both locked and pinned (which is the default click). */
+#map .state.locked, #map .county.locked {
+  stroke: #1f2024;
+  stroke-width: 2.4;
+  filter: drop-shadow(0 0 2px rgba(31, 32, 36, 0.55));
+}
+#map .state.locked.pinned, #map .county.locked.pinned {
+  stroke: #b9461a;
+  stroke-width: 2.6;
+  filter: drop-shadow(0 0 2.5px rgba(185, 70, 26, 0.6));
+}
+/* Background rect that captures clicks on empty space to unlock the sidebar.
+   Cursor reverts to default so empty space looks distinct from regions. */
+#map .map-background { cursor: default; }
 #map .state-border { pointer-events: none; }
 #map .state-label {
   font-size: 9px;

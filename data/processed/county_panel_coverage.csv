@@ -36,6 +36,7 @@ county_robbery,50032,50128,99.81
 county_aggravated_assault,50032,50128,99.81
 county_burglary,50032,50128,99.81
 county_larceny,50032,50128,99.81
+county_motor_vehicle_theft,50032,50128,99.81
 county_violent_crime,50032,50128,99.81
 county_property_crime,50032,50128,99.81
 county_all_index_crimes,50032,50128,99.81
@@ -45,5 +46,6 @@ county_rape_rate,50032,50128,99.81
 county_aggravated_assault_rate,50032,50128,99.81
 county_burglary_rate,50032,50128,99.81
 county_larceny_rate,50032,50128,99.81
+county_motor_vehicle_theft_rate,50032,50128,99.81
 county_violent_crime_rate,50032,50128,99.81
 county_property_crime_rate,50032,50128,99.81

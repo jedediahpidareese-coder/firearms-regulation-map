@@ -65,6 +65,12 @@ const state = {
   // Pinned keys per mode for the side-by-side comparison panel.
   // Up to 2 each. Switching modes resets to that mode's last pin set.
   pinnedKeys: { state: [], county: [] },
+  // Locked focus key per mode. When set, the info sidebar shows this place
+  // even as the cursor moves. Click again on the locked feature (or click
+  // empty map background) to unlock and resume hover-following. Independent
+  // from pinnedKeys: a clicked feature is both pinned and locked, but the
+  // pin can later FIFO out without unlocking.
+  lockedKey: { state: null, county: null },
 };
 const MAX_PINS = 2;
 
@@ -85,6 +91,29 @@ function formatValue(val, meta) {
     default:
       return Math.abs(val) >= 100 ? fmtInt(Math.round(val)) : fmtAuto(val);
   }
+}
+
+// True if a metadata entry is a per-100,000 rate. Both metadata files use the
+// "Per 100,000 ..." unit convention; we also accept the slightly different
+// NICS-style "Checks per 100,000 people" wording.
+function isPer100kRate(meta) {
+  if (!meta) return false;
+  if (meta.format !== "rate") return false;
+  const u = (meta.unit || "").toLowerCase();
+  return u.includes("per 100,000") || u.includes("per 100000") || u.includes("per 100k");
+}
+
+// Display label that appends a "(per 100k)" suffix for per-100,000 rate vars
+// so the sidebar / variable picker / tooltip make the unit obvious without
+// having to consult the unit chip. Other vars are returned unchanged.
+function displayLabel(meta) {
+  if (!meta) return "";
+  const lbl = meta.label || "";
+  if (!isPer100kRate(meta)) return lbl;
+  if (/\bper\s*100\s*[,.]?000\b/i.test(lbl)) return lbl;
+  if (/\bper\s*100\s*k\b/i.test(lbl)) return lbl;
+  if (/\/\s*100\s*k/i.test(lbl)) return lbl;
+  return `${lbl} (per 100k)`;
 }
 function tickFormatterFor(meta, hi) {
   switch (meta && meta.format) {
@@ -296,7 +325,7 @@ function populateSelectors(mode) {
       const meta = mode.metadata[v];
       const opt = document.createElement("option");
       opt.value = v;
-      opt.textContent = meta.label;
+      opt.textContent = displayLabel(meta);
       varSel.appendChild(opt);
     });
     varSel.value = vars.includes(state.variable) ? state.variable : vars[0];
@@ -364,6 +393,11 @@ function buildScale(meta, mode) {
 }
 
 let projection, path, mapDrawnFor = null;
+// Track whether we're in a zoom drag/wheel gesture so the click handler can
+// distinguish a real click from the click event d3.zoom synthesises at the
+// end of a drag. See onZoomStart / onZoomEnd in ensureMapDrawn.
+let zoomGestureActive = false;
+let zoomGestureMoved = false;
 
 function ensureMapDrawn(mode) {
   // Tear down and re-create the SVG only when the active mode changes
@@ -381,9 +415,29 @@ function ensureMapDrawn(mode) {
   const featCol = topojson.feature(mode.topology, mode.topology.objects[mode.topoObjectName]);
   const features = featCol.features.filter(f => mode.keyForFeature(f) != null);
 
+  // Background rect catches clicks on empty map area to unlock the sidebar
+  // and clear the focus. Sits behind everything so it doesn't intercept hover
+  // on regions. Pointer-events: all so a click on whitespace fires.
+  svg.append("rect")
+      .attr("class", "map-background")
+      .attr("x", 0).attr("y", 0)
+      .attr("width", width).attr("height", height)
+      .attr("fill", "transparent")
+      .on("click", () => {
+        if (zoomGestureMoved) return;
+        if (state.lockedKey[state.modeName] != null) {
+          state.lockedKey[state.modeName] = null;
+          refreshFocusHighlights();
+          if (state.hoveredKey) showHover(state.hoveredKey);
+        }
+      });
+
+  // Everything that should pan/zoom together lives inside `zoom-root`.
+  const root = svg.append("g").attr("class", "zoom-root");
+
   // Render in a single batch. For 3,133 counties this is ~3 MB of SVG; D3
   // handles it but we omit per-element transitions to keep it snappy.
-  svg.append("g").attr("class", "regions")
+  root.append("g").attr("class", "regions")
     .selectAll("path")
     .data(features, d => d.id)
     .join("path")
@@ -393,14 +447,31 @@ function ensureMapDrawn(mode) {
       .on("mousemove", (event, d) => {
         const k = mode.keyForFeature(d);
         state.hoveredKey = k;
-        showHover(k);
+        // Hover only previews when the sidebar isn't locked.
+        if (state.lockedKey[state.modeName] == null) showHover(k);
         showTooltip(event, k);
       })
       .on("mouseleave", hideTooltip)
       .on("click", (event, d) => {
+        // Suppress synthetic clicks at the end of a zoom drag.
+        if (zoomGestureMoved) return;
         event.preventDefault();
         const k = mode.keyForFeature(d);
+        const lockedNow = state.lockedKey[state.modeName];
+        // Click on the locked feature unlocks; click on a different feature
+        // (or while unlocked) locks to the new feature. Pin toggle stays
+        // symmetric so a double-click still removes a pin.
+        if (lockedNow === k) {
+          state.lockedKey[state.modeName] = null;
+        } else {
+          state.lockedKey[state.modeName] = k;
+        }
         togglePin(k);
+        // After lock changes the sidebar should reflect the locked feature
+        // (or the cursor's current hover if we just unlocked).
+        const focus = state.lockedKey[state.modeName] || state.hoveredKey;
+        if (focus) showHover(focus);
+        refreshFocusHighlights();
       });
 
   // For county mode, also overlay state borders so the map is readable.
@@ -408,13 +479,43 @@ function ensureMapDrawn(mode) {
     const stateBorders = topojson.mesh(
       mode.topology, mode.topology.objects.states, (a, b) => a !== b
     );
-    svg.append("path")
+    root.append("path")
       .attr("class", "state-border")
       .attr("fill", "none")
       .attr("stroke", "rgba(0,0,0,0.55)")
       .attr("stroke-width", 0.7)
       .attr("d", path(stateBorders));
   }
+
+  // Zoom + pan. scaleExtent [1, 12] gives roughly county-readable depth on
+  // both maps; lower bound of 1 prevents zooming out beyond the original
+  // viewport. We also rescale strokes inversely so borders stay legible at
+  // high zoom levels.
+  const zoom = d3.zoom()
+      .scaleExtent([1, 12])
+      .on("start", () => {
+        zoomGestureActive = true;
+        zoomGestureMoved = false;
+      })
+      .on("zoom", (event) => {
+        zoomGestureMoved = true;
+        root.attr("transform", event.transform);
+        // Stroke widths stay visually stable thanks to
+        // `vector-effect: non-scaling-stroke` in style.css.
+      })
+      .on("end", () => {
+        zoomGestureActive = false;
+        // Reset the moved flag on next tick so the click handler that fires
+        // synchronously after `end` still sees it; subsequent independent
+        // clicks on regions see false.
+        setTimeout(() => { zoomGestureMoved = false; }, 0);
+      });
+
+  svg.call(zoom);
+  // Disable double-click-to-zoom: it conflicts with the click-to-lock /
+  // click-to-pin behaviour (a double-click would otherwise pin twice and
+  // also zoom in unexpectedly).
+  svg.on("dblclick.zoom", null);
 }
 
 function render() {
@@ -422,7 +523,7 @@ function render() {
   const meta = mode.metadata[state.variable];
 
   document.getElementById("year-display").textContent = state.year;
-  document.getElementById("info-label").textContent = meta.label;
+  document.getElementById("info-label").textContent = displayLabel(meta);
   document.getElementById("info-category").textContent = meta.category;
   document.getElementById("info-unit").textContent = meta.unit;
   const obs = meta.observed_year_range || meta.year_range || mode.manifest.year_range;
@@ -467,8 +568,11 @@ function render() {
 
   drawLegend(colorScale, meta);
   refreshPinnedHighlights();
+  refreshFocusHighlights();
   renderComparePanel();
-  if (state.hoveredKey) showHover(state.hoveredKey);
+  // Sidebar prefers the locked focus over the hover preview.
+  const focus = state.lockedKey[state.modeName] || state.hoveredKey;
+  if (focus) showHover(focus);
 }
 
 function drawLegend(colorScale, meta) {
@@ -578,7 +682,7 @@ function showHover(key) {
     const td2 = document.createElement("td"); td2.textContent = val;
     tr.appendChild(td1); tr.appendChild(td2); tbl.appendChild(tr);
   }
-  row(meta.label, formatValue(v, meta));
+  row(displayLabel(meta), formatValue(v, meta));
   for (const [v2, label] of mode.contextVars) {
     if (v2 === state.variable) continue;
     const m = mode.metadata[v2];
@@ -597,7 +701,7 @@ function showTooltip(event, key) {
   const v = cell[state.variable];
   tt.innerHTML = `
     <strong>${mode.keyToDisplayName(key)}</strong>
-    <span class="ttvalue">${meta.label}: ${formatValue(v, meta)}</span><br>
+    <span class="ttvalue">${displayLabel(meta)}: ${formatValue(v, meta)}</span><br>
     <span class="ttmuted">Year: ${state.year}</span>
   `;
   tt.hidden = false;
@@ -645,6 +749,17 @@ function refreshPinnedHighlights() {
     });
 }
 
+// Visually mark the locked feature so the user can find it after panning
+// the cursor away. The .locked class adds a darker, slightly thicker stroke
+// in style.css; it composes with .pinned (a clicked feature is both).
+function refreshFocusHighlights() {
+  const locked = state.lockedKey[state.modeName];
+  d3.select("#map").select(".regions").selectAll("path")
+    .classed("locked", function() {
+      return locked != null && this.getAttribute("data-key") === locked;
+    });
+}
+
 function renderComparePanel() {
   const section = document.getElementById("compare-section");
   const grid = document.getElementById("compare-grid");
@@ -662,7 +777,7 @@ function renderComparePanel() {
   // Decide which variables to show: the active one first, then everything in
   // the mode's contextVars list. Skip vars where neither pinned place has data.
   const meta = mode.metadata[state.variable];
-  const wantedVars = [{ key: state.variable, label: meta.label, meta }];
+  const wantedVars = [{ key: state.variable, label: displayLabel(meta), meta }];
   for (const [v2, label] of mode.contextVars) {
     if (v2 === state.variable) continue;
     const m = mode.metadata[v2];
@@ -712,6 +827,9 @@ function renderComparePanel() {
 
 async function switchToMode(name) {
   state.modeName = name;
+  // Clear cross-mode hover state so the sidebar isn't briefly populated with
+  // a stale key (e.g. a state postal abbreviation while county mode loads).
+  state.hoveredKey = null;
   if (!state.modes[name]) {
     document.getElementById("coverage-note").textContent = "Loading " + name + " data ...";
     state.modes[name] = name === "state" ? await buildStateMode() : await buildCountyMode();
@@ -747,7 +865,7 @@ async function switchToMode(name) {
       const tip = document.getElementById("map-tip");
       if (!tip) return;
       const word = state.modeName === "state" ? "state" : "county";
-      tip.innerHTML = `Tip: <strong>click</strong> a ${word} to pin it for side-by-side comparison (up to ${MAX_PINS}).`;
+      tip.innerHTML = `Tip: <strong>click</strong> a ${word} to lock the sidebar and pin it for side-by-side comparison (up to ${MAX_PINS}). Click the same ${word} (or empty space) to unlock. <strong>Scroll</strong> on the map to zoom.`;
     }
     updateTipText();
     document.querySelectorAll('input[name="geo-mode"]').forEach(r => {

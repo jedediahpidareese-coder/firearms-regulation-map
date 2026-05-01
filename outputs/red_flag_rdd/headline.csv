@@ -1,0 +1,10 @@
+policy,spec_name,outcome,outcome_label,outcome_stratum,bandwidth_km,donut_km,fe,cluster,covariates,drop_spillover_pairs,beta,se,z,n,n_counties,n_pairs,n_treated_post,n_straddling_pair_years
+red_flag,headline,county_violent_crime_rate,"County violent crime rate (per 100,000)",primary,100,0,pair_year,state,,0,-23.806957785875134,13.520307809603233,-1.7608295699425924,31248,1953,101,1766,193
+red_flag,headline,county_murder_rate,"County murder rate (per 100,000)",primary,100,0,pair_year,state,,0,-2.1835969358173424,1.142865595068708,-1.9106331883987342,31248,1953,101,1766,193
+red_flag,headline,county_property_crime_rate,"County property crime rate (per 100,000)",primary,100,0,pair_year,state,,0,-16.144434664499762,33.81263059653717,-0.47746757290611846,31248,1953,101,1766,193
+red_flag,headline,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",primary,100,0,pair_year,state,,0,12.827087321617801,9.664303593540108,1.3272645253189053,31248,1953,101,1766,193
+red_flag,headline,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",primary,100,0,pair_year,state,,0,-3.13494785260097,5.7903291553768215,-0.5414109921004923,31248,1953,101,1766,193
+red_flag,headline,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,-0.7041700666916791,0.06346032552649704,-11.096225253330319,29295,1953,101,1417,160
+red_flag,headline,state_total_suicide_rate,"State total suicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,-0.5472348321765974,0.10630935952518596,-5.147569645991056,29295,1953,101,1417,160
+red_flag,headline,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",secondary,100,0,pair_year,state,,0,0.15693523451508232,0.08515670975171084,1.8428992262929629,29295,1953,101,1417,160
+red_flag,headline,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,0.19412397657771102,0.20694854589523837,0.9380301549737904,29271,1953,101,1417,160

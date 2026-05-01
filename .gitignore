@@ -32,3 +32,16 @@ data/tmp_demog_inspect/
 # The processed data/processed/county_crime_*.csv files are committed instead;
 # rebuild from raw with: python scripts/build_county_crime.py
 data/county/kaplan_offenses/
+
+# Kaplan LEOKA / Police-Employee data (openICPSR project 102180; user must
+# download — login required). Drop the .zip in here as-is; the build script
+# streams the inner CSV directly via Python's zipfile module without unzipping.
+# Rebuild with: python scripts/build_county_leoka.py
+data/county/kaplan_leoka/
+
+# State CJ raw downloads (BJS Prisoners reports, Census State&Local Finance
+# summary tables, DPIC executions database). Many files are PDFs and large
+# zips; the processed data/processed/state_cj_controls_*.csv files are
+# committed instead. Rebuild raw set + processed CSVs with:
+#   python scripts/build_state_cj_controls.py
+data/state_cj_raw/

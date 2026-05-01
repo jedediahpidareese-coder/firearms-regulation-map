@@ -1,0 +1,100 @@
+event_time,beta,se,z,n,omitted,outcome,outcome_label,policy
+-5,-0.16728784144284725,4.864715767521699,-0.034387999101553074,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",permitless_carry
+-4,11.301506994365443,6.437036682120447,1.7557002627865363,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",permitless_carry
+-3,-1.9684218813921455,5.729860325215534,-0.343537498240518,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",permitless_carry
+-2,-9.174814069294538,5.388381413339315,-1.7027031617661,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",permitless_carry
+-1,0.0,0.0,0.0,0,True,county_violent_crime_rate,"County violent crime rate (per 100,000)",permitless_carry
+0,6.110518047814392,3.9754510085926644,1.5370628476132462,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",permitless_carry
+1,3.8491385115901884,3.9961644877708995,0.96320822713113,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",permitless_carry
+2,-1.6992883591971304,4.361512485609825,-0.3896098807016339,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",permitless_carry
+3,-7.553526844340971,4.497522883831585,-1.6794860280746093,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",permitless_carry
+4,10.846951856637123,8.866016378702318,1.223430162242126,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",permitless_carry
+5,2.9968556260544164,8.741390736871395,0.34283510670831907,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",permitless_carry
+-5,0.5186177948343477,0.21275347873684336,2.437646603540761,31248,False,county_murder_rate,"County murder rate (per 100,000)",permitless_carry
+-4,0.36535227742884085,0.2516220203519466,1.451988490187856,31248,False,county_murder_rate,"County murder rate (per 100,000)",permitless_carry
+-3,0.78832848157613,0.2132011319570304,3.6975811260468054,31248,False,county_murder_rate,"County murder rate (per 100,000)",permitless_carry
+-2,0.14602513783411616,0.2105630042127479,0.6934985487126495,31248,False,county_murder_rate,"County murder rate (per 100,000)",permitless_carry
+-1,0.0,0.0,0.0,0,True,county_murder_rate,"County murder rate (per 100,000)",permitless_carry
+0,-2.9773346014769437,2.0382807036242405,-1.4607088200280676,31248,False,county_murder_rate,"County murder rate (per 100,000)",permitless_carry
+1,-0.009676128869698326,0.23156170550434296,-0.04178639489903416,31248,False,county_murder_rate,"County murder rate (per 100,000)",permitless_carry
+2,0.19457158034885533,0.29203238196245607,0.6662671414770353,31248,False,county_murder_rate,"County murder rate (per 100,000)",permitless_carry
+3,0.5584257243082914,0.4111791320236304,1.3581081354007012,31248,False,county_murder_rate,"County murder rate (per 100,000)",permitless_carry
+4,0.8616085708108947,0.440296518751059,1.9568825419172642,31248,False,county_murder_rate,"County murder rate (per 100,000)",permitless_carry
+5,0.4215764084704508,0.5753484862957867,0.7327322805429584,31248,False,county_murder_rate,"County murder rate (per 100,000)",permitless_carry
+-5,8.906601542058139,25.085123416008656,0.35505512148982227,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",permitless_carry
+-4,-64.26823016887315,35.09536513528297,-1.8312455197755264,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",permitless_carry
+-3,-46.31929697774398,48.0270968003354,-0.9644409107281394,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",permitless_carry
+-2,-90.4556157518512,21.960823391920318,-4.118953744927936,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",permitless_carry
+-1,0.0,0.0,0.0,0,True,county_property_crime_rate,"County property crime rate (per 100,000)",permitless_carry
+0,-2.6265903990242623,19.40764149318558,-0.13533794922719034,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",permitless_carry
+1,-1.0817285391380156,20.398214172376708,-0.053030551105934264,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",permitless_carry
+2,-28.927918735116766,24.731704061394524,-1.1696694519433626,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",permitless_carry
+3,-6.907156738786502,31.413504628227184,-0.219878578354481,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",permitless_carry
+4,100.08506072164279,33.55915506521551,2.9823474556241796,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",permitless_carry
+5,58.75350172639023,59.0404154884527,0.9951403837576552,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",permitless_carry
+-5,0.3858818759015788,6.990203743947022,0.05520323727841592,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",permitless_carry
+-4,-0.24771015298891713,8.341696725253446,-0.029695415830571444,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",permitless_carry
+-3,-25.07431538937957,6.897983282778928,-3.6350211882911534,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",permitless_carry
+-2,-30.295549280961943,7.2642946023786905,-4.170473657695776,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",permitless_carry
+-1,0.0,0.0,0.0,0,True,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",permitless_carry
+0,-1.245408289407764,6.849300505672228,-0.1818299968553552,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",permitless_carry
+1,-3.269915000402852,6.262042895085449,-0.5221802301880003,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",permitless_carry
+2,-1.0040188545402582,6.3335686515969405,-0.15852340280342675,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",permitless_carry
+3,-10.570024665477717,6.881290720694927,-1.5360526236290557,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",permitless_carry
+4,26.94296334199565,8.103536441035804,3.3248401531901757,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",permitless_carry
+5,25.634464927585324,12.62444210925213,2.0305423959129634,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",permitless_carry
+-5,0.970378680741755,2.371652536903342,0.40915718708473836,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",permitless_carry
+-4,3.212835012820067,2.820394487485352,1.1391438421384141,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",permitless_carry
+-3,-4.358407579377245,2.63545066446789,-1.653761779015214,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",permitless_carry
+-2,-7.626236739378747,2.720036770612287,-2.8037256046586685,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",permitless_carry
+-1,0.0,0.0,0.0,0,True,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",permitless_carry
+0,4.858348055783227,2.238800481910716,2.170067451315199,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",permitless_carry
+1,2.2482991618412416,2.877268531312958,0.7814005322663767,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",permitless_carry
+2,2.3729829811541716,2.839553997167906,0.8356886269889287,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",permitless_carry
+3,6.731603347769207,4.463959853861634,1.5079892221579692,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",permitless_carry
+4,17.01782858068769,4.606797423965206,3.69406922304822,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",permitless_carry
+5,-43.62389686328104,39.03858229311688,-1.1174559704995388,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",permitless_carry
+-5,-0.2048933025497021,0.07354836063383932,-2.785830993157874,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",permitless_carry
+-4,0.0831657203876523,0.0891997920359853,0.9323532991433577,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",permitless_carry
+-3,0.21859923566067055,0.10533705270396627,2.075235921732217,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",permitless_carry
+-2,-0.22351152765178992,0.06782875673660839,-3.295232559248086,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",permitless_carry
+-1,0.0,0.0,0.0,0,True,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",permitless_carry
+0,0.04372885026511628,0.10733071440437958,0.40742158950292,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",permitless_carry
+1,0.32140206515494,0.11919721401713276,2.696389070878313,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",permitless_carry
+2,0.3033599436005583,0.10347010327118084,2.931860837187857,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",permitless_carry
+3,-0.4309846593221541,0.14274400984291624,-3.0192836798996643,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",permitless_carry
+4,-0.0688148797093172,0.12288660949989223,-0.5599868040087602,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",permitless_carry
+5,0.19697305429157108,0.22851753346979872,0.8619603550797269,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",permitless_carry
+-5,-0.21821877504877596,0.13211734608936582,-1.6517041971246536,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",permitless_carry
+-4,0.2234560777760634,0.10997491357077158,2.0318822767909146,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",permitless_carry
+-3,0.03461992923058192,0.11237816127529068,0.30806634347552747,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",permitless_carry
+-2,-0.25019642683571375,0.10143390998309967,-2.4665955091093306,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",permitless_carry
+-1,0.0,0.0,0.0,0,True,state_total_suicide_rate,"State total suicide rate (per 100,000)",permitless_carry
+0,0.10153521439673037,0.08463552300451775,1.1996761028027265,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",permitless_carry
+1,0.6846840538647987,0.15419961718315248,4.440244835702522,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",permitless_carry
+2,0.37063585817551714,0.10888416699229002,3.4039463074715126,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",permitless_carry
+3,-0.5111688392331094,0.15812159355366107,-3.2327579538315,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",permitless_carry
+4,-0.09724791758819488,0.13594612350537102,-0.7153416006330829,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",permitless_carry
+5,0.042831089298258185,0.27550044997570083,0.15546649488970304,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",permitless_carry
+-5,-0.013325472499073693,0.08749016042106833,-0.15230824169188303,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",permitless_carry
+-4,0.14029035738841122,0.07162476507081446,1.9586850616502267,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",permitless_carry
+-3,-0.18397930643008853,0.0667310959090736,-2.7570251008731357,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",permitless_carry
+-2,-0.026684899183923916,0.06616306326309045,-0.4033201890579677,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",permitless_carry
+-1,0.0,0.0,0.0,0,True,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",permitless_carry
+0,0.05780636413161425,0.06386202268996989,0.9051759041871573,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",permitless_carry
+1,0.3632819887098587,0.1157683778623079,3.1380070742801416,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",permitless_carry
+2,0.06727591457495896,0.06802722138196905,0.988955791641238,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",permitless_carry
+3,-0.08018417991095537,0.14315451207461238,-0.5601233153528772,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",permitless_carry
+4,-0.0284330378788777,0.12128644094806369,-0.23442882532148065,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",permitless_carry
+5,-0.1541419649933124,0.2730599296586867,-0.5644986622020423,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",permitless_carry
+-5,-0.20314533860960463,0.10361178596541473,-1.9606392913390553,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",permitless_carry
+-4,0.0007371698922652769,0.09697237736048472,0.0076018543870995815,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",permitless_carry
+-3,-0.25498533841087007,0.13912902058601592,-1.8327257486386637,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",permitless_carry
+-2,-0.22023527771941023,0.13056252617470804,-1.686818447620334,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",permitless_carry
+-1,0.0,0.0,0.0,0,True,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",permitless_carry
+0,-0.14013902965709366,0.12949022090772383,-1.0822363934104204,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",permitless_carry
+1,-0.004792950423838322,0.14164067618349957,-0.0338387993688262,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",permitless_carry
+2,0.17218438899537047,0.16999500916923366,1.0128790829615313,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",permitless_carry
+3,0.26059834571188684,0.13232003365507264,1.9694549533686314,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",permitless_carry
+4,-0.31239152944931176,0.1302773361489928,-2.3978962011630514,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",permitless_carry
+5,0.46800495058953373,0.28866032358998733,1.621299888980542,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",permitless_carry

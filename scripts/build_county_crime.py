@@ -71,7 +71,7 @@ KAPLAN_OFFENSE_COLUMNS = [
     "actual_assault_aggravated",
     "actual_burglary_total",
     "actual_theft_total",
-    "actual_mtr_veh_theft_total",
+    "actual_motor_vehicle_theft_total",
     "actual_arson_total",
     # Index-crime aggregates Kaplan computes:
     "actual_index_violent",
@@ -88,7 +88,7 @@ RENAME_OUT = {
     "actual_assault_aggravated":   "county_aggravated_assault",
     "actual_burglary_total":       "county_burglary",
     "actual_theft_total":          "county_larceny",
-    "actual_mtr_veh_theft_total":  "county_motor_vehicle_theft",
+    "actual_motor_vehicle_theft_total":  "county_motor_vehicle_theft",
     "actual_arson_total":          "county_arson",
     "actual_index_violent":        "county_violent_crime",
     "actual_index_property":       "county_property_crime",
