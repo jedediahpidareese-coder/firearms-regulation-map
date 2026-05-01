@@ -50,7 +50,7 @@ const CATEGORY_PALETTE = {
   "Gun ownership":            d3.interpolateGreens,
   "Demographics":             d3.interpolateViridis,
   "Economy":                  d3.interpolateYlGnBu,
-  "Criminal justice":         d3.interpolatePuOr,
+  "Criminal justice":         d3.interpolatePurples,
 };
 const BINARY_COLORS = ["#dadad6", "#1f3a5f"];
 
@@ -517,6 +517,18 @@ function ensureMapDrawn(mode) {
   // click-to-pin behaviour (a double-click would otherwise pin twice and
   // also zoom in unexpectedly).
   svg.on("dblclick.zoom", null);
+
+  // Stash the zoom + svg refs so the Reset-zoom button can call them
+  // from outside this scope. Per-mode (state vs county) -- each mode
+  // has its own SVG and zoom behaviour.
+  state.zoomRefs = state.zoomRefs || {};
+  state.zoomRefs[state.modeName] = { zoom, svg };
+}
+
+function resetMapZoom() {
+  const refs = state.zoomRefs && state.zoomRefs[state.modeName];
+  if (!refs) return;
+  refs.svg.transition().duration(400).call(refs.zoom.transform, d3.zoomIdentity);
 }
 
 function render() {
@@ -860,6 +872,8 @@ async function switchToMode(name) {
 
     // Clear-pins button.
     document.getElementById("compare-clear").addEventListener("click", clearPins);
+    const rz = document.getElementById("reset-zoom");
+    if (rz) rz.addEventListener("click", resetMapZoom);
 
     // Tip-line text adapts to mode.
     function updateTipText() {

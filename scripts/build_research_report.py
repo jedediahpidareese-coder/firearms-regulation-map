@@ -32,6 +32,14 @@ ROOT = Path(__file__).resolve().parent.parent
 OUTDIR = ROOT / "outputs" / "research_report"
 OUTDIR.mkdir(parents=True, exist_ok=True)
 
+# Base URL for documentation links inside the report. We use absolute
+# GitHub URLs because the report is served from BOTH the local outputs/
+# folder (where ../red_flag_cs/methodology.md works) and from
+# docs/research/ on GitHub Pages (where the .md files don't exist
+# alongside index.html). GitHub also renders .md files nicely in the
+# browser, so the link goes to a styled view by default.
+GH_BASE = "https://github.com/jedediahpidareese-coder/firearms-regulation-map/blob/main"
+
 
 # ---------------------- helpers ----------------------------------------
 
@@ -81,6 +89,10 @@ def _compute_baselines() -> dict[str, float]:
     bases: dict[str, float] = {}
     try:
         sp = pd.read_csv(ROOT / "data" / "processed" / "panel_core_augmented.csv")
+        # Derive nonfirearm_suicide_rate the same way cs_lib.load_panel_core_augmented does.
+        if ("total_suicide_rate" in sp.columns and "firearm_suicide_rate" in sp.columns
+                and "nonfirearm_suicide_rate" not in sp.columns):
+            sp["nonfirearm_suicide_rate"] = sp["total_suicide_rate"] - sp["firearm_suicide_rate"]
         for c in ("firearm_suicide_rate", "nonfirearm_suicide_rate",
                   "total_suicide_rate", "firearm_homicide_rate",
                   "homicide_rate", "motor_vehicle_theft_rate",
@@ -298,8 +310,8 @@ POLICY_DEFINITIONS = {
         "direction": "1 → 0 (state stops requiring a permit to carry concealed)",
         "cs_dir": ROOT / "outputs" / "permitless_carry_cs",
         "stack_dir": ROOT / "outputs" / "permitless_carry_stackdd",
-        "cs_methodology_link": "../permitless_carry_cs/methodology.md",
-        "stack_methodology_link": "../stacked_dd_comparison.md",
+        "cs_methodology_link": f"{GH_BASE}/outputs/permitless_carry_cs/methodology.md",
+        "stack_methodology_link": "https://github.com/jedediahpidareese-coder/firearms-regulation-map/blob/main/outputs/stacked_dd_comparison.md",
         "policy_short": "permitless_carry",
     },
     "Civil-petition red-flag (ERPO)": {
@@ -307,8 +319,8 @@ POLICY_DEFINITIONS = {
         "direction": "0 → 1 (state allows civilian petition for an extreme risk protection order)",
         "cs_dir": ROOT / "outputs" / "red_flag_cs",
         "stack_dir": ROOT / "outputs" / "red_flag_stackdd",
-        "cs_methodology_link": "../red_flag_cs/methodology.md",
-        "stack_methodology_link": "../stacked_dd_comparison.md",
+        "cs_methodology_link": f"{GH_BASE}/outputs/red_flag_cs/methodology.md",
+        "stack_methodology_link": "https://github.com/jedediahpidareese-coder/firearms-regulation-map/blob/main/outputs/stacked_dd_comparison.md",
         "policy_short": "red_flag",
     },
     "Universal background checks (UBC)": {
@@ -316,8 +328,8 @@ POLICY_DEFINITIONS = {
         "direction": "0 → 1 (state requires UBC at point of purchase for all firearms)",
         "cs_dir": ROOT / "outputs" / "ubc_cs",
         "stack_dir": ROOT / "outputs" / "ubc_stackdd",
-        "cs_methodology_link": "../ubc_cs/methodology.md",
-        "stack_methodology_link": "../stacked_dd_comparison.md",
+        "cs_methodology_link": f"{GH_BASE}/outputs/ubc_cs/methodology.md",
+        "stack_methodology_link": "https://github.com/jedediahpidareese-coder/firearms-regulation-map/blob/main/outputs/stacked_dd_comparison.md",
         "policy_short": "ubc",
     },
     # Track A additions (2026-05-01)
@@ -326,8 +338,8 @@ POLICY_DEFINITIONS = {
         "direction": "1 → 0 (state adopts SYG / removes duty-to-retreat outside the home)",
         "cs_dir": ROOT / "outputs" / "stand_your_ground_cs",
         "stack_dir": ROOT / "outputs" / "stand_your_ground_stackdd",
-        "cs_methodology_link": "../stand_your_ground_audit/appendix_section_draft.md",
-        "stack_methodology_link": "../stacked_dd_comparison.md",
+        "cs_methodology_link": f"{GH_BASE}/outputs/stand_your_ground_audit/appendix_section_draft.md",
+        "stack_methodology_link": "https://github.com/jedediahpidareese-coder/firearms-regulation-map/blob/main/outputs/stacked_dd_comparison.md",
         "policy_short": "stand_your_ground",
     },
     "Large-capacity magazine ban": {
@@ -335,8 +347,8 @@ POLICY_DEFINITIONS = {
         "direction": "0 → 1 (state prohibits magazines above 10 or 15 rounds)",
         "cs_dir": ROOT / "outputs" / "magazine_ban_cs",
         "stack_dir": ROOT / "outputs" / "magazine_ban_stackdd",
-        "cs_methodology_link": "../magazine_ban_audit/appendix_section_draft.md",
-        "stack_methodology_link": "../stacked_dd_comparison.md",
+        "cs_methodology_link": f"{GH_BASE}/outputs/magazine_ban_audit/appendix_section_draft.md",
+        "stack_methodology_link": "https://github.com/jedediahpidareese-coder/firearms-regulation-map/blob/main/outputs/stacked_dd_comparison.md",
         "policy_short": "magazine_ban",
     },
     "Minimum age 21 for handgun purchase": {
@@ -344,8 +356,8 @@ POLICY_DEFINITIONS = {
         "direction": "0 → 1 (state raises minimum handgun-purchase age above the federal 18 floor)",
         "cs_dir": ROOT / "outputs" / "age21_handgun_cs",
         "stack_dir": ROOT / "outputs" / "age21_handgun_stackdd",
-        "cs_methodology_link": "../age21_handgun_audit/appendix_section_draft.md",
-        "stack_methodology_link": "../stacked_dd_comparison.md",
+        "cs_methodology_link": f"{GH_BASE}/outputs/age21_handgun_audit/appendix_section_draft.md",
+        "stack_methodology_link": "https://github.com/jedediahpidareese-coder/firearms-regulation-map/blob/main/outputs/stacked_dd_comparison.md",
         "policy_short": "age21_handgun",
     },
     "Assault weapons ban": {
@@ -353,11 +365,102 @@ POLICY_DEFINITIONS = {
         "direction": "0 → 1 (state prohibits long-gun assault weapons; HI-style pistols-only bans excluded per Tufts coding)",
         "cs_dir": ROOT / "outputs" / "assault_weapons_ban_cs",
         "stack_dir": ROOT / "outputs" / "assault_weapons_ban_stackdd",
-        "cs_methodology_link": "../assault_weapons_ban_audit/appendix_section_draft.md",
-        "stack_methodology_link": "../stacked_dd_comparison.md",
+        "cs_methodology_link": f"{GH_BASE}/outputs/assault_weapons_ban_audit/appendix_section_draft.md",
+        "stack_methodology_link": "https://github.com/jedediahpidareese-coder/firearms-regulation-map/blob/main/outputs/stacked_dd_comparison.md",
         "policy_short": "assault_weapons_ban",
     },
 }
+
+
+def _sig_phrase(z) -> str:
+    az = abs(z) if not pd.isna(z) else 0
+    if az >= 2.576:
+        return "p &lt; 0.01"
+    if az >= 1.96:
+        return "p &lt; 0.05"
+    if az >= 1.645:
+        return "p &lt; 0.10"
+    return "not significant"
+
+
+def interpretation_block(name: str, cs_dir: Path, stack_dir: Path) -> str:
+    """Generate plain-language headline interpretation prose for the
+    significant findings in this policy's broad/RA CS21 spec. We focus
+    on broad/RA because that's the figure-headline spec; readers can
+    cross-reference the full 4-spec table for the strict pool and OR
+    variants. Each significant outcome gets one bullet describing
+    direction, magnitude (per-100k + %-of-base), significance level,
+    and whether the pre-trend test passes.
+    """
+    df = read_csv(cs_dir / "overall_att.csv")
+    if df.empty:
+        return ""
+    sub = df[(df.get("control_rule") == "broad") & (df.get("spec") == "ra")].copy()
+    if sub.empty:
+        return ""
+    # Sort by absolute z so the most decisive results lead.
+    sub["abs_z"] = sub["z"].abs()
+    sub = sub.sort_values("abs_z", ascending=False)
+    bullets = []
+    for _, r in sub.iterrows():
+        z = r["z"]
+        if pd.isna(z) or abs(z) < 1.645:
+            continue  # not even marginally significant; skip
+        outcome = r["outcome"]
+        att = r["att_overall_post"]
+        se = r["se_overall_post"]
+        pre_z = r["z_pretrends"]
+        direction_word = "rises" if att > 0 else "falls"
+        outcome_pretty = outcome.replace("_", " ").replace("rate", "rate")
+        # Economic %.
+        base = _BASELINES.get(outcome)
+        if base and base != 0 and not pd.isna(base):
+            pct = 100.0 * att / base
+            pct_phrase = f"≈ {pct:+.1f}% of the all-state mean of {base:.2f}/100k"
+        else:
+            pct_phrase = "(no baseline available)"
+        # Pre-trend caveat.
+        if pd.isna(pre_z):
+            pre_phrase = "Pre-trend test not available."
+        elif abs(pre_z) < 1.645:
+            pre_phrase = f"Pre-trend test passes (z = {pre_z:+.2f})."
+        elif abs(pre_z) < 1.96:
+            pre_phrase = f"Pre-trend test marginal (z = {pre_z:+.2f}); read with mild caution."
+        else:
+            pre_phrase = (f"<strong>Pre-trend test rejects (z = {pre_z:+.2f})</strong> — "
+                          f"the post-period coefficient may partly reflect "
+                          f"pre-existing trend differences rather than the policy.")
+        bullets.append(
+            f"<li><strong>{outcome_pretty}</strong> {direction_word} by approximately "
+            f"<strong>{abs(att):.2f} per 100,000 residents per year</strong> "
+            f"({pct_phrase}; SE = {se:.3f}, z = {z:+.2f}, {_sig_phrase(z)}). "
+            f"{pre_phrase}</li>"
+        )
+    if not bullets:
+        return (
+            '<div class="interpretation"><h3>Headline interpretation (broad / RA)</h3>'
+            '<p><em>No outcome is statistically significant at the 10% level in the broad/RA spec '
+            'for this policy. See the full 4-spec table below for results under the other specifications, '
+            'where some outcomes do reach significance under tighter control pools or simpler estimators.</em></p>'
+            '</div>'
+        )
+    return (
+        '<div class="interpretation">'
+        f'<h3>Headline interpretation ({name}, broad / RA)</h3>'
+        '<p>Reading the broad-pool, regression-adjusted Callaway–Sant\'Anna spec '
+        '(the same spec the figure beneath the CS21 table reports), the statistically '
+        'significant outcomes are:</p>'
+        f'<ul>{"".join(bullets)}</ul>'
+        '<p class="caption">'
+        '"% of base" expresses the coefficient as a fraction of the all-state mean of '
+        'the outcome over the analysis window — useful for an economic-magnitude read. '
+        'A pre-trend rejection means the treated and control groups were already on '
+        'diverging paths before the policy took effect, which weakens the causal claim. '
+        'See §3 for an explanation of the spec grid (broad/strict, OR/RA) and the full '
+        '4-spec table below for results under the other specifications.'
+        '</p>'
+        '</div>'
+    )
 
 
 def policy_section_html(name: str, defn: dict, section_num: int) -> str:
@@ -376,9 +479,11 @@ def policy_section_html(name: str, defn: dict, section_num: int) -> str:
       <h2>{section_num}. {name}</h2>
       <p class="lead">
         <strong>Treatment:</strong> {defn['treatment_var']} ({defn['direction']}).<br>
-        Detailed write-up: <a href="{defn['cs_methodology_link']}">CS21 methodology</a>
-        and <a href="{defn['stack_methodology_link']}">stacked-DiD comparison</a>.
+        Detailed write-up: <a href="{defn['cs_methodology_link']}" target="_blank" rel="noopener">CS21 methodology</a>
+        and <a href="{defn['stack_methodology_link']}" target="_blank" rel="noopener">stacked-DiD comparison</a>.
       </p>
+
+      {interpretation_block(name, cs_dir, stack_dir)}
 
       <h3>Treatment cohorts</h3>
       {cohort_table_html(cs_dir)}
@@ -416,9 +521,9 @@ def rdd_section_html(section_num: int) -> str:
       Frisch-Waugh-Lovell. Identifying variation comes from differential outcomes
       between adjacent counties on opposite sides of a state border. Bandwidth =
       100 km (centroid distance to nearest other-state population centroid; geometry
-      layer documented in §2.12 of <a href="../../data_appendix.md">data_appendix.md</a>).
+      layer documented in §2.12 of <a href="https://github.com/jedediahpidareese-coder/firearms-regulation-map/blob/main/data_appendix.md">data_appendix.md</a>).
       Per-policy estimator detail and the 10-spec robustness battery: see
-      <a href="../border_rdd/methodology.md">outputs/border_rdd/methodology.md</a>.
+      <a href="{GH_BASE}/outputs/border_rdd/methodology.md">outputs/border_rdd/methodology.md</a>.
     </p>
     <p class="lead">
       Outcomes are stratified into <strong>primary</strong> (true county-level
@@ -479,7 +584,7 @@ def county_section_html(section_num: int) -> str:
       SEs than the state-level pipeline. Outcomes are the true county-level
       Kaplan UCR rates plus the state-joined-down mortality variables (the
       latter, again, identified at state grain — included only for cross-method
-      consistency). Estimator: <a href="../../scripts/lib_cs_county.py"><code>scripts/lib_cs_county.py</code></a>.
+      consistency). Estimator: <a href="https://github.com/jedediahpidareese-coder/firearms-regulation-map/blob/main/scripts/lib_cs_county.py"><code>scripts/lib_cs_county.py</code></a>.
     </p>
     """)
     for policy_short, policy_label in [
@@ -562,6 +667,17 @@ def build_html() -> str:
       .sig2 { color: #b9461a; }
       .sig3 { color: #8c1d04; }
       .pct { color: var(--muted); font-size: 11px; font-style: italic; }
+      .interpretation {
+        background: #fcfaf2;
+        border-left: 4px solid #b9461a;
+        padding: 14px 20px;
+        margin: 18px 0 24px;
+        border-radius: 4px;
+      }
+      .interpretation h3 { margin-top: 0; color: #b9461a; }
+      .interpretation ul { margin: 8px 0 8px 0; }
+      .interpretation li { margin: 8px 0; line-height: 1.55; }
+      .interpretation .caption { color: var(--muted); font-size: 12px; margin-bottom: 0; }
       .caption { font-size: 11.5px; color: var(--muted); margin: 2px 0 18px; }
       .figure { margin: 8px 0 14px; }
       .figure svg { width: 100%; height: auto; }
@@ -617,7 +733,7 @@ def build_html() -> str:
   Generated {pd.Timestamp.now().strftime('%Y-%m-%d')} from
   <code>scripts/build_research_report.py</code>. All numbers reproducible from the
   scripts and CSV outputs in this repository.
-  Companion data inventory: <a href="../../data_appendix.md"><code>data_appendix.md</code></a>.
+  Companion data inventory: <a href="https://github.com/jedediahpidareese-coder/firearms-regulation-map/blob/main/data_appendix.md"><code>data_appendix.md</code></a>.
   Source code: <a href="https://github.com/jedediahpidareese-coder/firearms-regulation-map">github.com/jedediahpidareese-coder/firearms-regulation-map</a>.
   Public map: <a href="https://jedediahpidareese-coder.github.io/firearms-regulation-map/">jedediahpidareese-coder.github.io/firearms-regulation-map</a>.
 </p>
@@ -730,7 +846,7 @@ RAND TL-354 household firearm ownership rate (1980–2016).
 </p>
 <p>
 The full prose-language data documentation lives in
-<a href="../../data_appendix.md"><code>data_appendix.md</code></a>. Every variable, source, and
+<a href="https://github.com/jedediahpidareese-coder/firearms-regulation-map/blob/main/data_appendix.md"><code>data_appendix.md</code></a>. Every variable, source, and
 manipulation is documented there in plain English. The same panel powers the public choropleth
 map at
 <a href="https://jedediahpidareese-coder.github.io/firearms-regulation-map/">jedediahpidareese-coder.github.io/firearms-regulation-map</a>.
@@ -982,7 +1098,7 @@ single-estimator results on these questions probably overstate what the data ide
     provide tighter inference where pre-trends are non-linear.</li>
   <li>True county-level firearm-mortality identification (a natural follow-up given the
     county-level crime data we have) is blocked by CDC public-data policy. See
-    <a href="../../data_appendix.md">Section 2.10 of the data appendix</a> for the documented
+    <a href="https://github.com/jedediahpidareese-coder/firearms-regulation-map/blob/main/data_appendix.md">Section 2.10 of the data appendix</a> for the documented
     paths and their constraints.</li>
 </ul>
 </section>
