@@ -339,6 +339,87 @@ def balance_table_html(name: str, defn: dict) -> str:
 """
 
 
+def scm_block_html(policy_short: str) -> str:
+    """Render a synthetic-control (Abadie-Diamond-Hainmueller 2010) section
+    for any policy that has outputs/{policy_short}_scm/ on disk. One
+    sub-block per treated state-case, showing the per-outcome ATT + placebo
+    p-value table and the SCM trajectory figure.
+
+    For small-cohort policies (AWB, magazine, age21) this is the headline
+    estimator the literature uses (Webster, Crifasi, Vernick, Rudolph,
+    McCourt, Klarevas, Kivisto). For policies that ALSO have a CS21
+    section, SCM is shown as a per-state complement to the cohort-pooled
+    CS21 / stacked-DD numbers.
+    """
+    scm_dir = ROOT / "outputs" / f"{policy_short}_scm"
+    if not scm_dir.exists():
+        return ""
+    case_dirs = sorted([d for d in scm_dir.iterdir() if d.is_dir()
+                        and (d / "placebo.csv").exists()])
+    if not case_dirs:
+        return ""
+    pieces = ['<h3>Synthetic control method (Abadie-Diamond-Hainmueller 2010)</h3>']
+    pieces.append("""
+    <p class="lead">
+      For small-cohort policies, the literature (Webster 2014, Crifasi 2015,
+      McCourt 2020, Kivisto 2018, Klarevas 2019) uses SCM rather than
+      cohort-pooled DiD because per-event-time DiD estimates are noisy when
+      only 1-4 states adopt. SCM constructs an explicit weighted
+      counterfactual from the donor pool that minimizes pre-period MSPE,
+      then attributes the post-period gap to the treatment. Inference is
+      via permutation: refit SCM on every donor as if treated, compare the
+      actual post-period effect to the placebo distribution.
+    </p>
+    """)
+    for case_dir in case_dirs:
+        state_g = case_dir.name  # e.g. "MD_2013"
+        placebo = read_csv(case_dir / "placebo.csv")
+        if placebo.empty:
+            continue
+        # Build one summary table for this case.
+        rows = []
+        for _, r in placebo.iterrows():
+            outcome = r["outcome"]
+            att = r["actual_post_effect"]
+            p = r["p_value_two_sided"]
+            stars = ('<span class="sig sig3">***</span>' if p <= 0.01 else
+                     '<span class="sig sig2">**</span>' if p <= 0.05 else
+                     '<span class="sig sig1">*</span>' if p <= 0.10 else '')
+            pct = pct_of_baseline(att, outcome)
+            pre_rmse_str = (f", pre RMSE = {r['pre_rmse']:.3g}"
+                            if "pre_rmse" in r and pd.notna(r.get('pre_rmse')) else "")
+            rows.append(
+                f"<tr><td>{outcome.replace('_',' ')}</td>"
+                f"<td class='num'><span class='att'>{att:+.3f}</span> {stars}{pct}</td>"
+                f"<td class='num'>p = {p:.3f}<br>"
+                f"<span class='se'>placebo n = {int(r['n_placebo'])}, "
+                f"sd = {r['placebo_sd']:.3f}{pre_rmse_str}</span></td></tr>"
+            )
+        # Show one figure (firearm_homicide_rate or whatever's first
+        # significant). Pick a representative one: prefer the smallest
+        # placebo p-value.
+        best = placebo.loc[placebo["p_value_two_sided"].idxmin()]
+        fig_path = case_dir / "figures" / f"{best['outcome']}.svg"
+        fig_block = embed_svg(fig_path) if fig_path.exists() else ""
+        pieces.append(f"""
+        <div class="cov-box">
+          <h3>{state_g} — SCM per-state results</h3>
+          <table class="coef">
+            <thead><tr><th>Outcome</th><th class="num">Post ATT (per 100k)</th><th class="num">Placebo p-value</th></tr></thead>
+            <tbody>{"".join(rows)}</tbody>
+          </table>
+          <p class="caption">
+            Post ATT = mean(treated − synthetic) over the post-treatment years.
+            Placebo p-value: two-sided rank from permutation across all donor states (refitting SCM on each donor as if treated).
+            Stars at 10% / 5% / 1% from the placebo distribution. "% of base" expresses the ATT as a fraction of the all-state mean.
+          </p>
+          <h4>Trajectory: {best['outcome'].replace('_',' ')}</h4>
+          {fig_block}
+        </div>
+        """)
+    return "\n".join(pieces)
+
+
 def observation_window_html(name: str, defn: dict) -> str:
     """Per-policy box stating the observation period and pre/post window
     choices with literature citations. The DiD/RDD literature has converged
@@ -717,6 +798,8 @@ def policy_section_html(name: str, defn: dict, section_num: int) -> str:
 
       <h3>Roth-Sant'Anna pre-trend bounds — firearm suicide, e = +1</h3>
       {bounds_summary_html(short)}
+
+      {scm_block_html(short)}
     </section>
     """
 
