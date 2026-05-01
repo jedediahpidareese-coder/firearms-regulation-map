@@ -45,3 +45,14 @@ data/county/kaplan_leoka/
 # committed instead. Rebuild raw set + processed CSVs with:
 #   python scripts/build_state_cj_controls.py
 data/state_cj_raw/
+
+# LaTeX build artifacts (paper local builds)
+outputs/paper/main.aux
+outputs/paper/main.bbl
+outputs/paper/main.bcf
+outputs/paper/main.blg
+outputs/paper/main.log
+outputs/paper/main.out
+outputs/paper/main.toc
+outputs/paper/main.run.xml
+outputs/paper/.thumb_*.png
