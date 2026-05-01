@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-30T00:26:50Z",
+  "generated_at": "2026-05-01T16:25:45Z",
   "year_range": [
     1979,
     2024
@@ -96,7 +96,12 @@
     "poverty_rate",
     "unemployment_rate",
     "pcpi_real_2024",
-    "population"
+    "population",
+    "imprisonment_rate",
+    "police_expenditure_per_capita_real_2024",
+    "has_death_penalty",
+    "executions_count",
+    "sworn_officers_per_100k"
   ],
   "categories": {
     "Regulation": [
@@ -150,6 +155,13 @@
       "pcpi_real_2024",
       "poverty_rate",
       "unemployment_rate"
+    ],
+    "Criminal justice": [
+      "executions_count",
+      "has_death_penalty",
+      "imprisonment_rate",
+      "police_expenditure_per_capita_real_2024",
+      "sworn_officers_per_100k"
     ]
   },
   "default_variable": "lawtotal",

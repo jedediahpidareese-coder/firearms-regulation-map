@@ -80,6 +80,42 @@ POLICIES = [
         "exclude_after": 2023,
         "ado_table": None,
     },
+    {
+        "name": "assault_weapons_ban",
+        "treatment_var": "assault",
+        "direction": "0to1",
+        "strict_vars": ("assault",),
+        "strict_vals": (0,),
+        "exclude_after": 2023,
+        "ado_table": None,
+    },
+    {
+        "name": "age21_handgun",
+        "treatment_var": "age21handgunsale",
+        "direction": "0to1",
+        "strict_vars": ("age21handgunsale",),
+        "strict_vals": (0,),
+        "exclude_after": 2023,
+        "ado_table": None,
+    },
+    {
+        "name": "magazine_ban",
+        "treatment_var": "magazine",
+        "direction": "0to1",
+        "strict_vars": ("magazine",),
+        "strict_vals": (0,),
+        "exclude_after": 2023,
+        "ado_table": None,
+    },
+    {
+        "name": "stand_your_ground",
+        "treatment_var": "nosyg",
+        "direction": "1to0",
+        "strict_vars": ("nosyg",),
+        "strict_vals": (1,),
+        "exclude_after": 2023,
+        "ado_table": None,
+    },
 ]
 
 

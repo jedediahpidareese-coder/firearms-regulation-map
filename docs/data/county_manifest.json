@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-30T18:18:44Z",
+  "generated_at": "2026-05-01T16:25:50Z",
   "year_range": [
     2009,
     2024
@@ -45,7 +45,8 @@
     "poverty_pct_all_ages",
     "unemployment_rate",
     "pcpi_real_2024",
-    "lawtotal"
+    "lawtotal",
+    "county_sworn_officers_per_100k"
   ],
   "categories": {
     "Demographics": [
@@ -82,6 +83,9 @@
     ],
     "Regulation": [
       "lawtotal"
+    ],
+    "Criminal justice": [
+      "county_sworn_officers_per_100k"
     ]
   },
   "default_variable": "county_violent_crime_rate",

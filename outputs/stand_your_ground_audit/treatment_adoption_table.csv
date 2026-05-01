@@ -1,0 +1,51 @@
+state_abbr,state_fips,adoption_year,source,notes
+UT,49,1994,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+FL,12,2005,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+AL,1,2006,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+GA,13,2006,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+IN,18,2006,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+KS,20,2006,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+KY,21,2006,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+LA,22,2006,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+MI,26,2006,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+MS,28,2006,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+OK,40,2006,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+SC,45,2006,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+SD,46,2006,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+TN,47,2007,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+TX,48,2007,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+WV,54,2008,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+MT,30,2009,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+AZ,4,2010,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+NC,37,2011,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+NH,33,2011,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+NV,32,2011,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+PA,42,2011,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+AK,2,2013,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+MO,29,2016,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+IA,19,2017,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+ID,16,2018,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+WY,56,2018,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+OH,39,2019,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+AR,5,2021,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+ND,38,2021,Tufts/Siegel state firearm laws DB (nosyg first 1->0),Cross-checked against RAND State Firearm Laws DB
+CA,6,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+CO,8,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+CT,9,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+DE,10,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+HI,15,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+IL,17,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+MA,25,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+MD,24,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+ME,23,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+MN,27,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+NE,31,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+NJ,34,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+NM,35,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+NY,36,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+OR,41,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+RI,44,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+VA,51,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+VT,50,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+WA,53,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)
+WI,55,,Tufts/Siegel state firearm laws DB,Never-treated (still has duty to retreat through 2024)

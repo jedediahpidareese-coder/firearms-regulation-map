@@ -323,5 +323,19 @@
       2024
     ],
     "observed_obs": 50112
+  },
+  "county_sworn_officers_per_100k": {
+    "label": "Sworn officers per 100,000 (county)",
+    "category": "Criminal justice",
+    "unit": "Sworn officers per 100,000 residents",
+    "format": "rate",
+    "definition": "Full-time sworn (peace-officer-status) law-enforcement personnel summed across reporting agencies in this county, divided by county population. Source: Kaplan LEOKA (openICPSR project 102180 V15) aggregated agency-level rows. 99.8% county-year coverage; missing only the same 5 small Alaska boroughs and Kalawao HI that have no Kaplan crime data.",
+    "source": "Jacob Kaplan LEOKA (openICPSR 102180)",
+    "source_url": "https://www.openicpsr.org/openicpsr/project/102180",
+    "observed_year_range": [
+      2009,
+      2024
+    ],
+    "observed_obs": 50032
   }
 }

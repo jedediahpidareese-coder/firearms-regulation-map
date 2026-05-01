@@ -57,6 +57,21 @@ def load_panel_core() -> pd.DataFrame:
     return pd.read_csv(PROC / "panel_core_1979_2024.csv")
 
 
+def load_cj_controls() -> pd.DataFrame:
+    """State-year CJ controls (Section 2.13 of data_appendix). Returns
+    columns state_abbr, year, plus the four+one CJ posture variables."""
+    p = PROC / "state_cj_controls_1979_2024.csv"
+    if not p.exists():
+        return pd.DataFrame(columns=["state_abbr", "year"])
+    df = pd.read_csv(p, dtype={"state_fips": str})
+    keep = ["state_abbr", "year",
+            "imprisonment_rate",
+            "police_expenditure_per_capita_real_2024",
+            "has_death_penalty", "executions_count",
+            "sworn_officers_per_100k"]
+    return df[[c for c in keep if c in df.columns]]
+
+
 def load_panel_market() -> pd.DataFrame:
     """Adds NICS to core, 1999-2024."""
     return pd.read_csv(PROC / "panel_market_1999_2024.csv")
@@ -273,6 +288,12 @@ def build_panel() -> pd.DataFrame:
         if pre_col in base.columns:
             base[c] = base[c].fillna(base[pre_col])
             base = base.drop(columns=pre_col)
+
+    # CJ controls (Section 2.13): imprisonment, police expenditure, death
+    # penalty, executions, sworn officers (state rollup of LEOKA).
+    cj = load_cj_controls()
+    if not cj.empty:
+        base = base.merge(cj, on=["state_abbr", "year"], how="left")
 
     return base.sort_values(["state_abbr", "year"]).reset_index(drop=True)
 
@@ -759,6 +780,66 @@ VARIABLE_METADATA = {
         "source_url": "https://fred.stlouisfed.org/",
         "year_range": [1979, 2024],
         "scale": "sequential",
+    },
+    # ---- Criminal justice (Phase 4 — Section 2.13 of data appendix) ----
+    "imprisonment_rate": {
+        "label": "Imprisonment rate",
+        "category": "Criminal justice",
+        "unit": "Prisoners per 100,000 residents",
+        "format": "rate",
+        "definition": "Total prisoners under state jurisdiction (year-end stock) per 100,000 residents. Source: BJS National Prisoner Statistics. DC is NaN post-2001 (Lorton closed; DC prisoners transferred to BOP). Pre-1996 has gaps for years where the BJS PDF reports were not in the legacy archive (1981, 1984, 1993-1995).",
+        "source": "BJS National Prisoner Statistics (NPS-1A)",
+        "source_url": "https://bjs.ojp.gov/data-collection/national-prisoner-statistics-nps-program",
+        "year_range": [1979, 2024],
+        "scale": "sequential",
+        "higher_is": "more incarceration",
+    },
+    "police_expenditure_per_capita_real_2024": {
+        "label": "Police protection expenditure per capita (real 2024 USD)",
+        "category": "Criminal justice",
+        "unit": "U.S. dollars (2024)",
+        "format": "currency",
+        "definition": "State + local government combined expenditure on Police protection, per capita, deflated to 2024 dollars using BLS CPI-U. Source: Census Annual Survey of State and Local Government Finances. Linearly interpolated within state across 2003-2008 and 2012-2016 gap years; pre-2002 and 2023+ remain blank.",
+        "source": "Census Annual Survey of State & Local Government Finances",
+        "source_url": "https://www.census.gov/programs-surveys/gov-finances.html",
+        "year_range": [2002, 2022],
+        "scale": "sequential",
+        "higher_is": "more police spending",
+    },
+    "has_death_penalty": {
+        "label": "Death penalty (active statute)",
+        "category": "Criminal justice",
+        "unit": "Yes / No",
+        "format": "binary",
+        "definition": "1 if the state had an active death-penalty statute on December 31 of the year; 0 otherwise. Source: hand-coded from the published timeline of state abolitions and reinstatements (DPIC). Coded as statute-on-the-books, NOT moratoria-adjusted (so CA and PA remain coded 1 despite Newsom and Wolf moratoria).",
+        "source": "Death Penalty Information Center (timeline of abolitions)",
+        "source_url": "https://deathpenaltyinfo.org/",
+        "year_range": [1979, 2024],
+        "scale": "binary",
+    },
+    "executions_count": {
+        "label": "Executions in year",
+        "category": "Criminal justice",
+        "unit": "Executions",
+        "format": "integer",
+        "definition": "Count of state-jurisdiction executions in this state-year (federal executions excluded). Source: DPIC executions database. 0 for state-years with no execution recorded.",
+        "source": "Death Penalty Information Center (executions database)",
+        "source_url": "http://deathpenaltyinfo.org/query/executions.csv",
+        "year_range": [1979, 2024],
+        "scale": "sequential",
+        "higher_is": "more executions",
+    },
+    "sworn_officers_per_100k": {
+        "label": "Sworn officers per 100,000 (state rollup)",
+        "category": "Criminal justice",
+        "unit": "Sworn officers per 100,000 residents",
+        "format": "rate",
+        "definition": "Full-time sworn (peace-officer-status) law-enforcement personnel summed across all reporting agencies in the state, divided by state population. Source: Kaplan LEOKA (openICPSR project 102180 V15) aggregated agency-level rows. Federal LE (FBI, DEA, ATF, US Marshals) and special-jurisdiction agencies (Amtrak, transit) excluded because they have no county FIPS.",
+        "source": "Jacob Kaplan LEOKA (openICPSR 102180)",
+        "source_url": "https://www.openicpsr.org/openicpsr/project/102180",
+        "year_range": [1979, 2024],
+        "scale": "sequential",
+        "higher_is": "more police staffing",
     },
 }
 

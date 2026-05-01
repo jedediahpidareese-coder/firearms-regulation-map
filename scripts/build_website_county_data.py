@@ -209,6 +209,16 @@ COUNTY_VARS = OrderedDict([
         "source": "Tufts State Firearm Laws",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
     }),
+
+    # Criminal justice (Section 2.13). True county-level (no within-state
+    # joining-down -- each county has its own LEOKA agency-roll-up).
+    ("county_sworn_officers_per_100k", {
+        "label": "Sworn officers per 100,000 (county)", "category": "Criminal justice",
+        "unit": "Sworn officers per 100,000 residents", "format": "rate",
+        "definition": "Full-time sworn (peace-officer-status) law-enforcement personnel summed across reporting agencies in this county, divided by county population. Source: Kaplan LEOKA (openICPSR project 102180 V15) aggregated agency-level rows. 99.8% county-year coverage; missing only the same 5 small Alaska boroughs and Kalawao HI that have no Kaplan crime data.",
+        "source": "Jacob Kaplan LEOKA (openICPSR 102180)",
+        "source_url": "https://www.openicpsr.org/openicpsr/project/102180",
+    }),
 ])
 
 
@@ -218,6 +228,19 @@ def build():
                      dtype={"county_fips": str, "state_fips": str})
     print(f"  {len(df):,} rows, {df['county_fips'].nunique()} counties, "
           f"{df['year'].nunique()} years")
+
+    # Merge in the CJ controls layer (Section 2.13). Currently only one
+    # county-grain CJ var (sworn officers per 100k). State-grain CJ vars
+    # (imprisonment, expenditure, death penalty, executions) are NOT joined
+    # to the county-mode website -- they don't vary within state.
+    cj_path = PROC / "county_cj_controls_2009_2024.csv"
+    if cj_path.exists():
+        cj = pd.read_csv(cj_path, dtype={"county_fips": str, "state_fips": str})
+        keep = ["county_fips", "year", "county_sworn_officers_per_100k"]
+        cj = cj[[c for c in keep if c in cj.columns]]
+        df = df.merge(cj, on=["county_fips", "year"], how="left")
+        print(f"  Merged county CJ controls: "
+              f"{df['county_sworn_officers_per_100k'].notna().mean():.1%} coverage")
 
     # Emit a single county_names.json the page uses for hover labels.
     # Pick the most recent (county_name, state_name) per county_fips so the

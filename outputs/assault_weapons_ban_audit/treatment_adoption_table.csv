@@ -1,0 +1,51 @@
+state,state_abbr,treatment_variable,adoption_rule,adoption_year,included_in_mortality_sample,absorbing_after_adoption_through_2024,post_adoption_reversal_years,starts_banned_1999,ends_banned_2023,first_observed_adoption_year_any_panel,notes_rand_crosscheck
+Alaska,AK,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Alabama,AL,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Arkansas,AR,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Arizona,AZ,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+California,CA,assault,first 0-to-1 switch in assault (Tufts),,False,False,,1,1,1990,CA enacted Roberti-Roos AWB 1989; tightened 1999 (post-Stockton). Tufts marks assault==1 from 1990 onward; matches RAND.
+Colorado,CO,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Connecticut,CT,assault,first 0-to-1 switch in assault (Tufts),,False,False,,1,1,1993,CT 1993 AWB (post-Stockton wave); tightened post-Newtown 2013 (added more guns to list). Tufts assault==1 from 1993 onward; tightening is not a 0-to-1 transition so excluded from cohorts.
+Delaware,DE,assault,first 0-to-1 switch in assault (Tufts),2022,True,True,,0,1,2022,DE Lethal Weapons Act 2022. Tufts: 0->1 in 2022. Matches RAND.
+Florida,FL,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Georgia,GA,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Hawaii,HI,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,"HI bans assault PISTOLS only (no long guns), so Tufts coding rule (must cover long guns) yields assault==0 throughout. RAND notes HI's assault-pistol law but excludes from a state-AWB list for the same reason. No discrepancy."
+Iowa,IA,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Idaho,ID,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Illinois,IL,assault,first 0-to-1 switch in assault (Tufts),2023,True,True,,0,1,2023,"IL Protect Illinois Communities Act, January 2023 (post-Highland Park). Tufts: 0->1 in 2023. Matches RAND."
+Indiana,IN,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Kansas,KS,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Kentucky,KY,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Louisiana,LA,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Massachusetts,MA,assault,first 0-to-1 switch in assault (Tufts),,False,False,,1,1,1999,"MA 1998 AWB (predates federal sunset). Tufts assault==1 from 1999 onward. Already-banned at 1999, excluded from cohorts."
+Maryland,MD,assault,first 0-to-1 switch in assault (Tufts),2013,True,True,,0,1,2013,MD Firearm Safety Act 2013 (post-Newtown). Tufts: 0->1 in 2013. Matches RAND State Firearm Laws Database.
+Maine,ME,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Michigan,MI,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Minnesota,MN,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Missouri,MO,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Mississippi,MS,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Montana,MT,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+North Carolina,NC,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+North Dakota,ND,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Nebraska,NE,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+New Hampshire,NH,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+New Jersey,NJ,assault,first 0-to-1 switch in assault (Tufts),,False,False,,1,1,1990,NJ 1990 AWB (early post-Stockton). Tufts assault==1 from 1990 onward; matches RAND.
+New Mexico,NM,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Nevada,NV,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+New York,NY,assault,first 0-to-1 switch in assault (Tufts),2000,False,True,,0,1,2000,NY enacted SAFE Act precursor in 2000; further tightened post-Newtown 2013 (NY SAFE Act). Tufts assault flips 0->1 in 2000; excluded from cohorts because 2000 - 5 = 1995 < ANALYSIS_LO.
+Ohio,OH,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Oklahoma,OK,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Oregon,OR,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Pennsylvania,PA,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Rhode Island,RI,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+South Carolina,SC,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+South Dakota,SD,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Tennessee,TN,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Texas,TX,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Utah,UT,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Virginia,VA,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Vermont,VT,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Washington,WA,assault,first 0-to-1 switch in assault (Tufts),2023,True,True,,0,1,2023,"WA HB 1240, April 2023. Tufts: 0->1 in 2023. Matches RAND."
+Wisconsin,WI,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+West Virginia,WV,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,
+Wyoming,WY,assault,first 0-to-1 switch in assault (Tufts),,False,False,,0,0,,

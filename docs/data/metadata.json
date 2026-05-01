@@ -765,5 +765,104 @@
       2024
     ],
     "observed_obs": 2300
+  },
+  "imprisonment_rate": {
+    "label": "Imprisonment rate",
+    "category": "Criminal justice",
+    "unit": "Prisoners per 100,000 residents",
+    "format": "rate",
+    "definition": "Total prisoners under state jurisdiction (year-end stock) per 100,000 residents. Source: BJS National Prisoner Statistics. DC is NaN post-2001 (Lorton closed; DC prisoners transferred to BOP). Pre-1996 has gaps for years where the BJS PDF reports were not in the legacy archive (1981, 1984, 1993-1995).",
+    "source": "BJS National Prisoner Statistics (NPS-1A)",
+    "source_url": "https://bjs.ojp.gov/data-collection/national-prisoner-statistics-nps-program",
+    "year_range": [
+      1979,
+      2024
+    ],
+    "scale": "sequential",
+    "higher_is": "more incarceration",
+    "observed_year_range": [
+      1979,
+      2023
+    ],
+    "observed_obs": 1910
+  },
+  "police_expenditure_per_capita_real_2024": {
+    "label": "Police protection expenditure per capita (real 2024 USD)",
+    "category": "Criminal justice",
+    "unit": "U.S. dollars (2024)",
+    "format": "currency",
+    "definition": "State + local government combined expenditure on Police protection, per capita, deflated to 2024 dollars using BLS CPI-U. Source: Census Annual Survey of State and Local Government Finances. Linearly interpolated within state across 2003-2008 and 2012-2016 gap years; pre-2002 and 2023+ remain blank.",
+    "source": "Census Annual Survey of State & Local Government Finances",
+    "source_url": "https://www.census.gov/programs-surveys/gov-finances.html",
+    "year_range": [
+      2002,
+      2022
+    ],
+    "scale": "sequential",
+    "higher_is": "more police spending",
+    "observed_year_range": [
+      2002,
+      2022
+    ],
+    "observed_obs": 1050
+  },
+  "has_death_penalty": {
+    "label": "Death penalty (active statute)",
+    "category": "Criminal justice",
+    "unit": "Yes / No",
+    "format": "binary",
+    "definition": "1 if the state had an active death-penalty statute on December 31 of the year; 0 otherwise. Source: hand-coded from the published timeline of state abolitions and reinstatements (DPIC). Coded as statute-on-the-books, NOT moratoria-adjusted (so CA and PA remain coded 1 despite Newsom and Wolf moratoria).",
+    "source": "Death Penalty Information Center (timeline of abolitions)",
+    "source_url": "https://deathpenaltyinfo.org/",
+    "year_range": [
+      1979,
+      2024
+    ],
+    "scale": "binary",
+    "observed_year_range": [
+      1979,
+      2024
+    ],
+    "observed_obs": 2300
+  },
+  "executions_count": {
+    "label": "Executions in year",
+    "category": "Criminal justice",
+    "unit": "Executions",
+    "format": "integer",
+    "definition": "Count of state-jurisdiction executions in this state-year (federal executions excluded). Source: DPIC executions database. 0 for state-years with no execution recorded.",
+    "source": "Death Penalty Information Center (executions database)",
+    "source_url": "http://deathpenaltyinfo.org/query/executions.csv",
+    "year_range": [
+      1979,
+      2024
+    ],
+    "scale": "sequential",
+    "higher_is": "more executions",
+    "observed_year_range": [
+      1979,
+      2024
+    ],
+    "observed_obs": 2300
+  },
+  "sworn_officers_per_100k": {
+    "label": "Sworn officers per 100,000 (state rollup)",
+    "category": "Criminal justice",
+    "unit": "Sworn officers per 100,000 residents",
+    "format": "rate",
+    "definition": "Full-time sworn (peace-officer-status) law-enforcement personnel summed across all reporting agencies in the state, divided by state population. Source: Kaplan LEOKA (openICPSR project 102180 V15) aggregated agency-level rows. Federal LE (FBI, DEA, ATF, US Marshals) and special-jurisdiction agencies (Amtrak, transit) excluded because they have no county FIPS.",
+    "source": "Jacob Kaplan LEOKA (openICPSR 102180)",
+    "source_url": "https://www.openicpsr.org/openicpsr/project/102180",
+    "year_range": [
+      1979,
+      2024
+    ],
+    "scale": "sequential",
+    "higher_is": "more police staffing",
+    "observed_year_range": [
+      1979,
+      2024
+    ],
+    "observed_obs": 1978
   }
 }

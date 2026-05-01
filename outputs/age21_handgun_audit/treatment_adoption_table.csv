@@ -1,0 +1,51 @@
+state,state_abbr,treatment_variable,adoption_rule,adoption_year,included_in_mortality_sample,absorbing_after_adoption_through_2024,post_adoption_reversal_years,starts_age21_handgun_law,ends_age21_handgun_law
+Alaska,AK,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Alabama,AL,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Arkansas,AR,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Arizona,AZ,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+California,CA,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,1,1
+Colorado,CO,age21handgunsale,first 0-to-1 switch in age21handgunsale,2023.0,True,True,,0,1
+Connecticut,CT,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,1,1
+Delaware,DE,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,1,1
+Florida,FL,age21handgunsale,first 0-to-1 switch in age21handgunsale,2018.0,True,True,,0,1
+Georgia,GA,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Hawaii,HI,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,1,1
+Iowa,IA,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,1,1
+Idaho,ID,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Illinois,IL,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Indiana,IN,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Kansas,KS,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Kentucky,KY,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Louisiana,LA,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Massachusetts,MA,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,1,1
+Maryland,MD,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,1,1
+Maine,ME,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Michigan,MI,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Minnesota,MN,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Missouri,MO,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,2007,1,0
+Mississippi,MS,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Montana,MT,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+North Carolina,NC,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+North Dakota,ND,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Nebraska,NE,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,1,1
+New Hampshire,NH,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+New Jersey,NJ,age21handgunsale,first 0-to-1 switch in age21handgunsale,2001.0,False,True,,0,1
+New Mexico,NM,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Nevada,NV,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+New York,NY,age21handgunsale,first 0-to-1 switch in age21handgunsale,2000.0,False,True,,0,1
+Ohio,OH,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,1,1
+Oklahoma,OK,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Oregon,OR,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Pennsylvania,PA,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Rhode Island,RI,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,1,1
+South Carolina,SC,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,2008,1,0
+South Dakota,SD,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Tennessee,TN,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Texas,TX,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Utah,UT,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Virginia,VA,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+Vermont,VT,age21handgunsale,first 0-to-1 switch in age21handgunsale,2018.0,True,True,,0,1
+Washington,WA,age21handgunsale,first 0-to-1 switch in age21handgunsale,2019.0,True,True,,0,1
+Wisconsin,WI,age21handgunsale,first 0-to-1 switch in age21handgunsale,,False,False,,0,0
+West Virginia,WV,age21handgunsale,first 0-to-1 switch in age21handgunsale,2010.0,True,True,,0,1
+Wyoming,WY,age21handgunsale,first 0-to-1 switch in age21handgunsale,2010.0,True,True,,0,1

@@ -50,6 +50,7 @@ const CATEGORY_PALETTE = {
   "Gun ownership":            d3.interpolateGreens,
   "Demographics":             d3.interpolateViridis,
   "Economy":                  d3.interpolateYlGnBu,
+  "Criminal justice":         d3.interpolatePuOr,
 };
 const BINARY_COLORS = ["#dadad6", "#1f3a5f"];
 
