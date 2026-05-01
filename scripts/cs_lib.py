@@ -615,22 +615,39 @@ def plot_event_study(es_df, path, spec, outcomes_dict, title_suffix=""):
 
 
 def plot_event_study_svg(es_df, path, spec, outcomes_dict, title_suffix=""):
+    """Dot-and-whisker event-study panel plot (Grier-Krieger-Munger 2024
+    AJPS / Roth-Sant'Anna 2023 DiD survey style). One dot per event-time at
+    the point estimate, with a vertical 95%-CI whisker (small horizontal
+    caps). Significant cells (|z| >= 1.96) are filled solid; non-significant
+    cells are hollow circles with reduced-opacity whiskers — readers can see
+    at a glance which cells matter.
+    """
     PANEL_W, PANEL_H = 380, 260
     GAP = 30
     PAD_L, PAD_R, PAD_T, PAD_B = 60, 18, 50, 50
-    FIG_W = 2 * PANEL_W + GAP + 30
-    FIG_H = 2 * PANEL_H + GAP + 70
+    n_outcomes = len(outcomes_dict)
+    n_cols = 2
+    n_rows = (n_outcomes + n_cols - 1) // n_cols
+    FIG_W = n_cols * PANEL_W + (n_cols - 1) * GAP + 30
+    FIG_H = n_rows * PANEL_H + (n_rows - 1) * GAP + 70
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {FIG_W} {FIG_H}" '
         f'font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif" font-size="11">',
         f'<text x="{FIG_W/2}" y="22" text-anchor="middle" font-size="14" font-weight="600">'
         f"Callaway-Sant'Anna ATT by event time ({spec.upper()}) {title_suffix}</text>",
     ]
+    SIG_COLOR = "#1f3a5f"   # solid blue for significant cells
+    NS_COLOR  = "#1f3a5f"   # same hue but lighter (use opacity)
+    SIG_OPACITY = 1.0
+    NS_OPACITY  = 0.35
+    WHISKER_CAP = 4         # half-width of the horizontal cap on whiskers (px)
+    DOT_R       = 3.2
+
     layout = list(outcomes_dict.items())
     for idx, (var, title) in enumerate(layout):
         sub = es_df[es_df["outcome"] == var].sort_values("event_time")
-        col = idx % 2
-        row = idx // 2
+        col = idx % n_cols
+        row = idx // n_cols
         x0 = 15 + col * (PANEL_W + GAP)
         y0 = 40 + row * (PANEL_H + GAP)
         parts.append(f'<rect x="{x0}" y="{y0}" width="{PANEL_W}" height="{PANEL_H}" fill="#fafaf7" stroke="#e2e2dc"/>')
@@ -641,6 +658,10 @@ def plot_event_study_svg(es_df, path, spec, outcomes_dict, title_suffix=""):
         e = sub["event_time"].to_numpy()
         att = sub["att"].to_numpy()
         se = sub["se"].to_numpy()
+        # Compute z-stats; treat se=0 / NaN as not-significant.
+        with np.errstate(divide="ignore", invalid="ignore"):
+            z = np.where(se > 0, att / se, 0.0)
+        sig_mask = np.abs(z) >= 1.96
         x_lo, x_hi = float(e.min()) - 0.5, float(e.max()) + 0.5
         lower = att - 1.96 * se
         upper = att + 1.96 * se
@@ -654,30 +675,62 @@ def plot_event_study_svg(es_df, path, spec, outcomes_dict, title_suffix=""):
         ih = PANEL_H - PAD_T - PAD_B
         def px(v): return ix0 + (v - x_lo) / (x_hi - x_lo) * iw
         def py(v): return iy0 + ih - (v - y_lo) / (y_hi - y_lo) * ih
+        # Zero reference line.
         if y_lo <= 0 <= y_hi:
             parts.append(f'<line x1="{ix0}" y1="{py(0)}" x2="{ix0+iw}" y2="{py(0)}" stroke="#aaaaaa" stroke-width="0.7"/>')
-        band_pts = [(px(e[i]), py(upper[i])) for i in range(len(e))] + \
-                   [(px(e[i]), py(lower[i])) for i in range(len(e) - 1, -1, -1)]
-        band_str = " ".join(f"{x:.1f},{y:.1f}" for x, y in band_pts)
-        parts.append(f'<polygon points="{band_str}" fill="#1f3a5f" opacity="0.18"/>')
-        line_pts = " ".join(f"{px(ei):.1f},{py(ai):.1f}" for ei, ai in zip(e, att))
-        parts.append(f'<polyline points="{line_pts}" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>')
-        for ei, ai in zip(e, att):
-            parts.append(f'<circle cx="{px(ei):.1f}" cy="{py(ai):.1f}" r="2.6" fill="#1f3a5f"/>')
-        parts.append(f'<line x1="{px(-0.5):.1f}" y1="{iy0}" x2="{px(-0.5):.1f}" y2="{iy0+ih}" stroke="#b9461a" stroke-dasharray="3 3"/>')
+        # Treatment-onset dashed line at -0.5 (between e=-1 and e=0).
+        if x_lo <= -0.5 <= x_hi:
+            parts.append(f'<line x1="{px(-0.5):.1f}" y1="{iy0}" x2="{px(-0.5):.1f}" y2="{iy0+ih}" stroke="#b9461a" stroke-dasharray="3 3"/>')
+        # Whiskers + dots, one per event-time.
+        for ei, ai, lo, hi, sig in zip(e, att, lower, upper, sig_mask):
+            cx = px(ei)
+            cy_pt = py(ai)
+            cy_lo = py(lo)
+            cy_hi = py(hi)
+            opacity = SIG_OPACITY if sig else NS_OPACITY
+            color = SIG_COLOR if sig else NS_COLOR
+            # Vertical whisker
+            parts.append(
+                f'<line x1="{cx:.1f}" y1="{cy_lo:.1f}" x2="{cx:.1f}" y2="{cy_hi:.1f}" '
+                f'stroke="{color}" stroke-width="1.4" opacity="{opacity:.2f}"/>'
+            )
+            # Horizontal caps at top and bottom of whisker
+            parts.append(
+                f'<line x1="{cx-WHISKER_CAP:.1f}" y1="{cy_lo:.1f}" x2="{cx+WHISKER_CAP:.1f}" y2="{cy_lo:.1f}" '
+                f'stroke="{color}" stroke-width="1.2" opacity="{opacity:.2f}"/>'
+            )
+            parts.append(
+                f'<line x1="{cx-WHISKER_CAP:.1f}" y1="{cy_hi:.1f}" x2="{cx+WHISKER_CAP:.1f}" y2="{cy_hi:.1f}" '
+                f'stroke="{color}" stroke-width="1.2" opacity="{opacity:.2f}"/>'
+            )
+            # Point estimate: solid filled circle for significant, hollow for ns.
+            if sig:
+                parts.append(
+                    f'<circle cx="{cx:.1f}" cy="{cy_pt:.1f}" r="{DOT_R}" fill="{color}"/>'
+                )
+            else:
+                parts.append(
+                    f'<circle cx="{cx:.1f}" cy="{cy_pt:.1f}" r="{DOT_R}" fill="white" '
+                    f'stroke="{color}" stroke-width="1.3" opacity="{opacity:.2f}"/>'
+                )
+        # Axes.
         parts.append(f'<line x1="{ix0}" y1="{iy0+ih}" x2="{ix0+iw}" y2="{iy0+ih}" stroke="#444"/>')
         parts.append(f'<line x1="{ix0}" y1="{iy0}" x2="{ix0}" y2="{iy0+ih}" stroke="#444"/>')
         for ti in sorted(set(int(v) for v in e)):
-            x = px(ti)
-            parts.append(f'<line x1="{x:.1f}" y1="{iy0+ih}" x2="{x:.1f}" y2="{iy0+ih+3}" stroke="#444"/>')
-            parts.append(f'<text x="{x:.1f}" y="{iy0+ih+15}" text-anchor="middle" fill="#444">{ti}</text>')
+            xv = px(ti)
+            parts.append(f'<line x1="{xv:.1f}" y1="{iy0+ih}" x2="{xv:.1f}" y2="{iy0+ih+3}" stroke="#444"/>')
+            parts.append(f'<text x="{xv:.1f}" y="{iy0+ih+15}" text-anchor="middle" fill="#444">{ti}</text>')
         for k in range(5):
             v = y_lo + (y_hi - y_lo) * k / 4
-            y = py(v)
-            parts.append(f'<line x1="{ix0-3}" y1="{y:.1f}" x2="{ix0}" y2="{y:.1f}" stroke="#444"/>')
-            parts.append(f'<text x="{ix0-6}" y="{y+3:.1f}" text-anchor="end" fill="#444">{v:.2g}</text>')
+            yv = py(v)
+            parts.append(f'<line x1="{ix0-3}" y1="{yv:.1f}" x2="{ix0}" y2="{yv:.1f}" stroke="#444"/>')
+            parts.append(f'<text x="{ix0-6}" y="{yv+3:.1f}" text-anchor="end" fill="#444">{v:.2g}</text>')
         parts.append(f'<text x="{ix0+iw/2}" y="{iy0+ih+34}" text-anchor="middle" fill="#444">Event time (years from adoption)</text>')
         parts.append(f'<text x="{x0+12}" y="{iy0+ih/2}" text-anchor="middle" fill="#444" transform="rotate(-90 {x0+12} {iy0+ih/2})">ATT (per 100k)</text>')
-    parts.append(f'<text x="{FIG_W-15}" y="{FIG_H-12}" text-anchor="end" fill="#888" font-size="10">Shaded band: pointwise 95% CI from cluster bootstrap. Vertical dashed line marks the year before adoption.</text>')
+    parts.append(
+        f'<text x="{FIG_W-15}" y="{FIG_H-12}" text-anchor="end" fill="#888" font-size="10">'
+        'Whiskers: pointwise 95% CI from cluster bootstrap. Solid dot = significant at 5%; hollow dot = not significant. '
+        'Vertical dashed line marks the year before adoption.</text>'
+    )
     parts.append("</svg>")
     path.write_text("\n".join(parts))

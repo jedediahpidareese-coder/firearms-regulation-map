@@ -677,15 +677,35 @@ def plot_event_study_svg(es_df: pd.DataFrame, path: Path,
         def py(v): return iy0 + ih - (v - y_lo) / (y_hi - y_lo) * ih
         if y_lo <= 0 <= y_hi:
             parts.append(f'<line x1="{ix0}" y1="{py(0)}" x2="{ix0+iw}" y2="{py(0)}" stroke="#aaaaaa" stroke-width="0.7"/>')
-        band_pts = [(px(e[i]), py(upper[i])) for i in range(len(e))] + \
-                   [(px(e[i]), py(lower[i])) for i in range(len(e) - 1, -1, -1)]
-        band_str = " ".join(f"{x:.1f},{y:.1f}" for x, y in band_pts)
-        parts.append(f'<polygon points="{band_str}" fill="#1f3a5f" opacity="0.18"/>')
-        line_pts = " ".join(f"{px(ei):.1f},{py(ai):.1f}" for ei, ai in zip(e, beta))
-        parts.append(f'<polyline points="{line_pts}" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>')
-        for ei, ai in zip(e, beta):
-            parts.append(f'<circle cx="{px(ei):.1f}" cy="{py(ai):.1f}" r="2.6" fill="#1f3a5f"/>')
-        parts.append(f'<line x1="{px(-0.5):.1f}" y1="{iy0}" x2="{px(-0.5):.1f}" y2="{iy0+ih}" stroke="#b9461a" stroke-dasharray="3 3"/>')
+        if x_lo <= -0.5 <= x_hi:
+            parts.append(f'<line x1="{px(-0.5):.1f}" y1="{iy0}" x2="{px(-0.5):.1f}" y2="{iy0+ih}" stroke="#b9461a" stroke-dasharray="3 3"/>')
+        # Dot-and-whisker per event-time. Significant cells (|z|>=1.96)
+        # are solid-filled; non-significant are hollow with reduced opacity.
+        with np.errstate(divide="ignore", invalid="ignore"):
+            z = np.where(se > 0, beta / se, 0.0)
+        sig_mask = np.abs(z) >= 1.96
+        SIG_COLOR = "#1f3a5f"; WHISKER_CAP = 4; DOT_R = 3.2
+        for ei, ai, lo_, hi_, sig in zip(e, beta, lower, upper, sig_mask):
+            cx = px(ei)
+            cy_pt = py(ai); cy_lo = py(lo_); cy_hi = py(hi_)
+            opacity = 1.0 if sig else 0.35
+            parts.append(
+                f'<line x1="{cx:.1f}" y1="{cy_lo:.1f}" x2="{cx:.1f}" y2="{cy_hi:.1f}" '
+                f'stroke="{SIG_COLOR}" stroke-width="1.4" opacity="{opacity:.2f}"/>'
+            )
+            parts.append(
+                f'<line x1="{cx-WHISKER_CAP:.1f}" y1="{cy_lo:.1f}" x2="{cx+WHISKER_CAP:.1f}" y2="{cy_lo:.1f}" '
+                f'stroke="{SIG_COLOR}" stroke-width="1.2" opacity="{opacity:.2f}"/>'
+            )
+            parts.append(
+                f'<line x1="{cx-WHISKER_CAP:.1f}" y1="{cy_hi:.1f}" x2="{cx+WHISKER_CAP:.1f}" y2="{cy_hi:.1f}" '
+                f'stroke="{SIG_COLOR}" stroke-width="1.2" opacity="{opacity:.2f}"/>'
+            )
+            if sig:
+                parts.append(f'<circle cx="{cx:.1f}" cy="{cy_pt:.1f}" r="{DOT_R}" fill="{SIG_COLOR}"/>')
+            else:
+                parts.append(f'<circle cx="{cx:.1f}" cy="{cy_pt:.1f}" r="{DOT_R}" fill="white" '
+                             f'stroke="{SIG_COLOR}" stroke-width="1.3" opacity="{opacity:.2f}"/>')
         parts.append(f'<line x1="{ix0}" y1="{iy0+ih}" x2="{ix0+iw}" y2="{iy0+ih}" stroke="#444"/>')
         parts.append(f'<line x1="{ix0}" y1="{iy0}" x2="{ix0}" y2="{iy0+ih}" stroke="#444"/>')
         for ti in sorted(set(int(v) for v in e)):
@@ -700,7 +720,8 @@ def plot_event_study_svg(es_df: pd.DataFrame, path: Path,
         parts.append(f'<text x="{ix0+iw/2}" y="{iy0+ih+34}" text-anchor="middle" fill="#444">Event time (years from adoption)</text>')
         parts.append(f'<text x="{x0+12}" y="{iy0+ih/2}" text-anchor="middle" fill="#444" transform="rotate(-90 {x0+12} {iy0+ih/2})">Coefficient (per 100k)</text>')
     parts.append(f'<text x="{FIG_W-15}" y="{FIG_H-12}" text-anchor="end" fill="#888" font-size="10">'
-                 'Shaded band: pointwise 95% CI from cluster-robust SE. Vertical dashed line marks the year before adoption.</text>')
+                 'Whiskers: pointwise 95% CI from cluster-robust SE. Solid dot = significant at 5%; hollow dot = not significant. '
+                 'Vertical dashed line marks the year before adoption.</text>')
     parts.append("</svg>")
     path.write_text("\n".join(parts))
 

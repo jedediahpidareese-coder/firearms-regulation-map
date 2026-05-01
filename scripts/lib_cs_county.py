@@ -655,20 +655,30 @@ def plot_event_study_svg_county(es_df, path, spec, outcomes_dict,
             parts.append(
                 f'<line x1="{ix0}" y1="{py(0)}" x2="{ix0+iw}" y2="{py(0)}" '
                 f'stroke="#aaaaaa" stroke-width="0.7"/>')
-        band_pts = [(px(e[i]), py(upper[i])) for i in range(len(e))] + \
-                   [(px(e[i]), py(lower[i])) for i in range(len(e) - 1, -1, -1)]
-        band_str = " ".join(f"{x:.1f},{y:.1f}" for x, y in band_pts)
-        parts.append(
-            f'<polygon points="{band_str}" fill="#1f3a5f" opacity="0.18"/>')
-        line_pts = " ".join(
-            f"{px(ei):.1f},{py(ai):.1f}" for ei, ai in zip(e, att))
-        parts.append(
-            f'<polyline points="{line_pts}" fill="none" '
-            f'stroke="#1f3a5f" stroke-width="1.6"/>')
-        for ei, ai in zip(e, att):
+        # Dot-and-whisker (Grier-Krieger-Munger 2024 / Roth-SA 2023 style):
+        # solid dot for significant cells (|z| >= 1.96), hollow dot for ns,
+        # whiskers spanning the 95% CI.
+        with np.errstate(divide="ignore", invalid="ignore"):
+            z = np.where(se > 0, att / se, 0.0)
+        sig_mask = np.abs(z) >= 1.96
+        SIG_COLOR = "#1f3a5f"; WHISKER_CAP = 4; DOT_R = 3.2
+        for ei, ai, lo_, hi_, sig in zip(e, att, lower, upper, sig_mask):
+            cx = px(ei); cy_pt = py(ai); cy_lo = py(lo_); cy_hi = py(hi_)
+            opacity = 1.0 if sig else 0.35
             parts.append(
-                f'<circle cx="{px(ei):.1f}" cy="{py(ai):.1f}" '
-                f'r="2.6" fill="#1f3a5f"/>')
+                f'<line x1="{cx:.1f}" y1="{cy_lo:.1f}" x2="{cx:.1f}" y2="{cy_hi:.1f}" '
+                f'stroke="{SIG_COLOR}" stroke-width="1.4" opacity="{opacity:.2f}"/>')
+            parts.append(
+                f'<line x1="{cx-WHISKER_CAP:.1f}" y1="{cy_lo:.1f}" x2="{cx+WHISKER_CAP:.1f}" y2="{cy_lo:.1f}" '
+                f'stroke="{SIG_COLOR}" stroke-width="1.2" opacity="{opacity:.2f}"/>')
+            parts.append(
+                f'<line x1="{cx-WHISKER_CAP:.1f}" y1="{cy_hi:.1f}" x2="{cx+WHISKER_CAP:.1f}" y2="{cy_hi:.1f}" '
+                f'stroke="{SIG_COLOR}" stroke-width="1.2" opacity="{opacity:.2f}"/>')
+            if sig:
+                parts.append(f'<circle cx="{cx:.1f}" cy="{cy_pt:.1f}" r="{DOT_R}" fill="{SIG_COLOR}"/>')
+            else:
+                parts.append(f'<circle cx="{cx:.1f}" cy="{cy_pt:.1f}" r="{DOT_R}" fill="white" '
+                             f'stroke="{SIG_COLOR}" stroke-width="1.3" opacity="{opacity:.2f}"/>')
         parts.append(
             f'<line x1="{px(-0.5):.1f}" y1="{iy0}" '
             f'x2="{px(-0.5):.1f}" y2="{iy0+ih}" '
