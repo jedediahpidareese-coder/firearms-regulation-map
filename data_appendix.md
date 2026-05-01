@@ -647,7 +647,89 @@ Kaplan are:
    Manhattan, the National Mall, or Disneyland-area Orange County
    (CA). We disclose this rather than try to adjust.
 
-### 2.12 Summary of county-panel manipulations
+### 2.12 County population centroids and distance to nearest other-state county (geometry layer for spatial RDD)
+
+**What this is.** A small companion file
+([`data/processed/county_border_distances.csv`](data/processed/county_border_distances.csv))
+that gives every county its 2020 population centroid (latitude/longitude) and
+the great-circle distance, in kilometers, from that centroid to the centroid
+of the closest county in a different state. This is the foundation for a
+planned spatial regression-discontinuity analysis on state borders: the idea
+is that two counties on opposite sides of a state line are demographically and
+economically similar, so any sharp jump in outcomes (homicide, suicide,
+mortality) across the border can plausibly be attributed to the difference in
+the firearm-policy environment.
+
+**Source.** The U.S. Census Bureau publishes "Centers of Population", which
+are the population-weighted mean centroids of every county at each decennial
+census. We use the 2020 file:
+[CenPop2020_Mean_CO.txt](https://www2.census.gov/geo/docs/reference/cenpop2020/county/CenPop2020_Mean_CO.txt)
+(~171 KB, 3,221 rows, columns STATEFP, COUNTYFP, COUNAME, STNAME, POPULATION,
+LATITUDE, LONGITUDE). Cached locally at
+[`data/county/CenPop2020_Mean_CO.txt`](data/county/CenPop2020_Mean_CO.txt).
+
+**Why population centroids and not geometric centroids.** A county like San
+Bernardino, CA has its geometric centroid in the Mojave Desert, but virtually
+all its residents live in the southwestern corner near LA. A geometric
+centroid would put the county "far" from the LA-area state-border environment
+its residents actually experience; the population centroid puts it where
+people live. Census uses the same definition the Bureau publishes for the
+historical migration of the U.S. national mean population center.
+
+**What we did** ([`scripts/build_county_border_distances.py`](scripts/build_county_border_distances.py)):
+
+1. Concatenated 2-digit STATEFP and 3-digit COUNTYFP into the same 5-digit
+   `county_fips` used elsewhere in the project.
+2. Computed the full pairwise great-circle distance matrix with the Haversine
+   formula (Earth radius 6,371 km), vectorized in numpy. ~10 million pairs;
+   runs in under a second.
+3. For each county, masked all same-state counties and took the argmin of the
+   remaining row to find the nearest other-state county and its distance.
+
+**Output columns.**
+
+| Column | Meaning |
+|---|---|
+| `county_fips` | 5-digit FIPS, matches the rest of the county panel |
+| `state_fips` | 2-digit state FIPS |
+| `lat`, `lon` | 2020 population centroid in decimal degrees |
+| `nearest_other_state_county_fips` | 5-digit FIPS of the nearest county whose state differs |
+| `nearest_other_state_fips` | 2-digit state FIPS of that county |
+| `distance_to_nearest_other_state_km` | great-circle distance in km |
+
+**Diagnostics on output.** 3,221 county records (50 states + DC + 78 Puerto
+Rico municipios). 907 counties (28%) sit within 50 km of an other-state
+centroid; 1,962 (61%) within 100 km; 2,822 (88%) within 200 km. Median
+distance to nearest other-state centroid is 81.2 km. The five most isolated
+records are all Hawaii counties (~3,600–3,770 km to the nearest mainland or
+Aleutian centroid), as expected.
+
+**Spot checks.**
+
+- Manhattan, NY (36061) → Hudson County, NJ (34017): 8.8 km. Across the river.
+- District of Columbia (11001) → Arlington County, VA (51013): 8.4 km. Across the Potomac.
+- Cook County, IL (17031) → Lake County, IN (18089): 48.6 km.
+- Honolulu, HI (15003) → Aleutians West, AK (02016): 3,732 km. Closest US "state".
+- Adjuntas, PR (72001) → Miami-Dade, FL (12086): 1,632 km.
+
+**Caveats.**
+
+- Centroids are 2020-vintage and held fixed across the panel years; population
+  movement during 2009–2024 is not reflected. For RDD purposes the centroid is
+  a stable geographic anchor, not a dynamic measure.
+- "Nearest other-state county" is the closest centroid in any U.S. state, not
+  necessarily a contiguous neighbor. For Hawaii or Puerto Rico the nearest
+  other-state record is across an ocean and not a meaningful RDD comparison;
+  RDD specifications should restrict to small distance bands (e.g., < 50 km
+  or < 100 km), which automatically excludes those entries.
+- Connecticut counties were not in the 2009–2024 main panel (Section 2.7), but
+  they are present here, anchored to their 2020 (post-reorganization)
+  centroids. Use this file for them only if you have a separate CT bridge.
+- This file does **not** itself implement an RDD specification. It is the
+  geometry layer the per-policy border samples and sharp-RDD models will be
+  built on top of in a follow-up pass.
+
+### 2.13 Summary of county-panel manipulations
 
 | Source | What we changed | Why |
 |---|---|---|
@@ -806,6 +888,7 @@ state-level firearm mortality joined down to every county
 | 2026-04-30 | Phase 4 | Added county-mode to the public website. New scripts/build_website_county_data.py emits 16 per-year JSON files (~2 MB each) plus county_meta and county_manifest. Frontend (docs/js/app.js) refactored around a `mode` abstraction so state and county share one render pipeline. Year and selected variable carry across mode switches when compatible. About page now lists 40 state vars + 23 county vars in separate sections. |
 | 2026-04-30 | County names | Emit docs/data/county_names.json (107 KB, 3,133 entries) so the website hover sidebar and tooltip show "Los Angeles County, California" instead of the bare FIPS "06037". Renamed counties land on canonical modern names (Kusilvak, not Wade Hampton; Oglala Lakota, not Shannon). |
 | 2026-04-30 | Phase 2b investigation | Worked through every public path for county-level firearm mortality. NCHS public-use files have had ALL geographic identifiers stripped since 2005 (CDC policy). The CDC WONDER API does not allow location grouping for mortality (per CDC's own API docs). Only NCHS restricted-use files (IRB-approved DUA, weeks/months to obtain) have county detail without suppression. Section 2.10 now records this with citations; the state firearm mortality joined down to every county (Phase 2a) is the operational solution. |
+| 2026-04-30 | Spatial RDD geometry | Built the geometry layer for the planned spatial regression-discontinuity work on state borders: `data/processed/county_border_distances.csv` (3,221 rows). For every county we attach its 2020 population centroid (Census CenPop2020) and the great-circle distance to the closest county in a different state. Section 2.12 documents source, method, and per-county spot checks. 907 counties sit within 50 km of an other-state centroid; 1,962 within 100 km; 2,822 within 200 km. This file is the foundation for per-policy border samples and sharp-RDD specifications, which are a separate follow-up pass. |
 
 This file is updated at the end of every meaningful change. The most
 recent commits in <https://github.com/jedediahpidareese-coder/firearms-regulation-map/commits/main>
