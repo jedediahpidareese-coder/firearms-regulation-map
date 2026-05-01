@@ -1,0 +1,404 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 1200" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif" font-size="11">
+<text x="410.0" y="22" text-anchor="middle" font-size="14" font-weight="600">Callaway-Sant'Anna ATT by event time, county grain (OR) -- permitless carry (law_permitconcealed)</text>
+<rect x="15" y="40" width="380" height="260" fill="#fafaf7" stroke="#e2e2dc"/>
+<text x="205.0" y="58" text-anchor="middle" font-weight="600">Violent crime rate (per 100k, county UCR)</text>
+<line x1="75" y1="145.68725919242547" x2="377" y2="145.68725919242547" stroke="#aaaaaa" stroke-width="0.7"/>
+<polygon points="88.7,107.1 116.2,90.0 143.6,117.9 171.1,133.1 226.0,129.9 253.5,132.3 280.9,155.0 308.4,169.7 335.8,131.4 363.3,129.7 363.3,246.0 335.8,234.0 308.4,250.0 280.9,225.1 253.5,200.2 226.0,181.4 171.1,208.6 143.6,208.7 116.2,184.8 88.7,189.2" fill="#1f3a5f" opacity="0.18"/>
+<polyline points="88.7,148.1 116.2,137.4 143.6,163.3 171.1,170.9 226.0,155.7 253.5,166.3 280.9,190.0 308.4,209.9 335.8,182.7 363.3,187.9" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>
+<circle cx="88.7" cy="148.1" r="2.6" fill="#1f3a5f"/>
+<circle cx="116.2" cy="137.4" r="2.6" fill="#1f3a5f"/>
+<circle cx="143.6" cy="163.3" r="2.6" fill="#1f3a5f"/>
+<circle cx="171.1" cy="170.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="226.0" cy="155.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="253.5" cy="166.3" r="2.6" fill="#1f3a5f"/>
+<circle cx="280.9" cy="190.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="308.4" cy="209.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="335.8" cy="182.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="363.3" cy="187.9" r="2.6" fill="#1f3a5f"/>
+<line x1="212.3" y1="90" x2="212.3" y2="250" stroke="#b9461a" stroke-dasharray="3 3"/>
+<line x1="75" y1="250" x2="377" y2="250" stroke="#444"/>
+<line x1="75" y1="90" x2="75" y2="250" stroke="#444"/>
+<line x1="88.7" y1="250" x2="88.7" y2="253" stroke="#444"/>
+<text x="88.7" y="265" text-anchor="middle" fill="#444">-5</text>
+<line x1="116.2" y1="250" x2="116.2" y2="253" stroke="#444"/>
+<text x="116.2" y="265" text-anchor="middle" fill="#444">-4</text>
+<line x1="143.6" y1="250" x2="143.6" y2="253" stroke="#444"/>
+<text x="143.6" y="265" text-anchor="middle" fill="#444">-3</text>
+<line x1="171.1" y1="250" x2="171.1" y2="253" stroke="#444"/>
+<text x="171.1" y="265" text-anchor="middle" fill="#444">-2</text>
+<line x1="226.0" y1="250" x2="226.0" y2="253" stroke="#444"/>
+<text x="226.0" y="265" text-anchor="middle" fill="#444">0</text>
+<line x1="253.5" y1="250" x2="253.5" y2="253" stroke="#444"/>
+<text x="253.5" y="265" text-anchor="middle" fill="#444">1</text>
+<line x1="280.9" y1="250" x2="280.9" y2="253" stroke="#444"/>
+<text x="280.9" y="265" text-anchor="middle" fill="#444">2</text>
+<line x1="308.4" y1="250" x2="308.4" y2="253" stroke="#444"/>
+<text x="308.4" y="265" text-anchor="middle" fill="#444">3</text>
+<line x1="335.8" y1="250" x2="335.8" y2="253" stroke="#444"/>
+<text x="335.8" y="265" text-anchor="middle" fill="#444">4</text>
+<line x1="363.3" y1="250" x2="363.3" y2="253" stroke="#444"/>
+<text x="363.3" y="265" text-anchor="middle" fill="#444">5</text>
+<line x1="72" y1="250.0" x2="75" y2="250.0" stroke="#444"/>
+<text x="69" y="253.0" text-anchor="end" fill="#444">-46</text>
+<line x1="72" y1="210.0" x2="75" y2="210.0" stroke="#444"/>
+<text x="69" y="213.0" text-anchor="end" fill="#444">-29</text>
+<line x1="72" y1="170.0" x2="75" y2="170.0" stroke="#444"/>
+<text x="69" y="173.0" text-anchor="end" fill="#444">-11</text>
+<line x1="72" y1="130.0" x2="75" y2="130.0" stroke="#444"/>
+<text x="69" y="133.0" text-anchor="end" fill="#444">7</text>
+<line x1="72" y1="90.0" x2="75" y2="90.0" stroke="#444"/>
+<text x="69" y="93.0" text-anchor="end" fill="#444">25</text>
+<text x="226.0" y="284" text-anchor="middle" fill="#444">Event time (years from state-level adoption)</text>
+<text x="27" y="170.0" text-anchor="middle" fill="#444" transform="rotate(-90 27 170.0)">ATT (per 100k)</text>
+<rect x="425" y="40" width="380" height="260" fill="#fafaf7" stroke="#e2e2dc"/>
+<text x="615.0" y="58" text-anchor="middle" font-weight="600">Murder rate (per 100k, county UCR)</text>
+<line x1="485" y1="144.14881656178466" x2="787" y2="144.14881656178466" stroke="#aaaaaa" stroke-width="0.7"/>
+<polygon points="498.7,109.4 526.2,90.0 553.6,118.8 581.1,125.2 636.0,134.4 663.5,138.6 690.9,122.7 718.4,124.0 745.8,113.9 773.3,105.4 773.3,154.5 745.8,163.3 718.4,166.9 690.9,156.7 663.5,164.3 636.0,160.0 581.1,196.2 553.6,151.9 526.2,250.0 498.7,203.7" fill="#1f3a5f" opacity="0.18"/>
+<polyline points="498.7,156.5 526.2,170.0 553.6,135.4 581.1,160.7 636.0,147.2 663.5,151.5 690.9,139.7 718.4,145.5 745.8,138.6 773.3,130.0" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>
+<circle cx="498.7" cy="156.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="526.2" cy="170.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="553.6" cy="135.4" r="2.6" fill="#1f3a5f"/>
+<circle cx="581.1" cy="160.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="636.0" cy="147.2" r="2.6" fill="#1f3a5f"/>
+<circle cx="663.5" cy="151.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="690.9" cy="139.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="718.4" cy="145.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="745.8" cy="138.6" r="2.6" fill="#1f3a5f"/>
+<circle cx="773.3" cy="130.0" r="2.6" fill="#1f3a5f"/>
+<line x1="622.3" y1="90" x2="622.3" y2="250" stroke="#b9461a" stroke-dasharray="3 3"/>
+<line x1="485" y1="250" x2="787" y2="250" stroke="#444"/>
+<line x1="485" y1="90" x2="485" y2="250" stroke="#444"/>
+<line x1="498.7" y1="250" x2="498.7" y2="253" stroke="#444"/>
+<text x="498.7" y="265" text-anchor="middle" fill="#444">-5</text>
+<line x1="526.2" y1="250" x2="526.2" y2="253" stroke="#444"/>
+<text x="526.2" y="265" text-anchor="middle" fill="#444">-4</text>
+<line x1="553.6" y1="250" x2="553.6" y2="253" stroke="#444"/>
+<text x="553.6" y="265" text-anchor="middle" fill="#444">-3</text>
+<line x1="581.1" y1="250" x2="581.1" y2="253" stroke="#444"/>
+<text x="581.1" y="265" text-anchor="middle" fill="#444">-2</text>
+<line x1="636.0" y1="250" x2="636.0" y2="253" stroke="#444"/>
+<text x="636.0" y="265" text-anchor="middle" fill="#444">0</text>
+<line x1="663.5" y1="250" x2="663.5" y2="253" stroke="#444"/>
+<text x="663.5" y="265" text-anchor="middle" fill="#444">1</text>
+<line x1="690.9" y1="250" x2="690.9" y2="253" stroke="#444"/>
+<text x="690.9" y="265" text-anchor="middle" fill="#444">2</text>
+<line x1="718.4" y1="250" x2="718.4" y2="253" stroke="#444"/>
+<text x="718.4" y="265" text-anchor="middle" fill="#444">3</text>
+<line x1="745.8" y1="250" x2="745.8" y2="253" stroke="#444"/>
+<text x="745.8" y="265" text-anchor="middle" fill="#444">4</text>
+<line x1="773.3" y1="250" x2="773.3" y2="253" stroke="#444"/>
+<text x="773.3" y="265" text-anchor="middle" fill="#444">5</text>
+<line x1="482" y1="250.0" x2="485" y2="250.0" stroke="#444"/>
+<text x="479" y="253.0" text-anchor="end" fill="#444">-3.4</text>
+<line x1="482" y1="210.0" x2="485" y2="210.0" stroke="#444"/>
+<text x="479" y="213.0" text-anchor="end" fill="#444">-2.1</text>
+<line x1="482" y1="170.0" x2="485" y2="170.0" stroke="#444"/>
+<text x="479" y="173.0" text-anchor="end" fill="#444">-0.84</text>
+<line x1="482" y1="130.0" x2="485" y2="130.0" stroke="#444"/>
+<text x="479" y="133.0" text-anchor="end" fill="#444">0.46</text>
+<line x1="482" y1="90.0" x2="485" y2="90.0" stroke="#444"/>
+<text x="479" y="93.0" text-anchor="end" fill="#444">1.8</text>
+<text x="636.0" y="284" text-anchor="middle" fill="#444">Event time (years from state-level adoption)</text>
+<text x="437" y="170.0" text-anchor="middle" fill="#444" transform="rotate(-90 437 170.0)">ATT (per 100k)</text>
+<rect x="15" y="330" width="380" height="260" fill="#fafaf7" stroke="#e2e2dc"/>
+<text x="205.0" y="348" text-anchor="middle" font-weight="600">Property crime rate (per 100k, county UCR)</text>
+<line x1="75" y1="462.7850162745981" x2="377" y2="462.7850162745981" stroke="#aaaaaa" stroke-width="0.7"/>
+<polygon points="88.7,384.1 116.2,391.4 143.6,404.9 171.1,449.6 226.0,432.0 253.5,422.7 280.9,406.3 308.4,402.4 335.8,381.2 363.3,380.0 363.3,491.3 335.8,490.8 308.4,540.0 280.9,510.1 253.5,497.5 226.0,487.7 171.1,519.5 143.6,506.9 116.2,502.6 88.7,474.9" fill="#1f3a5f" opacity="0.18"/>
+<polyline points="88.7,429.5 116.2,447.0 143.6,455.9 171.1,484.5 226.0,459.9 253.5,460.1 280.9,458.2 308.4,471.2 335.8,436.0 363.3,435.7" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>
+<circle cx="88.7" cy="429.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="116.2" cy="447.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="143.6" cy="455.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="171.1" cy="484.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="226.0" cy="459.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="253.5" cy="460.1" r="2.6" fill="#1f3a5f"/>
+<circle cx="280.9" cy="458.2" r="2.6" fill="#1f3a5f"/>
+<circle cx="308.4" cy="471.2" r="2.6" fill="#1f3a5f"/>
+<circle cx="335.8" cy="436.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="363.3" cy="435.7" r="2.6" fill="#1f3a5f"/>
+<line x1="212.3" y1="380" x2="212.3" y2="540" stroke="#b9461a" stroke-dasharray="3 3"/>
+<line x1="75" y1="540" x2="377" y2="540" stroke="#444"/>
+<line x1="75" y1="380" x2="75" y2="540" stroke="#444"/>
+<line x1="88.7" y1="540" x2="88.7" y2="543" stroke="#444"/>
+<text x="88.7" y="555" text-anchor="middle" fill="#444">-5</text>
+<line x1="116.2" y1="540" x2="116.2" y2="543" stroke="#444"/>
+<text x="116.2" y="555" text-anchor="middle" fill="#444">-4</text>
+<line x1="143.6" y1="540" x2="143.6" y2="543" stroke="#444"/>
+<text x="143.6" y="555" text-anchor="middle" fill="#444">-3</text>
+<line x1="171.1" y1="540" x2="171.1" y2="543" stroke="#444"/>
+<text x="171.1" y="555" text-anchor="middle" fill="#444">-2</text>
+<line x1="226.0" y1="540" x2="226.0" y2="543" stroke="#444"/>
+<text x="226.0" y="555" text-anchor="middle" fill="#444">0</text>
+<line x1="253.5" y1="540" x2="253.5" y2="543" stroke="#444"/>
+<text x="253.5" y="555" text-anchor="middle" fill="#444">1</text>
+<line x1="280.9" y1="540" x2="280.9" y2="543" stroke="#444"/>
+<text x="280.9" y="555" text-anchor="middle" fill="#444">2</text>
+<line x1="308.4" y1="540" x2="308.4" y2="543" stroke="#444"/>
+<text x="308.4" y="555" text-anchor="middle" fill="#444">3</text>
+<line x1="335.8" y1="540" x2="335.8" y2="543" stroke="#444"/>
+<text x="335.8" y="555" text-anchor="middle" fill="#444">4</text>
+<line x1="363.3" y1="540" x2="363.3" y2="543" stroke="#444"/>
+<text x="363.3" y="555" text-anchor="middle" fill="#444">5</text>
+<line x1="72" y1="540.0" x2="75" y2="540.0" stroke="#444"/>
+<text x="69" y="543.0" text-anchor="end" fill="#444">-1.3e+02</text>
+<line x1="72" y1="500.0" x2="75" y2="500.0" stroke="#444"/>
+<text x="69" y="503.0" text-anchor="end" fill="#444">-63</text>
+<line x1="72" y1="460.0" x2="75" y2="460.0" stroke="#444"/>
+<text x="69" y="463.0" text-anchor="end" fill="#444">4.7</text>
+<line x1="72" y1="420.0" x2="75" y2="420.0" stroke="#444"/>
+<text x="69" y="423.0" text-anchor="end" fill="#444">72</text>
+<line x1="72" y1="380.0" x2="75" y2="380.0" stroke="#444"/>
+<text x="69" y="383.0" text-anchor="end" fill="#444">1.4e+02</text>
+<text x="226.0" y="574" text-anchor="middle" fill="#444">Event time (years from state-level adoption)</text>
+<text x="27" y="460.0" text-anchor="middle" fill="#444" transform="rotate(-90 27 460.0)">ATT (per 100k)</text>
+<rect x="425" y="330" width="380" height="260" fill="#fafaf7" stroke="#e2e2dc"/>
+<text x="615.0" y="348" text-anchor="middle" font-weight="600">Burglary rate (per 100k, county UCR)</text>
+<line x1="485" y1="463.1777908409123" x2="787" y2="463.1777908409123" stroke="#aaaaaa" stroke-width="0.7"/>
+<polygon points="498.7,382.7 526.2,400.5 553.6,443.6 581.1,449.2 636.0,430.5 663.5,428.4 690.9,436.4 718.4,441.7 745.8,393.4 773.3,380.0 773.3,513.0 745.8,520.5 718.4,540.0 690.9,510.4 663.5,490.6 636.0,478.0 581.1,503.7 553.6,516.5 526.2,502.0 498.7,491.8" fill="#1f3a5f" opacity="0.18"/>
+<polyline points="498.7,437.2 526.2,451.3 553.6,480.0 581.1,476.4 636.0,454.3 663.5,459.5 690.9,473.4 718.4,490.8 745.8,456.9 773.3,446.5" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>
+<circle cx="498.7" cy="437.2" r="2.6" fill="#1f3a5f"/>
+<circle cx="526.2" cy="451.3" r="2.6" fill="#1f3a5f"/>
+<circle cx="553.6" cy="480.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="581.1" cy="476.4" r="2.6" fill="#1f3a5f"/>
+<circle cx="636.0" cy="454.3" r="2.6" fill="#1f3a5f"/>
+<circle cx="663.5" cy="459.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="690.9" cy="473.4" r="2.6" fill="#1f3a5f"/>
+<circle cx="718.4" cy="490.8" r="2.6" fill="#1f3a5f"/>
+<circle cx="745.8" cy="456.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="773.3" cy="446.5" r="2.6" fill="#1f3a5f"/>
+<line x1="622.3" y1="380" x2="622.3" y2="540" stroke="#b9461a" stroke-dasharray="3 3"/>
+<line x1="485" y1="540" x2="787" y2="540" stroke="#444"/>
+<line x1="485" y1="380" x2="485" y2="540" stroke="#444"/>
+<line x1="498.7" y1="540" x2="498.7" y2="543" stroke="#444"/>
+<text x="498.7" y="555" text-anchor="middle" fill="#444">-5</text>
+<line x1="526.2" y1="540" x2="526.2" y2="543" stroke="#444"/>
+<text x="526.2" y="555" text-anchor="middle" fill="#444">-4</text>
+<line x1="553.6" y1="540" x2="553.6" y2="543" stroke="#444"/>
+<text x="553.6" y="555" text-anchor="middle" fill="#444">-3</text>
+<line x1="581.1" y1="540" x2="581.1" y2="543" stroke="#444"/>
+<text x="581.1" y="555" text-anchor="middle" fill="#444">-2</text>
+<line x1="636.0" y1="540" x2="636.0" y2="543" stroke="#444"/>
+<text x="636.0" y="555" text-anchor="middle" fill="#444">0</text>
+<line x1="663.5" y1="540" x2="663.5" y2="543" stroke="#444"/>
+<text x="663.5" y="555" text-anchor="middle" fill="#444">1</text>
+<line x1="690.9" y1="540" x2="690.9" y2="543" stroke="#444"/>
+<text x="690.9" y="555" text-anchor="middle" fill="#444">2</text>
+<line x1="718.4" y1="540" x2="718.4" y2="543" stroke="#444"/>
+<text x="718.4" y="555" text-anchor="middle" fill="#444">3</text>
+<line x1="745.8" y1="540" x2="745.8" y2="543" stroke="#444"/>
+<text x="745.8" y="555" text-anchor="middle" fill="#444">4</text>
+<line x1="773.3" y1="540" x2="773.3" y2="543" stroke="#444"/>
+<text x="773.3" y="555" text-anchor="middle" fill="#444">5</text>
+<line x1="482" y1="540.0" x2="485" y2="540.0" stroke="#444"/>
+<text x="479" y="543.0" text-anchor="end" fill="#444">-40</text>
+<line x1="482" y1="500.0" x2="485" y2="500.0" stroke="#444"/>
+<text x="479" y="503.0" text-anchor="end" fill="#444">-19</text>
+<line x1="482" y1="460.0" x2="485" y2="460.0" stroke="#444"/>
+<text x="479" y="463.0" text-anchor="end" fill="#444">1.7</text>
+<line x1="482" y1="420.0" x2="485" y2="420.0" stroke="#444"/>
+<text x="479" y="423.0" text-anchor="end" fill="#444">23</text>
+<line x1="482" y1="380.0" x2="485" y2="380.0" stroke="#444"/>
+<text x="479" y="383.0" text-anchor="end" fill="#444">43</text>
+<text x="636.0" y="574" text-anchor="middle" fill="#444">Event time (years from state-level adoption)</text>
+<text x="437" y="460.0" text-anchor="middle" fill="#444" transform="rotate(-90 437 460.0)">ATT (per 100k)</text>
+<rect x="15" y="620" width="380" height="260" fill="#fafaf7" stroke="#e2e2dc"/>
+<text x="205.0" y="638" text-anchor="middle" font-weight="600">Motor vehicle theft rate (per 100k, county UCR) [placebo]</text>
+<line x1="75" y1="720.9102270148609" x2="377" y2="720.9102270148609" stroke="#aaaaaa" stroke-width="0.7"/>
+<polygon points="88.7,674.1 116.2,670.0 143.6,681.0 171.1,698.2 226.0,702.2 253.5,696.3 280.9,715.3 308.4,708.0 335.8,684.8 363.3,697.6 363.3,830.0 335.8,808.6 308.4,812.6 280.9,793.6 253.5,765.2 226.0,788.3 171.1,771.4 143.6,760.1 116.2,775.0 88.7,743.4" fill="#1f3a5f" opacity="0.18"/>
+<polyline points="88.7,708.8 116.2,722.5 143.6,720.6 171.1,734.8 226.0,745.2 253.5,730.8 280.9,754.5 308.4,760.3 335.8,746.7 363.3,763.8" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>
+<circle cx="88.7" cy="708.8" r="2.6" fill="#1f3a5f"/>
+<circle cx="116.2" cy="722.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="143.6" cy="720.6" r="2.6" fill="#1f3a5f"/>
+<circle cx="171.1" cy="734.8" r="2.6" fill="#1f3a5f"/>
+<circle cx="226.0" cy="745.2" r="2.6" fill="#1f3a5f"/>
+<circle cx="253.5" cy="730.8" r="2.6" fill="#1f3a5f"/>
+<circle cx="280.9" cy="754.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="308.4" cy="760.3" r="2.6" fill="#1f3a5f"/>
+<circle cx="335.8" cy="746.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="363.3" cy="763.8" r="2.6" fill="#1f3a5f"/>
+<line x1="212.3" y1="670" x2="212.3" y2="830" stroke="#b9461a" stroke-dasharray="3 3"/>
+<line x1="75" y1="830" x2="377" y2="830" stroke="#444"/>
+<line x1="75" y1="670" x2="75" y2="830" stroke="#444"/>
+<line x1="88.7" y1="830" x2="88.7" y2="833" stroke="#444"/>
+<text x="88.7" y="845" text-anchor="middle" fill="#444">-5</text>
+<line x1="116.2" y1="830" x2="116.2" y2="833" stroke="#444"/>
+<text x="116.2" y="845" text-anchor="middle" fill="#444">-4</text>
+<line x1="143.6" y1="830" x2="143.6" y2="833" stroke="#444"/>
+<text x="143.6" y="845" text-anchor="middle" fill="#444">-3</text>
+<line x1="171.1" y1="830" x2="171.1" y2="833" stroke="#444"/>
+<text x="171.1" y="845" text-anchor="middle" fill="#444">-2</text>
+<line x1="226.0" y1="830" x2="226.0" y2="833" stroke="#444"/>
+<text x="226.0" y="845" text-anchor="middle" fill="#444">0</text>
+<line x1="253.5" y1="830" x2="253.5" y2="833" stroke="#444"/>
+<text x="253.5" y="845" text-anchor="middle" fill="#444">1</text>
+<line x1="280.9" y1="830" x2="280.9" y2="833" stroke="#444"/>
+<text x="280.9" y="845" text-anchor="middle" fill="#444">2</text>
+<line x1="308.4" y1="830" x2="308.4" y2="833" stroke="#444"/>
+<text x="308.4" y="845" text-anchor="middle" fill="#444">3</text>
+<line x1="335.8" y1="830" x2="335.8" y2="833" stroke="#444"/>
+<text x="335.8" y="845" text-anchor="middle" fill="#444">4</text>
+<line x1="363.3" y1="830" x2="363.3" y2="833" stroke="#444"/>
+<text x="363.3" y="845" text-anchor="middle" fill="#444">5</text>
+<line x1="72" y1="830.0" x2="75" y2="830.0" stroke="#444"/>
+<text x="69" y="833.0" text-anchor="end" fill="#444">-32</text>
+<line x1="72" y1="790.0" x2="75" y2="790.0" stroke="#444"/>
+<text x="69" y="793.0" text-anchor="end" fill="#444">-20</text>
+<line x1="72" y1="750.0" x2="75" y2="750.0" stroke="#444"/>
+<text x="69" y="753.0" text-anchor="end" fill="#444">-8.5</text>
+<line x1="72" y1="710.0" x2="75" y2="710.0" stroke="#444"/>
+<text x="69" y="713.0" text-anchor="end" fill="#444">3.2</text>
+<line x1="72" y1="670.0" x2="75" y2="670.0" stroke="#444"/>
+<text x="69" y="673.0" text-anchor="end" fill="#444">15</text>
+<text x="226.0" y="864" text-anchor="middle" fill="#444">Event time (years from state-level adoption)</text>
+<text x="27" y="750.0" text-anchor="middle" fill="#444" transform="rotate(-90 27 750.0)">ATT (per 100k)</text>
+<rect x="425" y="620" width="380" height="260" fill="#fafaf7" stroke="#e2e2dc"/>
+<text x="615.0" y="638" text-anchor="middle" font-weight="600">State firearm suicide rate (joined down) [no county variation]</text>
+<line x1="485" y1="785.5490765526114" x2="787" y2="785.5490765526114" stroke="#aaaaaa" stroke-width="0.7"/>
+<polygon points="498.7,794.4 526.2,761.0 553.6,762.7 581.1,788.2 636.0,744.6 663.5,740.8 690.9,722.1 718.4,744.3 745.8,688.1 773.3,670.0 773.3,750.2 745.8,767.7 718.4,790.5 690.9,763.9 663.5,786.3 636.0,797.4 581.1,824.7 553.6,811.0 526.2,811.1 498.7,830.0" fill="#1f3a5f" opacity="0.18"/>
+<polyline points="498.7,812.2 526.2,786.0 553.6,786.8 581.1,806.4 636.0,771.0 663.5,763.6 690.9,743.0 718.4,767.4 745.8,727.9 773.3,710.1" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>
+<circle cx="498.7" cy="812.2" r="2.6" fill="#1f3a5f"/>
+<circle cx="526.2" cy="786.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="553.6" cy="786.8" r="2.6" fill="#1f3a5f"/>
+<circle cx="581.1" cy="806.4" r="2.6" fill="#1f3a5f"/>
+<circle cx="636.0" cy="771.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="663.5" cy="763.6" r="2.6" fill="#1f3a5f"/>
+<circle cx="690.9" cy="743.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="718.4" cy="767.4" r="2.6" fill="#1f3a5f"/>
+<circle cx="745.8" cy="727.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="773.3" cy="710.1" r="2.6" fill="#1f3a5f"/>
+<line x1="622.3" y1="670" x2="622.3" y2="830" stroke="#b9461a" stroke-dasharray="3 3"/>
+<line x1="485" y1="830" x2="787" y2="830" stroke="#444"/>
+<line x1="485" y1="670" x2="485" y2="830" stroke="#444"/>
+<line x1="498.7" y1="830" x2="498.7" y2="833" stroke="#444"/>
+<text x="498.7" y="845" text-anchor="middle" fill="#444">-5</text>
+<line x1="526.2" y1="830" x2="526.2" y2="833" stroke="#444"/>
+<text x="526.2" y="845" text-anchor="middle" fill="#444">-4</text>
+<line x1="553.6" y1="830" x2="553.6" y2="833" stroke="#444"/>
+<text x="553.6" y="845" text-anchor="middle" fill="#444">-3</text>
+<line x1="581.1" y1="830" x2="581.1" y2="833" stroke="#444"/>
+<text x="581.1" y="845" text-anchor="middle" fill="#444">-2</text>
+<line x1="636.0" y1="830" x2="636.0" y2="833" stroke="#444"/>
+<text x="636.0" y="845" text-anchor="middle" fill="#444">0</text>
+<line x1="663.5" y1="830" x2="663.5" y2="833" stroke="#444"/>
+<text x="663.5" y="845" text-anchor="middle" fill="#444">1</text>
+<line x1="690.9" y1="830" x2="690.9" y2="833" stroke="#444"/>
+<text x="690.9" y="845" text-anchor="middle" fill="#444">2</text>
+<line x1="718.4" y1="830" x2="718.4" y2="833" stroke="#444"/>
+<text x="718.4" y="845" text-anchor="middle" fill="#444">3</text>
+<line x1="745.8" y1="830" x2="745.8" y2="833" stroke="#444"/>
+<text x="745.8" y="845" text-anchor="middle" fill="#444">4</text>
+<line x1="773.3" y1="830" x2="773.3" y2="833" stroke="#444"/>
+<text x="773.3" y="845" text-anchor="middle" fill="#444">5</text>
+<line x1="482" y1="830.0" x2="485" y2="830.0" stroke="#444"/>
+<text x="479" y="833.0" text-anchor="end" fill="#444">-0.58</text>
+<line x1="482" y1="790.0" x2="485" y2="790.0" stroke="#444"/>
+<text x="479" y="793.0" text-anchor="end" fill="#444">-0.058</text>
+<line x1="482" y1="750.0" x2="485" y2="750.0" stroke="#444"/>
+<text x="479" y="753.0" text-anchor="end" fill="#444">0.46</text>
+<line x1="482" y1="710.0" x2="485" y2="710.0" stroke="#444"/>
+<text x="479" y="713.0" text-anchor="end" fill="#444">0.98</text>
+<line x1="482" y1="670.0" x2="485" y2="670.0" stroke="#444"/>
+<text x="479" y="673.0" text-anchor="end" fill="#444">1.5</text>
+<text x="636.0" y="864" text-anchor="middle" fill="#444">Event time (years from state-level adoption)</text>
+<text x="437" y="750.0" text-anchor="middle" fill="#444" transform="rotate(-90 437 750.0)">ATT (per 100k)</text>
+<rect x="15" y="910" width="380" height="260" fill="#fafaf7" stroke="#e2e2dc"/>
+<text x="205.0" y="928" text-anchor="middle" font-weight="600">State total suicide rate (joined down) [no county variation]</text>
+<line x1="75" y1="1056.565858730627" x2="377" y2="1056.565858730627" stroke="#aaaaaa" stroke-width="0.7"/>
+<polygon points="88.7,1073.3 116.2,1035.5 143.6,1050.2 171.1,1055.2 226.0,1024.7 253.5,1008.3 280.9,996.6 308.4,1001.6 335.8,978.7 363.3,960.0 363.3,1059.0 335.8,1039.7 308.4,1065.1 280.9,1063.4 253.5,1058.4 226.0,1070.3 171.1,1096.2 143.6,1096.7 116.2,1086.5 88.7,1120.0" fill="#1f3a5f" opacity="0.18"/>
+<polyline points="88.7,1096.6 116.2,1061.0 143.6,1073.5 171.1,1075.7 226.0,1047.5 253.5,1033.3 280.9,1030.0 308.4,1033.4 335.8,1009.2 363.3,1009.5" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>
+<circle cx="88.7" cy="1096.6" r="2.6" fill="#1f3a5f"/>
+<circle cx="116.2" cy="1061.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="143.6" cy="1073.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="171.1" cy="1075.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="226.0" cy="1047.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="253.5" cy="1033.3" r="2.6" fill="#1f3a5f"/>
+<circle cx="280.9" cy="1030.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="308.4" cy="1033.4" r="2.6" fill="#1f3a5f"/>
+<circle cx="335.8" cy="1009.2" r="2.6" fill="#1f3a5f"/>
+<circle cx="363.3" cy="1009.5" r="2.6" fill="#1f3a5f"/>
+<line x1="212.3" y1="960" x2="212.3" y2="1120" stroke="#b9461a" stroke-dasharray="3 3"/>
+<line x1="75" y1="1120" x2="377" y2="1120" stroke="#444"/>
+<line x1="75" y1="960" x2="75" y2="1120" stroke="#444"/>
+<line x1="88.7" y1="1120" x2="88.7" y2="1123" stroke="#444"/>
+<text x="88.7" y="1135" text-anchor="middle" fill="#444">-5</text>
+<line x1="116.2" y1="1120" x2="116.2" y2="1123" stroke="#444"/>
+<text x="116.2" y="1135" text-anchor="middle" fill="#444">-4</text>
+<line x1="143.6" y1="1120" x2="143.6" y2="1123" stroke="#444"/>
+<text x="143.6" y="1135" text-anchor="middle" fill="#444">-3</text>
+<line x1="171.1" y1="1120" x2="171.1" y2="1123" stroke="#444"/>
+<text x="171.1" y="1135" text-anchor="middle" fill="#444">-2</text>
+<line x1="226.0" y1="1120" x2="226.0" y2="1123" stroke="#444"/>
+<text x="226.0" y="1135" text-anchor="middle" fill="#444">0</text>
+<line x1="253.5" y1="1120" x2="253.5" y2="1123" stroke="#444"/>
+<text x="253.5" y="1135" text-anchor="middle" fill="#444">1</text>
+<line x1="280.9" y1="1120" x2="280.9" y2="1123" stroke="#444"/>
+<text x="280.9" y="1135" text-anchor="middle" fill="#444">2</text>
+<line x1="308.4" y1="1120" x2="308.4" y2="1123" stroke="#444"/>
+<text x="308.4" y="1135" text-anchor="middle" fill="#444">3</text>
+<line x1="335.8" y1="1120" x2="335.8" y2="1123" stroke="#444"/>
+<text x="335.8" y="1135" text-anchor="middle" fill="#444">4</text>
+<line x1="363.3" y1="1120" x2="363.3" y2="1123" stroke="#444"/>
+<text x="363.3" y="1135" text-anchor="middle" fill="#444">5</text>
+<line x1="72" y1="1120.0" x2="75" y2="1120.0" stroke="#444"/>
+<text x="69" y="1123.0" text-anchor="end" fill="#444">-1.1</text>
+<line x1="72" y1="1080.0" x2="75" y2="1080.0" stroke="#444"/>
+<text x="69" y="1083.0" text-anchor="end" fill="#444">-0.4</text>
+<line x1="72" y1="1040.0" x2="75" y2="1040.0" stroke="#444"/>
+<text x="69" y="1043.0" text-anchor="end" fill="#444">0.29</text>
+<line x1="72" y1="1000.0" x2="75" y2="1000.0" stroke="#444"/>
+<text x="69" y="1003.0" text-anchor="end" fill="#444">0.97</text>
+<line x1="72" y1="960.0" x2="75" y2="960.0" stroke="#444"/>
+<text x="69" y="963.0" text-anchor="end" fill="#444">1.7</text>
+<text x="226.0" y="1154" text-anchor="middle" fill="#444">Event time (years from state-level adoption)</text>
+<text x="27" y="1040.0" text-anchor="middle" fill="#444" transform="rotate(-90 27 1040.0)">ATT (per 100k)</text>
+<rect x="425" y="910" width="380" height="260" fill="#fafaf7" stroke="#e2e2dc"/>
+<text x="615.0" y="928" text-anchor="middle" font-weight="600">State firearm homicide rate (joined down) [no county variation]</text>
+<line x1="485" y1="1082.6340047094743" x2="787" y2="1082.6340047094743" stroke="#aaaaaa" stroke-width="0.7"/>
+<polygon points="498.7,1082.3 526.2,1067.7 553.6,1077.2 581.1,1067.6 636.0,1070.0 663.5,1069.3 690.9,1052.8 718.4,1042.1 745.8,1055.9 773.3,960.0 773.3,1114.7 745.8,1120.0 718.4,1089.5 690.9,1094.5 663.5,1101.8 636.0,1099.8 581.1,1095.7 553.6,1105.2 526.2,1102.3 498.7,1119.5" fill="#1f3a5f" opacity="0.18"/>
+<polyline points="498.7,1100.9 526.2,1085.0 553.6,1091.2 581.1,1081.7 636.0,1084.9 663.5,1085.5 690.9,1073.6 718.4,1065.8 745.8,1088.0 773.3,1037.4" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>
+<circle cx="498.7" cy="1100.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="526.2" cy="1085.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="553.6" cy="1091.2" r="2.6" fill="#1f3a5f"/>
+<circle cx="581.1" cy="1081.7" r="2.6" fill="#1f3a5f"/>
+<circle cx="636.0" cy="1084.9" r="2.6" fill="#1f3a5f"/>
+<circle cx="663.5" cy="1085.5" r="2.6" fill="#1f3a5f"/>
+<circle cx="690.9" cy="1073.6" r="2.6" fill="#1f3a5f"/>
+<circle cx="718.4" cy="1065.8" r="2.6" fill="#1f3a5f"/>
+<circle cx="745.8" cy="1088.0" r="2.6" fill="#1f3a5f"/>
+<circle cx="773.3" cy="1037.4" r="2.6" fill="#1f3a5f"/>
+<line x1="622.3" y1="960" x2="622.3" y2="1120" stroke="#b9461a" stroke-dasharray="3 3"/>
+<line x1="485" y1="1120" x2="787" y2="1120" stroke="#444"/>
+<line x1="485" y1="960" x2="485" y2="1120" stroke="#444"/>
+<line x1="498.7" y1="1120" x2="498.7" y2="1123" stroke="#444"/>
+<text x="498.7" y="1135" text-anchor="middle" fill="#444">-5</text>
+<line x1="526.2" y1="1120" x2="526.2" y2="1123" stroke="#444"/>
+<text x="526.2" y="1135" text-anchor="middle" fill="#444">-4</text>
+<line x1="553.6" y1="1120" x2="553.6" y2="1123" stroke="#444"/>
+<text x="553.6" y="1135" text-anchor="middle" fill="#444">-3</text>
+<line x1="581.1" y1="1120" x2="581.1" y2="1123" stroke="#444"/>
+<text x="581.1" y="1135" text-anchor="middle" fill="#444">-2</text>
+<line x1="636.0" y1="1120" x2="636.0" y2="1123" stroke="#444"/>
+<text x="636.0" y="1135" text-anchor="middle" fill="#444">0</text>
+<line x1="663.5" y1="1120" x2="663.5" y2="1123" stroke="#444"/>
+<text x="663.5" y="1135" text-anchor="middle" fill="#444">1</text>
+<line x1="690.9" y1="1120" x2="690.9" y2="1123" stroke="#444"/>
+<text x="690.9" y="1135" text-anchor="middle" fill="#444">2</text>
+<line x1="718.4" y1="1120" x2="718.4" y2="1123" stroke="#444"/>
+<text x="718.4" y="1135" text-anchor="middle" fill="#444">3</text>
+<line x1="745.8" y1="1120" x2="745.8" y2="1123" stroke="#444"/>
+<text x="745.8" y="1135" text-anchor="middle" fill="#444">4</text>
+<line x1="773.3" y1="1120" x2="773.3" y2="1123" stroke="#444"/>
+<text x="773.3" y="1135" text-anchor="middle" fill="#444">5</text>
+<line x1="482" y1="1120.0" x2="485" y2="1120.0" stroke="#444"/>
+<text x="479" y="1123.0" text-anchor="end" fill="#444">-0.73</text>
+<line x1="482" y1="1080.0" x2="485" y2="1080.0" stroke="#444"/>
+<text x="479" y="1083.0" text-anchor="end" fill="#444">0.051</text>
+<line x1="482" y1="1040.0" x2="485" y2="1040.0" stroke="#444"/>
+<text x="479" y="1043.0" text-anchor="end" fill="#444">0.83</text>
+<line x1="482" y1="1000.0" x2="485" y2="1000.0" stroke="#444"/>
+<text x="479" y="1003.0" text-anchor="end" fill="#444">1.6</text>
+<line x1="482" y1="960.0" x2="485" y2="960.0" stroke="#444"/>
+<text x="479" y="963.0" text-anchor="end" fill="#444">2.4</text>
+<text x="636.0" y="1154" text-anchor="middle" fill="#444">Event time (years from state-level adoption)</text>
+<text x="437" y="1040.0" text-anchor="middle" fill="#444" transform="rotate(-90 437 1040.0)">ATT (per 100k)</text>
+<text x="805" y="1188" text-anchor="end" fill="#888" font-size="10">Shaded band: pointwise 95% CI from state-clustered Rademacher bootstrap. Vertical dashed line marks the year before adoption.</text>
+</svg>
