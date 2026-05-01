@@ -55,12 +55,80 @@ def embed_svg(path: Path, max_width: str = "100%") -> str:
     return f'<div class="figure" style="max-width:{max_width};">{text}</div>'
 
 
-def coef_cell(att, se, z, sig_threshold=1.96):
-    """One cell of a coef table -- value + SE + significance star."""
+def sig_stars(z) -> str:
+    """Return significance stars for a two-tailed z-statistic.
+    *** p<0.01, ** p<0.05, * p<0.10. Empty string if not significant.
+    """
+    if pd.isna(z):
+        return ""
+    az = abs(z)
+    if az >= 2.576:
+        return '<span class="sig sig3">***</span>'
+    if az >= 1.96:
+        return '<span class="sig sig2">**</span>'
+    if az >= 1.645:
+        return '<span class="sig sig1">*</span>'
+    return ""
+
+
+# Baseline outcome means computed once at module init from the augmented
+# state panel; used to express significant ATTs as a percentage of the
+# pre-period baseline ("economic interpretation"). For state-joined-down
+# county outcomes the state mean is the right denominator. For true
+# county-level outcomes (county_*) we compute the population-weighted
+# mean across counties from the county panel.
+def _compute_baselines() -> dict[str, float]:
+    bases: dict[str, float] = {}
+    try:
+        sp = pd.read_csv(ROOT / "data" / "processed" / "panel_core_augmented.csv")
+        for c in ("firearm_suicide_rate", "nonfirearm_suicide_rate",
+                  "total_suicide_rate", "firearm_homicide_rate",
+                  "homicide_rate", "motor_vehicle_theft_rate",
+                  "state_firearm_suicide_rate", "state_total_suicide_rate",
+                  "state_firearm_homicide_rate", "state_nonfirearm_suicide_rate"):
+            if c in sp.columns:
+                v = sp[c].dropna().mean()
+                if not pd.isna(v):
+                    bases[c] = float(v)
+                    bases[f"state_{c}"] = float(v)
+    except Exception:
+        pass
+    try:
+        cp = pd.read_csv(
+            ROOT / "data" / "processed" / "county_panel_2009_2024.csv",
+            usecols=lambda c: c.startswith("county_") and c.endswith("_rate"),
+        )
+        for c in cp.columns:
+            v = cp[c].dropna().mean()
+            if not pd.isna(v):
+                bases[c] = float(v)
+    except Exception:
+        pass
+    return bases
+
+
+_BASELINES: dict[str, float] = _compute_baselines()
+
+
+def pct_of_baseline(beta, outcome: str) -> str:
+    """Return a "(±X% of base)" annotation if we have a baseline mean."""
+    if pd.isna(beta) or outcome not in _BASELINES:
+        return ""
+    base = _BASELINES[outcome]
+    if base == 0 or pd.isna(base):
+        return ""
+    pct = 100.0 * beta / base
+    return f' <span class="pct">({pct:+.1f}% of base)</span>'
+
+
+def coef_cell(att, se, z, outcome: str | None = None):
+    """One cell of a coef table — value + SE + significance stars +
+    optional economic-percent annotation."""
     if pd.isna(att) or pd.isna(se):
         return "—"
-    star = "**" if abs(z) >= sig_threshold else ""
-    return f"{att:+.3f}<br><span class='se'>({se:.3f})</span> {star}"
+    stars = sig_stars(z)
+    pct = pct_of_baseline(att, outcome) if outcome else ""
+    return f"<span class='att'>{att:+.3f}</span> {stars}{pct}<br><span class='se'>SE {se:.3f}, z {z:+.2f}</span>"
 
 
 # ---------------------- per-policy table builders ----------------------
@@ -96,11 +164,12 @@ def cs21_table_html(policy_dir: Path) -> str:
             row = r.iloc[0]
             att = row["att_overall_post"]; se = row["se_overall_post"]; z = row["z"]
             pre = row["z_pretrends"]
-            star = "★" if abs(z) >= 1.96 else ""
+            stars = sig_stars(z)
+            pct = pct_of_baseline(att, o)
             pre_clean = "✓" if abs(pre) < 1.96 else "✗"
             cells.append(
-                f'<td class="num"><span class="att">{att:+.3f}</span> {star}'
-                f'<br><span class="se">SE {se:.3f}</span>'
+                f'<td class="num"><span class="att">{att:+.3f}</span> {stars}{pct}'
+                f'<br><span class="se">SE {se:.3f}, z {z:+.2f}</span>'
                 f'<br><span class="pre">pre-z {pre:+.2f} {pre_clean}</span></td>'
             )
         rows.append("<tr>" + "".join(cells) + "</tr>")
@@ -111,7 +180,15 @@ def cs21_table_html(policy_dir: Path) -> str:
         f'<thead><tr><th>Outcome</th>{headers}</tr></thead>'
         f'<tbody>{"".join(rows)}</tbody>'
         '</table>'
-        '<p class="caption">★ = |z| ≥ 1.96. ✓ / ✗ on the third line indicates whether the pre-trend test (avg ATT for e ∈ [-5, -2]) does NOT / DOES reject zero. Outcomes per 100,000 residents.</p>'
+        '<p class="caption">'
+        'Stars: <span class="sig sig1">*</span> p&lt;0.10, '
+        '<span class="sig sig2">**</span> p&lt;0.05, '
+        '<span class="sig sig3">***</span> p&lt;0.01 (two-tailed, state-clustered). '
+        '"% of base" expresses the ATT as a percentage of the all-state mean of that outcome over the analysis window. '
+        '✓ / ✗ on the third line indicates whether the pre-trend test '
+        '(avg ATT for e ∈ [-5, -2]) does NOT / DOES reject zero. '
+        'Outcomes are per 100,000 residents.'
+        '</p>'
     )
 
 
@@ -140,11 +217,11 @@ def stackdd_table_html(policy_dir: Path) -> str:
                 continue
             row = r.iloc[0]
             att = row["att"]; se = row["se"]; z = row["z"]
-            star = "★" if abs(z) >= 1.96 else ""
+            stars = sig_stars(z)
+            pct = pct_of_baseline(att, o)
             cells.append(
-                f'<td class="num"><span class="att">{att:+.3f}</span> {star}'
-                f'<br><span class="se">SE {se:.3f}</span>'
-                f'<br><span class="pre">z {z:+.2f}</span></td>'
+                f'<td class="num"><span class="att">{att:+.3f}</span> {stars}{pct}'
+                f'<br><span class="se">SE {se:.3f}, z {z:+.2f}</span></td>'
             )
         rows.append("<tr>" + "".join(cells) + "</tr>")
     headers = "".join(f'<th class="num">{label}</th>' for _, label in spec_combos)
@@ -153,7 +230,13 @@ def stackdd_table_html(policy_dir: Path) -> str:
         f'<thead><tr><th>Outcome</th>{headers}</tr></thead>'
         f'<tbody>{"".join(rows)}</tbody>'
         '</table>'
-        '<p class="caption">★ = |z| ≥ 1.96. State-clustered SE in parentheses. Outcomes per 100,000 residents.</p>'
+        '<p class="caption">'
+        'Stars: <span class="sig sig1">*</span> p&lt;0.10, '
+        '<span class="sig sig2">**</span> p&lt;0.05, '
+        '<span class="sig sig3">***</span> p&lt;0.01 (two-tailed, state-clustered). '
+        '"% of base" expresses the ATT as a percentage of the all-state mean of that outcome. '
+        'Outcomes per 100,000 residents.'
+        '</p>'
     )
 
 
@@ -349,6 +432,10 @@ def rdd_section_html(section_num: int) -> str:
         ("permitless_carry", "Permitless carry"),
         ("red_flag", "Civil-petition red-flag (ERPO)"),
         ("ubc", "Universal background checks"),
+        ("stand_your_ground", "Stand-your-ground (SYG)"),
+        ("magazine_ban", "Large-capacity magazine ban"),
+        ("age21_handgun", "Minimum age 21 for handgun purchase"),
+        ("assault_weapons_ban", "Assault weapons ban"),
     ]:
         headline = read_csv(ROOT / "outputs" / f"{policy_short}_rdd" / "headline.csv")
         if headline.empty:
@@ -360,7 +447,7 @@ def rdd_section_html(section_num: int) -> str:
             rows.append(
                 f"<tr><td>{r.get('outcome','')}</td>"
                 f"<td>{stratum}</td>"
-                f"<td>{coef_cell(r['beta'], r['se'], r['z'])}</td>"
+                f"<td>{coef_cell(r['beta'], r['se'], r['z'], r.get('outcome'))}</td>"
                 f"<td>{int(r['n'])}</td>"
                 f"<td>{int(r.get('n_pairs', 0))}</td></tr>"
             )
@@ -381,7 +468,7 @@ def county_section_html(section_num: int) -> str:
     """Cross-policy county-level CS21 section (Track C). Each of the 3
     policies gets a headline table from its outputs/{policy}_cs_county/
     overall_att.csv. Methodology lives in scripts/lib_cs_county.py."""
-    pieces = [f'<section id="county-cs21"><h2>{section_num}. County-level Callaway-Sant\\u2019Anna ATT(g, t)</h2>']
+    pieces = [f'<section id="county-cs21"><h2>{section_num}. County-level Callaway-Sant&#8217;Anna ATT(g, t)</h2>']
     pieces.append("""
     <p class="lead">
       A county-grain adaptation of the existing state-level Callaway-Sant'Anna
@@ -409,7 +496,7 @@ def county_section_html(section_num: int) -> str:
         for _, r in sub.iterrows():
             rows.append(
                 f"<tr><td>{r['outcome']}</td>"
-                f"<td>{coef_cell(r['att_overall_post'], r['se_overall_post'], r['z'])}</td>"
+                f"<td>{coef_cell(r['att_overall_post'], r['se_overall_post'], r['z'], r.get('outcome'))}</td>"
                 f"<td>{r['att_pretrends_avg']:+.3f} (z={r['z_pretrends']:+.2f})</td>"
                 f"<td>{int(r['n_post_cells'])}</td></tr>"
             )
@@ -470,6 +557,11 @@ def build_html() -> str:
       td .att { font-weight: 600; color: var(--primary); }
       td .se { color: var(--muted); font-size: 11px; }
       td .pre { color: var(--muted); font-size: 11px; display: block; }
+      .sig { font-weight: 700; }
+      .sig1 { color: #999; }
+      .sig2 { color: #b9461a; }
+      .sig3 { color: #8c1d04; }
+      .pct { color: var(--muted); font-size: 11px; font-style: italic; }
       .caption { font-size: 11.5px; color: var(--muted); margin: 2px 0 18px; }
       .figure { margin: 8px 0 14px; }
       .figure svg { width: 100%; height: auto; }
@@ -659,6 +751,71 @@ map at
 
 <section id="methodology">
 <h2>3. Methodology</h2>
+
+<div class="summary-box">
+<h3>How to read the result tables (broad/strict, OR/RA, stars)</h3>
+<p>
+  Every per-policy section has a table with up to 4 columns for CS21 and 3 for stacked-DiD.
+  The columns vary along two axes: which control states the comparison uses
+  (<strong>broad</strong> vs <strong>strict</strong>) and which estimator
+  spec (<strong>OR</strong> vs <strong>RA</strong>; for stacked-DiD additionally <strong>EB</strong>).
+</p>
+<ul>
+  <li>
+    <strong>Broad control pool</strong> = every state that <em>never</em> adopted the policy in our
+    1979–2024 window. This is the Callaway–Sant'Anna (2021) default — the largest available
+    counterfactual sample.
+  </li>
+  <li>
+    <strong>Strict control pool</strong> = the broad pool further restricted by a policy-specific
+    "no contamination" rule. For permitless carry, the strict rule requires the control state to
+    have <em>both</em> a concealed-permit requirement <em>and</em> may-issue discretion throughout
+    each cohort's [g−5, g+5] window — so the control hasn't drifted toward the treatment. For
+    civil-petition red-flag, strict additionally excludes states with the older
+    law-enforcement-only ERPO. The strict rule trades sample size for cleaner
+    identification (fewer "almost-adopter" controls).
+  </li>
+  <li>
+    <strong>OR (outcome regression / unconditional DiD):</strong> the basic two-way DiD; just
+    average treated minus average control. No covariates.
+  </li>
+  <li>
+    <strong>RA (regression-adjusted, Sant'Anna &amp; Zhao 2020):</strong> projects the treated
+    states' baseline covariates onto the control states' outcome model and adjusts the comparison.
+    Doubly robust under modest covariate overlap. RA is preferred to OR whenever the treated and
+    control states differ on observables (which they almost always do).
+  </li>
+  <li>
+    <strong>EB (entropy balancing, Hainmueller 2012):</strong> stacked-DiD only. Per-cohort
+    reweighting of controls so their baseline covariate moments exactly match the treated
+    unit's. The most aggressive reweighting; useful as an outer bound on how much the headline
+    moves under aggressive covariate adjustment.
+  </li>
+</ul>
+<p>
+  <strong>Project recommended default:</strong> <em>strict / RA</em> when the strict pool is large
+  enough (≥ 15 states), <em>broad / RA</em> otherwise. RA over OR almost always; broad over strict
+  only if strict drops too many cohorts. The headline figure shown after each table is the
+  broad/RA spec for CS21 and the unweighted spec for stacked-DiD; we picked these for visual
+  consistency across policies, not because they're more identified than the others. Read the
+  full 4-spec table.
+</p>
+<p>
+  <strong>Significance stars:</strong> <span class="sig sig1">*</span> p&lt;0.10,
+  <span class="sig sig2">**</span> p&lt;0.05, <span class="sig sig3">***</span> p&lt;0.01,
+  two-tailed, state-clustered. <strong>"% of base"</strong> next to each significant
+  estimate expresses the ATT as a percentage of the all-state mean of that outcome over the
+  analysis window — so a coefficient of −0.14 firearm homicide on a baseline mean of 4.5
+  per 100,000 reads as roughly −3% of base, which is a more interpretable size than the raw
+  number.
+</p>
+<p>
+  <strong>Pre-trend test:</strong> the third line of each cell shows the average ATT over the
+  pre-period (e ∈ [−5, −2]) and a "✓ / ✗" indicating whether that average is far from zero
+  (✗ at |z| ≥ 1.96). Two equally-sized headline estimates can have very different credibility
+  if one's pre-trend rejects and the other's doesn't — that's why we report it inline.
+</p>
+</div>
 
 <h3>3.1 Callaway-Sant'Anna ATT(g, t)</h3>
 <p>

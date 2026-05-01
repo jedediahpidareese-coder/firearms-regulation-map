@@ -1,0 +1,100 @@
+event_time,beta,se,z,n,omitted,outcome,outcome_label,policy
+-5,-8.199804320663286,6.904861959806247,-1.1875406587988293,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",stand_your_ground
+-4,-8.552212357799258,6.864704737520128,-1.2458237731705764,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",stand_your_ground
+-3,0.3720121114228672,8.122945271596837,0.045797687782492685,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",stand_your_ground
+-2,-10.227144733353581,6.846014316875917,-1.4938830478550031,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",stand_your_ground
+-1,0.0,0.0,0.0,0,True,county_violent_crime_rate,"County violent crime rate (per 100,000)",stand_your_ground
+0,17.489207794123907,8.5778090847457,2.038889840207069,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",stand_your_ground
+1,-0.43081977722421116,10.463713045746859,-0.04117274387597285,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",stand_your_ground
+2,9.873053398675145,6.3094340975218435,1.5648080709097167,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",stand_your_ground
+3,15.362044533857958,6.259387754866072,2.454240755721747,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",stand_your_ground
+4,5.537088043961431,8.749924210260447,0.6328155434156173,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",stand_your_ground
+5,19.51444933058418,12.344069336393439,1.580876516389182,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",stand_your_ground
+-5,1.3857507693136502,0.3769773335294916,3.6759524938526322,31248,False,county_murder_rate,"County murder rate (per 100,000)",stand_your_ground
+-4,0.621317045726527,0.46145533472347056,1.3464294352536945,31248,False,county_murder_rate,"County murder rate (per 100,000)",stand_your_ground
+-3,0.6299695617372097,0.3693342902519085,1.7056893398864539,31248,False,county_murder_rate,"County murder rate (per 100,000)",stand_your_ground
+-2,0.7557193870697763,0.3725968870339045,2.0282493315651604,31248,False,county_murder_rate,"County murder rate (per 100,000)",stand_your_ground
+-1,0.0,0.0,0.0,0,True,county_murder_rate,"County murder rate (per 100,000)",stand_your_ground
+0,1.119051023543272,0.40471681432619155,2.7650223166694157,31248,False,county_murder_rate,"County murder rate (per 100,000)",stand_your_ground
+1,-7.783877982560367,5.0494056063021375,-1.5415434190601263,31248,False,county_murder_rate,"County murder rate (per 100,000)",stand_your_ground
+2,0.6975715716854007,0.4100452439104473,1.701206347457961,31248,False,county_murder_rate,"County murder rate (per 100,000)",stand_your_ground
+3,0.6895265519337864,0.33297469998077006,2.0708076378583957,31248,False,county_murder_rate,"County murder rate (per 100,000)",stand_your_ground
+4,1.0262187114408228,0.6588107251668919,1.557683674898975,31248,False,county_murder_rate,"County murder rate (per 100,000)",stand_your_ground
+5,0.652080534265693,0.5358468202965105,1.2169159348652374,31248,False,county_murder_rate,"County murder rate (per 100,000)",stand_your_ground
+-5,-30.031148550662955,37.039186890699554,-0.8107939474827861,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",stand_your_ground
+-4,41.89448254798875,23.103299320315344,1.813354965762393,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",stand_your_ground
+-3,34.65296970642194,30.584965099085125,1.1330066780902917,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",stand_your_ground
+-2,-5.185361730673868,22.16943774046729,-0.2338968534690754,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",stand_your_ground
+-1,0.0,0.0,0.0,0,True,county_property_crime_rate,"County property crime rate (per 100,000)",stand_your_ground
+0,43.76599440217145,28.937830242645866,1.5124145119101993,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",stand_your_ground
+1,32.095802370038385,30.377741692688375,1.0565565635105632,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",stand_your_ground
+2,44.37224834610603,27.163349178521017,1.6335337757684416,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",stand_your_ground
+3,60.259270968235306,28.731338902178138,2.097335984702997,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",stand_your_ground
+4,36.36379783805232,36.95423390727094,0.984022505494223,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",stand_your_ground
+5,-81.12354383106775,72.20192754019247,-1.1235647938333628,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",stand_your_ground
+-5,-6.332750679621499,13.274756917406775,-0.4770521011437551,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",stand_your_ground
+-4,5.31328308154042,7.3263128540734765,0.7252328950962285,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",stand_your_ground
+-3,-7.272495487221961,9.626848048842383,-0.7554388986223242,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",stand_your_ground
+-2,12.277839536700908,9.735833330639974,1.26109795841111,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",stand_your_ground
+-1,0.0,0.0,0.0,0,True,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",stand_your_ground
+0,23.579572857801608,12.042501327226312,1.958029500440385,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",stand_your_ground
+1,1.8805076270651977,12.575094505546433,0.14954222620241714,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",stand_your_ground
+2,9.695522313080419,9.646044238207296,1.005129364291856,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",stand_your_ground
+3,19.924184985631157,11.543172921988214,1.72605791494973,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",stand_your_ground
+4,7.875690386254484,7.407382267738051,1.0632218105653992,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",stand_your_ground
+5,-2.1387626797580834,10.720638350807711,-0.19949956427706056,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",stand_your_ground
+-5,0.12182799693680366,5.222741248142984,0.023326447003309086,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",stand_your_ground
+-4,-0.95164216902717,3.6841806498066316,-0.25830496913258527,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",stand_your_ground
+-3,-3.916928781140468,5.53183348221073,-0.7080706231914838,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",stand_your_ground
+-2,-2.946207862593098,3.604691896529069,-0.8173258484116159,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",stand_your_ground
+-1,0.0,0.0,0.0,0,True,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",stand_your_ground
+0,4.433214381084076,4.0915817218748405,1.0834964770183528,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",stand_your_ground
+1,3.3062284252998575,4.386294834584112,0.7537633811643532,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",stand_your_ground
+2,3.947277747040698,4.831618552736884,0.8169680002583714,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",stand_your_ground
+3,10.818097520735106,5.004908683217564,2.161497482863234,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",stand_your_ground
+4,16.17129568898125,7.188938021259233,2.2494693431991286,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",stand_your_ground
+5,-68.73249405704091,55.632499584481906,-1.2354737710942816,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",stand_your_ground
+-5,-0.6213836160735325,0.0706966003676021,-8.789441258031015,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",stand_your_ground
+-4,0.01600341882590273,0.20598269036005007,0.07769302749628791,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",stand_your_ground
+-3,-0.4570617015399636,0.10492231534487559,-4.3561915312068695,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",stand_your_ground
+-2,-0.23092116113126512,0.10096559231852505,-2.2871272859248704,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",stand_your_ground
+-1,0.0,0.0,0.0,0,True,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",stand_your_ground
+0,0.3403033837626158,0.14661344038078028,2.321092683445593,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",stand_your_ground
+1,-0.2077806866215726,0.13510284509946363,-1.5379445671081393,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",stand_your_ground
+2,0.3368160642379373,0.11992987462589483,2.8084417272059183,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",stand_your_ground
+3,0.4154402321247696,0.1414231248217014,2.937569316535284,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",stand_your_ground
+4,0.21158543916337647,0.11694797910257405,1.809226980979267,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",stand_your_ground
+5,0.06501848911507367,0.12998197821698812,0.5002115678416104,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",stand_your_ground
+-5,-0.5092590131925474,0.1995351431946428,-2.5522271667992578,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",stand_your_ground
+-4,-0.047708082381264796,0.25784704574963163,-0.18502473915326195,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",stand_your_ground
+-3,-0.3747536072025272,0.24414944151033902,-1.5349353448619603,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",stand_your_ground
+-2,-0.2809019353444424,0.11610947637585181,-2.419285179059371,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",stand_your_ground
+-1,0.0,0.0,0.0,0,True,state_total_suicide_rate,"State total suicide rate (per 100,000)",stand_your_ground
+0,0.26976777286218523,0.17785594161732818,1.5167768386541338,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",stand_your_ground
+1,-0.26077596198069536,0.18231243052068719,-1.4303794932463743,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",stand_your_ground
+2,0.49474208434161204,0.21999133857794587,2.2489161961543243,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",stand_your_ground
+3,0.5387850481221441,0.19308936393975787,2.7903403746787427,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",stand_your_ground
+4,0.2975951893055556,0.12536119063811885,2.37390206483142,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",stand_your_ground
+5,0.42819589675462655,0.2333041602545075,1.8353547415850406,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",stand_your_ground
+-5,0.11212460288098522,0.17997640299673545,0.6229961317930052,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",stand_your_ground
+-4,-0.06371150120716758,0.08333240588117484,-0.7645465234498923,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",stand_your_ground
+-3,0.08230809433743662,0.18327632189581455,0.44909289692219795,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",stand_your_ground
+-2,-0.0499807742131773,0.06781596056455244,-0.7370060646063069,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",stand_your_ground
+-1,0.0,0.0,0.0,0,True,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",stand_your_ground
+0,-0.07053561090043058,0.11633398376497106,-0.6063199128720057,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",stand_your_ground
+1,-0.05299527535912294,0.08690201949718664,-0.6098278919840132,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",stand_your_ground
+2,0.1579260201036748,0.14467133288580217,1.0916193066966167,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",stand_your_ground
+3,0.12334481599737476,0.12735511525296847,0.968510889824661,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",stand_your_ground
+4,0.08600975014217944,0.10770713784269487,0.7985519981767204,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",stand_your_ground
+5,0.3631774076395529,0.1508294633649553,2.4078677967632145,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",stand_your_ground
+-5,-0.2844765255399939,0.11455333079968652,-2.4833544651568733,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",stand_your_ground
+-4,-0.32023222216309294,0.1537661927667846,-2.0825918649672586,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",stand_your_ground
+-3,-0.31759949814010047,0.16584055598653827,-1.9150894438986377,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",stand_your_ground
+-2,-0.21324498614585624,0.12647968416263705,-1.6860018868457156,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",stand_your_ground
+-1,0.0,0.0,0.0,0,True,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",stand_your_ground
+0,-0.12208797304654646,0.11112601204140912,-1.0986444200035952,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",stand_your_ground
+1,0.25349135734793254,0.08832732935914482,2.869908545714314,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",stand_your_ground
+2,0.38651837922637167,0.13617192890687393,2.838458574606123,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",stand_your_ground
+3,0.0630487689245892,0.11353683222636894,0.5553155543293916,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",stand_your_ground
+4,-0.018590306763377966,0.17359235505420295,-0.1070917366008041,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",stand_your_ground
+5,-0.23883704007110168,0.13743873779640695,-1.737770907245232,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",stand_your_ground

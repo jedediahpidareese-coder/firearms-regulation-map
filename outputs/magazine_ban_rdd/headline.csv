@@ -1,0 +1,10 @@
+policy,spec_name,outcome,outcome_label,outcome_stratum,bandwidth_km,donut_km,fe,cluster,covariates,drop_spillover_pairs,beta,se,z,n,n_counties,n_pairs,n_treated_post,n_straddling_pair_years
+magazine_ban,headline,county_violent_crime_rate,"County violent crime rate (per 100,000)",primary,100,0,pair_year,state,,0,9.074003533500578,12.881717361180131,0.70440945714627,31248,1953,101,2248,350
+magazine_ban,headline,county_murder_rate,"County murder rate (per 100,000)",primary,100,0,pair_year,state,,0,-1.3148861047834544,0.8671661641575877,-1.5163023641043536,31248,1953,101,2248,350
+magazine_ban,headline,county_property_crime_rate,"County property crime rate (per 100,000)",primary,100,0,pair_year,state,,0,93.36237132410973,46.37537582525225,2.013188457510509,31248,1953,101,2248,350
+magazine_ban,headline,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",primary,100,0,pair_year,state,,0,14.298959488179463,22.27602054955734,0.6418991873511989,31248,1953,101,2248,350
+magazine_ban,headline,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",primary,100,0,pair_year,state,,0,10.347193417398255,5.032976084203478,2.0558797109873033,31248,1953,101,2248,350
+magazine_ban,headline,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,-0.16523711390138304,0.15035319020203705,-1.0989930687825495,29295,1953,101,2004,322
+magazine_ban,headline,state_total_suicide_rate,"State total suicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,0.1709261279518255,0.2628454063243847,0.6502914787138447,29295,1953,101,2004,322
+magazine_ban,headline,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",secondary,100,0,pair_year,state,,0,0.3361632418532085,0.2067590467458917,1.62586956722796,29295,1953,101,2004,322
+magazine_ban,headline,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,0.22912217916713185,0.10687059424232638,2.1439216352404955,29271,1953,101,1990,321

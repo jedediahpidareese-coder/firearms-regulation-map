@@ -1,0 +1,10 @@
+policy,spec_name,outcome,outcome_label,outcome_stratum,bandwidth_km,donut_km,fe,cluster,covariates,drop_spillover_pairs,beta,se,z,n,n_counties,n_pairs,n_treated_post,n_straddling_pair_years
+assault_weapons_ban,headline,county_violent_crime_rate,"County violent crime rate (per 100,000)",primary,100,0,pair_year,state,,0,-15.628679952547362,10.745883538650986,-1.4543876170194705,31248,1953,101,1805,263
+assault_weapons_ban,headline,county_murder_rate,"County murder rate (per 100,000)",primary,100,0,pair_year,state,,0,-2.190051252334318,0.9613584194248349,-2.278079858752982,31248,1953,101,1805,263
+assault_weapons_ban,headline,county_property_crime_rate,"County property crime rate (per 100,000)",primary,100,0,pair_year,state,,0,7.472734021473011,74.99151081575629,0.09964773265913364,31248,1953,101,1805,263
+assault_weapons_ban,headline,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",primary,100,0,pair_year,state,,0,21.806106823373657,26.778033938548038,0.8143281494607005,31248,1953,101,1805,263
+assault_weapons_ban,headline,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",primary,100,0,pair_year,state,,0,11.117696380918858,6.194586354204333,1.7947439498318007,31248,1953,101,1805,263
+assault_weapons_ban,headline,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,-0.6609121382811888,0.13699985109920435,-4.824181435077685,29295,1953,101,1598,240
+assault_weapons_ban,headline,state_total_suicide_rate,"State total suicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,-0.47391578156437403,0.35210467390939104,-1.3459514078655181,29295,1953,101,1598,240
+assault_weapons_ban,headline,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",secondary,100,0,pair_year,state,,0,0.1869963567168144,0.24449713229855244,0.7648202453698943,29295,1953,101,1598,240
+assault_weapons_ban,headline,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,0.5435902514006725,0.18510568047578577,2.936648135289296,29271,1953,101,1598,240

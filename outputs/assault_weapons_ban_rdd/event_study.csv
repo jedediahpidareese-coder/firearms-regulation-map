@@ -1,0 +1,100 @@
+event_time,beta,se,z,n,omitted,outcome,outcome_label,policy
+-5,25.71476356484457,8.051200293441076,3.193904340672427,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",assault_weapons_ban
+-4,25.10976538369483,10.322672163432065,2.4324869555235757,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",assault_weapons_ban
+-3,-13.849324540943929,13.883087729272013,-0.9975680346485966,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",assault_weapons_ban
+-2,-96.40505430915982,22.34108346089732,-4.315146777813781,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",assault_weapons_ban
+-1,0.0,0.0,0.0,0,True,county_violent_crime_rate,"County violent crime rate (per 100,000)",assault_weapons_ban
+0,-12.332864680439522,13.087464494642035,-0.9423417870962367,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",assault_weapons_ban
+1,9.830000962266073,10.968538322589591,0.8961997189745226,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",assault_weapons_ban
+2,-12.63212741791146,8.909682918937902,-1.4177976402573595,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",assault_weapons_ban
+3,4.327503933965169,3.811684114643504,1.1353259619127458,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",assault_weapons_ban
+4,14.729562192819488,2.5995728429380054,5.666147125991791,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",assault_weapons_ban
+5,36.11649748439479,7.213082605687266,5.0070821947773325,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",assault_weapons_ban
+-5,-2.6658717498676383,1.077014238379907,-2.4752428100465615,31248,False,county_murder_rate,"County murder rate (per 100,000)",assault_weapons_ban
+-4,-1.2764259380464604,0.9244538515226269,-1.3807351615703864,31248,False,county_murder_rate,"County murder rate (per 100,000)",assault_weapons_ban
+-3,-1.8053491899627765,1.3162377038132838,-1.3715981427461648,31248,False,county_murder_rate,"County murder rate (per 100,000)",assault_weapons_ban
+-2,-3.1205862557946387,1.1762833847725023,-2.6529204579372445,31248,False,county_murder_rate,"County murder rate (per 100,000)",assault_weapons_ban
+-1,0.0,0.0,0.0,0,True,county_murder_rate,"County murder rate (per 100,000)",assault_weapons_ban
+0,-2.134965868162048,1.1355693047247606,-1.8800841650783446,31248,False,county_murder_rate,"County murder rate (per 100,000)",assault_weapons_ban
+1,-1.5695120212007208,0.9451162561062484,-1.6606549840406923,31248,False,county_murder_rate,"County murder rate (per 100,000)",assault_weapons_ban
+2,-0.48298449051411124,0.4979336867972366,-0.96997753580546,31248,False,county_murder_rate,"County murder rate (per 100,000)",assault_weapons_ban
+3,-0.5936836130365096,0.2890715607276343,-2.053760015485866,31248,False,county_murder_rate,"County murder rate (per 100,000)",assault_weapons_ban
+4,0.9178643406334775,0.22229002711227097,4.129129644533698,31248,False,county_murder_rate,"County murder rate (per 100,000)",assault_weapons_ban
+5,0.612830106039136,0.1656442861191072,3.69967549377754,31248,False,county_murder_rate,"County murder rate (per 100,000)",assault_weapons_ban
+-5,105.70341477718098,73.91575199120831,1.4300526197684298,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",assault_weapons_ban
+-4,117.46142583361645,68.37617645150021,1.7178706375448298,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",assault_weapons_ban
+-3,-10.047006340481438,56.07172612809647,-0.17918132781446647,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",assault_weapons_ban
+-2,-296.98499367854595,77.16173744502002,-3.8488634848347782,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",assault_weapons_ban
+-1,0.0,0.0,0.0,0,True,county_property_crime_rate,"County property crime rate (per 100,000)",assault_weapons_ban
+0,41.02124867857746,43.47787023395011,0.9434971965702594,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",assault_weapons_ban
+1,128.1304340331684,61.504240613890275,2.083278043176605,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",assault_weapons_ban
+2,68.7630760555952,25.97592025676136,2.647185369215038,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",assault_weapons_ban
+3,130.80507480518008,19.437759042181057,6.729431850725463,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",assault_weapons_ban
+4,114.68041316035425,61.24458979249708,1.8724986737425002,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",assault_weapons_ban
+5,79.51483892320022,23.990447868844836,3.3144374526855773,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",assault_weapons_ban
+-5,18.206686779726265,14.609603858553733,1.2462135836124322,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",assault_weapons_ban
+-4,22.709160340438533,17.80337137217548,1.275553931090277,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",assault_weapons_ban
+-3,-5.5665703823910615,12.22658282837845,-0.4552842327678671,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",assault_weapons_ban
+-2,-67.86220238692171,16.015869398726753,-4.2371850504922755,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",assault_weapons_ban
+-1,0.0,0.0,0.0,0,True,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",assault_weapons_ban
+0,21.016679351056563,13.095929507852391,1.6048253267135293,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",assault_weapons_ban
+1,58.01810611754296,26.00737804918837,2.230832574041564,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",assault_weapons_ban
+2,9.103320419036635,5.4331778893970375,1.67550568090214,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",assault_weapons_ban
+3,-14.095376946574667,3.974521999497607,-3.546433243634422,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",assault_weapons_ban
+4,20.54930695749812,17.05397059790433,1.2049573346879885,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",assault_weapons_ban
+5,14.324543557647202,12.729411514097093,1.125310745259794,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",assault_weapons_ban
+-5,-1.2715256602927834,10.868449244296748,-0.11699237229819336,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",assault_weapons_ban
+-4,1.9960269808018491,7.551348357557003,0.2643272282365742,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",assault_weapons_ban
+-3,-15.02676803972507,8.251069665860747,-1.8211902999557918,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",assault_weapons_ban
+-2,-44.740255569804816,10.15535069055674,-4.40558449757997,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",assault_weapons_ban
+-1,0.0,0.0,0.0,0,True,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",assault_weapons_ban
+0,8.471204543212153,7.492826839978099,1.130575245381877,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",assault_weapons_ban
+1,16.33805507050721,5.81275658982494,2.810724106202296,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",assault_weapons_ban
+2,0.2289988425192069,6.191187511506846,0.036987870597295455,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",assault_weapons_ban
+3,-1.0385743693822884,4.514649242268398,-0.23004541740665857,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",assault_weapons_ban
+4,-2.2806157857965794,8.156136041682213,-0.2796196353446551,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",assault_weapons_ban
+5,-1.358833391955582,1.1417485085556014,-1.190133713136713,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",assault_weapons_ban
+-5,-0.3623431345749435,0.12621575207452235,-2.8708234005609934,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",assault_weapons_ban
+-4,0.19887898437498863,0.19654013926686284,1.0119000887902603,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",assault_weapons_ban
+-3,-0.6180457413719722,0.12028710181836337,-5.138088224165856,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",assault_weapons_ban
+-2,-0.579548356077019,0.14815074862213198,-3.9118827374621943,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",assault_weapons_ban
+-1,0.0,0.0,0.0,0,True,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",assault_weapons_ban
+0,-0.38156865721361377,0.14241202475204723,-2.6793289251940684,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",assault_weapons_ban
+1,0.6633485087247724,0.06084605591904113,10.902079004223253,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",assault_weapons_ban
+2,-0.09682889013102622,0.03721647248013499,-2.6017750656704637,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",assault_weapons_ban
+3,-0.8147684702979238,0.09184807638196579,-8.870827810367754,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",assault_weapons_ban
+4,-0.6959393444998283,0.3014843591987168,-2.308376283099699,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",assault_weapons_ban
+5,-0.850339654770067,0.17778580750741413,-4.782944525729961,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",assault_weapons_ban
+-5,-0.6831149035026784,0.18617471345056152,-3.669214206601042,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",assault_weapons_ban
+-4,0.21722682618249575,0.28012776286555935,0.7754562559611365,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",assault_weapons_ban
+-3,-0.7118953144075593,0.23948744053901946,-2.9725789077092366,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",assault_weapons_ban
+-2,-0.651034440667698,0.22347593210979963,-2.9132194886553937,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",assault_weapons_ban
+-1,0.0,0.0,0.0,0,True,state_total_suicide_rate,"State total suicide rate (per 100,000)",assault_weapons_ban
+0,-0.005186404412770059,0.1976723552615191,-0.026237378544452933,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",assault_weapons_ban
+1,0.3008945047709103,0.15734848903841267,1.9122808652929262,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",assault_weapons_ban
+2,-0.6820932266868059,0.06048439515929728,-11.277176946059928,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",assault_weapons_ban
+3,-0.7789018106868933,0.1333977184862201,-5.838944020375831,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",assault_weapons_ban
+4,-0.6030369433793832,0.39286487588646546,-1.534972914080656,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",assault_weapons_ban
+5,-0.5122104093110054,0.4301775638395824,-1.1906953136728764,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",assault_weapons_ban
+-5,-0.3207717689277346,0.0681271120946989,-4.708430448099009,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",assault_weapons_ban
+-4,0.018347841807507353,0.1955048437793121,0.09384852800996883,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",assault_weapons_ban
+-3,-0.09384957303558748,0.1449237269118492,-0.6475790751135739,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",assault_weapons_ban
+-2,-0.0714860845906791,0.12741976982693573,-0.5610282037691092,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",assault_weapons_ban
+-1,0.0,0.0,0.0,0,True,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",assault_weapons_ban
+0,0.37638225280084364,0.19878936816854725,1.8933721469536589,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",assault_weapons_ban
+1,-0.36245400395386185,0.1103584987654148,-3.28433249825478,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",assault_weapons_ban
+2,-0.5852643365557796,0.03566786009664582,-16.40873141730242,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",assault_weapons_ban
+3,0.03586665961103018,0.20638515483392258,0.17378507499675525,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",assault_weapons_ban
+4,0.09290240112044508,0.11589651874853682,0.8015978574992181,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",assault_weapons_ban
+5,0.33812924545906176,0.2911692459387947,1.1612807677158952,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",assault_weapons_ban
+-5,-0.5722152961396508,0.2071879306968359,-2.7618177092416394,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",assault_weapons_ban
+-4,-0.4698511107509498,0.12399467727317541,-3.789284516752364,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",assault_weapons_ban
+-3,0.14697843023308224,0.21797591824766016,0.6742874690684322,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",assault_weapons_ban
+-2,1.005593906968439,0.38129865439328503,2.637286797060746,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",assault_weapons_ban
+-1,0.0,0.0,0.0,0,True,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",assault_weapons_ban
+0,0.10999438397841194,0.14577077666721364,0.7545708851474588,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",assault_weapons_ban
+1,-1.6180136128958884,0.1077029200905471,-15.022931704503513,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",assault_weapons_ban
+2,1.2836806926444946,0.2001958169413491,6.412125449257371,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",assault_weapons_ban
+3,0.45547733271621593,0.10168014466111916,4.479511061222783,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",assault_weapons_ban
+4,0.5718397922970135,0.12453271961643053,4.591883916598947,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",assault_weapons_ban
+5,0.44039405609156645,0.03507941236783694,12.554202774940096,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",assault_weapons_ban

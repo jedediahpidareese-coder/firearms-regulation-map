@@ -1,0 +1,10 @@
+policy,spec_name,outcome,outcome_label,outcome_stratum,bandwidth_km,donut_km,fe,cluster,covariates,drop_spillover_pairs,beta,se,z,n,n_counties,n_pairs,n_treated_post,n_straddling_pair_years
+age21_handgun,headline,county_violent_crime_rate,"County violent crime rate (per 100,000)",primary,100,0,pair_year,state,,0,-31.284080648566377,30.204793341936004,-1.0357323188545675,31248,1953,101,6349,594
+age21_handgun,headline,county_murder_rate,"County murder rate (per 100,000)",primary,100,0,pair_year,state,,0,-0.4642493706442676,0.3433207684560841,-1.3522321202180696,31248,1953,101,6349,594
+age21_handgun,headline,county_property_crime_rate,"County property crime rate (per 100,000)",primary,100,0,pair_year,state,,0,-269.0219050902259,75.95545633716124,-3.5418377831350982,31248,1953,101,6349,594
+age21_handgun,headline,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",primary,100,0,pair_year,state,,0,-56.51548529669202,12.826712694342463,-4.406077117609375,31248,1953,101,6349,594
+age21_handgun,headline,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",primary,100,0,pair_year,state,,0,-23.558103469029383,5.909201702443777,-3.9866812228269044,31248,1953,101,6349,594
+age21_handgun,headline,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,-0.18905706051431131,0.2364012449687027,-0.7997295468530239,29295,1953,101,5898,553
+age21_handgun,headline,state_total_suicide_rate,"State total suicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,-0.01099115317635264,0.5900126522916601,-0.01862867369650812,29295,1953,101,5898,553
+age21_handgun,headline,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",secondary,100,0,pair_year,state,,0,0.17806590733795796,0.3650059607841329,0.48784383398951503,29295,1953,101,5898,553
+age21_handgun,headline,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,-0.8196488386983132,0.4209662736282272,-1.9470653352676397,29271,1953,101,5884,552

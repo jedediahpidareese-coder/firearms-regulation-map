@@ -1,0 +1,100 @@
+event_time,beta,se,z,n,omitted,outcome,outcome_label,policy
+-5,15.042844281093442,19.92873256250678,0.7548319610347184,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",age21_handgun
+-4,21.63446680449642,15.402735353249216,1.404586023737181,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",age21_handgun
+-3,26.451730241350997,19.667750952134103,1.3449290824216371,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",age21_handgun
+-2,0.5349551439044735,15.272869407620247,0.03502649892609983,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",age21_handgun
+-1,0.0,0.0,0.0,0,True,county_violent_crime_rate,"County violent crime rate (per 100,000)",age21_handgun
+0,-35.77716367531493,19.358284582286554,-1.8481577498892734,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",age21_handgun
+1,27.371890955293747,11.656341715607716,2.3482402646658067,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",age21_handgun
+2,35.695656680325655,11.520693598999031,3.098394760140748,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",age21_handgun
+3,-33.907425260185136,33.55690199306961,-1.0104456384915366,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",age21_handgun
+4,-8.737176218247006,21.720754091673,-0.4022501328163621,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",age21_handgun
+5,3.091715388913618,22.27349052193243,0.13880695465621987,31248,False,county_violent_crime_rate,"County violent crime rate (per 100,000)",age21_handgun
+-5,-0.7972528127511164,0.2031202358170193,-3.925028983667196,31248,False,county_murder_rate,"County murder rate (per 100,000)",age21_handgun
+-4,-0.010742275727972336,0.37685498215226343,-0.028505064910172944,31248,False,county_murder_rate,"County murder rate (per 100,000)",age21_handgun
+-3,-0.24025352620646948,0.5816444467947722,-0.41305909053274376,31248,False,county_murder_rate,"County murder rate (per 100,000)",age21_handgun
+-2,1.735500465668744,0.607424641474092,2.857145310168927,31248,False,county_murder_rate,"County murder rate (per 100,000)",age21_handgun
+-1,0.0,0.0,0.0,0,True,county_murder_rate,"County murder rate (per 100,000)",age21_handgun
+0,-0.7025458689937175,0.351320738073669,-1.9997278636207338,31248,False,county_murder_rate,"County murder rate (per 100,000)",age21_handgun
+1,0.40697425325758846,0.42124036155759276,0.9661330926427528,31248,False,county_murder_rate,"County murder rate (per 100,000)",age21_handgun
+2,0.16281364936027184,0.5655008317068091,0.28791053917438725,31248,False,county_murder_rate,"County murder rate (per 100,000)",age21_handgun
+3,-1.1247429290258548,0.6499529173842175,-1.7304990853067699,31248,False,county_murder_rate,"County murder rate (per 100,000)",age21_handgun
+4,-0.22414680843641546,0.3372928505316837,-0.6645465745363025,31248,False,county_murder_rate,"County murder rate (per 100,000)",age21_handgun
+5,-0.6978393993227221,0.3886566742228494,-1.7955163145418993,31248,False,county_murder_rate,"County murder rate (per 100,000)",age21_handgun
+-5,57.37281655067964,53.72571388683022,1.067883745044911,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",age21_handgun
+-4,112.98160906952332,110.22855108617838,1.024975906479915,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",age21_handgun
+-3,148.959402802453,69.78731364825697,2.1344768126946447,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",age21_handgun
+-2,69.33057221168175,68.37471327001414,1.0139797140778184,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",age21_handgun
+-1,0.0,0.0,0.0,0,True,county_property_crime_rate,"County property crime rate (per 100,000)",age21_handgun
+0,-170.28826702060974,68.07438130681274,-2.501502970010359,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",age21_handgun
+1,-409.51237119825487,225.3551853481389,-1.8171863698881463,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",age21_handgun
+2,211.83353526181966,84.07253861716069,2.519651942787662,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",age21_handgun
+3,-61.260392385561126,75.98013361721763,-0.8062685529639433,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",age21_handgun
+4,-61.33627630392388,40.71501381691149,-1.5064780913434714,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",age21_handgun
+5,-17.576726697445903,43.115400750597765,-0.40766701437194025,31248,False,county_property_crime_rate,"County property crime rate (per 100,000)",age21_handgun
+-5,15.7952952824438,17.646516794310312,0.8950942254811786,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",age21_handgun
+-4,23.799623005513265,25.278682181235457,0.941489862283244,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",age21_handgun
+-3,34.23803661323647,19.192496464667563,1.7839282490564476,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",age21_handgun
+-2,7.7041440470316,23.51586170473538,0.32761478799988947,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",age21_handgun
+-1,0.0,0.0,0.0,0,True,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",age21_handgun
+0,-69.84866892546262,19.65793556709758,-3.5532046936999655,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",age21_handgun
+1,4.714153576393525,25.09690245920901,0.18783806424141888,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",age21_handgun
+2,60.55228980092127,24.423794664842344,2.4792334947069183,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",age21_handgun
+3,-24.514176532715982,20.94713206796722,-1.1702879636780235,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",age21_handgun
+4,-39.0347697194414,11.418331770695714,-3.418605318477537,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",age21_handgun
+5,-26.37396830110995,15.405157396919044,-1.7120219950744946,31248,False,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",age21_handgun
+-5,5.124640927277555,6.081348765202367,0.8426816361200794,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",age21_handgun
+-4,13.711604440660334,7.396353020436671,1.8538331530112415,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",age21_handgun
+-3,21.850837823494814,6.336734481145392,3.448280480823489,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",age21_handgun
+-2,12.733313249148203,7.496906334833465,1.6984757019017844,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",age21_handgun
+-1,0.0,0.0,0.0,0,True,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",age21_handgun
+0,-3.793902297261311,8.158767626804618,-0.46500923556113005,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",age21_handgun
+1,4.332538481316736,9.27266489622096,0.4672376851537519,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",age21_handgun
+2,11.77713807239867,8.614209174660019,1.367175771287616,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",age21_handgun
+3,-16.08213727580785,12.267475592827058,-1.3109573484875137,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",age21_handgun
+4,-2.809402069015167,7.940122331787548,-0.3538235245782026,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",age21_handgun
+5,-5.043317463508713,4.294262762529693,-1.1744315013778435,31248,False,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",age21_handgun
+-5,0.4579880909075041,0.14892790734409564,3.0752335077758772,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",age21_handgun
+-4,-0.17128917252361836,0.14185017046572698,-1.2075358948194161,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",age21_handgun
+-3,-0.3881377033399811,0.17328979064439679,-2.2398186407672904,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",age21_handgun
+-2,0.06593479189289086,0.12648243162489747,0.5212960491495794,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",age21_handgun
+-1,0.0,0.0,0.0,0,True,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",age21_handgun
+0,-0.0627951163020513,0.12632466272110882,-0.4970930849875782,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",age21_handgun
+1,-0.8079096828143112,0.114084310037456,-7.081689695533587,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",age21_handgun
+2,-0.5277704467031444,0.22035157653123283,-2.3951289798388977,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",age21_handgun
+3,-0.15523467108718225,0.2526562928764602,-0.6144104677538604,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",age21_handgun
+4,-0.6124563532896298,0.289680926337851,-2.1142446657855896,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",age21_handgun
+5,-0.4945950491987882,0.05926932512163349,-8.344873983021943,29295,False,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",age21_handgun
+-5,0.5644512876614439,0.1583457700116522,3.564675504877128,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",age21_handgun
+-4,0.40779395188385487,0.12775717283392438,3.1919456484369704,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",age21_handgun
+-3,0.02628619102648405,0.30062637950690557,0.0874380720334632,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",age21_handgun
+-2,0.14947752166272432,0.23755684014742623,0.6292284472632299,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",age21_handgun
+-1,0.0,0.0,0.0,0,True,state_total_suicide_rate,"State total suicide rate (per 100,000)",age21_handgun
+0,-0.9417010178069316,0.3649219821346507,-2.580554375755468,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",age21_handgun
+1,-1.0686881223706755,0.17547560251928368,-6.090237657130901,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",age21_handgun
+2,-0.01764415017189441,0.5124553198054704,-0.0344306117821007,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",age21_handgun
+3,-0.861113736880152,0.3814748871604084,-2.257327456834813,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",age21_handgun
+4,-0.45644238481312316,0.5875762586297062,-0.7768223751545,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",age21_handgun
+5,-0.2600974120235869,0.22359039460203348,-1.1632763226995144,29295,False,state_total_suicide_rate,"State total suicide rate (per 100,000)",age21_handgun
+-5,0.10646319675393988,0.10769381181046507,0.9885730197878871,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",age21_handgun
+-4,0.5790831244074736,0.19696821135523176,2.9399826521402397,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",age21_handgun
+-3,0.41442389436646543,0.20786039885041202,1.993760700251076,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",age21_handgun
+-2,0.08354272976983346,0.1560784229741049,0.5352612371262496,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",age21_handgun
+-1,0.0,0.0,0.0,0,True,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",age21_handgun
+0,-0.8789059015048799,0.4164023241287067,-2.1107132467234186,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",age21_handgun
+1,-0.2607784395563646,0.15563952090384173,-1.6755284136185469,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",age21_handgun
+2,0.5101262965312503,0.36662654636125686,1.3914057822441352,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",age21_handgun
+3,-0.7058790657929703,0.252203106997781,-2.798851585120167,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",age21_handgun
+4,0.15601396847650675,0.3469771569302618,0.4496375780376334,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",age21_handgun
+5,0.23449763717520122,0.2122194799783436,1.104976966295135,29295,False,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",age21_handgun
+-5,0.4812208391580722,0.26007968278734966,1.8502823211743737,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",age21_handgun
+-4,0.3483910438580446,0.26521904879052666,1.3135973658257414,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",age21_handgun
+-3,0.22926162603758785,0.10045384758082734,2.2822582863550247,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",age21_handgun
+-2,0.0828664806326122,0.12777633855063208,0.6485275879131245,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",age21_handgun
+-1,0.0,0.0,0.0,0,True,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",age21_handgun
+0,0.029529630353473807,0.0842795253876885,0.35037727393025253,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",age21_handgun
+1,0.37114537244636936,0.16747192302682046,2.2161647501171333,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",age21_handgun
+2,0.1418648875585088,0.32943159318478027,0.4306353443123953,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",age21_handgun
+3,-0.6565314640412894,0.38120763266009144,-1.7222411300108826,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",age21_handgun
+4,-0.005831970616280081,0.4470959014222367,-0.013044115586227164,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",age21_handgun
+5,-0.5914917732407271,0.30759185656163285,-1.9229760496673247,29271,False,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",age21_handgun

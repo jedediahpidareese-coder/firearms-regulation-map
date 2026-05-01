@@ -1,0 +1,10 @@
+policy,spec_name,outcome,outcome_label,outcome_stratum,bandwidth_km,donut_km,fe,cluster,covariates,drop_spillover_pairs,beta,se,z,n,n_counties,n_pairs,n_treated_post,n_straddling_pair_years
+stand_your_ground,headline,county_violent_crime_rate,"County violent crime rate (per 100,000)",primary,100,0,pair_year,state,,0,27.017098863431276,8.843505678594209,3.0550213733481764,31248,1953,101,18883,689
+stand_your_ground,headline,county_murder_rate,"County murder rate (per 100,000)",primary,100,0,pair_year,state,,0,-0.953817205984476,0.7211401226104136,-1.3226516956674217,31248,1953,101,18883,689
+stand_your_ground,headline,county_property_crime_rate,"County property crime rate (per 100,000)",primary,100,0,pair_year,state,,0,38.73206360029921,29.577281110519042,1.3095207587057185,31248,1953,101,18883,689
+stand_your_ground,headline,county_burglary_rate,"County burglary rate (per 100,000) [placebo]",primary,100,0,pair_year,state,,0,-6.520323455682017,10.03190127219417,-0.6499588940089216,31248,1953,101,18883,689
+stand_your_ground,headline,county_motor_vehicle_theft_rate,"County motor vehicle theft rate (per 100,000) [placebo]",primary,100,0,pair_year,state,,0,8.78401930298321,4.969820933621331,1.7674719915074706,31248,1953,101,18883,689
+stand_your_ground,headline,state_firearm_suicide_rate,"State firearm suicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,0.5940502871017292,0.12952637364185582,4.586326864552663,29295,1953,101,17494,653
+stand_your_ground,headline,state_total_suicide_rate,"State total suicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,0.47880765599553277,0.1568376819928481,3.052886588934455,29295,1953,101,17494,653
+stand_your_ground,headline,state_nonfirearm_suicide_rate,"State non-firearm suicide rate (per 100,000) [substitution]",secondary,100,0,pair_year,state,,0,-0.11524263110619655,0.1031869040842743,-1.116833886324142,29295,1953,101,17494,653
+stand_your_ground,headline,state_firearm_homicide_rate,"State firearm homicide rate (per 100,000)",secondary,100,0,pair_year,state,,0,0.20317700257997565,0.17374449882499507,1.169401068546214,29271,1953,101,17484,652
