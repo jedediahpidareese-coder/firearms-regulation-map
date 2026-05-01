@@ -33,20 +33,30 @@ SCM_CASES = [("TX_2021", "Texas (2021)"), ("FL_2023", "Florida (2023)")]
 # 1) Figures: copy the SVGs we'll cite from the existing pipeline outputs.
 # --------------------------------------------------------------------------
 
+# Each entry is (source path, destination filename, caption note,
+# title_override). title_override replaces the SVG's top-level title text
+# at copy time -- the upstream plotting scripts use a single template that
+# mislabels some figures (e.g. the stacked-DD event study inherits a
+# "Callaway-Sant'Anna" title from a shared header). The override is the
+# title shown in the rendered PDF figure itself; the LaTeX caption is set
+# separately in main.tex.
 FIGURE_SOURCES = [
     # CS21 main event study (broad / RA, headline tier — already filtered
     # by the cs_lib plot fix from earlier today)
     (OUTPUTS / f"{POLICY_SHORT}_cs" / "figures" / "event_study_broad_ra_4panel.svg",
      "fig2_cs21_event_study.svg",
-     "Callaway-Sant'Anna ATT(g, t) — broad pool, RA headline"),
+     "Callaway-Sant'Anna ATT(g, t) — broad pool, RA headline",
+     "Callaway-Sant'Anna ATT(g,t), permitless carry (RA, broad pool)"),
     # Stacked-DiD event study (EB headline)
     (OUTPUTS / f"{POLICY_SHORT}_stackdd" / "figures" / "event_study_eb_4panel.svg",
      "fig3_stackdd_event_study.svg",
-     "Stacked-DiD ATT — entropy-balanced headline"),
+     "Stacked-DiD ATT — entropy-balanced headline",
+     "Stacked-DiD ATT, permitless carry (entropy-balanced controls)"),
     # Spatial RDD event study (secondary outcomes — state-joined mortality)
     (OUTPUTS / f"{POLICY_SHORT}_rdd" / "figures" / "event_study_secondary.svg",
      "fig5_rdd_event_study.svg",
-     "Spatial-RDD ATT (border counties, state-pair x year FE)"),
+     "Spatial-RDD ATT (border counties, state-pair x year FE)",
+     "Spatial RDD event study, permitless carry (contiguous county pairs)"),
 ]
 for case_dir, case_label in SCM_CASES:
     for outcome, label in [("firearm_suicide_rate",
@@ -55,15 +65,40 @@ for case_dir, case_label in SCM_CASES:
                             f"{case_label} total suicide")]:
         src = OUTPUTS / f"{POLICY_SHORT}_scm" / case_dir / "figures" / f"{outcome}.svg"
         dst_name = f"fig4_scm_{case_dir}_{outcome}.svg"
-        FIGURE_SOURCES.append((src, dst_name, label))
+        # SCM titles are correct upstream — pass None to skip rewrite.
+        FIGURE_SOURCES.append((src, dst_name, label, None))
+
+
+def _rewrite_svg_title(svg_path: Path, new_title: str) -> bool:
+    """Replace the top <text font-size="14"> element's text with new_title.
+
+    Returns True if a title was found and rewritten.
+    """
+    import re
+    txt = svg_path.read_text(encoding="utf-8")
+    # The plotting templates emit a single top-of-figure <text font-size="14"
+    # font-weight="600">...</text> element. Rewrite its inner text.
+    pat = r'(<text\s[^>]*font-size="14"[^>]*>)[^<]*(</text>)'
+    new_txt, n = re.subn(pat, lambda m: m.group(1) + new_title + m.group(2),
+                         txt, count=1)
+    if n == 1:
+        svg_path.write_text(new_txt, encoding="utf-8")
+        return True
+    return False
+
 
 print("Copying figures ...")
-for src, dst_name, label in FIGURE_SOURCES:
+for src, dst_name, label, title_override in FIGURE_SOURCES:
     if not src.exists():
         print(f"  ! missing source: {src.relative_to(ROOT)}")
         continue
-    shutil.copy2(src, FIG / dst_name)
-    print(f"  {src.name:50s} -> figures/{dst_name}  ({label})")
+    dst = FIG / dst_name
+    shutil.copy2(src, dst)
+    note = label
+    if title_override:
+        if _rewrite_svg_title(dst, title_override):
+            note = f"{label}  [title -> {title_override!r}]"
+    print(f"  {src.name:50s} -> figures/{dst_name}  ({note})")
 
 # --------------------------------------------------------------------------
 # 2) Tables (LaTeX `tabular` fragments)
@@ -278,8 +313,10 @@ def write_rs_bounds_table():
         f"cs21_{POLICY_SHORT}_*_firearm_suicide_rate_bounds.csv"))
     for f in bounds_files:
         # filename: cs21_permitless_carry_<rule>_<spec>_firearm_suicide_rate_bounds.csv
+        # parts:    [cs21, permitless, carry, <rule>, <spec>, firearm, suicide, rate, bounds]
         parts = f.stem.split("_")
-        spec = parts[-4]; rule = parts[-5]
+        spec = parts[-5]   # 'or' or 'ra'
+        rule = parts[-6]   # 'broad' or 'strict'
         df = pd.read_csv(f)
         e1 = df[df["event_time"] == 1]
         if e1.empty:
@@ -288,10 +325,12 @@ def write_rs_bounds_table():
             M = r.get("M_sensitivity")
             if pd.isna(M):
                 continue
+            # CSV columns are ci_low / ci_high (not bound_low / bound_high).
+            lo = r.get("ci_low", float("nan"))
+            hi = r.get("ci_high", float("nan"))
             rows.append(
                 f"  {rule}/{spec.upper()} & {M:.1f} & "
-                f"{r.get('bound_low', float('nan')):+.3f} & "
-                f"{r.get('bound_high', float('nan')):+.3f} \\\\"
+                f"{lo:+.3f} & {hi:+.3f} \\\\"
             )
     body = "\n".join(rows) if rows else "  \\multicolumn{4}{c}{\\textit{(no bounds CSVs found; run scripts/run\\_roth\\_sa\\_bounds.py)}} \\\\"
     out = TBL / "table_rs_bounds.tex"

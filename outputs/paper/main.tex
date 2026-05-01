@@ -65,6 +65,30 @@
 \newcommand{\att}{\text{ATT}}
 \newcommand{\citepg}[2]{\citep[][p.~#2]{#1}}  % cite with page
 
+% ---- Line-break leniency ----
+% Compound proper names (Callaway-Sant'Anna, Dube-Lester-Reich,
+% Abadie-Diamond-Hainmueller, Roth-Sant'Anna) and citation-laden
+% paragraphs were producing 10+pt overfull hboxes. \emergencystretch
+% lets LaTeX stretch interword spacing on lines that would otherwise
+% overflow, without affecting normal paragraphs. Standard solution for
+% citation-dense empirical-economics manuscripts.
+\emergencystretch=6em
+\tolerance=2000     % accept slightly worse line breaks before complaining
+
+% Tell LaTeX where to break the worst recurring compound names.
+% (Words with apostrophes like Sant'Anna can't appear in \hyphenation;
+% \emergencystretch handles those.)
+\hyphenation{
+  Abadie-Dia-mond-Hain-mueller
+  Dube-Les-ter-Reich
+  Cal-la-way
+  per-mit-less
+  con-cealed
+  pre-trend
+  multi-verse
+  het-ero-ge-ne-ity-ro-bust
+}
+
 % ---- Title ----
 \title{
   Permitless Concealed Carry and Total Suicide: \\
@@ -178,7 +202,7 @@ estimate of $+0.5$ to $+0.95$ per 100,000 in total suicide is robust
 across these three estimators, across three literature-motivated
 covariate sets \citep{donohue2019, anejadonohuezhang2014,
 simonsohn2020}, and across honest pre-trend bounds in the spirit
-of \citet{rambachan2023} for $M \le 1$. To the lethal-means
+of \citet{rambachan2023} at $M \le 0.5$. To the lethal-means
 restriction literature \citep{millerhemenway1999, miller2002a,
 miller2012, anestis2015, crifasi2015, kivisto2018, swanson2017,
 ludwigcook2000} we provide a clean test of the substitution
@@ -202,18 +226,17 @@ suicide approximately unchanged or modestly reduced, and raise total
 suicide by less than the firearm-suicide change. The first two
 predictions identify the lethal-means restriction mechanism; the
 third quantifies the welfare consequence. The framing implies that
-the firearm- versus non-firearm decomposition is the central
-substantive test in the paper, not a side-channel robustness check;
-a finding of large non-firearm suicide increases would falsify the
-lethal-means interpretation and point toward a confounding
-state-level distress shock that our identification strategy fails to
-absorb. The framing also implies that the size of the firearm-suicide
-response is a sufficient statistic for the policy externality, with
-non-firearm responses adjusting only the partial-substitution
-attenuation. Our empirical results validate this framing: the
-firearm-suicide and total-suicide responses are statistically and
-substantively indistinguishable, and the non-firearm suicide response
-is uniformly small.
+the decomposition between firearm and non-firearm methods is the
+central substantive test in the paper rather than a side-channel
+robustness check; a finding of large non-firearm increases would
+falsify the lethal-means interpretation and point toward a
+confounding state-level distress shock that our identification
+strategy fails to absorb. The framing also implies that the size of
+the firearm-suicide response is a sufficient statistic for the
+policy externality, with non-firearm responses adjusting only the
+partial-substitution attenuation. Our empirical results validate
+this framing: the firearm and total responses are statistically and
+substantively close, and the non-firearm response is uniformly small.
 
 Two methodological choices deserve early flagging. First, on the
 question of pre-trend rejection, we follow recent best practice in
@@ -228,9 +251,13 @@ RDD that requires only border-pair time invariance, and synthetic
 controls that require only no anticipation in the donor pool), and
 (c) discuss substantively what magnitude of unobserved trend
 violation would be required to overturn the result. The pattern that
-emerges is that estimates survive pre-trend deviations of up to one
-pre-trend slope but not deviations of two pre-trend slopes; we view
-this as a calibrated robustness statement rather than a test outcome.
+emerges is that estimates survive pre-trend deviations of up to half
+a pre-trend slope but become statistically inconclusive at deviations
+of one full pre-trend slope; we view this as a moderate calibrated
+robustness statement rather than a binary test outcome, and we
+triangulate the bounds defense with two other estimators (spatial
+RDD and SCM) whose identifying assumptions are orthogonal to the
+parallel-trends premise.
 Second, on the question of pre- and post-period length, we adopt
 five pre-treatment leads and four post-treatment lags as the
 \emph{balanced} window, with sensitivity tests at three- and seven-
@@ -871,17 +898,22 @@ for firearm suicide.
 \input{tables/table_rs_bounds.tex}
 
 The bounds at $M = 0$ are tight around the point estimate. As $M$
-relaxes, the bounds widen monotonically. At $M = 1$ --- allowing
+relaxes, the bounds widen monotonically. At $M = 0.5$ --- allowing
 the post-period counterfactual trend to deviate from a linear
-extrapolation of the pre-trend by one full pre-trend slope --- the
-firearm-suicide effect remains bounded away from zero. At $M = 2$
---- allowing two pre-trend slopes of deviation, an aggressive
-relaxation --- the bounds include zero. We interpret the
-$M \le 1$ robustness as evidence that the headline result survives
-the most plausible parallel-trends violations: a violation of one
-pre-trend slope is comparable in magnitude to the entire pre-period
-upward drift, so requiring more than this would be an unusually
-adversarial assumption.
+extrapolation of the pre-trend by half a pre-trend slope --- the
+firearm-suicide effect remains bounded away from zero across all
+four headline specifications (broad/strict control pool, OR/RA
+doubly-robust adjustment). At $M = 1$ the lower bound crosses zero
+in three of four specifications and reaches $-0.070$ in the fourth
+(broad/RA), so the result becomes statistically inconclusive once
+one full pre-trend slope of unobserved deviation is permitted. At
+$M = 2$ the bounds clearly include zero across all specifications.
+We interpret the $M \le 0.5$ robustness as a calibrated defense:
+the headline result survives unobserved trend deviations equal to
+half the entire observed pre-trend slope. This is a more limited
+robustness statement than would be ideal, and we discuss its
+implications for identification credibility in
+§\ref{sec:discussion}.
 
 \subsection{Spatial RDD}\label{sec:resrdd}
 
@@ -1111,9 +1143,8 @@ effects on aggregate homicide rates in earlier-adopting states.
 The closest substantive precedent on suicide is the broader
 firearm-policy review \citep{leefirearm2017, santaella2016,
 klarevas2019}, which documents lethal-mortality effects for
-permit-to-purchase, large-capacity-magazine bans, and assault-
-weapons restrictions, but does not address permitless carry
-specifically. \citet{rand2024} classifies the evidence on
+permit-to-purchase laws, magazine-capacity bans, and assault-weapons
+restrictions, but does not address permitless carry specifically. \citet{rand2024} classifies the evidence on
 permitless carry's effect on suicide as ``limited,'' acknowledging
 that the question has not been systematically addressed in the
 published peer-reviewed literature.
@@ -1131,30 +1162,35 @@ mechanism that operates uniquely on this outcome.
 
 The Roth-Sant'Anna honest bounds in §\ref{sec:resbounds} support
 our headline interpretation but with an important caveat: the
-firearm-suicide result is robust to deviations of one pre-trend
-slope ($M = 1$) but not to deviations of two pre-trend slopes
-($M = 2$). The substantive question is what magnitude of unobserved
+firearm-suicide result is robust to deviations of half a pre-trend
+slope ($M = 0.5$) across all four headline specifications, but the
+lower bound crosses zero at $M = 1$ in three of four specs and is
+within $0.07$ of zero in the fourth. The result clearly fails at
+$M = 2$. The substantive question is what magnitude of unobserved
 trend violation is plausible. The pre-period drift visible in the
-CS21 event study (§\ref{sec:eventstudy}) is approximately one
-pre-trend slope in magnitude --- so requiring $M \ge 1$ for the
-result to overturn is requiring an adversarial interpretation in
-which the entire post-period dynamic effect is explained by an
-unobserved continuation of the pre-period trend. We view this as a
-calibrated robustness statement: the pooled-estimator result
-survives moderate deviations from parallel trends but not the most
-adversarial possible deviation.
+CS21 event study (§\ref{sec:eventstudy}) is approximately
+half a pre-trend slope in magnitude over the pre-window --- so
+requiring $M = 0.5$ for the result to hold is requiring that the
+post-period counterfactual continue the observed pre-period trend
+at most halfway. We view this as a moderate but not maximal
+robustness statement: the pooled-estimator result is robust to
+mild parallel-trends violations but is sensitive to assumptions
+about the size of unobserved trend continuation in the post-period.
 
 The triangulation across three estimators with different
-identifying assumptions further strengthens this defense. The
-spatial RDD requires only that the within-pair time-invariance
-assumption hold; the synthetic-control case studies require only
-that no anticipation be present in the donor pool. The fact that
-all three estimators yield same-signed and statistically significant
-estimates on total and firearm suicide makes a unified
-identification-failure story difficult to construct: any unobserved
-confounder must operate at the state level, the within-pair level,
-and the donor-pool level simultaneously to explain all three
-estimates.
+identifying assumptions strengthens the defense by triangulating
+beyond the parallel-trends question. The spatial RDD requires only
+that the within-pair time-invariance assumption hold; the
+synthetic-control case studies require only that no anticipation
+be present in the donor pool. The fact that the spatial RDD ---
+which is unaffected by the parallel-trends-on-state-level-trends
+question that the bounds analysis interrogates --- yields a
+qualitatively similar $+0.541$ effect on total suicide is the most
+informative robustness finding, because the RDD identifying
+assumption is orthogonal to the bounds-relevant assumption. Any
+unobserved confounder must therefore operate at the state level,
+the within-pair level, and the donor-pool level simultaneously to
+explain all three estimates.
 
 \subsection{Limitations}\label{sec:limitations}
 
