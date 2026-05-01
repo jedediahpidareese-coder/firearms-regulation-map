@@ -237,6 +237,43 @@ POLICY_DEFINITIONS = {
         "stack_methodology_link": "../stacked_dd_comparison.md",
         "policy_short": "ubc",
     },
+    # Track A additions (2026-05-01)
+    "Stand-your-ground (SYG)": {
+        "treatment_var": "nosyg",
+        "direction": "1 → 0 (state adopts SYG / removes duty-to-retreat outside the home)",
+        "cs_dir": ROOT / "outputs" / "stand_your_ground_cs",
+        "stack_dir": ROOT / "outputs" / "stand_your_ground_stackdd",
+        "cs_methodology_link": "../stand_your_ground_audit/appendix_section_draft.md",
+        "stack_methodology_link": "../stacked_dd_comparison.md",
+        "policy_short": "stand_your_ground",
+    },
+    "Large-capacity magazine ban": {
+        "treatment_var": "magazine",
+        "direction": "0 → 1 (state prohibits magazines above 10 or 15 rounds)",
+        "cs_dir": ROOT / "outputs" / "magazine_ban_cs",
+        "stack_dir": ROOT / "outputs" / "magazine_ban_stackdd",
+        "cs_methodology_link": "../magazine_ban_audit/appendix_section_draft.md",
+        "stack_methodology_link": "../stacked_dd_comparison.md",
+        "policy_short": "magazine_ban",
+    },
+    "Minimum age 21 for handgun purchase": {
+        "treatment_var": "age21handgunsale",
+        "direction": "0 → 1 (state raises minimum handgun-purchase age above the federal 18 floor)",
+        "cs_dir": ROOT / "outputs" / "age21_handgun_cs",
+        "stack_dir": ROOT / "outputs" / "age21_handgun_stackdd",
+        "cs_methodology_link": "../age21_handgun_audit/appendix_section_draft.md",
+        "stack_methodology_link": "../stacked_dd_comparison.md",
+        "policy_short": "age21_handgun",
+    },
+    "Assault weapons ban": {
+        "treatment_var": "assault",
+        "direction": "0 → 1 (state prohibits long-gun assault weapons; HI-style pistols-only bans excluded per Tufts coding)",
+        "cs_dir": ROOT / "outputs" / "assault_weapons_ban_cs",
+        "stack_dir": ROOT / "outputs" / "assault_weapons_ban_stackdd",
+        "cs_methodology_link": "../assault_weapons_ban_audit/appendix_section_draft.md",
+        "stack_methodology_link": "../stacked_dd_comparison.md",
+        "policy_short": "assault_weapons_ban",
+    },
 }
 
 
@@ -282,6 +319,117 @@ def policy_section_html(name: str, defn: dict, section_num: int) -> str:
       {bounds_summary_html(short)}
     </section>
     """
+
+
+def rdd_section_html(section_num: int) -> str:
+    """Cross-policy spatial RDD section (Track B). Each of the 3 RDD'd
+    policies (permitless carry, red flag, UBC) gets a small headline
+    table; methodology lives at outputs/border_rdd/methodology.md."""
+    pieces = [f'<section id="rdd"><h2>{section_num}. Spatial regression discontinuity on county borders</h2>']
+    pieces.append("""
+    <p class="lead">
+      Border-county pair design adapted from Dube, Lester &amp; Reich (2010, RESTAT)
+      to firearm policy. County FE + state-pair × year FE; iterative within-FE
+      Frisch-Waugh-Lovell. Identifying variation comes from differential outcomes
+      between adjacent counties on opposite sides of a state border. Bandwidth =
+      100 km (centroid distance to nearest other-state population centroid; geometry
+      layer documented in §2.12 of <a href="../../data_appendix.md">data_appendix.md</a>).
+      Per-policy estimator detail and the 10-spec robustness battery: see
+      <a href="../border_rdd/methodology.md">outputs/border_rdd/methodology.md</a>.
+    </p>
+    <p class="lead">
+      Outcomes are stratified into <strong>primary</strong> (true county-level
+      Kaplan UCR rates: violent crime, murder, property crime, burglary, motor
+      vehicle theft) and <strong>secondary</strong> (state-joined-down mortality —
+      no within-state variation by construction; reported only as a sanity check
+      against the existing CS21 results restricted to the border subsample).
+    </p>
+    """)
+    for policy_short, policy_label in [
+        ("permitless_carry", "Permitless carry"),
+        ("red_flag", "Civil-petition red-flag (ERPO)"),
+        ("ubc", "Universal background checks"),
+    ]:
+        headline = read_csv(ROOT / "outputs" / f"{policy_short}_rdd" / "headline.csv")
+        if headline.empty:
+            continue
+        rows = []
+        for _, r in headline.iterrows():
+            sig = "*" if abs(r.get("z") or 0) > 1.96 else ""
+            stratum = r.get("outcome_stratum", "")
+            rows.append(
+                f"<tr><td>{r.get('outcome','')}</td>"
+                f"<td>{stratum}</td>"
+                f"<td>{coef_cell(r['beta'], r['se'], r['z'])}</td>"
+                f"<td>{int(r['n'])}</td>"
+                f"<td>{int(r.get('n_pairs', 0))}</td></tr>"
+            )
+        pieces.append(f"""
+        <h3>{policy_label} — RDD headline (B = 100 km, FE = pair × year, cluster = state)</h3>
+        <table>
+          <thead><tr><th>Outcome</th><th>Stratum</th><th>β (per 100k) [SE, z]</th><th>n</th><th>state pairs</th></tr></thead>
+          <tbody>{"".join(rows)}</tbody>
+        </table>
+        """)
+        es_fig = ROOT / "outputs" / f"{policy_short}_rdd" / "figures" / "event_study_primary.svg"
+        pieces.append(f"<h4>Event study (primary outcomes only)</h4>{embed_svg(es_fig)}")
+    pieces.append("</section>")
+    return "\n".join(pieces)
+
+
+def county_section_html(section_num: int) -> str:
+    """Cross-policy county-level CS21 section (Track C). Each of the 3
+    policies gets a headline table from its outputs/{policy}_cs_county/
+    overall_att.csv. Methodology lives in scripts/lib_cs_county.py."""
+    pieces = [f'<section id="county-cs21"><h2>{section_num}. County-level Callaway-Sant\\u2019Anna ATT(g, t)</h2>']
+    pieces.append("""
+    <p class="lead">
+      A county-grain adaptation of the existing state-level Callaway-Sant'Anna
+      pipeline. Unit of observation is <code>county_fips</code>; cohorts are
+      constructed by state (since treatment is state-level law adoption); the
+      cluster-bootstrap clusters at <em>state</em> because counties within a
+      state share the policy assignment. Many counties per cohort = much tighter
+      SEs than the state-level pipeline. Outcomes are the true county-level
+      Kaplan UCR rates plus the state-joined-down mortality variables (the
+      latter, again, identified at state grain — included only for cross-method
+      consistency). Estimator: <a href="../../scripts/lib_cs_county.py"><code>scripts/lib_cs_county.py</code></a>.
+    </p>
+    """)
+    for policy_short, policy_label in [
+        ("permitless_carry", "Permitless carry"),
+        ("red_flag", "Civil-petition red-flag (ERPO)"),
+        ("ubc", "Universal background checks"),
+    ]:
+        df = read_csv(ROOT / "outputs" / f"{policy_short}_cs_county" / "overall_att.csv")
+        if df.empty:
+            continue
+        # Show RA broad spec (the project's headline convention)
+        sub = df[(df.get("spec") == "ra") & (df.get("control_rule") == "broad")]
+        rows = []
+        for _, r in sub.iterrows():
+            rows.append(
+                f"<tr><td>{r['outcome']}</td>"
+                f"<td>{coef_cell(r['att_overall_post'], r['se_overall_post'], r['z'])}</td>"
+                f"<td>{r['att_pretrends_avg']:+.3f} (z={r['z_pretrends']:+.2f})</td>"
+                f"<td>{int(r['n_post_cells'])}</td></tr>"
+            )
+        pieces.append(f"""
+        <h3>{policy_label} — county CS21 headline (RA / broad)</h3>
+        <table>
+          <thead><tr><th>Outcome</th><th>ATT post (per 100k) [SE, z]</th><th>Pre-trend avg (z)</th><th>n post cells</th></tr></thead>
+          <tbody>{"".join(rows)}</tbody>
+        </table>
+        """)
+    pieces.append("""
+    <p>
+      Cross-method check: the county-grain CS21 should produce point estimates
+      that broadly agree with the state-level CS21 once weighted to comparable
+      population. Where signs disagree, that is informative — it suggests the
+      effect is concentrated in particular counties rather than uniform across
+      the adopting state.
+    </p>
+    </section>""")
+    return "\n".join(pieces)
 
 
 # ---------------------- top-level page ----------------------------------
@@ -356,6 +504,12 @@ def build_html() -> str:
     perm_section = policy_section_html("Permitless carry", POLICY_DEFINITIONS["Permitless carry"], 4)
     rf_section   = policy_section_html("Civil-petition red-flag (ERPO)", POLICY_DEFINITIONS["Civil-petition red-flag (ERPO)"], 5)
     ubc_section  = policy_section_html("Universal background checks (UBC)", POLICY_DEFINITIONS["Universal background checks (UBC)"], 6)
+    syg_section  = policy_section_html("Stand-your-ground (SYG)", POLICY_DEFINITIONS["Stand-your-ground (SYG)"], 7)
+    mag_section  = policy_section_html("Large-capacity magazine ban", POLICY_DEFINITIONS["Large-capacity magazine ban"], 8)
+    age_section  = policy_section_html("Minimum age 21 for handgun purchase", POLICY_DEFINITIONS["Minimum age 21 for handgun purchase"], 9)
+    awb_section  = policy_section_html("Assault weapons ban", POLICY_DEFINITIONS["Assault weapons ban"], 10)
+    rdd_block    = rdd_section_html(11)
+    county_block = county_section_html(12)
 
     html = f"""<!doctype html>
 <html lang="en">
@@ -385,6 +539,12 @@ def build_html() -> str:
     <li><a href="#permitless-carry">Permitless carry</a></li>
     <li><a href="#red-flag">Civil-petition red-flag (ERPO)</a></li>
     <li><a href="#ubc">Universal background checks</a></li>
+    <li><a href="#stand-your-ground">Stand-your-ground (SYG)</a></li>
+    <li><a href="#magazine-ban">Large-capacity magazine ban</a></li>
+    <li><a href="#age21-handgun">Minimum age 21 for handgun purchase</a></li>
+    <li><a href="#assault-weapons-ban">Assault weapons ban</a></li>
+    <li><a href="#rdd">Spatial regression discontinuity on county borders</a></li>
+    <li><a href="#county-cs21">County-level Callaway-Sant'Anna ATT(g, t)</a></li>
     <li><a href="#synthesis">Cross-policy synthesis</a></li>
     <li><a href="#limitations">Limitations and caveats</a></li>
     <li><a href="#appendix">Appendix: code map and reproduction</a></li>
@@ -596,9 +756,21 @@ unobserved trend differences between treated and control states.
 
 {ubc_section.replace('<section class="policy">', '<section class="policy" id="ubc">')}
 
+{syg_section.replace('<section class="policy">', '<section class="policy" id="stand-your-ground">')}
+
+{mag_section.replace('<section class="policy">', '<section class="policy" id="magazine-ban">')}
+
+{age_section.replace('<section class="policy">', '<section class="policy" id="age21-handgun">')}
+
+{awb_section.replace('<section class="policy">', '<section class="policy" id="assault-weapons-ban">')}
+
+{rdd_block}
+
+{county_block}
+
 
 <section id="synthesis">
-<h2>7. Cross-policy synthesis</h2>
+<h2>13. Cross-policy synthesis</h2>
 <p>
 Across three policies × two estimators × multiple specifications, two findings are robust enough
 to be the lede of a paper:
@@ -629,7 +801,7 @@ single-estimator results on these questions probably overstate what the data ide
 
 
 <section id="limitations">
-<h2>8. Limitations and caveats</h2>
+<h2>14. Limitations and caveats</h2>
 <ul>
   <li>The motor vehicle theft placebo continues to fail in some specifications across all three
     policies. The reweighting (RA, EB, strict control rule) helps but does not fully eliminate
@@ -660,7 +832,7 @@ single-estimator results on these questions probably overstate what the data ide
 
 
 <section id="appendix">
-<h2>9. Appendix: code map and reproduction</h2>
+<h2>15. Appendix: code map and reproduction</h2>
 <table>
   <thead><tr><th>Component</th><th>Script</th><th>Output</th></tr></thead>
   <tbody>

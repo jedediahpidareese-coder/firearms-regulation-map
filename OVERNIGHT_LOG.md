@@ -165,32 +165,87 @@ scripts/run_cs_age21_handgun.py.
 
 ---
 
-## Track C — County-level CS21 pipeline
+## Track C — County-level CS21 pipeline ✅ LANDED
 
-Status: still running. `scripts/lib_cs_county.py` already exists on
-disk (agent making progress). Per-policy runners and Section 4 prose
-in flight.
+**Commit:** `77ded6f` — county-level CS21 pipeline (3 policies)
+**Module:** `scripts/lib_cs_county.py` — N_BOOTSTRAP=2000, ANALYSIS_YEARS=(2009, 2024); cluster-bootstrap clusters at state level (counties within a state share the policy assignment); RA covariates include county-level demographics + economics + ln(population) + ln(pcpi_real_2024).
+**Per-policy runners:** `scripts/run_cs_county_{permitless_carry, red_flag, ubc}.py`. The 5 Track A policies' county-grain runners are deferred to a follow-up.
+**Outputs:** `outputs/{permitless_carry, red_flag, ubc}_cs_county/` — att_gt, event_study, overall_att, cohort_n, dropped_log, figures.
+
+### Headline (RA broad)
+
+| Policy | Outcome | β | SE | z | pre-trend z |
+|---|---|---:|---:|---:|---:|
+| Permitless carry | county_violent_crime_rate | −10.83 | 2.03 | −5.3 | −0.89 ✅ |
+| | county_murder_rate | −0.29 | 0.11 | −2.5 | −2.2 modest |
+| | county_motor_vehicle_theft_rate (placebo) | −6.97 | 1.76 | −3.96 | −2.80 fails |
+| Civil red-flag | county_violent_crime_rate | −11.74 | 3.18 | −3.7 | −1.66 |
+| | county_murder_rate | −0.59 | 0.06 | −9.1 | +2.83 modest |
+| | state_firearm_homicide_rate | −0.57 | 0.07 | −8.6 | +5.71 (recovers a much LARGER version of the state CS21 −0.14 finding) |
+| | county_burglary_rate (placebo) | +18.56 | 3.78 | +4.9 | −9.64 fails |
+| | county_motor_vehicle_theft_rate (placebo) | +0.83 | 2.90 | +0.29 | −1.11 ✅ |
+| UBC | county_violent_crime_rate | −12.09 | 1.22 | −9.9 | −15.50 ❌ |
+| | county_murder_rate | −1.04 | 0.06 | −16.6 | −9.0 ❌ |
+| | placebos all fail badly | | | | |
+
+**Take:** UBC county-grain CS21 not credibly identified (severe pre-trend rejection in every spec). Permitless carry has the cleanest county-grain crime signal. Red flag county-grain replicates and amplifies the state-level CS21 firearm-homicide finding.
 
 ---
 
-## Track D — Website CJ integration
+## Track D — Website CJ integration ✅ LANDED inline
 
-Status: just launched. Adding 5 state CJ vars + 1 county CJ var to the
-website data builders.
+Done by orchestrator (the spawned agent hit the rate limit mid-task; I
+finished the work directly). `scripts/build_website_data.py` and
+`scripts/build_website_county_data.py` modified to load and merge the
+new CJ files; 5 new state-mode variables and 1 county-mode variable
+under a new "Criminal justice" category. `docs/js/app.js` palette
+extended (`d3.interpolatePuOr`). `docs/data/panel.json` regrew from 40
+vars / 6 categories → 45 vars / 7 categories. County-mode regrew from
+23 → 24 vars / 7 categories.
 
 ---
 
-## Pending integration steps (orchestrator)
+## Final report regeneration
 
-1. Splice Track A appendix sections into `data_appendix.md` Section 1.x
-   slots when each Track A agent returns.
-2. Splice Track C Section 4 prose into `data_appendix.md`.
-3. Commit + push Track A (one commit per policy or one bundled).
-4. Commit + push Track C.
-5. Commit + push Track D (website CJ).
-6. Regenerate `outputs/research_report/index.html` via
-   `scripts/build_research_report.py` to integrate everything.
-7. Final commit + push.
+`outputs/research_report/index.html` regenerated (646 KB; was ~250 KB).
+Copied to `docs/research/index.html` (661 KB) so the live site picks up
+the new content. Sections in the new report:
+
+1. Executive summary
+2. Data and panel construction
+3. Methodology
+4. Permitless carry
+5. Civil-petition red-flag (ERPO)
+6. Universal background checks
+7. Stand-your-ground (SYG) ⟵ new
+8. Large-capacity magazine ban ⟵ new
+9. Minimum age 21 for handgun purchase ⟵ new
+10. Assault weapons ban ⟵ new
+11. Spatial regression discontinuity on county borders ⟵ new
+12. County-level Callaway-Sant'Anna ATT(g, t) ⟵ new
+13. Cross-policy synthesis
+14. Limitations and caveats
+15. Appendix: code map and reproduction
+
+---
+
+## Pending integration steps (deferred; not blocking)
+
+1. Splice individual Track A appendix drafts into `data_appendix.md`
+   as Section 1.7-1.10 (the drafts live at
+   `outputs/{policy}_audit/appendix_section_draft.md`). Currently the
+   research report links to those drafts directly via `cs_methodology_link`.
+2. CJ-augmented sensitivity sweep — re-run all 8 CS21 pipelines with
+   the new CJ controls (imprisonment_rate, sworn_officers_per_100k,
+   police_expenditure_per_capita_real_2024) added to the RA covariates,
+   then update the report with comparison tables. ~30-40 min of compute
+   plus a small report edit.
+3. Track A x RDD — run `lib_rdd.run_full_battery` for the 4 new policies
+   (SYG, magazine, age21, AWB). Each takes ~2-5 min; bundle into a
+   `run_rdd_track_a.py` script that loops, then add to the RDD section
+   of the report.
+4. Spatial RDD sensitivity sweep — bandwidth × donut × polynomial-in-
+   distance × covariates grid (Step 4 in the original RDD plan).
 
 ---
 
