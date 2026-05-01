@@ -1,0 +1,21 @@
+\begin{threeparttable}
+\caption{Permitless carry: headline ATT estimates across estimators (per 100,000 residents)}
+\label{tab:headline}
+\begin{tabular}{lccc}
+\toprule
+Outcome & CS21 (broad/RA) & Stacked-DD (EB) & Spatial RDD \\
+\midrule
+  Firearm suicide rate & +1.005$^{***}$\newline {\footnotesize (0.057)} & +0.394$^{***}$\newline {\footnotesize (0.139)} & +0.362$^{***}$\newline {\footnotesize (0.110)} \\
+  Non-firearm suicide rate & -0.060\newline {\footnotesize (0.068)} & +0.232$^{*}$\newline {\footnotesize (0.122)} & +0.179$^{*}$\newline {\footnotesize (0.100)} \\
+  Total suicide rate & +0.945$^{***}$\newline {\footnotesize (0.090)} & +0.626$^{***}$\newline {\footnotesize (0.172)} & +0.541$^{***}$\newline {\footnotesize (0.167)} \\
+  Motor vehicle theft (placebo) & +26.281$^{***}$\newline {\footnotesize (5.377)} & -57.173$^{**}$\newline {\footnotesize (23.286)} & +1.640\newline {\footnotesize (3.518)} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Standard errors in parentheses. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$ (two-sided).
+\item CS21 = Callaway and Sant'Anna (2021) ATT(g,t) with literature-backed Headline covariate set; broad never-treated control pool. Standard errors via state-cluster Rademacher bootstrap (B = 2,000).
+\item Stacked-DD = Cengiz et al.\ (2019) with Hainmueller (2012) entropy balancing on baseline covariates; cluster-robust SE at the state level.
+\item Spatial RDD = Dube, Lester and Reich (2010) contiguous-county-pair design; bandwidth 100 km; county FE + state-pair $\times$ year FE; state-clustered SE.
+\item RDD outcomes are state-joined-down to the county panel (no within-state variation by construction).
+\end{tablenotes}
+\end{threeparttable}

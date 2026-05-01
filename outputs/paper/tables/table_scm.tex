@@ -1,0 +1,19 @@
+\begin{threeparttable}
+\caption{Synthetic-control per-state results (post-period mean ATT, per 100,000)}
+\label{tab:scm}
+\begin{tabular}{llccc}
+\toprule
+Case & Outcome & Post ATT & Permutation $p$ & Donor pool \\
+\midrule
+  Texas (2021) & Firearm suicide & +0.470 & 0.400 & 10 \\
+  Texas (2021) & Total suicide & -0.086 & 0.800 & 10 \\
+  Texas (2021) & MV theft (placebo) & -37.335 & 0.900 & 10 \\
+  Florida (2023) & Firearm suicide & -0.044 & 1.000 & 11 \\
+  Florida (2023) & Total suicide & -0.365 & 0.455 & 11 \\
+  Florida (2023) & MV theft (placebo) & -261.819$^{***}$ & 0.000 & 11 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+\item Synthetic control method per Abadie, Diamond and Hainmueller (2010). Donor pool: shall-issue + permit-required states throughout each cohort's $[g-12, g+H]$ window. Inference: refit SCM on every donor as if treated; report two-sided permutation $p$-value as the share of placebo $|\textrm{ATT}|$ at least as extreme as the actual.
+\end{tablenotes}
+\end{threeparttable}

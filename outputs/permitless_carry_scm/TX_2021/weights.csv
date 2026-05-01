@@ -5,6 +5,9 @@ firearm_suicide_rate,NC,0.03417191958494719
 firearm_suicide_rate,NV,0.005237813966840774
 firearm_suicide_rate,VA,0.1528495996074225
 firearm_suicide_rate,WA,0.2529439181188784
+total_suicide_rate,MN,0.8841333060730953
+total_suicide_rate,NC,0.05901354048490961
+total_suicide_rate,VA,0.05685315344175794
 firearm_homicide_rate,NC,0.5000690965256284
 firearm_homicide_rate,NV,0.00617581835237767
 firearm_homicide_rate,PA,0.0862007573871441

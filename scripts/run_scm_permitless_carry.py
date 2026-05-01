@@ -49,6 +49,7 @@ ANALYSIS_YEARS = (1999, 2023)
 PRE_YEARS_TARGET = 12   # how many years pre we'd like for the fit
 OUTCOMES = OrderedDict([
     ("firearm_suicide_rate",      "Firearm suicide rate (per 100k)"),
+    ("total_suicide_rate",        "Total suicide rate (per 100k) [net effect]"),
     ("firearm_homicide_rate",     "Firearm homicide rate (per 100k)"),
     ("homicide_rate",             "Total homicide rate (per 100k)"),
     ("motor_vehicle_theft_rate",  "Motor vehicle theft rate (per 100k) [placebo]"),

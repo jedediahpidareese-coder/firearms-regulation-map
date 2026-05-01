@@ -1,0 +1,141 @@
+% =====================================================================
+% Permitless Concealed Carry and Total Suicide:
+% Multi-Estimator Evidence from U.S. State Adoption Waves, 2010-2024
+%
+% Working paper — target journal: Contemporary Economic Policy.
+% Compile on Overleaf with pdfLaTeX + biber.
+%   - Required packages auto-install on Overleaf.
+%   - Figures are SVG; rendered via the `svg` package (calls Inkscape,
+%     pre-installed on Overleaf).
+% =====================================================================
+\documentclass[12pt]{article}
+
+% ---- Layout ----
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% ---- Math + tables + figures ----
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{svg}            % \includesvg; Overleaf has Inkscape
+\usepackage{subcaption}
+\usepackage{caption}
+\captionsetup[table]{skip=4pt}
+\captionsetup[figure]{skip=4pt}
+
+% ---- Typography + microtype ----
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% ---- Bibliography (Chicago author-date) ----
+% biblatex-chicago provides author-date "Chicago" style as expected by
+% Contemporary Economic Policy and most economics journals.
+\usepackage[
+  authordate,        % Chicago author-date
+  backend=biber,
+  natbib,            % \citep / \citet aliases
+  url=true,
+  doi=true,
+  isbn=false,
+  bibencoding=utf8,
+  maxcitenames=2,
+  giveninits=true,
+]{biblatex-chicago}
+\addbibresource{references.bib}
+
+% ---- Hyperlinks (load last) ----
+\usepackage[colorlinks=true,
+            linkcolor=black,
+            citecolor=black,
+            urlcolor=blue!60!black]{hyperref}
+
+% ---- Convenience ----
+\newcommand{\att}{\text{ATT}}
+\newcommand{\citepg}[2]{\citep[][p.~#2]{#1}}  % cite with page
+
+% ---- Title ----
+\title{
+  Permitless Concealed Carry and Total Suicide: \\
+  \large Multi-Estimator Evidence from U.S.\ State Adoption Waves, 2010--2024
+}
+\author{
+  [Author Name] \\
+  \small [Affiliation] \\
+  \small \href{mailto:[email]}{[email]}
+}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% =====================================================================
+\begin{abstract}
+\noindent
+[Abstract — 200 words. Drafted last after results are settled. Should state:
+research question, identification strategy, sample, headline finding with
+confidence interval, robustness statement, theoretical contribution.]
+\end{abstract}
+
+\medskip
+\noindent\textbf{JEL codes:} I12, I18, K42, H75 \\
+\textbf{Keywords:} firearms policy, suicide, permitless carry, difference-in-differences, synthetic control method
+% =====================================================================
+
+
+% =====================================================================
+\section{Introduction}\label{sec:intro}
+% Target ~1,500 words. Hook → research question → motivation → lit gap →
+% contribution → roadmap.
+
+[INTRO PLACEHOLDER]
+
+% =====================================================================
+\section{Economic Theory}\label{sec:theory}
+% Target ~1,500 words. Becker rational-choice extended to lethal-means
+% restriction. Suicide as constrained-optimization decision under impulse.
+% Permitless carry as a price reduction. Substitution hypothesis.
+% Comparison to Cook-Ludwig prevalence channel. Testable predictions.
+
+[THEORY PLACEHOLDER]
+
+% =====================================================================
+\section{Data and Method}\label{sec:method}
+% Target ~2,500 words. Panel construction, treatment coding, outcome
+% definition, covariate set (DAW + alcohol per the lit-backed restructure),
+% identification strategies (CS21 + stacked-DiD + spatial RDD + SCM),
+% pre/post period justification (Roth-SA 2023; Borusyak 2024), inference.
+
+[METHOD PLACEHOLDER]
+
+% =====================================================================
+\section{Results}\label{sec:results}
+% Target ~2,500 words. Headline ATT, multiverse, pre-trend with Roth-SA
+% bounds, substitution test, RDD triangulation, SCM cases, heterogeneity.
+
+[RESULTS PLACEHOLDER]
+
+% =====================================================================
+\section{Discussion}\label{sec:discussion}
+% Target ~1,500 words. Interpretation through Becker price-theory frame,
+% policy elasticity, implied lives-per-year, limitations, externalities.
+
+[DISCUSSION PLACEHOLDER]
+
+% =====================================================================
+\section{Conclusion}\label{sec:conclusion}
+% Target ~500 words. Summary, policy implications (cautious), future
+% research directions.
+
+[CONCLUSION PLACEHOLDER]
+
+% =====================================================================
+\printbibliography
+
+\end{document}

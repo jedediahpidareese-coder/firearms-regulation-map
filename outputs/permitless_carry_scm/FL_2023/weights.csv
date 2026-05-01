@@ -5,6 +5,12 @@ firearm_suicide_rate,OR,0.02385287984025155
 firearm_suicide_rate,PA,0.3145677639503145
 firearm_suicide_rate,VA,0.20261550872333264
 firearm_suicide_rate,WA,0.1308246772670954
+total_suicide_rate,NM,0.003578112578659184
+total_suicide_rate,NV,0.05610012842097589
+total_suicide_rate,OR,0.1168296764407111
+total_suicide_rate,PA,0.19159493118140317
+total_suicide_rate,VA,0.37929592369743814
+total_suicide_rate,WA,0.2526012276808097
 firearm_homicide_rate,MI,0.5896298720805926
 firearm_homicide_rate,MN,0.10411186137363262
 firearm_homicide_rate,NV,0.3062582665457602
