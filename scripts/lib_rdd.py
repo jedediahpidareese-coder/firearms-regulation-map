@@ -94,11 +94,24 @@ OUTCOMES_SECONDARY = OrderedDict([
 # (cs_lib.RA_COVARIATES) but use county-level versions and avoid log-scaling
 # population since DLR pair-FE absorbs cross-sectional level differences.
 RA_COVARIATES = [
+    # County-grain demographics + economics already in county_panel
     "unemployment_rate",
+    "poverty_pct_all_ages",
     "share_white_nh",
+    "share_black_nh",
+    "share_hispanic",
+    "share_male",
     "share_age_15_24",
     "share_age_25_44",
     "share_bachelors_plus",
+    # State-joined CJ controls (Section 2.13). Per the literature scan
+    # (DAW 2019, Webster 2014), incarceration + police are required
+    # in modern lethal-violence specs.
+    "imprisonment_rate",
+    "state_sworn_officers_per_100k",
+    # State-joined alcohol per capita (NIAAA SR-122). McClellan-Tekin 2017,
+    # Luca-Malhotra-Poliquin 2017, Koper-Roth 2001 all use it.
+    "alcohol_per_capita_ethanol_gallons",
 ]
 
 
@@ -171,6 +184,45 @@ def load_county_panel_with_borders() -> pd.DataFrame:
         if "sworn_officers_per_100k" in sc.columns:
             sc = sc.rename(columns={"sworn_officers_per_100k": "state_sworn_officers_per_100k"})
         panel = panel.merge(sc, on=["state_fips", "year"], how="left")
+
+    # NIAAA per-capita ethanol consumption (state-year, joined down).
+    alc_path = PROC / "state_alcohol_per_capita_1977_2023.csv"
+    if alc_path.exists():
+        # File uses state_abbr; need state_fips bridge. Build from FIPS_TO_ABBR
+        # used elsewhere; cs_lib already has the mapping but we'll inline since
+        # lib_rdd otherwise doesn't depend on cs_lib.
+        ABBR_TO_FIPS = {
+            "AL":"01","AK":"02","AZ":"04","AR":"05","CA":"06","CO":"08","CT":"09","DE":"10",
+            "DC":"11","FL":"12","GA":"13","HI":"15","ID":"16","IL":"17","IN":"18","IA":"19",
+            "KS":"20","KY":"21","LA":"22","ME":"23","MD":"24","MA":"25","MI":"26","MN":"27",
+            "MS":"28","MO":"29","MT":"30","NE":"31","NV":"32","NH":"33","NJ":"34","NM":"35",
+            "NY":"36","NC":"37","ND":"38","OH":"39","OK":"40","OR":"41","PA":"42","RI":"44",
+            "SC":"45","SD":"46","TN":"47","TX":"48","UT":"49","VT":"50","VA":"51","WA":"53",
+            "WV":"54","WI":"55","WY":"56",
+        }
+        alc = pd.read_csv(alc_path)
+        alc["state_fips"] = alc["state_abbr"].map(ABBR_TO_FIPS)
+        alc = alc.dropna(subset=["state_fips"])[
+            ["state_fips", "year", "alcohol_per_capita_ethanol_gallons"]]
+        panel = panel.merge(alc, on=["state_fips", "year"], how="left")
+
+    # CDC drug overdose mortality (state-year, joined down).
+    od_path = PROC / "state_drug_overdose_2003_2021.csv"
+    if od_path.exists():
+        od = pd.read_csv(od_path)
+        od["state_fips"] = od["state_abbr"].map(ABBR_TO_FIPS)
+        od = od.dropna(subset=["state_fips"])[
+            ["state_fips", "year", "drug_overdose_per_100k"]]
+        panel = panel.merge(od, on=["state_fips", "year"], how="left")
+
+    # Religious adherence (2020 cross-section; broadcast across years).
+    rel_path = PROC / "state_religious_adherence_2020.csv"
+    if rel_path.exists():
+        rel = pd.read_csv(rel_path)
+        rel["state_fips"] = rel["state_abbr"].map(ABBR_TO_FIPS)
+        rel = rel.dropna(subset=["state_fips"])[
+            ["state_fips", "religion_adherents_pct_2020"]]
+        panel = panel.merge(rel, on="state_fips", how="left")
 
     # Derived non-firearm suicide rate (state-joined).
     if ("state_total_suicide_rate" in panel.columns

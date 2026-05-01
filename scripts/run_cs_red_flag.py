@@ -32,7 +32,7 @@ import pandas as pd
 from cs_lib import (
     OUTCOMES, ANALYSIS_YEARS,
     load_panel_core_augmented, derive_cohorts, strict_control_pool,
-    run_one_outcome, event_study_aggregations, overall_att,
+    run_one_outcome_all_tiers, event_study_aggregations, overall_att,
     plot_event_study,
 )
 
@@ -78,16 +78,18 @@ def main():
                                      STRICT_RULE_VARS, STRICT_RULE_VALUES)
         print(f"  {g}: {len(strict)} states ({', '.join(strict[:8])}{'...' if len(strict) > 8 else ''})")
 
-    print("\nRunning ATT(g, t) for each (outcome, spec, control_rule) ...")
+    print("\nRunning ATT(g, t) for each (outcome, spec, control_rule, tier) ...")
     pieces = []
     for control_rule in ("broad", "strict"):
         for spec in ("or", "ra"):
             for outcome in OUTCOMES:
                 print(f"  control_rule={control_rule}  spec={spec}  {outcome}")
-                sub = run_one_outcome(panel, outcome, cohorts, never_treated,
-                                      spec=spec, control_rule=control_rule,
-                                      strict_rule_vars=STRICT_RULE_VARS,
-                                      strict_rule_values=STRICT_RULE_VALUES)
+                sub = run_one_outcome_all_tiers(
+                    panel, outcome, cohorts, never_treated,
+                    spec=spec, control_rule=control_rule,
+                    strict_rule_vars=STRICT_RULE_VARS,
+                    strict_rule_values=STRICT_RULE_VALUES,
+                )
                 pieces.append(sub)
     att_df = pd.concat(pieces, ignore_index=True)
     att_df.to_csv(OUT / "att_gt.csv", index=False)

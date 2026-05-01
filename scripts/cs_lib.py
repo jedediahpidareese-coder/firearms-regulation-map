@@ -50,8 +50,115 @@ ANALYSIS_YEARS = (1999, 2023)
 EVENT_WINDOW = (-5, 5)
 N_BOOTSTRAP = 2000
 RANDOM_SEED = 7
-RA_COVARIATES = ["ln_population", "unemployment_rate", "ln_pcpi_real_2024"]
 STRICT_WINDOW = (-5, 5)
+
+# Literature-backed three-tier covariate sets per outcome family. Sources:
+# outputs/rdd_diagnostics/covariate_recommendations.md (the project's
+# 20-paper covariate scan) and outputs/rdd_diagnostics/eb_methodology_recommendations.md
+# (the EB-vs-RA per-estimator scan). Tiers correspond to a multiverse the
+# Donohue-Aneja-Weber 2019 framework recommends: report all three so the
+# reader can see how sensitive the headline is to covariate choice.
+#
+#   Minimal  — Lott-Mustard-acceptable defensible floor (BC-style)
+#   Headline — modal modern set (DAW + alcohol)
+#   Expanded — kitchen-sink for robustness
+#
+# Critical: separate stacks for homicide vs. suicide outcomes, per the
+# literature convention (Crifasi-Webster-McCourt). Suicide stack adds
+# alcohol, drug overdose, religion, ownership; homicide stack adds CJ
+# controls (incarceration, sworn officers).
+COVARIATES_BY_OUTCOME = {
+    "lethal_violence": {
+        "minimal":  ["ln_population", "ln_pcpi_real_2024", "unemployment_rate",
+                     "poverty_rate", "share_age_15_24", "share_age_25_44",
+                     "share_male", "share_black_nh", "share_hispanic"],
+        "headline": ["ln_population", "ln_pcpi_real_2024", "unemployment_rate",
+                     "poverty_rate", "share_age_15_24", "share_age_25_44",
+                     "share_male", "share_black_nh", "share_hispanic",
+                     "share_bachelors_plus",
+                     "imprisonment_rate", "sworn_officers_per_100k",
+                     "alcohol_per_capita_ethanol_gallons"],
+        "expanded": ["ln_population", "ln_pcpi_real_2024", "unemployment_rate",
+                     "poverty_rate", "share_age_15_24", "share_age_25_44",
+                     "share_male", "share_black_nh", "share_hispanic",
+                     "share_bachelors_plus",
+                     "imprisonment_rate", "sworn_officers_per_100k",
+                     "police_expenditure_per_capita_real_2024",
+                     "alcohol_per_capita_ethanol_gallons",
+                     "drug_overdose_per_100k",
+                     "religion_adherents_pct_2020"],
+    },
+    "suicide": {
+        "minimal":  ["ln_population", "ln_pcpi_real_2024", "unemployment_rate",
+                     "poverty_rate", "share_male",
+                     "share_age_15_24", "share_age_25_44"],
+        "headline": ["ln_population", "ln_pcpi_real_2024", "unemployment_rate",
+                     "poverty_rate", "share_male",
+                     "share_age_15_24", "share_age_25_44",
+                     "share_bachelors_plus",
+                     "share_black_nh", "share_hispanic",
+                     "alcohol_per_capita_ethanol_gallons",
+                     "drug_overdose_per_100k",
+                     "religion_adherents_pct_2020",
+                     "ownership_rand"],
+        "expanded": ["ln_population", "ln_pcpi_real_2024", "unemployment_rate",
+                     "poverty_rate", "share_male",
+                     "share_age_15_24", "share_age_25_44",
+                     "share_bachelors_plus",
+                     "share_black_nh", "share_hispanic",
+                     "alcohol_per_capita_ethanol_gallons",
+                     "drug_overdose_per_100k",
+                     "religion_adherents_pct_2020",
+                     "ownership_rand",
+                     "imprisonment_rate"],
+    },
+    "property_placebo": {
+        # Mirror lethal-violence so the placebo comparison is like-for-like.
+        "minimal":  ["ln_population", "ln_pcpi_real_2024", "unemployment_rate",
+                     "poverty_rate", "share_age_15_24", "share_age_25_44",
+                     "share_male", "share_black_nh", "share_hispanic"],
+        "headline": ["ln_population", "ln_pcpi_real_2024", "unemployment_rate",
+                     "poverty_rate", "share_age_15_24", "share_age_25_44",
+                     "share_male", "share_black_nh", "share_hispanic",
+                     "share_bachelors_plus",
+                     "imprisonment_rate", "sworn_officers_per_100k",
+                     "alcohol_per_capita_ethanol_gallons"],
+        "expanded": ["ln_population", "ln_pcpi_real_2024", "unemployment_rate",
+                     "poverty_rate", "share_age_15_24", "share_age_25_44",
+                     "share_male", "share_black_nh", "share_hispanic",
+                     "share_bachelors_plus",
+                     "imprisonment_rate", "sworn_officers_per_100k",
+                     "police_expenditure_per_capita_real_2024",
+                     "alcohol_per_capita_ethanol_gallons",
+                     "drug_overdose_per_100k"],
+    },
+}
+
+
+def classify_outcome(outcome: str) -> str:
+    """Return covariate family for an outcome variable name."""
+    o = outcome.lower()
+    if "suicide" in o:
+        return "suicide"
+    if any(k in o for k in ("homicide", "murder", "violent_crime",
+                            "aggravated_assault", "robbery")):
+        return "lethal_violence"
+    return "property_placebo"
+
+
+def covariates_for(outcome: str, tier: str = "headline") -> list[str]:
+    """Look up the literature-backed covariate set for a given outcome at
+    a given tier. tier ∈ {"minimal", "headline", "expanded"}.
+    """
+    family = classify_outcome(outcome)
+    return COVARIATES_BY_OUTCOME[family][tier]
+
+
+# Backward-compatibility alias for code that still references the old
+# constant (resolves to the lethal-violence headline set, which is the
+# closest match to what the original 3-variable list was conceptually
+# trying to be). The new code path uses covariates_for(outcome, tier).
+RA_COVARIATES = COVARIATES_BY_OUTCOME["lethal_violence"]["headline"]
 
 OUTCOMES = OrderedDict([
     ("firearm_suicide_rate",      "Firearm suicide rate (per 100k)"),
@@ -66,15 +173,64 @@ OUTCOMES = OrderedDict([
 # ----------- panel loading + cohort derivation --------------------------
 
 def load_panel_core_augmented() -> pd.DataFrame:
-    df = pd.read_csv(PROC / "panel_core_augmented.csv")
+    """Load the analysis panel.
+
+    NOTE 2026-05-01: switched from panel_core_augmented.csv (1979-2024,
+    no demographics) to panel_demographic_augmented.csv (1990-2024, with
+    state-level demographic shares from Census ASRH/PEP/ACS). The
+    function name is preserved for backward compatibility with all
+    per-policy runners, but the underlying file changed. This is what
+    enables the literature-backed Headline/Expanded covariate tiers
+    (which all need state demographics).
+
+    Also joins the three "extra" state covariates added 2026-05-01:
+    NIAAA per-capita alcohol consumption, CDC drug-overdose mortality,
+    ARDA religious adherence (2020 cross-section). Plus the CJ
+    controls layer (imprisonment, sworn officers, police expenditure)
+    from data/processed/state_cj_controls_1979_2024.csv.
+    """
+    df = pd.read_csv(PROC / "panel_demographic_augmented.csv")
     df = df[(df["year"] >= ANALYSIS_YEARS[0]) & (df["year"] <= ANALYSIS_YEARS[1])]
     df = df[df["state_abbr"] != "DC"]
+
     # Derive non-firearm suicide rate where the components exist.
     if ("total_suicide_rate" in df.columns
             and "firearm_suicide_rate" in df.columns
             and "nonfirearm_suicide_rate" not in df.columns):
         df["nonfirearm_suicide_rate"] = (df["total_suicide_rate"]
                                          - df["firearm_suicide_rate"])
+
+    # CJ controls (Phase 4 layer; documented in data_appendix Section 2.13).
+    cj_path = PROC / "state_cj_controls_1979_2024.csv"
+    if cj_path.exists():
+        cj = pd.read_csv(cj_path)
+        keep = ["state_abbr", "year", "imprisonment_rate",
+                "sworn_officers_per_100k",
+                "police_expenditure_per_capita_real_2024",
+                "has_death_penalty", "executions_count"]
+        cj = cj[[c for c in keep if c in cj.columns]]
+        df = df.merge(cj, on=["state_abbr", "year"], how="left")
+
+    # NIAAA alcohol per capita (1977-2018; later years NaN).
+    alc_path = PROC / "state_alcohol_per_capita_1977_2023.csv"
+    if alc_path.exists():
+        alc = pd.read_csv(alc_path)
+        df = df.merge(alc, on=["state_abbr", "year"], how="left")
+
+    # CDC drug overdose (2003-2021; outside that window NaN).
+    od_path = PROC / "state_drug_overdose_2003_2021.csv"
+    if od_path.exists():
+        od = pd.read_csv(od_path)
+        df = df.merge(od, on=["state_abbr", "year"], how="left")
+
+    # Religious adherence (2020 cross-section; broadcast to all years
+    # since it is a slow-moving baseline that state FE absorbs the
+    # year-to-year wiggle of).
+    rel_path = PROC / "state_religious_adherence_2020.csv"
+    if rel_path.exists():
+        rel = pd.read_csv(rel_path)[["state_abbr", "religion_adherents_pct_2020"]]
+        df = df.merge(rel, on="state_abbr", how="left")
+
     return df.reset_index(drop=True)
 
 
@@ -258,8 +414,16 @@ def att_gt_ra_se(panel, outcome, g, t, treated_states, control_states,
 def run_one_outcome(panel, outcome, cohorts, never_treated,
                     spec, control_rule,
                     strict_rule_vars=("permitconcealed", "mayissue"),
-                    strict_rule_values=(1, 0)):
+                    strict_rule_values=(1, 0),
+                    tier: str = "headline"):
+    """Run ATT(g,t) for one (outcome, spec, control_rule, tier) combination.
+
+    tier: 'minimal' | 'headline' | 'expanded'. Selects the literature-
+    backed covariate set for `outcome` via covariates_for(outcome, tier).
+    The OR spec ignores tier (no covariates). Defaults to 'headline'.
+    """
     rng = np.random.default_rng(RANDOM_SEED)
+    cov = covariates_for(outcome, tier)
     rows = []
     for g in sorted(cohorts):
         treated_states = cohorts[g]
@@ -282,15 +446,16 @@ def run_one_outcome(panel, outcome, cohorts, never_treated,
             else:
                 att, tr, co = att_gt_ra(panel, outcome, g, t,
                                         treated_states, control_states,
-                                        RA_COVARIATES)
+                                        cov)
                 if att is None:
                     continue
                 se = att_gt_ra_se(panel, outcome, g, t, treated_states,
-                                  control_states, RA_COVARIATES, N_BOOTSTRAP, rng)
+                                  control_states, cov, N_BOOTSTRAP, rng)
             rows.append(OrderedDict([
                 ("outcome", outcome),
                 ("spec", spec),
                 ("control_rule", control_rule),
+                ("tier", tier),
                 ("g_cohort", g),
                 ("t_year", t),
                 ("event_time", t - g),
@@ -302,11 +467,46 @@ def run_one_outcome(panel, outcome, cohorts, never_treated,
     return pd.DataFrame(rows)
 
 
+def run_one_outcome_all_tiers(panel, outcome, cohorts, never_treated,
+                              spec, control_rule,
+                              strict_rule_vars=("permitconcealed", "mayissue"),
+                              strict_rule_values=(1, 0),
+                              tiers: tuple = ("minimal", "headline", "expanded")):
+    """Convenience wrapper: run run_one_outcome for each tier; concat.
+    OR specs only need one tier (no covariates), so are deduplicated."""
+    if spec == "or":
+        # Run once at "headline"; stamp tier="all" since OR doesn't use covs.
+        df = run_one_outcome(panel, outcome, cohorts, never_treated,
+                             spec, control_rule,
+                             strict_rule_vars, strict_rule_values, tier="headline")
+        df["tier"] = "all"
+        return df
+    pieces = []
+    for t in tiers:
+        d = run_one_outcome(panel, outcome, cohorts, never_treated,
+                            spec, control_rule,
+                            strict_rule_vars, strict_rule_values, tier=t)
+        pieces.append(d)
+    return pd.concat(pieces, ignore_index=True) if pieces else pd.DataFrame()
+
+
 # ----------- Aggregations -----------------------------------------------
 
+def _grouping_keys(att_df):
+    """Group by (outcome, spec, control_rule, tier) when tier is present;
+    fall back to the older 3-key grouping otherwise (preserves backward
+    compat with any saved att_gt.csv files lacking a tier column)."""
+    return ["outcome", "spec", "control_rule"] + (["tier"] if "tier" in att_df.columns else [])
+
+
 def event_study_aggregations(att_df):
+    keys = _grouping_keys(att_df)
     rows = []
-    for (outcome, spec, control_rule), group in att_df.groupby(["outcome", "spec", "control_rule"]):
+    for key_tuple, group in att_df.groupby(keys):
+        # Pad to fixed shape so OrderedDict construction is symmetric
+        if not isinstance(key_tuple, tuple):
+            key_tuple = (key_tuple,)
+        keyed = dict(zip(keys, key_tuple))
         for e in range(EVENT_WINDOW[0], EVENT_WINDOW[1] + 1):
             sub = group[group["event_time"] == e]
             if sub.empty:
@@ -315,18 +515,25 @@ def event_study_aggregations(att_df):
             w = w / w.sum()
             att_e = float((w * sub["att"]).sum())
             se_e = float(np.sqrt((w**2 * sub["se"]**2).sum()))
-            rows.append(OrderedDict([
-                ("outcome", outcome), ("spec", spec), ("control_rule", control_rule),
-                ("event_time", e), ("att", att_e), ("se", se_e),
-                ("n_cohorts", int(len(sub))),
-                ("total_treated_states", int(sub["n_treated"].sum())),
-            ]))
+            row = OrderedDict()
+            for k in keys:
+                row[k] = keyed[k]
+            row["event_time"] = e
+            row["att"] = att_e
+            row["se"] = se_e
+            row["n_cohorts"] = int(len(sub))
+            row["total_treated_states"] = int(sub["n_treated"].sum())
+            rows.append(row)
     return pd.DataFrame(rows)
 
 
 def overall_att(att_df):
+    keys = _grouping_keys(att_df)
     rows = []
-    for (outcome, spec, control_rule), group in att_df.groupby(["outcome", "spec", "control_rule"]):
+    for key_tuple, group in att_df.groupby(keys):
+        if not isinstance(key_tuple, tuple):
+            key_tuple = (key_tuple,)
+        keyed = dict(zip(keys, key_tuple))
         post = group[group["event_time"] >= 0]
         if post.empty:
             continue
@@ -342,16 +549,18 @@ def overall_att(att_df):
             pre_z = pre_att / pre_se if pre_se > 0 else float("nan")
         else:
             pre_att = pre_se = pre_z = float("nan")
-        rows.append(OrderedDict([
-            ("outcome", outcome), ("spec", spec), ("control_rule", control_rule),
-            ("att_overall_post", att_bar), ("se_overall_post", se_bar),
-            ("z", att_bar / se_bar if se_bar > 0 else float("nan")),
-            ("att_pretrends_avg", pre_att),
-            ("se_pretrends_avg", pre_se),
-            ("z_pretrends", pre_z),
-            ("n_post_cells", int(len(post))),
-            ("n_pre_cells", int(len(pre))),
-        ]))
+        row = OrderedDict()
+        for k in keys:
+            row[k] = keyed[k]
+        row["att_overall_post"] = att_bar
+        row["se_overall_post"] = se_bar
+        row["z"] = att_bar / se_bar if se_bar > 0 else float("nan")
+        row["att_pretrends_avg"] = pre_att
+        row["se_pretrends_avg"] = pre_se
+        row["z_pretrends"] = pre_z
+        row["n_post_cells"] = int(len(post))
+        row["n_pre_cells"] = int(len(pre))
+        rows.append(row)
     return pd.DataFrame(rows)
 
 

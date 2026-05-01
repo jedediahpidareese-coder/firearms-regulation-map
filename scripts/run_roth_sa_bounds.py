@@ -257,6 +257,15 @@ def main():
                                   & (es_full["spec"] == spec)
                                   & (es_full["control_rule"] == control_rule)]
                     rule_label = control_rule
+                # Tier-aware (added 2026-05-01): att_gt now has multiple
+                # tiers per (control_rule, spec). Filter to OR's "all"
+                # marker or RA/EB's "headline" tier so the pre-trend fit
+                # uses one consistent series.
+                if "tier" in sub.columns:
+                    if spec in ("or", "unweighted"):
+                        sub = sub[sub["tier"] == "all"]
+                    else:
+                        sub = sub[sub["tier"] == "headline"]
                 if sub.empty:
                     print(f"  no data for {inp['estimator']}/{inp['policy']}/"
                           f"{rule_label}/{spec}/{outcome}; skipping")

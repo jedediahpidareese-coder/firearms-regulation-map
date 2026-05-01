@@ -49,7 +49,11 @@ from cs_lib import plot_event_study  # we re-use the SVG plotter
 ROOT = Path(__file__).resolve().parent.parent
 
 # Same covariate menu used in the CS21 RA spec, for comparability.
+from cs_lib import covariates_for, classify_outcome  # for outcome-aware tier covariates
+
+# Legacy default; superseded by per-outcome tier lookup at run time.
 CONTROLS = ["ln_population", "unemployment_rate", "ln_pcpi_real_2024"]
+TIERS = ("minimal", "headline", "expanded")
 
 POLICIES = [
     {
@@ -192,38 +196,51 @@ def run_one_policy(panel: pd.DataFrame, policy: dict):
         print(f"  no stacks built; skipping {name}")
         return
 
-    # Compute EB weights once (reuse across outcomes; depends only on
-    # baseline covariates).
-    eb = stack_eb_weights(stacked, CONTROLS, anchor_event_time=-1)
-    print(f"  EB weights: mean={eb.mean():.3f}, min={eb.min():.3f}, max={eb.max():.3f}")
+    # EB-weight cache: key = (tier, family). Computed lazily once per
+    # (tier, family) since EB weights depend only on the baseline-year
+    # covariate distribution which is family-tier-specific.
+    eb_cache: dict[tuple[str, str], object] = {}
 
     att_rows = []
     es_rows = []
     for outcome in OUTCOMES:
-        for spec_name, weights, covariates in [
-            ("unweighted", None, None),
-            ("ra",         None, CONTROLS),
-            ("eb",         eb,   None),
-        ]:
-            try:
-                att = twfe_within(stacked, outcome, weights, covariates)
-            except Exception as e:
-                print(f"  [skip] {outcome}/{spec_name}: {e}")
-                continue
-            att_rows.append({
-                "outcome": outcome, "spec": spec_name,
-                "att": att["beta"], "se": att["se"], "z": att["z"],
-                "n": att["n"], "n_clusters": att["n_clusters"],
-            })
-            try:
-                es = twfe_event_study(stacked, outcome, weights, covariates,
-                                      leads=5, lags=5, omit=-1)
-            except Exception as e:
-                print(f"  [skip ES] {outcome}/{spec_name}: {e}")
-                continue
-            es["outcome"] = outcome
-            es["spec"] = spec_name
-            es_rows.append(es)
+        family = classify_outcome(outcome)
+        for tier in TIERS:
+            cov = covariates_for(outcome, tier)
+            cache_key = (tier, family)
+            if cache_key not in eb_cache:
+                eb_cache[cache_key] = stack_eb_weights(stacked, cov, anchor_event_time=-1)
+            eb = eb_cache[cache_key]
+            for spec_name, weights, covariates in [
+                ("unweighted", None, None),
+                ("ra",         None, cov),
+                ("eb",         eb,   None),
+            ]:
+                # OR / unweighted spec ignores covariates -- only run once,
+                # not per tier; stamp tier="all" to deduplicate downstream.
+                effective_tier = "all" if spec_name == "unweighted" else tier
+                if spec_name == "unweighted" and tier != TIERS[0]:
+                    continue  # only run unweighted once
+                try:
+                    att = twfe_within(stacked, outcome, weights, covariates)
+                except Exception as e:
+                    print(f"  [skip] {outcome}/{spec_name}/{tier}: {e}")
+                    continue
+                att_rows.append({
+                    "outcome": outcome, "spec": spec_name, "tier": effective_tier,
+                    "att": att["beta"], "se": att["se"], "z": att["z"],
+                    "n": att["n"], "n_clusters": att["n_clusters"],
+                })
+                try:
+                    es = twfe_event_study(stacked, outcome, weights, covariates,
+                                          leads=5, lags=5, omit=-1)
+                except Exception as e:
+                    print(f"  [skip ES] {outcome}/{spec_name}/{tier}: {e}")
+                    continue
+                es["outcome"] = outcome
+                es["spec"] = spec_name
+                es["tier"] = effective_tier
+                es_rows.append(es)
     att_df = pd.DataFrame(att_rows)
     es_df = pd.concat(es_rows, ignore_index=True) if es_rows else pd.DataFrame()
     att_df.to_csv(out_dir / "att_post.csv", index=False)
@@ -240,9 +257,14 @@ def run_one_policy(panel: pd.DataFrame, policy: dict):
         print(f"  {sig} [{r['spec']:<10}] {r['outcome']:<26}  ATT = {r['att']:>+8.3f}  "
               f"(SE {r['se']:.3f}, z {r['z']:>+5.2f})")
 
-    # Plots: one figure per spec.
+    # Plots: one figure per spec, headline tier only (the others are in
+    # the CSV for downstream multiverse display in the report).
     for spec_name in ("unweighted", "ra", "eb"):
-        sub = es_df[es_df["spec"] == spec_name]
+        if "tier" in es_df.columns:
+            tier_filter = "all" if spec_name == "unweighted" else "headline"
+            sub = es_df[(es_df["spec"] == spec_name) & (es_df["tier"] == tier_filter)]
+        else:
+            sub = es_df[es_df["spec"] == spec_name]
         if sub.empty:
             continue
         # cs_lib plot_event_study expects columns "att", "se", "outcome",

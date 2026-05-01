@@ -103,25 +103,47 @@ def build_stacks(panel: pd.DataFrame,
 
 # --------------- Entropy balancing (Hainmueller 2012) --------------------
 
+# Diagnostics thresholds for entropy-balance acceptance (per the EB-
+# methodology lit scan, outputs/rdd_diagnostics/eb_methodology_recommendations.md).
+# A "converged" solution can still be degenerate if a couple of controls
+# absorb all the weight, yielding a tiny effective sample size. Reject
+# such solutions and downgrade to RA in the caller.
+EB_MIN_ESS_FRAC = 0.25       # ESS must be at least 25% of n_controls
+EB_MAX_WEIGHT_RATIO = 10.0   # max weight / mean weight must be < 10
+
+
 def entropy_balance(X_control: np.ndarray, target: np.ndarray,
                     max_iter: int = 500, tol: float = 1e-9):
-    """Hainmueller entropy balancing.
+    """Hainmueller (2012) entropy balancing.
 
     X_control: (n, m) covariates of control units (centered or raw).
     target:    (m,)   target moment values (treated unit's covariate means).
 
-    Returns w: (n,) nonneg weights summing to 1 that minimize Shannon
-    entropy distance to uniform subject to (X_control.T @ w == target).
+    Returns (w, info) where:
+      w    : (n,) nonneg weights summing to 1 that minimize Shannon
+             entropy distance to uniform subject to (X_control.T @ w == target).
+      info : dict with keys:
+        - converged   (bool) -- gradient L_inf < tol within max_iter
+        - acceptable  (bool) -- converged AND passes ESS + max-weight checks
+        - ess_frac    (float) -- effective sample size as a fraction of n
+        - max_weight_ratio (float) -- max(w) / mean(w)
 
     Implementation: solve the convex dual via Newton's method. The dual
     objective in lambda is sum_i exp(-1 - sum_k lam_k * (X[i,k] - target_k))
     which is convex; gradient = weighted (X - target); Hessian is the
     weighted covariance of (X - target).
+
+    Diagnostics rationale (EB methodology lit scan, 2026-05-01): EB can
+    converge in the gradient sense while one or two control units absorb
+    all the weight (effective sample collapse). Callers should treat
+    `acceptable=False` as a downgrade signal and fall back to RA, not
+    silently accept the EB result.
     """
     n, m = X_control.shape
     Z = X_control - target  # gradient becomes 0 when weighted Z = 0
     lam = np.zeros(m)
     converged = False
+    w = np.ones(n) / n  # initial uniform; updated in loop
     for _ in range(max_iter):
         eta = -Z @ lam
         eta = eta - eta.max()  # numeric stability
@@ -141,7 +163,22 @@ def entropy_balance(X_control: np.ndarray, target: np.ndarray,
         except np.linalg.LinAlgError:
             step, *_ = np.linalg.lstsq(H, grad, rcond=None)
         lam = lam + step
-    return w, converged
+
+    # Diagnostics
+    ess = 1.0 / float(np.sum(w * w)) if np.any(w) else 0.0
+    ess_frac = ess / n
+    mean_w = 1.0 / n
+    max_weight_ratio = float(np.max(w)) / mean_w if mean_w > 0 else float("inf")
+    acceptable = bool(converged
+                      and ess_frac >= EB_MIN_ESS_FRAC
+                      and max_weight_ratio <= EB_MAX_WEIGHT_RATIO)
+    info = {
+        "converged": converged,
+        "acceptable": acceptable,
+        "ess_frac": ess_frac,
+        "max_weight_ratio": max_weight_ratio,
+    }
+    return w, info
 
 
 def stack_eb_weights(stacked: pd.DataFrame,
@@ -176,9 +213,19 @@ def stack_eb_weights(stacked: pd.DataFrame,
         if np.isnan(cov_t).any():
             continue
         try:
-            w_c, ok = entropy_balance(cov_c, cov_t)
+            w_c, info = entropy_balance(cov_c, cov_t)
         except Exception:
             continue
+        # ESS / max-weight diagnostics check (lit-scan recommendation;
+        # see eb_methodology_recommendations.md). If the EB solution
+        # collapses to a few controls, fall back to uniform weights for
+        # this stack so we don't pretend a degenerate match is balanced.
+        if not info.get("acceptable", False):
+            # Print a single-line warning so operators see when this trips.
+            print(f"      [EB] stack {stack_id}: ess_frac={info['ess_frac']:.2f} "
+                  f"max_wt_ratio={info['max_weight_ratio']:.1f} -> "
+                  f"FALLBACK to uniform weights")
+            continue  # leaves weights[stack_id rows] at default 1.0
         # Map control weights back: each control state gets a single weight
         # we broadcast to all of its rows in the stack.
         # Normalize so the average control weight is 1 (so the regression

@@ -165,6 +165,14 @@ def cs21_table_html(policy_dir: Path) -> str:
         "firearm_homicide_rate", "homicide_rate", "motor_vehicle_theft_rate",
     ]
     outcomes = [o for o in outcome_order if o in available_outcomes]
+    # New 2026-05-01: each (outcome, spec, control_rule) cell now has up
+    # to three rows (one per tier: minimal, headline, expanded). Default
+    # the main 4-spec table to the HEADLINE tier; the tier multiverse is
+    # shown in a separate sensitivity sub-table beneath.
+    if "tier" in df.columns:
+        # OR has tier="all"; RA has tier ∈ {minimal, headline, expanded}.
+        df = df[((df["spec"] == "or") & (df["tier"] == "all")) |
+                ((df["spec"] == "ra") & (df["tier"] == "headline"))]
     rows = []
     for o in outcomes:
         cells = [f'<td class="row-name">{o.replace("_", " ")}</td>']
@@ -204,10 +212,207 @@ def cs21_table_html(policy_dir: Path) -> str:
     )
 
 
+def covariate_sensitivity_table_html(policy_dir: Path) -> str:
+    """Three-tier (Minimal / Headline / Expanded) sensitivity sub-table
+    showing how the broad/RA estimate moves under different literature-
+    backed covariate sets, per Donohue-Aneja-Weber 2019 multiverse
+    convention. Only RA spec; broad control rule (the headline cell).
+    """
+    df = read_csv(policy_dir / "overall_att.csv")
+    if df.empty or "tier" not in df.columns:
+        return ""
+    sub = df[(df["spec"] == "ra") & (df["control_rule"] == "broad")
+             & (df["tier"].isin(["minimal", "headline", "expanded"]))].copy()
+    if sub.empty:
+        return ""
+    outcome_order = [
+        "firearm_suicide_rate", "nonfirearm_suicide_rate", "total_suicide_rate",
+        "firearm_homicide_rate", "homicide_rate", "motor_vehicle_theft_rate",
+    ]
+    outcomes = [o for o in outcome_order if o in sub["outcome"].unique()]
+    rows = []
+    for o in outcomes:
+        cells = [f'<td class="row-name">{o.replace("_", " ")}</td>']
+        for tier in ("minimal", "headline", "expanded"):
+            r = sub[(sub["outcome"] == o) & (sub["tier"] == tier)]
+            if r.empty:
+                cells.append("<td>—</td>")
+                continue
+            row = r.iloc[0]
+            att = row["att_overall_post"]; se = row["se_overall_post"]; z = row["z"]
+            stars = sig_stars(z)
+            pct = pct_of_baseline(att, o)
+            cells.append(
+                f'<td class="num"><span class="att">{att:+.3f}</span> {stars}{pct}'
+                f'<br><span class="se">SE {se:.3f}, z {z:+.2f}</span></td>'
+            )
+        rows.append("<tr>" + "".join(cells) + "</tr>")
+    headers = '<th class="num">Minimal</th><th class="num">Headline</th><th class="num">Expanded</th>'
+    return (
+        '<details class="tier-block"><summary>Covariate sensitivity (multiverse: Minimal / Headline / Expanded covariate sets) — broad pool, RA spec</summary>'
+        '<table class="coef">'
+        f'<thead><tr><th>Outcome</th>{headers}</tr></thead>'
+        f'<tbody>{"".join(rows)}</tbody>'
+        '</table>'
+        '<p class="caption">'
+        'Each column uses a different literature-backed covariate set (see §3 methodology preamble for definitions). '
+        'Stars: <span class="sig sig1">*</span> p&lt;0.10, <span class="sig sig2">**</span> p&lt;0.05, <span class="sig sig3">***</span> p&lt;0.01. '
+        'A coefficient that flips sign or loses significance across tiers is sensitive to covariate choice — interpret with care, per Donohue-Aneja-Weber 2019.'
+        '</p>'
+        '</details>'
+    )
+
+
+def balance_table_html(name: str, defn: dict) -> str:
+    """Per-policy "Table 1" balance table: for each headline-tier covariate,
+    compute treated-vs-control means at each cohort's g-1 anchor year, plus
+    Imbens-Rubin normalized differences. Flags |norm_diff| > 0.25 as
+    Imbens-Rubin's threshold for "imbalance worth worrying about".
+    """
+    try:
+        from cs_lib import (load_panel_core_augmented, derive_cohorts,
+                            covariates_for, classify_outcome)
+    except Exception:
+        return ""
+    coh_csv = read_csv(defn["cs_dir"] / "cohort_n.csv")
+    if coh_csv.empty:
+        return ""
+    treatment_var = defn["treatment_var"]
+    direction = "1to0" if "permitconcealed" in treatment_var else "0to1"
+    if treatment_var == "nosyg":
+        direction = "1to0"
+    try:
+        panel = load_panel_core_augmented()
+        cohorts, never_treated, _ = derive_cohorts(panel, treatment_var, direction)
+    except Exception:
+        return ""
+    if not cohorts:
+        return ""
+    # Use the lethal-violence headline covariate set as the canonical
+    # balance-check basis (largest set; covers most modal lit choices).
+    cov_list = covariates_for("homicide_rate", "headline")
+    rows = []
+    for c in cov_list:
+        if c not in panel.columns:
+            continue
+        treated_vals = []
+        control_vals = []
+        for g in sorted(cohorts):
+            base = g - 1
+            tr_states = cohorts[g]
+            co_states = sorted(never_treated)
+            tr_sub = panel[(panel.state_abbr.isin(tr_states)) & (panel.year == base)]
+            co_sub = panel[(panel.state_abbr.isin(co_states)) & (panel.year == base)]
+            tv = tr_sub[c].dropna()
+            cv = co_sub[c].dropna()
+            treated_vals.extend(tv.tolist())
+            control_vals.extend(cv.tolist())
+        if not treated_vals or not control_vals:
+            continue
+        import numpy as _np
+        tm = _np.mean(treated_vals); cm = _np.mean(control_vals)
+        ts = _np.std(treated_vals, ddof=1) if len(treated_vals) > 1 else 0.0
+        cs_ = _np.std(control_vals, ddof=1) if len(control_vals) > 1 else 0.0
+        pooled = _np.sqrt((ts**2 + cs_**2) / 2.0) if (ts > 0 or cs_ > 0) else 1.0
+        norm_diff = (tm - cm) / pooled if pooled > 0 else float("nan")
+        flag = ("<span style='color:#b9461a;font-weight:600;'>⚠</span>"
+                if abs(norm_diff) > 0.25 else "")
+        rows.append(f"<tr><td>{c}</td>"
+                    f"<td class='num'>{tm:.3f}</td>"
+                    f"<td class='num'>{cm:.3f}</td>"
+                    f"<td class='num'>{norm_diff:+.3f} {flag}</td></tr>")
+    if not rows:
+        return ""
+    return f"""
+<details class="tier-block"><summary>Covariate balance check (Table 1) — treated vs broad control pool at each cohort's g−1 baseline</summary>
+<table class="coef">
+  <thead><tr><th>Covariate</th><th class="num">Treated mean</th><th class="num">Control mean</th><th class="num">Normalized diff</th></tr></thead>
+  <tbody>{"".join(rows)}</tbody>
+</table>
+<p class="caption">
+  Treated and control means pooled across cohorts at each cohort's g−1 anchor year.
+  Normalized difference = (mean_T − mean_C) / sqrt((sd_T² + sd_C²)/2). Per Imbens &amp; Rubin (2015),
+  |normalized diff| &gt; 0.25 (⚠) indicates covariate imbalance worth flagging — RA / EB
+  reweighting is the standard remedy.
+</p>
+</details>
+"""
+
+
+def observation_window_html(name: str, defn: dict) -> str:
+    """Per-policy box stating the observation period and pre/post window
+    choices with literature citations. The DiD/RDD literature has converged
+    on certain window conventions; we disclose ours and justify them."""
+    short = defn.get("policy_short", name.lower())
+    # Pull cohort years from cohort_n.csv to summarize the actual window.
+    coh = read_csv(defn["cs_dir"] / "cohort_n.csv")
+    cohort_years = sorted(coh["g_cohort"].astype(int).unique().tolist()) if not coh.empty else []
+    cohort_str = (f"{cohort_years[0]}–{cohort_years[-1]}"
+                  if len(cohort_years) >= 2 else
+                  (str(cohort_years[0]) if cohort_years else "—"))
+    return f"""
+<div class="cov-box">
+  <h3>Observation window and pre/post specification</h3>
+  <p>
+    <strong>Analysis window:</strong> 1999–2023 (state panel post-NICS;
+    last year with v2 firearm-mortality data). Treated-cohort adoptions
+    span {cohort_str}.
+  </p>
+  <p>
+    <strong>Event window:</strong> [−5, +5] years around adoption
+    (5 leads, 5 lags). This follows the modal modern DiD convention
+    (Roth, Sant'Anna, Bilinski, Poe 2023, J Econometrics; the canonical
+    Callaway–Sant'Anna 2021 framework defaults to symmetric leads/lags).
+    The 5-year window is wide enough to detect dynamic treatment effects
+    that build over time (Cheng-Hoekstra 2013 SYG; McClellan-Tekin 2017),
+    but narrow enough that small-sample inference for the most recent
+    cohorts remains feasible. Pre-trend test averages event-times [−5, −2]
+    so the omitted year (−1) and the immediate post-period (+0, +1) do
+    not contaminate the parallel-trends check (per Borusyak-Jaravel-Spiess
+    2024 and the Roth-SA bounds methodology).
+  </p>
+  <p>
+    <strong>Strict-pool window:</strong> control states must satisfy the
+    policy's no-contamination rule for every year in [g−5, g+5] (the same
+    window as the event study). This avoids "drifting" controls — states
+    that are close to but not yet adopting the policy at g but adopt soon
+    after, which would bias the comparison toward zero (Goodman-Bacon 2021,
+    Sun-Abraham 2021).
+  </p>
+</div>
+"""
+
+
+def covariate_disclosure_box_html(name: str) -> str:
+    """Show the literature-backed covariate sets used by this policy's
+    Headline RA spec. Pulled from cs_lib.COVARIATES_BY_OUTCOME."""
+    try:
+        from cs_lib import COVARIATES_BY_OUTCOME
+    except Exception:
+        return ""
+    fams = [("Lethal violence (homicide, firearm homicide, total homicide)",
+             "lethal_violence"),
+            ("Suicide (firearm, total, non-firearm)", "suicide"),
+            ("Property / placebo (MV theft)", "property_placebo")]
+    pieces = ['<div class="cov-box"><h3>Covariates used (literature-backed; see §3)</h3>']
+    pieces.append('<p>Three tiers per outcome family — Minimal / Headline / Expanded — '
+                  'shown in the covariate-sensitivity sub-table below.</p>')
+    for label, key in fams:
+        h = COVARIATES_BY_OUTCOME[key]["headline"]
+        pieces.append(f'<p><strong>{label} — Headline:</strong> '
+                      f'<code>{", ".join(h)}</code></p>')
+    pieces.append('</div>')
+    return "\n".join(pieces)
+
+
 def stackdd_table_html(policy_dir: Path) -> str:
     df = read_csv(policy_dir / "att_post.csv")
     if df.empty:
         return "<p>(no stacked-DD results)</p>"
+    # Tier-aware: unweighted uses tier="all"; ra/eb use tier="headline"
+    if "tier" in df.columns:
+        df = df[((df["spec"] == "unweighted") & (df["tier"] == "all")) |
+                ((df["spec"].isin(["ra", "eb"])) & (df["tier"] == "headline"))]
     spec_combos = [
         ("unweighted", "Unweighted"),
         ("ra", "Regression-adjusted"),
@@ -488,8 +693,15 @@ def policy_section_html(name: str, defn: dict, section_num: int) -> str:
       <h3>Treatment cohorts</h3>
       {cohort_table_html(cs_dir)}
 
+      {observation_window_html(name, defn)}
+
+      {covariate_disclosure_box_html(name)}
+
+      {balance_table_html(name, defn)}
+
       <h3>Callaway-Sant'Anna ATT(g, t) — overall post-treatment</h3>
       {cs21_table_html(cs_dir)}
+      {covariate_sensitivity_table_html(cs_dir)}
 
       <h3>Stacked DiD (Cengiz et al. 2019) — overall post-treatment</h3>
       {stackdd_table_html(stack_dir)}
@@ -667,6 +879,29 @@ def build_html() -> str:
       .sig2 { color: #b9461a; }
       .sig3 { color: #8c1d04; }
       .pct { color: var(--muted); font-size: 11px; font-style: italic; }
+      .cov-box {
+        background: #f4f6f9;
+        border-left: 3px solid #1f3a5f;
+        padding: 12px 18px;
+        margin: 14px 0 18px;
+        font-size: 13px;
+      }
+      .cov-box h3 { margin-top: 0; font-size: 14px; color: #1f3a5f; }
+      .cov-box code { font-size: 11px; color: #444; }
+      details.tier-block {
+        margin: 12px 0 18px;
+        padding: 10px 14px;
+        background: #fdfdfb;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+      }
+      details.tier-block summary {
+        cursor: pointer;
+        font-weight: 600;
+        color: #1f3a5f;
+        margin-bottom: 8px;
+      }
+      details.tier-block[open] summary { margin-bottom: 12px; }
       .interpretation {
         background: #fcfaf2;
         border-left: 4px solid #b9461a;
