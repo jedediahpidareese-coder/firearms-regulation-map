@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 620" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif" font-size="11">
-<text x="410.0" y="22" text-anchor="middle" font-size="14" font-weight="600">Callaway-Sant'Anna ATT by event time (OR) -- min age 21 for handgun purchase (age21handgunsale)</text>
+<text x="410.0" y="22" text-anchor="middle" font-size="14" font-weight="600">Callaway-Sant'Anna ATT by event time (OR) -- age21 handgun</text>
 <rect x="15" y="40" width="380" height="260" fill="#fafaf7" stroke="#e2e2dc"/>
 <text x="205.0" y="58" text-anchor="middle" font-weight="600">Firearm suicide rate (per 100k)</text>
 <line x1="75" y1="164.3187661107005" x2="377" y2="164.3187661107005" stroke="#aaaaaa" stroke-width="0.7"/>
@@ -202,7 +202,7 @@
 <text x="437" y="460.0" text-anchor="middle" fill="#444" transform="rotate(-90 437 460.0)">ATT (per 100k)</text>
 <rect x="15" y="620" width="380" height="260" fill="#fafaf7" stroke="#e2e2dc"/>
 <text x="205.0" y="638" text-anchor="middle" font-weight="600">Total homicide rate (per 100k)</text>
-<line x1="75" y1="713.4848051562885" x2="377" y2="713.4848051562885" stroke="#aaaaaa" stroke-width="0.7"/>
+<line x1="75" y1="713.4848051562884" x2="377" y2="713.4848051562884" stroke="#aaaaaa" stroke-width="0.7"/>
 <polygon points="88.7,690.2 116.2,705.3 143.6,687.6 171.1,719.2 226.0,722.4 253.5,670.0 280.9,708.2 308.4,724.1 335.8,676.9 363.3,715.3 363.3,771.5 335.8,728.1 308.4,830.0 280.9,796.0 253.5,744.2 226.0,777.3 171.1,772.1 143.6,809.7 116.2,757.2 88.7,745.2" fill="#1f3a5f" opacity="0.18"/>
 <polyline points="88.7,717.7 116.2,731.3 143.6,748.6 171.1,745.6 226.0,749.9 253.5,707.1 280.9,752.1 308.4,777.0 335.8,702.5 363.3,743.4" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>
 <circle cx="88.7" cy="717.7" r="2.6" fill="#1f3a5f"/>

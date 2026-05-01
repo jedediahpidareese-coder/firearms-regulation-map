@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 620" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif" font-size="11">
-<text x="410.0" y="22" text-anchor="middle" font-size="14" font-weight="600">Callaway-Sant'Anna ATT by event time (OR) -- universal background checks (universal)</text>
+<text x="410.0" y="22" text-anchor="middle" font-size="14" font-weight="600">Callaway-Sant'Anna ATT by event time (OR) -- ubc</text>
 <rect x="15" y="40" width="380" height="260" fill="#fafaf7" stroke="#e2e2dc"/>
 <text x="205.0" y="58" text-anchor="middle" font-weight="600">Firearm suicide rate (per 100k)</text>
-<line x1="75" y1="145.46779321201274" x2="377" y2="145.46779321201274" stroke="#aaaaaa" stroke-width="0.7"/>
+<line x1="75" y1="145.4677932120127" x2="377" y2="145.4677932120127" stroke="#aaaaaa" stroke-width="0.7"/>
 <polygon points="88.7,90.0 116.2,100.1 143.6,123.9 171.1,105.7 226.0,111.6 253.5,126.6 280.9,155.5 308.4,120.0 335.8,199.3 363.3,147.4 363.3,228.1 335.8,250.0 308.4,210.4 280.9,221.0 253.5,186.8 226.0,200.3 171.1,178.1 143.6,182.0 116.2,135.9 88.7,166.3" fill="#1f3a5f" opacity="0.18"/>
 <polyline points="88.7,128.1 116.2,118.0 143.6,153.0 171.1,141.9 226.0,156.0 253.5,156.7 280.9,188.2 308.4,165.2 335.8,224.6 363.3,187.7" fill="none" stroke="#1f3a5f" stroke-width="1.6"/>
 <circle cx="88.7" cy="128.1" r="2.6" fill="#1f3a5f"/>

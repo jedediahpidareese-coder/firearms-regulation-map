@@ -567,6 +567,16 @@ def overall_att(att_df):
 # ----------- SVG figure (matplotlib-free fallback) ----------------------
 
 def plot_event_study(es_df, path, spec, outcomes_dict, title_suffix=""):
+    # Tier-aware filter (added 2026-05-01): event_study aggregations
+    # have multiple tier rows per (outcome, spec, control_rule). The plot
+    # expects one row per event_time per panel, so restrict to the
+    # appropriate tier: "all" for OR/unweighted (covariate-free), or
+    # "headline" for RA/EB.
+    if "tier" in es_df.columns:
+        if spec in ("or", "unweighted"):
+            es_df = es_df[es_df["tier"] == "all"]
+        else:
+            es_df = es_df[es_df["tier"] == "headline"]
     es_df = es_df[es_df["spec"] == spec]
     try:
         import matplotlib
