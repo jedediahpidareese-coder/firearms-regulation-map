@@ -72,6 +72,32 @@ def load_cj_controls() -> pd.DataFrame:
     return df[[c for c in keep if c in df.columns]]
 
 
+def load_alcohol_per_capita() -> pd.DataFrame:
+    """NIAAA per-capita ethanol consumption, 1977-2018 (state-year).
+    Documented in data_appendix.md Section 2.13.x."""
+    p = PROC / "state_alcohol_per_capita_1977_2023.csv"
+    if not p.exists():
+        return pd.DataFrame(columns=["state_abbr", "year"])
+    return pd.read_csv(p)
+
+
+def load_drug_overdose() -> pd.DataFrame:
+    """CDC NCHS state-year drug-overdose mortality, 2003-2021."""
+    p = PROC / "state_drug_overdose_2003_2021.csv"
+    if not p.exists():
+        return pd.DataFrame(columns=["state_abbr", "year"])
+    return pd.read_csv(p)
+
+
+def load_religion() -> pd.DataFrame:
+    """ARDA US Religion Census 2020 state-level adherence rates.
+    2020 cross-section broadcast to all years (slow-moving baseline)."""
+    p = PROC / "state_religious_adherence_2020.csv"
+    if not p.exists():
+        return pd.DataFrame(columns=["state_abbr"])
+    return pd.read_csv(p)[["state_abbr", "religion_adherents_pct_2020"]]
+
+
 def load_panel_market() -> pd.DataFrame:
     """Adds NICS to core, 1999-2024."""
     return pd.read_csv(PROC / "panel_market_1999_2024.csv")
@@ -294,6 +320,21 @@ def build_panel() -> pd.DataFrame:
     cj = load_cj_controls()
     if not cj.empty:
         base = base.merge(cj, on=["state_abbr", "year"], how="left")
+
+    # Health & substances controls added 2026-05-01 for the literature-
+    # backed covariate restructure (Section 2.13.x of the appendix):
+    # NIAAA alcohol per capita (1977-2018), CDC drug overdose mortality
+    # (2003-2021), ARDA religious adherence (2020 cross-section
+    # broadcast across years as a slow-moving baseline).
+    alc = load_alcohol_per_capita()
+    if not alc.empty:
+        base = base.merge(alc, on=["state_abbr", "year"], how="left")
+    od = load_drug_overdose()
+    if not od.empty:
+        base = base.merge(od, on=["state_abbr", "year"], how="left")
+    rel = load_religion()
+    if not rel.empty:
+        base = base.merge(rel, on="state_abbr", how="left")
 
     return base.sort_values(["state_abbr", "year"]).reset_index(drop=True)
 
@@ -840,6 +881,44 @@ VARIABLE_METADATA = {
         "year_range": [1979, 2024],
         "scale": "sequential",
         "higher_is": "more police staffing",
+    },
+    # ---- Health & substances (added 2026-05-01 for the literature-backed
+    # covariate restructure; documented in data_appendix Section 2.13.x) ----
+    "alcohol_per_capita_ethanol_gallons": {
+        "label": "Alcohol per capita (ethanol, gallons / year)",
+        "category": "Health & substances",
+        "unit": "Gallons of ethanol per resident age 14+ per year",
+        "format": "rate",
+        "definition": "NIAAA apparent per-capita ethanol consumption — sum of beer + wine + spirits ethanol equivalents in gallons, divided by state resident population age 14+. The canonical alcohol-availability proxy in gun-policy research (used by McClellan-Tekin 2017, Luca-Malhotra-Poliquin 2017, Koper-Roth 2001, Crifasi 2015). Source: NIAAA Alcohol Epidemiologic Data System / openICPSR project 105583 V5. Coverage 1977-2018; later years require the next openICPSR vintage.",
+        "source": "NIAAA Surveillance Report (openICPSR 105583 V5)",
+        "source_url": "https://www.openicpsr.org/openicpsr/project/105583",
+        "year_range": [1977, 2018],
+        "scale": "sequential",
+        "higher_is": "more alcohol consumption",
+    },
+    "drug_overdose_per_100k": {
+        "label": "Drug overdose mortality (per 100,000)",
+        "category": "Health & substances",
+        "unit": "Deaths per 100,000 residents",
+        "format": "rate",
+        "definition": "CDC NCHS Drug Poisoning Mortality, model-based death rate, aggregated from county-year (population-weighted) to state-year. Captures the opioid-era confounder that any post-2010 firearm-policy spec needs to control for (per McCourt 2020 suicide stack). Source: CDC NCHS NCHS-Drug-Poisoning-Mortality-by-County (data.cdc.gov/rpvx-m2md). Coverage 2003-2021.",
+        "source": "CDC NCHS Drug Poisoning Mortality by County",
+        "source_url": "https://data.cdc.gov/NCHS/NCHS-Drug-Poisoning-Mortality-by-County-United-Sta/rpvx-m2md",
+        "year_range": [2003, 2021],
+        "scale": "sequential",
+        "higher_is": "more overdose deaths",
+    },
+    "religion_adherents_pct_2020": {
+        "label": "Religious adherents as % of population (2020)",
+        "category": "Health & substances",
+        "unit": "Percent (0-100)",
+        "format": "percent_pre",
+        "definition": "Share of state population reported as adherents of any religious group in the 2020 US Religion Census (Religious Congregations and Membership Study). 2020 cross-section broadcast across all years (slow-moving baseline; the 1980/1990/2000/2010 censuses are paywalled at ARDA). Used as a suicide-spec covariate per Crifasi 2015, Kivisto-Phalen 2018, McCourt 2020.",
+        "source": "ARDA US Religion Census 2020 (ASARB / RCMS)",
+        "source_url": "https://www.usreligioncensus.org/",
+        "year_range": [1979, 2024],
+        "scale": "sequential",
+        "higher_is": "more religious adherents",
     },
 }
 

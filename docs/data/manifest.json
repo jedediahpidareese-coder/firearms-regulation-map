@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-01T16:25:45Z",
+  "generated_at": "2026-05-01T20:12:58Z",
   "year_range": [
     1979,
     2024
@@ -101,7 +101,10 @@
     "police_expenditure_per_capita_real_2024",
     "has_death_penalty",
     "executions_count",
-    "sworn_officers_per_100k"
+    "sworn_officers_per_100k",
+    "alcohol_per_capita_ethanol_gallons",
+    "drug_overdose_per_100k",
+    "religion_adherents_pct_2020"
   ],
   "categories": {
     "Regulation": [
@@ -162,6 +165,11 @@
       "imprisonment_rate",
       "police_expenditure_per_capita_real_2024",
       "sworn_officers_per_100k"
+    ],
+    "Health & substances": [
+      "alcohol_per_capita_ethanol_gallons",
+      "drug_overdose_per_100k",
+      "religion_adherents_pct_2020"
     ]
   },
   "default_variable": "lawtotal",

@@ -51,6 +51,7 @@ const CATEGORY_PALETTE = {
   "Demographics":             d3.interpolateViridis,
   "Economy":                  d3.interpolateYlGnBu,
   "Criminal justice":         d3.interpolatePurples,
+  "Health & substances":      d3.interpolateBuGn,
 };
 const BINARY_COLORS = ["#dadad6", "#1f3a5f"];
 
