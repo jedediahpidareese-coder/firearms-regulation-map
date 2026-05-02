@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-02T17:29:38Z",
+  "generated_at": "2026-05-02T23:01:45Z",
   "year_range": [
     1979,
     2024
@@ -112,7 +112,10 @@
     "sworn_officers_per_100k",
     "alcohol_per_capita_ethanol_gallons",
     "drug_overdose_per_100k",
-    "religion_adherents_pct_2020"
+    "religion_adherents_pct_2020",
+    "synthetic_opioid_death_rate",
+    "freq_mental_distress_pct",
+    "ami_pct"
   ],
   "categories": {
     "Regulation": [
@@ -184,8 +187,11 @@
     ],
     "Health & substances": [
       "alcohol_per_capita_ethanol_gallons",
+      "ami_pct",
       "drug_overdose_per_100k",
-      "religion_adherents_pct_2020"
+      "freq_mental_distress_pct",
+      "religion_adherents_pct_2020",
+      "synthetic_opioid_death_rate"
     ]
   },
   "default_variable": "lawtotal",
