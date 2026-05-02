@@ -100,32 +100,45 @@ def load_religion() -> pd.DataFrame:
 
 def load_fentanyl_deaths() -> pd.DataFrame:
     """CDC VSRR T40.4 synthetic-opioid death rate per 100k. Built by
-    scripts/build_fentanyl_deaths_state_year.py. Pre-1999 zero-fill;
-    post-coverage carry-forward."""
+    scripts/build_fentanyl_deaths_state_year.py. The build script
+    zero-fills pre-2015 cells (the synthetic-opioid epidemic was
+    negligible before then); on the website we treat those as missing
+    so the map shows "no data" rather than a literal zero."""
     p = PROC / "fentanyl_deaths_state_year.csv"
     if not p.exists():
         return pd.DataFrame(columns=["state_abbr", "year"])
-    return pd.read_csv(p)[["state_abbr", "year", "synthetic_opioid_death_rate"]]
+    df = pd.read_csv(p)[["state_abbr", "year", "synthetic_opioid_death_rate"]]
+    df.loc[df["year"] < 2015, "synthetic_opioid_death_rate"] = np.nan
+    return df
 
 
 def load_brfss_mental_distress() -> pd.DataFrame:
     """CDC BRFSS frequent-mental-distress prevalence (% adults reporting
     >=14 poor mental-health days in past 30). Built by
-    scripts/build_brfss_mental_distress_state_year.py."""
+    scripts/build_brfss_mental_distress_state_year.py. The build script
+    zero-fills pre-2019 cells (the released BRFSS aggregation only
+    covers 2019 onward at present); on the website we treat those as
+    missing rather than as legitimate zeros."""
     p = PROC / "brfss_mental_distress_state_year.csv"
     if not p.exists():
         return pd.DataFrame(columns=["state_abbr", "year"])
-    return pd.read_csv(p)[["state_abbr", "year", "freq_mental_distress_pct"]]
+    df = pd.read_csv(p)[["state_abbr", "year", "freq_mental_distress_pct"]]
+    df.loc[df["year"] < 2019, "freq_mental_distress_pct"] = np.nan
+    return df
 
 
 def load_nsduh() -> pd.DataFrame:
     """SAMHSA NSDUH state-year prevalence of any mental illness, serious
     mental illness, and major depressive episode (past year). Two-year
-    rolling averages assigned to the upper year."""
+    rolling averages assigned to the upper year. Pre-2016 cells are
+    zero-filled in the build script (the agent did not pull older
+    NSDUH state-SAE releases); treat as missing on the website."""
     p = PROC / "nsduh_mental_illness_state_year.csv"
     if not p.exists():
         return pd.DataFrame(columns=["state_abbr", "year"])
-    return pd.read_csv(p)[["state_abbr", "year", "ami_pct", "smi_pct", "mde_pct"]]
+    df = pd.read_csv(p)[["state_abbr", "year", "ami_pct", "smi_pct", "mde_pct"]]
+    df.loc[df["year"] < 2016, ["ami_pct", "smi_pct", "mde_pct"]] = np.nan
+    return df
 
 
 def load_lcm_thresholds() -> pd.DataFrame:
@@ -1120,10 +1133,10 @@ VARIABLE_METADATA = {
         "category": "Health & substances",
         "unit": "Deaths per 100,000 residents",
         "format": "rate",
-        "definition": "State-year synthetic-opioid (fentanyl-included) overdose death rate per 100,000, drawn from CDC Vital Statistics Rapid Release / Multiple Cause of Death using ICD-10 underlying cause T40.4. The post-2014 fentanyl-era surge nearly fully accounts for the rise in total drug-overdose deaths through 2022. Pre-1999 zero-fill; post-coverage carry-forward from the latest observed year. Used as a deaths-of-despair control alongside BRFSS frequent mental distress and NSDUH any-mental-illness prevalence.",
+        "definition": "State-year synthetic-opioid (fentanyl-included) overdose death rate per 100,000, drawn from CDC Vital Statistics Rapid Release / Multiple Cause of Death using ICD-10 underlying cause T40.4. The post-2014 fentanyl-era surge nearly fully accounts for the rise in total drug-overdose deaths through 2022. Coverage 2015--2024 here (the underlying data file is zero-filled pre-2015, but those cells are treated as missing on the map because the synthetic-opioid epidemic was negligible before then). Used as a deaths-of-despair control alongside BRFSS frequent mental distress and NSDUH any-mental-illness prevalence.",
         "source": "CDC VSRR / NCHS Multiple Cause of Death (T40.4)",
         "source_url": "https://wonder.cdc.gov/mcd-icd10.html",
-        "year_range": [1999, 2024],
+        "year_range": [2015, 2024],
         "scale": "sequential",
         "higher_is": "more fentanyl deaths",
     },
@@ -1132,10 +1145,10 @@ VARIABLE_METADATA = {
         "category": "Health & substances",
         "unit": "% of adults reporting >=14 poor mental-health days in past 30",
         "format": "percent_pre",
-        "definition": "State-year prevalence of frequent mental distress, defined as adults reporting >=14 of the past 30 days when their mental health was not good. From the CDC Behavioral Risk Factor Surveillance System (BRFSS) Healthy Days module. Coverage 1993 onward; pre-1993 zero-fill. Used as a deaths-of-despair control alongside synthetic-opioid death rate and NSDUH any-mental-illness prevalence.",
+        "definition": "State-year prevalence of frequent mental distress, defined as adults reporting >=14 of the past 30 days when their mental health was not good. From the CDC Behavioral Risk Factor Surveillance System (BRFSS) Healthy Days module. Coverage 2019--2024 here (the BRFSS Healthy Days module dates back to 1993, but the build script only pulled the post-2019 prevalence-trend release; pre-2019 cells are zero-filled in the file and treated as missing on the map). Used as a deaths-of-despair control alongside synthetic-opioid death rate and NSDUH any-mental-illness prevalence.",
         "source": "CDC BRFSS Healthy Days",
         "source_url": "https://www.cdc.gov/brfss/brfssprevalence/index.html",
-        "year_range": [1993, 2024],
+        "year_range": [2019, 2024],
         "scale": "sequential",
         "higher_is": "more frequent mental distress",
     },
@@ -1144,10 +1157,10 @@ VARIABLE_METADATA = {
         "category": "Health & substances",
         "unit": "% of adults, past year",
         "format": "percent_pre",
-        "definition": "State-year prevalence of any mental illness (AMI) in the past year among adults, from SAMHSA's National Survey on Drug Use and Health. NSDUH publishes state estimates as two-year rolling averages; we assign each estimate to the upper year. Coverage roughly 2008 onward (state-level NSDUH start); pre-2008 zero-fill. Used as a deaths-of-despair control alongside synthetic-opioid death rate and BRFSS frequent mental distress.",
+        "definition": "State-year prevalence of any mental illness (AMI) in the past year among adults, from SAMHSA's National Survey on Drug Use and Health. NSDUH publishes state estimates as two-year rolling averages; we assign each estimate to the upper year. Coverage 2016--2024 here (older NSDUH state-SAE releases were not pulled; pre-2016 cells are zero-filled in the file and treated as missing on the map). NSDUH's two-year-rolling-average release schedule produces gap years even within the coverage window. Used as a deaths-of-despair control alongside synthetic-opioid death rate and BRFSS frequent mental distress.",
         "source": "SAMHSA NSDUH state-level prevalence",
         "source_url": "https://www.samhsa.gov/data/nsduh/state-reports",
-        "year_range": [2008, 2024],
+        "year_range": [2016, 2024],
         "scale": "sequential",
         "higher_is": "more mental illness",
     },
