@@ -224,6 +224,97 @@ def load_county_panel_with_borders() -> pd.DataFrame:
             ["state_fips", "religion_adherents_pct_2020"]]
         panel = panel.merge(rel, on="state_fips", how="left")
 
+    # OxCGRT COVID-19 stringency (state-year, joined down to counties).
+    # State-grain only (OxCGRT does not publish county-level stringency);
+    # every county in a given (state, year) takes the same value, which
+    # is what the COVID robustness exercise needs.
+    covid_path = PROC / "covid_stringency_state_year.csv"
+    if covid_path.exists():
+        cv = pd.read_csv(covid_path, dtype={"state_fips": str})
+        cv["state_fips"] = cv["state_fips"].str.zfill(2)
+        keep = ["state_fips", "year",
+                "covid_stringency_mean", "covid_stringency_max",
+                "covid_days_lockdown",
+                "covid_containment_mean", "covid_containment_max",
+                "covid_econsupport_mean", "covid_econsupport_max"]
+        cv = cv[[c for c in keep if c in cv.columns]]
+        # Coerce both sides to int64 'year' for the merge.
+        cv["year"] = cv["year"].astype(int)
+        panel["year"] = panel["year"].astype(int)
+        panel = panel.merge(cv, on=["state_fips", "year"], how="left")
+        # Pre-2020 / outside-window rows should be 0, not NaN.
+        for c in [c for c in keep if c.startswith("covid_")]:
+            panel[c] = panel[c].fillna(0.0)
+
+    # EFNA Fraser Institute economic-freedom index (state-year, joined
+    # down to counties). State-grain only (EFNA is a state-level
+    # construct); same join pattern as OxCGRT above. Every county in a
+    # given (state, year) takes the same EFNA value, which is what the
+    # robustness exercise needs.
+    efna_path = PROC / "efna_state_year.csv"
+    if efna_path.exists():
+        ef = pd.read_csv(efna_path, dtype={"state_fips": str})
+        ef["state_fips"] = ef["state_fips"].str.zfill(2)
+        keep_e = ["state_fips", "year",
+                  "efna_overall", "efna_government_spending",
+                  "efna_taxes", "efna_regulation"]
+        ef = ef[[c for c in keep_e if c in ef.columns]]
+        ef["year"] = ef["year"].astype(int)
+        panel["year"] = panel["year"].astype(int)
+        panel = panel.merge(ef, on=["state_fips", "year"], how="left")
+
+    # Deaths-of-despair stack (CDC VSRR fentanyl T40.4 deaths, BRFSS
+    # frequent mental distress, SAMHSA NSDUH any-mental-illness). All
+    # state-grain; joined down to counties for the border-county
+    # robustness exercise. Pre-window cells are zero-filled by the build
+    # scripts; in-window NaN cells (e.g., NSDUH 2020-2021 due to COVID
+    # methodology break) we leave NaN and let the estimator's RA-fallback
+    # handle them.
+    fent_path = PROC / "fentanyl_deaths_state_year.csv"
+    if fent_path.exists():
+        fd = pd.read_csv(fent_path, dtype={"state_fips": str})
+        fd["state_fips"] = fd["state_fips"].str.zfill(2)
+        fd["year"] = fd["year"].astype(int)
+        keep_f = ["state_fips", "year", "synthetic_opioid_death_rate"]
+        fd = fd[[c for c in keep_f if c in fd.columns]]
+        panel["year"] = panel["year"].astype(int)
+        panel = panel.merge(fd, on=["state_fips", "year"], how="left")
+        # Pre-2015 zero-fill (synthetic-opioid epidemic is essentially
+        # post-2014); in-window NaN stays NaN.
+        mask_pre = panel["year"] < 2015
+        panel.loc[mask_pre, "synthetic_opioid_death_rate"] = (
+            panel.loc[mask_pre, "synthetic_opioid_death_rate"].fillna(0.0)
+        )
+
+    brfss_path = PROC / "brfss_mental_distress_state_year.csv"
+    if brfss_path.exists():
+        bf = pd.read_csv(brfss_path, dtype={"state_fips": str})
+        bf["state_fips"] = bf["state_fips"].str.zfill(2)
+        bf["year"] = bf["year"].astype(int)
+        keep_b = ["state_fips", "year", "freq_mental_distress_pct"]
+        bf = bf[[c for c in keep_b if c in bf.columns]]
+        panel["year"] = panel["year"].astype(int)
+        panel = panel.merge(bf, on=["state_fips", "year"], how="left")
+
+    nsduh_path = PROC / "nsduh_mental_illness_state_year.csv"
+    if nsduh_path.exists():
+        ns = pd.read_csv(nsduh_path, dtype={"state_fips": str})
+        ns["state_fips"] = ns["state_fips"].str.zfill(2)
+        ns["year"] = ns["year"].astype(int)
+        keep_n = ["state_fips", "year", "ami_pct", "smi_pct", "mde_pct"]
+        ns = ns[[c for c in keep_n if c in ns.columns]]
+        panel["year"] = panel["year"].astype(int)
+        panel = panel.merge(ns, on=["state_fips", "year"], how="left")
+        # Linearly interpolate 2020/2021 NaN within state-fips. (Same
+        # logic as augment_panels.py for the state-grain panels.)
+        for c in ("ami_pct", "smi_pct", "mde_pct"):
+            panel[c] = (
+                panel.sort_values(["state_fips", "year"])
+                     .groupby("state_fips")[c]
+                     .transform(lambda s: s.interpolate(method="linear",
+                                                        limit_direction="both"))
+            )
+
     # Derived non-firearm suicide rate (state-joined).
     if ("state_total_suicide_rate" in panel.columns
             and "state_firearm_suicide_rate" in panel.columns
@@ -755,7 +846,10 @@ def run_full_battery(panel: pd.DataFrame,
                      outcomes_secondary: OrderedDict | None = None,
                      covariates: list[str] | None = None,
                      event_study_leads: int = 5,
-                     event_study_lags: int = 5) -> dict:
+                     event_study_lags: int = 5,
+                     with_covid: bool = False,
+                     with_efna: bool = False,
+                     with_despair: bool = False) -> dict:
     """Run the full DLR-style RDD battery for one policy.
 
     Writes:
@@ -766,6 +860,15 @@ def run_full_battery(panel: pd.DataFrame,
         out_dir/figures/event_study_primary.svg
         out_dir/figures/event_study_secondary.svg
 
+    with_covid: if True, append covid_stringency_mean to the covariate
+    set for every covariate-bearing battery spec, and force the headline
+    spec to use covariates so the COVID variable enters the cell that
+    the comparison table reads.
+
+    with_efna: if True, do the same for efna_overall (the Fraser
+    Institute Economic Freedom of North America all-government index).
+    Combined with with_covid, both variables enter together.
+
     Returns a dict of summary stats for inline reporting.
     """
     if outcomes_primary is None:
@@ -773,7 +876,17 @@ def run_full_battery(panel: pd.DataFrame,
     if outcomes_secondary is None:
         outcomes_secondary = OUTCOMES_SECONDARY
     if covariates is None:
-        covariates = RA_COVARIATES
+        covariates = list(RA_COVARIATES)
+    if with_covid and "covid_stringency_mean" not in covariates:
+        covariates = list(covariates) + ["covid_stringency_mean"]
+    if with_efna and "efna_overall" not in covariates:
+        covariates = list(covariates) + ["efna_overall"]
+    if with_despair:
+        for v in ("synthetic_opioid_death_rate",
+                  "freq_mental_distress_pct",
+                  "ami_pct"):
+            if v not in covariates:
+                covariates = list(covariates) + [v]
 
     out_dir.mkdir(parents=True, exist_ok=True)
     fig_dir = out_dir / "figures"
@@ -810,7 +923,17 @@ def run_full_battery(panel: pd.DataFrame,
         for outcome in all_outcomes:
             if outcome not in sample.columns:
                 continue
-            cov_list = covariates if with_cov else None
+            # When with_covid / with_efna is True the entire battery is
+            # rerun with the COVID and / or EFNA variable added to every
+            # covariate-bearing spec. We also force the otherwise
+            # covariate-free headline spec to use covariates so the
+            # added variables actually enter that cell -- which is the
+            # cell the comparison table reads.
+            effective_with_cov = (with_cov
+                                  or (with_covid and spec_name == "headline")
+                                  or (with_efna and spec_name == "headline")
+                                  or (with_despair and spec_name == "headline"))
+            cov_list = covariates if effective_with_cov else None
             res = estimate_dlr(
                 sample, outcome, fe=fe, cluster=cluster, covariates=cov_list,
             )

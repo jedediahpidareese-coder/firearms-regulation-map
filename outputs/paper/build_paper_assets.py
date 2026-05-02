@@ -27,7 +27,11 @@ TBL.mkdir(parents=True, exist_ok=True)
 
 POLICY_SHORT = "permitless_carry"
 POLICY_LABEL = "Permitless concealed carry"
-SCM_CASES = [("TX_2021", "Texas (2021)"), ("FL_2023", "Florida (2023)")]
+SCM_CASES = [("TX_2021", "Texas (2021)")]
+# Florida (2023) is intentionally excluded: with one year of post-policy
+# mortality data, an SCM falls below the multi-year post-period standard
+# of the published synthetic-control literature (ADH 2010, DAW 2019,
+# Crifasi 2015, Rudolph 2015, McCourt 2020).
 
 # --------------------------------------------------------------------------
 # 1) Figures: copy the SVGs we'll cite from the existing pipeline outputs.
@@ -41,22 +45,21 @@ SCM_CASES = [("TX_2021", "Texas (2021)"), ("FL_2023", "Florida (2023)")]
 # title shown in the rendered PDF figure itself; the LaTeX caption is set
 # separately in main.tex.
 FIGURE_SOURCES = [
-    # CS21 main event study (broad / RA, headline tier — already filtered
-    # by the cs_lib plot fix from earlier today)
+    # Event-study DiD main figure (broad / RA, headline tier).
     (OUTPUTS / f"{POLICY_SHORT}_cs" / "figures" / "event_study_broad_ra_4panel.svg",
      "fig2_cs21_event_study.svg",
-     "Callaway-Sant'Anna ATT(g, t) — broad pool, RA headline",
-     "Callaway-Sant'Anna ATT(g,t), permitless carry (RA, broad pool)"),
-    # Stacked-DiD event study (EB headline)
+     "Event-study DiD - headline specification",
+     "Event-study estimates of permitless carry's effect, by years since adoption"),
+    # Stacked DiD event study (entropy-balanced headline).
     (OUTPUTS / f"{POLICY_SHORT}_stackdd" / "figures" / "event_study_eb_4panel.svg",
      "fig3_stackdd_event_study.svg",
-     "Stacked-DiD ATT — entropy-balanced headline",
-     "Stacked-DiD ATT, permitless carry (entropy-balanced controls)"),
-    # Spatial RDD event study (secondary outcomes — state-joined mortality)
+     "Stacked DiD - entropy-balanced headline",
+     "Stacked event-study estimates with entropy-balanced controls"),
+    # Border-county event study (secondary outcomes - state-joined mortality).
     (OUTPUTS / f"{POLICY_SHORT}_rdd" / "figures" / "event_study_secondary.svg",
      "fig5_rdd_event_study.svg",
-     "Spatial-RDD ATT (border counties, state-pair x year FE)",
-     "Spatial RDD event study, permitless carry (contiguous county pairs)"),
+     "Border-county comparison (contiguous-county pairs)",
+     "Border-county event study: differences within contiguous county pairs"),
 ]
 for case_dir, case_label in SCM_CASES:
     for outcome, label in [("firearm_suicide_rate",
@@ -137,13 +140,13 @@ def write_cohort_table():
         "\\label{tab:cohorts}\n"
         "\\begin{tabular}{ccp{0.6\\linewidth}}\n"
         "\\toprule\n"
-        "Adoption year (g) & N states & States \\\\\n"
+        "Adoption year & States adopting & States \\\\\n"
         "\\midrule\n"
         f"{body}\n"
         "\\bottomrule\n"
         "\\end{tabular}\n"
         "\\begin{tablenotes}\\footnotesize\n"
-        "\\item Source: Tufts State Firearm Laws Database; cross-checked against the RAND State Firearm Laws Database. Cohort = first year the state's \\texttt{permitconcealed} indicator switches from 1 to 0.\n"
+        "\\item Source: Tufts State Firearm Laws Database, cross-checked against the RAND State Firearm Laws Database. The adoption year is the first year in which the state no longer required a permit to carry a concealed loaded handgun in public.\n"
         "\\end{tablenotes}\n"
         "\\end{threeparttable}\n"
     )
@@ -199,21 +202,22 @@ def write_headline_table():
     out = TBL / "table_headline.tex"
     out.write_text(
         "\\begin{threeparttable}\n"
-        "\\caption{Permitless carry: headline ATT estimates across estimators (per 100,000 residents)}\n"
+        "\\caption{Estimated effect of permitless carry adoption on suicide rates, by research design (per 100,000 residents)}\n"
         "\\label{tab:headline}\n"
         "\\begin{tabular}{lccc}\n"
         "\\toprule\n"
-        "Outcome & CS21 (broad/RA) & Stacked-DD (EB) & Spatial RDD \\\\\n"
+        "Outcome & Event-study & Stacked & Border-county \\\\\n"
+        " & DiD & DiD (entropy) & comparison \\\\\n"
         "\\midrule\n"
         f"{body}\n"
         "\\bottomrule\n"
         "\\end{tabular}\n"
         "\\begin{tablenotes}\\footnotesize\n"
-        "\\item Standard errors in parentheses. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$ (two-sided).\n"
-        "\\item CS21 = Callaway and Sant'Anna (2021) ATT(g,t) with literature-backed Headline covariate set; broad never-treated control pool. Standard errors via state-cluster Rademacher bootstrap (B = 2,000).\n"
-        "\\item Stacked-DD = Cengiz et al.\\ (2019) with Hainmueller (2012) entropy balancing on baseline covariates; cluster-robust SE at the state level.\n"
-        "\\item Spatial RDD = Dube, Lester and Reich (2010) contiguous-county-pair design; bandwidth 100 km; county FE + state-pair $\\times$ year FE; state-clustered SE.\n"
-        "\\item RDD outcomes are state-joined-down to the county panel (no within-state variation by construction).\n"
+        "\\item Standard errors in parentheses. $^{*}\\,p<0.10$, $^{**}\\,p<0.05$, $^{***}\\,p<0.01$ (two-sided).\n"
+        "\\item Event-study DiD: Callaway and Sant'Anna (2021) heterogeneity-robust event-study estimator with the headline covariate specification and the never-treated states as the control pool. Standard errors via state-cluster wild bootstrap (2,000 replications).\n"
+        "\\item Stacked DiD (entropy): Cengiz et al.\\ (2019) cohort-specific stacking with Hainmueller (2012) entropy balancing on pre-policy covariates; state-clustered standard errors.\n"
+        "\\item Border-county comparison: contiguous-county-pair design adapted from Dube, Lester, and Reich (2010); 100 km bandwidth; county fixed effects and pair-by-year fixed effects; state-clustered standard errors.\n"
+        "\\item In the border-county design, suicide-rate outcomes are joined down from the state level to the county panel; the substantive variation comes from contrasts within border pairs.\n"
         "\\end{tablenotes}\n"
         "\\end{threeparttable}\n"
     )
@@ -246,7 +250,7 @@ def write_multiverse_table():
     out = TBL / "table_multiverse.tex"
     out.write_text(
         "\\begin{threeparttable}\n"
-        "\\caption{Multiverse: covariate-set sensitivity of the CS21 ATT (broad/RA spec)}\n"
+        "\\caption{Sensitivity of the event-study estimate to covariate specification}\n"
         "\\label{tab:multiverse}\n"
         "\\begin{tabular}{lccc}\n"
         "\\toprule\n"
@@ -256,22 +260,22 @@ def write_multiverse_table():
         "\\bottomrule\n"
         "\\end{tabular}\n"
         "\\begin{tablenotes}\\footnotesize\n"
-        "\\item Standard errors in parentheses. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$ (two-sided).\n"
-        "\\item Three literature-backed covariate sets per Donohue, Aneja and Weber (2019). Minimal: ln(pop), poverty, unemployment, demographics (Lott-Mustard floor). Headline: + imprisonment rate, sworn officers per 100k, alcohol per capita (DAW set + alcohol). Expanded: + drug overdose mortality, religion, police expenditure (kitchen sink for robustness).\n"
+        "\\item Standard errors in parentheses. $^{*}\\,p<0.10$, $^{**}\\,p<0.05$, $^{***}\\,p<0.01$ (two-sided).\n"
+        "\\item Estimates are from the Callaway and Sant'Anna (2021) event-study estimator under three literature-motivated covariate specifications. Minimal: log population, poverty rate, unemployment rate, and demographic shares (after Lott and Mustard 1997). Headline: minimal set plus imprisonment per 100,000, sworn officers per 100,000, and per capita alcohol consumption (after Donohue, Aneja, and Weber 2019, augmented with alcohol following McClellan and Tekin 2017). Expanded: headline set plus drug-overdose mortality, religious adherence, and police expenditure per capita.\n"
         "\\end{tablenotes}\n"
         "\\end{threeparttable}\n"
     )
     print(f"  wrote {out.name}")
 
 
-# Table 5: SCM per-state results.
+# Table 5: SCM per-state results (Texas only; see SCM_CASES filter above).
 def write_scm_table():
     rows = []
-    for case_dir, case_label in SCM_CASES:
+    for case_dir, _case_label in SCM_CASES:
         placebo = pd.read_csv(OUTPUTS / f"{POLICY_SHORT}_scm" / case_dir / "placebo.csv")
         for ocol, olabel in [("firearm_suicide_rate", "Firearm suicide"),
                              ("total_suicide_rate", "Total suicide"),
-                             ("motor_vehicle_theft_rate", "MV theft (placebo)")]:
+                             ("motor_vehicle_theft_rate", "Motor-vehicle theft (placebo)")]:
             r = placebo[placebo["outcome"] == ocol]
             if r.empty:
                 continue
@@ -281,7 +285,7 @@ def write_scm_table():
                    r"$^{**}$"  if p <= 0.05 else
                    r"$^{*}$"   if p <= 0.10 else "")
             rows.append(
-                f"  {latex_escape(case_label)} & {latex_escape(olabel)} & "
+                f"  {latex_escape(olabel)} & "
                 f"{r['actual_post_effect']:+.3f}{sig} & "
                 f"{p:.3f} & {int(r['n_placebo'])} \\\\"
             )
@@ -289,17 +293,17 @@ def write_scm_table():
     out = TBL / "table_scm.tex"
     out.write_text(
         "\\begin{threeparttable}\n"
-        "\\caption{Synthetic-control per-state results (post-period mean ATT, per 100,000)}\n"
+        "\\caption{Synthetic-control case study of Texas (2021 adoption): average post-policy gap between Texas and its synthetic counterpart (per 100,000)}\n"
         "\\label{tab:scm}\n"
-        "\\begin{tabular}{llccc}\n"
+        "\\begin{tabular}{lccc}\n"
         "\\toprule\n"
-        "Case & Outcome & Post ATT & Permutation $p$ & Donor pool \\\\\n"
+        "Outcome & Post-policy gap & Placebo $p$ & Donors \\\\\n"
         "\\midrule\n"
         f"{body}\n"
         "\\bottomrule\n"
         "\\end{tabular}\n"
         "\\begin{tablenotes}\\footnotesize\n"
-        "\\item Synthetic control method per Abadie, Diamond and Hainmueller (2010). Donor pool: shall-issue + permit-required states throughout each cohort's $[g-12, g+H]$ window. Inference: refit SCM on every donor as if treated; report two-sided permutation $p$-value as the share of placebo $|\\textrm{ATT}|$ at least as extreme as the actual.\n"
+        "\\item Synthetic control follows Abadie, Diamond, and Hainmueller (2010). The donor pool is the set of shall-issue and permit-required states throughout the case study's twelve-year pre-period and three-year post-period. Inference follows Abadie (2021): we re-estimate the synthetic control treating each donor state in turn as if it were treated, and report the share of placebo gaps at least as large in magnitude as the actual gap. Florida (2023 adoption) is excluded: with one year of post-policy mortality data, the design falls below the multi-year post-period standard of the published synthetic-control literature \\citep{abadie2010, donohue2019, crifasi2015, rudolph2015, mccourt2020}.\n"
         "\\end{tablenotes}\n"
         "\\end{threeparttable}\n"
     )
@@ -336,17 +340,172 @@ def write_rs_bounds_table():
     out = TBL / "table_rs_bounds.tex"
     out.write_text(
         "\\begin{threeparttable}\n"
-        "\\caption{Roth-Sant'Anna pre-trend honest bounds at $e = +1$ (firearm suicide rate, per 100k)}\n"
+        "\\caption{Sensitivity to violations of parallel trends: bounds on the firearm-suicide effect one year after adoption (per 100,000)}\n"
         "\\label{tab:rs_bounds}\n"
         "\\begin{tabular}{lccc}\n"
         "\\toprule\n"
-        "Spec & $M$ & Lower bound & Upper bound \\\\\n"
+        "Spec. & Allowed deviation $M$ & Lower bound & Upper bound \\\\\n"
         "\\midrule\n"
         f"{body}\n"
         "\\bottomrule\n"
         "\\end{tabular}\n"
         "\\begin{tablenotes}\\footnotesize\n"
-        "\\item $M$ = sensitivity parameter from Rambachan and Roth (2023): allowed deviation of the post-trend from a linear extrapolation of the observed pre-trend, expressed as a multiple of the pre-trend slope. $M = 0$ assumes parallel trends; $M = 1$ allows the post-trend to deviate by one pre-trend slope; $M = 2$ allows two. Bounds that exclude zero indicate the headline coefficient survives that level of pre-trend extrapolation.\n"
+        "\\item Bounds follow Rambachan and Roth (2023). The allowed deviation $M$ is the hypothetical drift of the post-policy counterfactual away from a continuation of the observed pre-policy trend, expressed as a multiple of the pre-trend slope: $M = 0$ corresponds to exactly parallel trends, $M = 1$ allows one pre-trend slope of unobserved drift, and so on. A lower bound that excludes zero indicates the firearm-suicide effect remains positive under that level of allowed deviation. ``Spec.'' indicates the control pool (broad: all never-treated states; strict: shall-issue only) and the doubly-robust adjustment (OR: outcome regression; RA: regression adjustment).\n"
+        "\\end{tablenotes}\n"
+        "\\end{threeparttable}\n"
+    )
+    print(f"  wrote {out.name}")
+
+
+# Table 7: COVID-19 stringency robustness check.
+# For each of the three pooled designs (event-study DiD, stacked DiD with
+# entropy balancing, border-county comparison) and each of the three
+# suicide outcomes (firearm, non-firearm, total), report the headline
+# estimate from the original specification AND the estimate with the
+# OxCGRT covid_stringency_mean covariate added, side by side.
+#
+# Covariate-tier choice (CS21 event-study and stacked DiD): we read the
+# `minimal` tier rather than `headline` because the headline RA spec
+# falls back to OR (no-covariate) for any cohort whose base year
+# (g - 1) is >= 2018, due to NIAAA alcohol per capita ending in 2018
+# and RAND household firearm ownership ending in 2016. Adding the COVID
+# variable to a fallback OR cell has no effect because the regression
+# never enters covariate-mode there. The minimal tier (log population,
+# log PCPI, unemployment, poverty, share male, age 15-24, age 25-44)
+# has data through 2024 for all states, so the COVID variable actually
+# enters the regression there and the comparison is informative.
+def write_covid_robustness_table():
+    cs_dir = OUTPUTS / f"{POLICY_SHORT}_cs"
+    cs_cv_dir = OUTPUTS / f"{POLICY_SHORT}_cs_with_covid"
+    cs_ce_dir = OUTPUTS / f"{POLICY_SHORT}_cs_with_covid_efna"
+    cs_cd_dir = OUTPUTS / f"{POLICY_SHORT}_cs_with_covid_efna_despair"
+    sd_dir = OUTPUTS / f"{POLICY_SHORT}_stackdd"
+    sd_cv_dir = OUTPUTS / f"{POLICY_SHORT}_stackdd_with_covid"
+    sd_ce_dir = OUTPUTS / f"{POLICY_SHORT}_stackdd_with_covid_efna"
+    sd_cd_dir = OUTPUTS / f"{POLICY_SHORT}_stackdd_with_covid_efna_despair"
+    rdd_dir = OUTPUTS / f"{POLICY_SHORT}_rdd"
+    rdd_cv_dir = OUTPUTS / f"{POLICY_SHORT}_rdd_with_covid"
+    rdd_ce_dir = OUTPUTS / f"{POLICY_SHORT}_rdd_with_covid_efna"
+    rdd_cd_dir = OUTPUTS / f"{POLICY_SHORT}_rdd_with_covid_efna_despair"
+
+    cs_a = pd.read_csv(cs_dir / "overall_att.csv")
+    cs_b = pd.read_csv(cs_cv_dir / "overall_att.csv") if (cs_cv_dir / "overall_att.csv").exists() else None
+    cs_c = pd.read_csv(cs_ce_dir / "overall_att.csv") if (cs_ce_dir / "overall_att.csv").exists() else None
+    cs_d = pd.read_csv(cs_cd_dir / "overall_att.csv") if (cs_cd_dir / "overall_att.csv").exists() else None
+    sd_a = pd.read_csv(sd_dir / "att_post.csv")
+    sd_b = pd.read_csv(sd_cv_dir / "att_post.csv") if (sd_cv_dir / "att_post.csv").exists() else None
+    sd_c = pd.read_csv(sd_ce_dir / "att_post.csv") if (sd_ce_dir / "att_post.csv").exists() else None
+    sd_d = pd.read_csv(sd_cd_dir / "att_post.csv") if (sd_cd_dir / "att_post.csv").exists() else None
+    rdd_a = pd.read_csv(rdd_dir / "robustness.csv")
+    rdd_b = pd.read_csv(rdd_cv_dir / "robustness.csv") if (rdd_cv_dir / "robustness.csv").exists() else None
+    rdd_c = pd.read_csv(rdd_ce_dir / "headline.csv") if (rdd_ce_dir / "headline.csv").exists() else None
+    rdd_d = pd.read_csv(rdd_cd_dir / "headline.csv") if (rdd_cd_dir / "headline.csv").exists() else None
+
+    # CS21 cell: spec=ra, control_rule=broad, tier=minimal.
+    def cs_cell(df, outcome):
+        if df is None: return None
+        s = df[(df["spec"] == "ra") & (df["control_rule"] == "broad")
+               & (df["tier"] == "minimal") & (df["outcome"] == outcome)]
+        return s.iloc[0] if not s.empty else None
+
+    # Stacked DiD cell: spec=ra, tier=minimal (so COVID actually enters).
+    def sd_cell(df, outcome):
+        if df is None: return None
+        s = df[(df["spec"] == "ra") & (df["tier"] == "minimal")
+               & (df["outcome"] == outcome)]
+        return s.iloc[0] if not s.empty else None
+
+    # RDD cell: with_covariates spec for baseline; headline (forced cov)
+    # for with-covid (which run_full_battery rewrites to use covariates).
+    # Both have the same RA covariate set; with-covid adds covid_stringency_mean.
+    def rdd_cell(df, outcome, baseline: bool):
+        if df is None: return None
+        spec = "with_covariates" if baseline else "headline"
+        s = df[(df["spec_name"] == spec) & (df["outcome"] == outcome)]
+        return s.iloc[0] if not s.empty else None
+
+    outcomes = [
+        ("firearm_suicide_rate",     "Firearm suicide rate"),
+        ("nonfirearm_suicide_rate",  "Non-firearm suicide rate"),
+        ("total_suicide_rate",       "Total suicide rate"),
+    ]
+
+    def fmt_cs(c):
+        if c is None: return "—"
+        return (f"{c['att_overall_post']:+.3f}{stars(c['z'])}"
+                f"\\newline {{\\footnotesize ({c['se_overall_post']:.3f})}}")
+
+    def fmt_sd(c):
+        if c is None: return "—"
+        return (f"{c['att']:+.3f}{stars(c['z'])}"
+                f"\\newline {{\\footnotesize ({c['se']:.3f})}}")
+
+    def fmt_rdd(c):
+        if c is None: return "—"
+        return (f"{c['beta']:+.3f}{stars(c['z'])}"
+                f"\\newline {{\\footnotesize ({c['se']:.3f})}}")
+
+    # Format four cells per design (baseline + stringency + stringency+EFNA
+    # + stringency+EFNA+despair) stacked vertically. Row labels are kept
+    # short to fit the column width; the table note makes the cumulative
+    # meaning ("+ EFNA" includes stringency, "+ Despair" includes both)
+    # explicit.
+    def stacked(a, b, c, d, fmt):
+        ta = fmt(a) if a is not None else "-"
+        tb = fmt(b) if b is not None else "-"
+        tc = fmt(c) if c is not None else "-"
+        td = fmt(d) if d is not None else "-"
+        return ("\\begin{tabular}{@{}c@{}}"
+                f"{ta}\\\\[2pt] \\textit{{+ Str.}} {tb}"
+                f"\\\\[2pt] \\textit{{+ EFNA}} {tc}"
+                f"\\\\[2pt] \\textit{{+ Despair}} {td}"
+                "\\end{tabular}")
+
+    rows = []
+    for ocol, olabel in outcomes:
+        rdd_ocol = "state_" + ocol
+        cs_a_c   = cs_cell(cs_a, ocol)
+        cs_b_c   = cs_cell(cs_b, ocol)
+        cs_c_c   = cs_cell(cs_c, ocol)
+        cs_d_c   = cs_cell(cs_d, ocol)
+        sd_a_c   = sd_cell(sd_a, ocol)
+        sd_b_c   = sd_cell(sd_b, ocol)
+        sd_c_c   = sd_cell(sd_c, ocol)
+        sd_d_c   = sd_cell(sd_d, ocol)
+        rdd_a_c  = rdd_cell(rdd_a, rdd_ocol, baseline=True)
+        rdd_b_c  = rdd_cell(rdd_b, rdd_ocol, baseline=False)
+        # _with_covid_efna and _with_covid_efna_despair RDD outputs only
+        # have headline.csv (not robustness.csv); the headline row in those
+        # already includes the cumulative covariate set.
+        rdd_c_c  = rdd_cell(rdd_c, rdd_ocol, baseline=False) if rdd_c is not None else None
+        rdd_d_c  = rdd_cell(rdd_d, rdd_ocol, baseline=False) if rdd_d is not None else None
+        rows.append(
+            f"  {latex_escape(olabel)} & "
+            f"{stacked(cs_a_c, cs_b_c, cs_c_c, cs_d_c, fmt_cs)} & "
+            f"{stacked(sd_a_c, sd_b_c, sd_c_c, sd_d_c, fmt_sd)} & "
+            f"{stacked(rdd_a_c, rdd_b_c, rdd_c_c, rdd_d_c, fmt_rdd)} \\\\"
+        )
+    body = "\n\\addlinespace\n".join(rows)
+    out = TBL / "table_covid_robustness.tex"
+    out.write_text(
+        "\\begin{threeparttable}\n"
+        "\\caption{COVID-19 and deaths-of-despair robustness: estimated effect of permitless carry on suicide rates, baseline vs.\\ with the OxCGRT lockdown stringency index, vs.\\ with stringency plus the Fraser EFNA economic-freedom index, vs.\\ with stringency, EFNA, and the deaths-of-despair stack (synthetic-opioid death rate, frequent mental distress, any-mental-illness prevalence; per 100,000 residents)}\n"
+        "\\label{tab:covid_robustness}\n"
+        "\\scriptsize\n"
+        "\\setlength{\\tabcolsep}{3pt}\n"
+        "\\begin{tabular}{lccc}\n"
+        "\\toprule\n"
+        "Outcome & Event-study DiD & Stacked DiD (RA) & Border-county \\\\\n"
+        "\\midrule\n"
+        f"{body}\n"
+        "\\bottomrule\n"
+        "\\end{tabular}\n"
+        "\\begin{tablenotes}\\footnotesize\n"
+        "\\item Each cell shows four estimates stacked vertically: the baseline (top); the same estimate with the \\citet{hale2021} OxCGRT state-year mean stringency index added as a covariate (``+ Str.''); the estimate with both stringency and the Fraser Institute Economic Freedom of North America index \\citep{stansel2023} added as covariates (``+ EFNA''; cumulative, also includes stringency); and the estimate with stringency, EFNA, and the deaths-of-despair stack (synthetic\\_opioid\\_death\\_rate, freq\\_mental\\_distress\\_pct, ami\\_pct) added as covariates (``+ Despair''; cumulative, also includes stringency and EFNA). Motivation for the deaths-of-despair stack: \\citet{casedeaton2015, casedeaton2017, ruhm2018, hollingsworth2017, czeisler2020}. Standard errors in parentheses. $^{*}\\,p<0.10$, $^{**}\\,p<0.05$, $^{***}\\,p<0.01$ (two-sided).\n"
+        "\\item OxCGRT covers 2020-01-01 through 2022-12-31; 2023+ rows are carried forward from 2022, and pre-2020 rows are zero-filled. EFNA varies across the entire pre- and post-treatment window and captures the broader regulatory and fiscal-policy environment, with subindex movements during 2020--2022 reflecting differential state-level COVID policy responses.\n"
+        "\\item Event-study DiD: Callaway--Sant'Anna RA spec with the minimal covariate tier (log population, log PCPI, unemployment, poverty, share male, age 15--24, age 25--44). The minimal tier is reported because the headline RA tier falls back to outcome regression for any cohort whose base year is $\\ge 2018$ (NIAAA alcohol per capita ends 2018; RAND household firearm ownership ends 2016), which would render the additional covariates inert in the headline tier for the post-2020 cohorts where they could matter.\n"
+        "\\item Stacked DiD: Cengiz et al.\\ (2019) RA spec with the same minimal covariate tier, for the same reason.\n"
+        "\\item Border-county: Dube, Lester, and Reich (2010) contiguous-county-pair design at the headline 100\\,km bandwidth. All three rows include the full RDD covariate set (county-grain demographics, state-joined CJ controls, alcohol per capita); the second adds OxCGRT covid\\_stringency\\_mean and the third also adds efna\\_overall.\n"
         "\\end{tablenotes}\n"
         "\\end{threeparttable}\n"
     )
@@ -362,6 +521,7 @@ def main() -> None:
     write_multiverse_table()
     write_scm_table()
     write_rs_bounds_table()
+    write_covid_robustness_table()
     print("\nDone. Re-run after pipeline changes.")
 
 

@@ -21,10 +21,26 @@ Outputs (under outputs/permitless_carry_rdd/):
     robustness.csv       all 10 BATTERY_SPECS x all outcomes
     event_study.csv      per-outcome event-time coefficients
     figures/event_study_{primary,secondary}.svg
+
+Optional flags:
+  --with-covid    append OxCGRT covid_stringency_mean to the covariate
+                  set in the headline spec (and every covariate-bearing
+                  battery spec); write outputs to
+                  permitless_carry_rdd_with_covid/.
+  --with-efna     append Fraser Institute efna_overall to the covariate
+                  set. Combined with --with-covid, output is
+                  outputs/permitless_carry_rdd_with_covid_efna/; alone,
+                  outputs/permitless_carry_rdd_with_efna/.
+  --with-despair  append the deaths-of-despair stack
+                  (synthetic_opioid_death_rate, freq_mental_distress_pct,
+                  ami_pct). Combinable with --with-covid and --with-efna;
+                  maximal output is permitless_carry_rdd_with_covid_efna_
+                  despair/.
 """
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 
 from lib_rdd import (
@@ -34,25 +50,61 @@ from lib_rdd import (
 )
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT = ROOT / "outputs" / "permitless_carry_rdd"
 
 
-def main() -> None:
+def main(with_covid: bool = False, with_efna: bool = False,
+         with_despair: bool = False) -> None:
+    flag_tokens = []
+    if with_covid:   flag_tokens.append("covid")
+    if with_efna:    flag_tokens.append("efna")
+    if with_despair: flag_tokens.append("despair")
+    suffix = ("_with_" + "_".join(flag_tokens)) if flag_tokens else ""
+    out_dir = ROOT / "outputs" / f"permitless_carry_rdd{suffix}"
     print("Loading county panel + border distances ...")
     panel = load_county_panel_with_borders()
     print(f"  {len(panel):,} county-year rows")
+    flags = []
+    if with_covid:   flags.append("with-covid")
+    if with_efna:    flags.append("with-efna")
+    if with_despair: flags.append("with-despair")
+    if flags:
+        print(f"[{'+'.join(flags)}] writing outputs to {out_dir.relative_to(ROOT)}")
 
     summary = run_full_battery(
         panel,
         treatment_var="law_permitconcealed",
         direction="1to0",
         policy_name="permitless_carry",
-        out_dir=OUT,
+        out_dir=out_dir,
         outcomes_primary=OUTCOMES_PRIMARY,
         outcomes_secondary=OUTCOMES_SECONDARY,
+        with_covid=with_covid,
+        with_efna=with_efna,
+        with_despair=with_despair,
     )
     print(f"\nDone. Summary: {summary}")
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--with-covid", action="store_true",
+                        help="Append OxCGRT covid_stringency_mean to the "
+                             "headline RDD covariate set; write outputs to "
+                             "outputs/permitless_carry_rdd_with_covid/.")
+    parser.add_argument("--with-efna", action="store_true",
+                        help="Append Fraser Institute efna_overall to the "
+                             "headline RDD covariate set. Combined with "
+                             "--with-covid, outputs/permitless_carry_rdd_"
+                             "with_covid_efna/; alone, "
+                             "outputs/permitless_carry_rdd_with_efna/.")
+    parser.add_argument("--with-despair", action="store_true",
+                        help="Append the deaths-of-despair stack "
+                             "(synthetic_opioid_death_rate, "
+                             "freq_mental_distress_pct, ami_pct) to the "
+                             "headline RDD covariate set. Combinable with "
+                             "--with-covid and --with-efna; maximal output "
+                             "is outputs/permitless_carry_rdd_with_covid_"
+                             "efna_despair/.")
+    args = parser.parse_args()
+    main(with_covid=args.with_covid, with_efna=args.with_efna,
+         with_despair=args.with_despair)

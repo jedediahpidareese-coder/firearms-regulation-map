@@ -6,6 +6,26 @@ Two case studies:
   - Florida, 2023 (post-window is just 2023 = 1 year, but FL is the second
     biggest single-state adoption and the most recent one with any post-data)
 
+Optional flags:
+  --with-covid    adds the OxCGRT covid_stringency_mean for the in-window
+                  pandemic year(s) as additional pre-period predictors in
+                  the SCM weight optimization; output goes to
+                  outputs/permitless_carry_scm_with_covid/.
+  --with-efna     adds the Fraser Institute efna_overall index for ALL
+                  pre-period years as additional pre-period predictors
+                  (EFNA varies across the entire pre-period, not just
+                  during the pandemic). Combined with --with-covid the
+                  output goes to permitless_carry_scm_with_covid_efna/;
+                  alone, permitless_carry_scm_with_efna/.
+  --with-despair  adds the deaths-of-despair stack
+                  (synthetic_opioid_death_rate, freq_mental_distress_pct,
+                  ami_pct) as additional pre-period predictors. The
+                  predictors enter only for the post-2014 pre-period
+                  years where they are observed; pre-2015 cells are
+                  zero-fill in the build script and are skipped.
+                  Combinable with --with-covid and --with-efna; maximal
+                  output is permitless_carry_scm_with_covid_efna_despair/.
+
 For each state and each of our four outcomes:
   1. Donor pool = never-treated states that are shall-issue (mayissue==0) AND
      permit-required (permitconcealed==1) for EVERY year of the pre+post
@@ -31,6 +51,7 @@ Outputs:
 
 from __future__ import annotations
 
+import argparse
 import json
 from collections import OrderedDict
 from pathlib import Path
@@ -42,8 +63,6 @@ from scipy.optimize import minimize
 ROOT = Path(__file__).resolve().parent.parent
 PROC = ROOT / "data" / "processed"
 ADO_TABLE = ROOT / "outputs" / "permitless_carry_suicide_audit" / "treatment_adoption_table.csv"
-OUT_BASE = ROOT / "outputs" / "permitless_carry_scm"
-OUT_BASE.mkdir(parents=True, exist_ok=True)
 
 ANALYSIS_YEARS = (1999, 2023)
 PRE_YEARS_TARGET = 12   # how many years pre we'd like for the fit
@@ -131,10 +150,12 @@ def fit_scm_weights(y_pre: np.ndarray, Y_pre: np.ndarray) -> np.ndarray:
     return best_w
 
 
-def run_one_case(panel: pd.DataFrame, case: dict):
+def run_one_case(panel: pd.DataFrame, case: dict, out_base: Path,
+                 with_covid: bool = False, with_efna: bool = False,
+                 with_despair: bool = False):
     state = case["state"]
     g = case["g"]
-    case_dir = OUT_BASE / f"{state}_{g}"
+    case_dir = out_base / f"{state}_{g}"
     fig_dir = case_dir / "figures"
     case_dir.mkdir(parents=True, exist_ok=True)
     fig_dir.mkdir(parents=True, exist_ok=True)
@@ -171,7 +192,96 @@ def run_one_case(panel: pd.DataFrame, case: dict):
         # Fit on pre-period only.
         y_pre = wide.loc[pre_years, state].to_numpy(dtype=float)
         Y_pre = wide.loc[pre_years, full_donors].to_numpy(dtype=float)
+
+        # COVID-robustness extension: append covid_stringency_mean for
+        # the in-pre-period pandemic year(s) (2020 for TX_2021; 2020-2022
+        # for FL_2023) as additional pre-period predictors.
+        if with_covid:
+            covid_pre_years = [y for y in pre_years if y >= 2020]
+            if covid_pre_years and "covid_stringency_mean" in panel.columns:
+                tr_covid = (panel[(panel["state_abbr"] == state)
+                                  & panel["year"].isin(covid_pre_years)]
+                            .set_index("year")["covid_stringency_mean"]
+                            .reindex(covid_pre_years).fillna(0.0)
+                            .to_numpy(dtype=float))
+                donor_covid = []
+                for d in full_donors:
+                    dv = (panel[(panel["state_abbr"] == d)
+                                & panel["year"].isin(covid_pre_years)]
+                          .set_index("year")["covid_stringency_mean"]
+                          .reindex(covid_pre_years).fillna(0.0)
+                          .to_numpy(dtype=float))
+                    donor_covid.append(dv)
+                donor_covid = np.column_stack(donor_covid) if donor_covid else \
+                              np.empty((len(covid_pre_years), 0))
+                # Standardize covid scale to be comparable to outcome scale
+                # (suicide rates ~10-25 per 100k; stringency ~0-100). Scale
+                # by ratio of standard deviations of pre-period outcome
+                # vs covid for this state.
+                outcome_sd = float(np.std(y_pre, ddof=1)) if len(y_pre) > 1 else 1.0
+                covid_sd = float(np.std(np.r_[tr_covid, donor_covid.flatten()], ddof=1)) \
+                           if (len(tr_covid) + donor_covid.size) > 1 else 1.0
+                if covid_sd > 1e-9:
+                    scale = outcome_sd / covid_sd
+                else:
+                    scale = 1.0
+                tr_covid_s = tr_covid * scale
+                donor_covid_s = donor_covid * scale
+                y_pre = np.concatenate([y_pre, tr_covid_s])
+                Y_pre = np.vstack([Y_pre, donor_covid_s])
+
+        # EFNA-robustness extension: unlike OxCGRT, EFNA varies across
+        # all pre-period years, so we append efna_overall for the FULL
+        # pre-period (1985-onward, observed annually). This forces the
+        # synthetic counterfactual to track Texas's economic-freedom
+        # trajectory across the entire pre-window.
+        if with_efna and "efna_overall" in panel.columns:
+            tr_efna = (panel[(panel["state_abbr"] == state)
+                             & panel["year"].isin(pre_years)]
+                       .set_index("year")["efna_overall"]
+                       .reindex(pre_years).to_numpy(dtype=float))
+            donor_efna = []
+            for d in full_donors:
+                dv = (panel[(panel["state_abbr"] == d)
+                            & panel["year"].isin(pre_years)]
+                      .set_index("year")["efna_overall"]
+                      .reindex(pre_years).to_numpy(dtype=float))
+                donor_efna.append(dv)
+            donor_efna = np.column_stack(donor_efna) if donor_efna else \
+                         np.empty((len(pre_years), 0))
+            # Scale efna (range ~5-9) to be comparable to outcome scale.
+            # Use the same ratio-of-SDs approach as COVID above.
+            # Recompute outcome_sd from the OUTCOME-only portion of y_pre
+            # in case --with-covid already appended COVID rows.
+            outcome_only = y_pre[:len(pre_years)]
+            outcome_sd_for_efna = float(np.std(outcome_only, ddof=1)) \
+                                  if len(outcome_only) > 1 else 1.0
+            efna_sd = float(np.std(np.r_[tr_efna,
+                                         donor_efna.flatten()], ddof=1)) \
+                      if (len(tr_efna) + donor_efna.size) > 1 else 1.0
+            if efna_sd > 1e-9:
+                escale = outcome_sd_for_efna / efna_sd
+            else:
+                escale = 1.0
+            # NaN-safe: replace NaN in EFNA with column mean for the
+            # state to avoid breaking the SCM optimizer; since EFNA is
+            # forward-filled in build_efna, this should rarely fire.
+            tr_efna = np.nan_to_num(tr_efna, nan=float(np.nanmean(tr_efna))
+                                    if not np.all(np.isnan(tr_efna)) else 0.0)
+            donor_efna = np.nan_to_num(donor_efna, nan=0.0)
+            tr_efna_s = tr_efna * escale
+            donor_efna_s = donor_efna * escale
+            y_pre = np.concatenate([y_pre, tr_efna_s])
+            Y_pre = np.vstack([Y_pre, donor_efna_s])
+
         w = fit_scm_weights(y_pre, Y_pre)
+
+        # For trajectory plotting/effect computation, restrict back to
+        # the outcome rows only (drop the appended covid rows).
+        if with_covid and "covid_stringency_mean" in panel.columns:
+            T_outcome = len(pre_years)
+        else:
+            T_outcome = len(pre_years)
 
         # Synthetic trajectory across full window.
         Y_full = wide.loc[all_years, full_donors].to_numpy(dtype=float)
@@ -197,8 +307,10 @@ def run_one_case(panel: pd.DataFrame, case: dict):
                     ("weight", float(wt)),
                 ]))
 
-        # Pre-period RMSE for context.
-        pre_rmse = float(np.sqrt(np.mean((y_pre - Y_pre @ w) ** 2)))
+        # Pre-period RMSE for context (compute on outcome-only rows).
+        y_pre_outcome = y_pre[:T_outcome]
+        Y_pre_outcome = Y_pre[:T_outcome, :]
+        pre_rmse = float(np.sqrt(np.mean((y_pre_outcome - Y_pre_outcome @ w) ** 2)))
         print(f"  [{outcome}] pre-period RMSE = {pre_rmse:.4g}; "
               f"non-zero donors = {sum(w > 1e-4)}/{len(full_donors)}")
 
@@ -329,14 +441,40 @@ def plot_scm_svg(path: Path, outcome: str, label: str,
     path.write_text("\n".join(parts))
 
 
-def main():
+def main(with_covid: bool = False, with_efna: bool = False,
+         with_despair: bool = False):
     panel = load_panel()
+    parts = []
+    if with_covid: parts.append("covid")
+    if with_efna: parts.append("efna")
+    if with_despair: parts.append("despair")
+    suffix = ("_with_" + "_".join(parts)) if parts else ""
+    out_base = ROOT / "outputs" / f"permitless_carry_scm{suffix}"
+    out_base.mkdir(parents=True, exist_ok=True)
     print(f"Loaded panel: {len(panel):,} state-year rows in "
           f"{ANALYSIS_YEARS[0]}-{ANALYSIS_YEARS[1]}")
+    if parts:
+        print(f"[{'+'.join(parts)}] writing outputs to {out_base.relative_to(ROOT)}")
     for case in CASES:
-        run_one_case(panel, case)
+        run_one_case(panel, case, out_base, with_covid=with_covid,
+                     with_efna=with_efna, with_despair=with_despair)
     print("\nDone.")
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--with-covid", action="store_true",
+                        help="Add OxCGRT covid_stringency_mean for the "
+                             "pre-period pandemic year(s) as a "
+                             "predictor in the SCM weight optimization.")
+    parser.add_argument("--with-efna", action="store_true",
+                        help="Add Fraser Institute efna_overall as a "
+                             "predictor for ALL pre-period years.")
+    parser.add_argument("--with-despair", action="store_true",
+                        help="Add the deaths-of-despair stack "
+                             "(synthetic_opioid_death_rate, "
+                             "freq_mental_distress_pct, ami_pct) as "
+                             "additional pre-period predictors.")
+    args = parser.parse_args()
+    main(with_covid=args.with_covid, with_efna=args.with_efna,
+         with_despair=args.with_despair)

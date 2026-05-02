@@ -2,6 +2,21 @@
 entropy balancing (Hainmueller 2012) -- runs all three policies in one
 pass for direct comparison with the CS21 results.
 
+Optional flags:
+  --with-covid    append the OxCGRT covid_stringency_mean covariate to
+                  the RA spec (and to the EB-balancing target); write
+                  outputs to outputs/{policy}_stackdd_with_covid/.
+  --with-efna     append the Fraser Institute efna_overall covariate to
+                  the RA / EB-balancing covariates. Combined with
+                  --with-covid, output dir becomes
+                  outputs/{policy}_stackdd_with_covid_efna/; alone, it is
+                  outputs/{policy}_stackdd_with_efna/.
+  --with-despair  append the deaths-of-despair stack
+                  (synthetic_opioid_death_rate, freq_mental_distress_pct,
+                  ami_pct). Combinable with --with-covid and --with-efna;
+                  maximal output is
+                  outputs/{policy}_stackdd_with_covid_efna_despair/.
+
 For each policy (permitless carry, civil red-flag, UBC) and each of the
 six outcomes used elsewhere in the project, we report three weighting
 specifications:
@@ -31,6 +46,7 @@ Outputs (per policy):
 
 from __future__ import annotations
 
+import argparse
 from collections import OrderedDict
 from pathlib import Path
 
@@ -165,13 +181,23 @@ def cohorts_from_panel(panel: pd.DataFrame, treatment_var: str,
     return cohorts, never, dropped
 
 
-def run_one_policy(panel: pd.DataFrame, policy: dict):
+def run_one_policy(panel: pd.DataFrame, policy: dict, with_covid: bool = False,
+                   with_efna: bool = False, with_despair: bool = False):
     name = policy["name"]
-    out_dir = ROOT / "outputs" / f"{name}_stackdd"
+    flag_tokens = []
+    if with_covid:   flag_tokens.append("covid")
+    if with_efna:    flag_tokens.append("efna")
+    if with_despair: flag_tokens.append("despair")
+    suffix = ("_with_" + "_".join(flag_tokens)) if flag_tokens else ""
+    out_dir = ROOT / "outputs" / f"{name}_stackdd{suffix}"
     fig_dir = out_dir / "figures"
     out_dir.mkdir(parents=True, exist_ok=True)
     fig_dir.mkdir(parents=True, exist_ok=True)
-    print(f"\n=== {name} ===")
+    flags = []
+    if with_covid:   flags.append("with covid")
+    if with_efna:    flags.append("with efna")
+    if with_despair: flags.append("with despair")
+    print(f"\n=== {name}{(' (' + ', '.join(flags) + ')') if flags else ''} ===")
 
     if policy["ado_table"]:
         cohorts, never_treated, dropped = cohorts_from_audit(
@@ -206,8 +232,10 @@ def run_one_policy(panel: pd.DataFrame, policy: dict):
     for outcome in OUTCOMES:
         family = classify_outcome(outcome)
         for tier in TIERS:
-            cov = covariates_for(outcome, tier)
-            cache_key = (tier, family)
+            cov = covariates_for(outcome, tier, with_covid=with_covid,
+                                 with_efna=with_efna,
+                                 with_despair=with_despair)
+            cache_key = (tier, family, with_covid, with_efna, with_despair)
             if cache_key not in eb_cache:
                 eb_cache[cache_key] = stack_eb_weights(stacked, cov, anchor_event_time=-1)
             eb = eb_cache[cache_key]
@@ -278,14 +306,42 @@ def run_one_policy(panel: pd.DataFrame, policy: dict):
         print(f"  Wrote {(fig_dir / f'event_study_{spec_name}_4panel.svg').relative_to(ROOT)}")
 
 
-def main():
+def main(with_covid: bool = False, with_efna: bool = False,
+         with_despair: bool = False,
+         only_policy: str | None = None):
     panel = load_panel_core_augmented()
     print(f"Panel: {len(panel):,} state-year rows in "
           f"{ANALYSIS_YEARS[0]}-{ANALYSIS_YEARS[1]}")
     for policy in POLICIES:
-        run_one_policy(panel, policy)
+        if only_policy is not None and policy["name"] != only_policy:
+            continue
+        run_one_policy(panel, policy, with_covid=with_covid,
+                       with_efna=with_efna, with_despair=with_despair)
     print("\nAll done.")
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--with-covid", action="store_true",
+                        help="Append OxCGRT covid_stringency_mean to RA "
+                             "and EB covariates; write outputs to "
+                             "outputs/{policy}_stackdd_with_covid/.")
+    parser.add_argument("--with-efna", action="store_true",
+                        help="Append Fraser Institute efna_overall to RA "
+                             "and EB covariates. Combined with --with-covid, "
+                             "outputs/{policy}_stackdd_with_covid_efna/; "
+                             "alone, outputs/{policy}_stackdd_with_efna/.")
+    parser.add_argument("--with-despair", action="store_true",
+                        help="Append the deaths-of-despair stack "
+                             "(synthetic_opioid_death_rate, "
+                             "freq_mental_distress_pct, ami_pct) to RA and "
+                             "EB covariates. Combinable with --with-covid "
+                             "and --with-efna; maximal output is "
+                             "outputs/{policy}_stackdd_with_covid_efna_"
+                             "despair/.")
+    parser.add_argument("--only-policy", default=None,
+                        help="If set, only run this single policy by name.")
+    args = parser.parse_args()
+    main(with_covid=args.with_covid, with_efna=args.with_efna,
+         with_despair=args.with_despair,
+         only_policy=args.only_policy)

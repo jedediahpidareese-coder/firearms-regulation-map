@@ -146,12 +146,67 @@ def classify_outcome(outcome: str) -> str:
     return "property_placebo"
 
 
-def covariates_for(outcome: str, tier: str = "headline") -> list[str]:
+def covariates_for(outcome: str, tier: str = "headline",
+                   with_covid: bool = False,
+                   with_efna: bool = False,
+                   with_despair: bool = False) -> list[str]:
     """Look up the literature-backed covariate set for a given outcome at
-    a given tier. tier ∈ {"minimal", "headline", "expanded"}.
+    a given tier. tier in {"minimal", "headline", "expanded"}.
+
+    with_covid: if True, append the OxCGRT covid_stringency_mean covariate.
+    Used by the COVID-19 robustness check; pre-2020 cells are zero, so the
+    variable contributes only post-2020 variation.
+
+    with_efna: if True, append the Fraser Institute EFNA all-government
+    overall index (efna_overall). Used by the broader pandemic-era
+    state-policy robustness check; combined with with_covid, this gives
+    a full "stringency + regulatory environment" augmentation. The EFNA
+    series is observed 1985-2021 (linearly interpolated within the
+    pre-2000 gap years and forward-filled to 2024 in the build script);
+    unlike OxCGRT it has nontrivial cross-state variation across the
+    entire panel, not just 2020+.
+
+    with_despair: if True, append the deaths-of-despair stack
+    (synthetic_opioid_death_rate, freq_mental_distress_pct, ami_pct).
+    Motivated by Case-Deaton 2015/2017, Crifasi 2015, and the
+    Hollingsworth-Ruhm-Simon 2017 / Ruhm 2018 opioid-mortality-as-control
+    precedent. Combined with with_covid and with_efna this gives the
+    maximal pandemic-era confounding-adjusted spec.
     """
     family = classify_outcome(outcome)
-    return COVARIATES_BY_OUTCOME[family][tier]
+    cov = list(COVARIATES_BY_OUTCOME[family][tier])
+    if with_covid and "covid_stringency_mean" not in cov:
+        cov.append("covid_stringency_mean")
+    if with_efna and "efna_overall" not in cov:
+        cov.append("efna_overall")
+    if with_despair:
+        for v in DESPAIR_COVARIATES:
+            if v not in cov:
+                cov.append(v)
+    return cov
+
+
+# Name of the OxCGRT-derived covariate. Centralized so the COVID
+# robustness exercise stays consistent across estimators.
+COVID_COVARIATE = "covid_stringency_mean"
+# Name of the EFNA all-government overall index covariate. Centralized
+# so the EFNA robustness exercise stays consistent across estimators.
+EFNA_COVARIATE = "efna_overall"
+# Deaths-of-despair stack (2026-05-01). Three state-year covariates that
+# absorb the post-2019 mental-health crisis and the fentanyl-driven
+# overdose epidemic that overlap with the permitless-carry adoption
+# window. Motivated by Case-Deaton 2015/2017 framework (suicide, drug
+# overdose, alcohol-related deaths as a unified deaths-of-despair
+# phenomenon driven by shared underlying conditions), Crifasi 2015
+# suicide-spec covariate stack, Hollingsworth-Ruhm-Simon 2017
+# (macroeconomic conditions and opioid abuse), Ruhm 2018 (corrected
+# opioid-involved death classification), Czeisler 2020 + Twenge-Joiner
+# 2020 (pandemic mental-health crisis documentation).
+DESPAIR_COVARIATES = [
+    "synthetic_opioid_death_rate",
+    "freq_mental_distress_pct",
+    "ami_pct",
+]
 
 
 # Backward-compatibility alias for code that still references the old
@@ -415,15 +470,34 @@ def run_one_outcome(panel, outcome, cohorts, never_treated,
                     spec, control_rule,
                     strict_rule_vars=("permitconcealed", "mayissue"),
                     strict_rule_values=(1, 0),
-                    tier: str = "headline"):
+                    tier: str = "headline",
+                    with_covid: bool = False,
+                    with_efna: bool = False,
+                    with_despair: bool = False):
     """Run ATT(g,t) for one (outcome, spec, control_rule, tier) combination.
 
     tier: 'minimal' | 'headline' | 'expanded'. Selects the literature-
     backed covariate set for `outcome` via covariates_for(outcome, tier).
     The OR spec ignores tier (no covariates). Defaults to 'headline'.
+
+    with_covid: if True, append the OxCGRT covid_stringency_mean variable
+    to the RA covariate set (added 2026-05-01 for the COVID-19 robustness
+    check; pre-2020 rows are zero so the variable contributes only post-
+    2020 within-cell variation).
+
+    with_efna: if True, append the Fraser Institute efna_overall variable
+    to the RA covariate set (added 2026-05-01 for the EFNA robustness
+    check; covers 1985-2024 with active variation across the full
+    panel, not just post-2020).
+
+    with_despair: if True, append the deaths-of-despair stack
+    (synthetic_opioid_death_rate, freq_mental_distress_pct, ami_pct).
+    Combined with with_covid and with_efna gives the maximal pandemic-
+    era confounding-adjusted spec.
     """
     rng = np.random.default_rng(RANDOM_SEED)
-    cov = covariates_for(outcome, tier)
+    cov = covariates_for(outcome, tier, with_covid=with_covid,
+                         with_efna=with_efna, with_despair=with_despair)
     rows = []
     for g in sorted(cohorts):
         treated_states = cohorts[g]
@@ -471,21 +545,33 @@ def run_one_outcome_all_tiers(panel, outcome, cohorts, never_treated,
                               spec, control_rule,
                               strict_rule_vars=("permitconcealed", "mayissue"),
                               strict_rule_values=(1, 0),
-                              tiers: tuple = ("minimal", "headline", "expanded")):
+                              tiers: tuple = ("minimal", "headline", "expanded"),
+                              with_covid: bool = False,
+                              with_efna: bool = False,
+                              with_despair: bool = False):
     """Convenience wrapper: run run_one_outcome for each tier; concat.
-    OR specs only need one tier (no covariates), so are deduplicated."""
+    OR specs only need one tier (no covariates), so are deduplicated.
+
+    with_covid / with_efna / with_despair: thread through to
+    run_one_outcome (covariate-bearing specs only). The OR spec ignores
+    covariates, so it ignores all three flags.
+    """
     if spec == "or":
         # Run once at "headline"; stamp tier="all" since OR doesn't use covs.
         df = run_one_outcome(panel, outcome, cohorts, never_treated,
                              spec, control_rule,
-                             strict_rule_vars, strict_rule_values, tier="headline")
+                             strict_rule_vars, strict_rule_values, tier="headline",
+                             with_covid=False, with_efna=False,
+                             with_despair=False)
         df["tier"] = "all"
         return df
     pieces = []
     for t in tiers:
         d = run_one_outcome(panel, outcome, cohorts, never_treated,
                             spec, control_rule,
-                            strict_rule_vars, strict_rule_values, tier=t)
+                            strict_rule_vars, strict_rule_values, tier=t,
+                            with_covid=with_covid, with_efna=with_efna,
+                            with_despair=with_despair)
         pieces.append(d)
     return pd.concat(pieces, ignore_index=True) if pieces else pd.DataFrame()
 

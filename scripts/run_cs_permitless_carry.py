@@ -24,10 +24,25 @@ to share their estimator behaviour.
 Outputs:
   outputs/permitless_carry_cs/{att_gt,event_study,overall_att,cohort_n,dropped_log}.csv
   outputs/permitless_carry_cs/figures/event_study_{control_rule}_{spec}_4panel.svg
+
+Optional flags:
+  --with-covid    append the OxCGRT covid_stringency_mean covariate to
+                  the RA spec; write outputs to
+                  permitless_carry_cs_with_covid/.
+  --with-efna     append the Fraser Institute efna_overall covariate to
+                  the RA spec. Combined with --with-covid this writes
+                  outputs to permitless_carry_cs_with_covid_efna/; alone
+                  it writes to permitless_carry_cs_with_efna/.
+  --with-despair  append the deaths-of-despair stack
+                  (synthetic_opioid_death_rate, freq_mental_distress_pct,
+                  ami_pct). Combinable with --with-covid and --with-efna;
+                  the maximal spec writes to
+                  permitless_carry_cs_with_covid_efna_despair/.
 """
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 
 import pandas as pd
@@ -41,10 +56,23 @@ from cs_lib import (
 
 ROOT = Path(__file__).resolve().parent.parent
 ADO_TABLE = ROOT / "outputs" / "permitless_carry_suicide_audit" / "treatment_adoption_table.csv"
-OUT = ROOT / "outputs" / "permitless_carry_cs"
-FIG = OUT / "figures"
-OUT.mkdir(parents=True, exist_ok=True)
-FIG.mkdir(parents=True, exist_ok=True)
+
+
+def output_dirs(with_covid: bool, with_efna: bool = False,
+                with_despair: bool = False):
+    flags = []
+    if with_covid: flags.append("covid")
+    if with_efna:  flags.append("efna")
+    if with_despair: flags.append("despair")
+    if flags:
+        base = "permitless_carry_cs_with_" + "_".join(flags)
+    else:
+        base = "permitless_carry_cs"
+    out = ROOT / "outputs" / base
+    fig = out / "figures"
+    out.mkdir(parents=True, exist_ok=True)
+    fig.mkdir(parents=True, exist_ok=True)
+    return out, fig
 
 # v2 firearm suicide / homicide file ends 2023, so the audit excludes
 # LA 2024 and SC 2024 from the mortality sample.
@@ -54,7 +82,18 @@ STRICT_RULE_VARS = ("permitconcealed", "mayissue")
 STRICT_RULE_VALUES = (1, 0)
 
 
-def main():
+def main(with_covid: bool = False, with_efna: bool = False,
+         with_despair: bool = False):
+    OUT, FIG = output_dirs(with_covid, with_efna, with_despair)
+    if with_covid:
+        print("[with-covid] adding covid_stringency_mean to RA covariates")
+    if with_efna:
+        print("[with-efna] adding efna_overall to RA covariates")
+    if with_despair:
+        print("[with-despair] adding synthetic_opioid_death_rate, "
+              "freq_mental_distress_pct, ami_pct to RA covariates")
+    if with_covid or with_efna or with_despair:
+        print(f"[output dir] writing to {OUT.relative_to(ROOT)}")
     print("Loading panel ...")
     panel = load_panel_core_augmented()
     print(f"  {len(panel):,} state-year rows in {ANALYSIS_YEARS[0]}-{ANALYSIS_YEARS[1]}")
@@ -109,7 +148,10 @@ def main():
                 sub = run_one_outcome_all_tiers(panel, outcome, cohorts, never_treated,
                                       spec=spec, control_rule=control_rule,
                                       strict_rule_vars=STRICT_RULE_VARS,
-                                      strict_rule_values=STRICT_RULE_VALUES)
+                                      strict_rule_values=STRICT_RULE_VALUES,
+                                      with_covid=with_covid,
+                                      with_efna=with_efna,
+                                      with_despair=with_despair)
                 pieces.append(sub)
     att_df = pd.concat(pieces, ignore_index=True)
     att_df.to_csv(OUT / "att_gt.csv", index=False)
@@ -146,4 +188,26 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--with-covid", action="store_true",
+                        help="Add OxCGRT covid_stringency_mean to the RA "
+                             "covariate set; write outputs to "
+                             "outputs/permitless_carry_cs_with_covid/.")
+    parser.add_argument("--with-efna", action="store_true",
+                        help="Add Fraser Institute efna_overall to the RA "
+                             "covariate set; combined with --with-covid "
+                             "writes outputs to "
+                             "outputs/permitless_carry_cs_with_covid_efna/, "
+                             "alone writes to "
+                             "outputs/permitless_carry_cs_with_efna/.")
+    parser.add_argument("--with-despair", action="store_true",
+                        help="Add the deaths-of-despair stack "
+                             "(synthetic_opioid_death_rate, "
+                             "freq_mental_distress_pct, ami_pct) to the RA "
+                             "covariate set. Combinable with --with-covid "
+                             "and --with-efna; the maximal spec writes to "
+                             "outputs/permitless_carry_cs_with_covid_efna_"
+                             "despair/.")
+    args = parser.parse_args()
+    main(with_covid=args.with_covid, with_efna=args.with_efna,
+         with_despair=args.with_despair)
