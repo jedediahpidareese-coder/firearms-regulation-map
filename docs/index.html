@@ -45,44 +45,48 @@
     </div>
   </section>
 
-  <section class="map-section">
-    <div class="map-pane">
-      <button id="reset-zoom" type="button" title="Reset zoom and pan to the original view">Reset zoom</button>
-      <svg id="map" role="img" aria-label="Choropleth map of U.S. states"></svg>
-      <div id="legend" aria-hidden="false"></div>
-      <p class="map-note" id="coverage-note"></p>
-      <p class="map-tip" id="map-tip">Tip: <strong>click</strong> a state to lock the left panel below and pin it for side-by-side comparison (up to 2). Click the same state (or empty space) to unlock. <strong>Scroll</strong> on the map to zoom.</p>
+  <section class="dashboard" aria-label="Map and details dashboard">
+    <div class="map-section">
+      <div class="map-pane">
+        <button id="reset-zoom" type="button" title="Reset zoom and pan to the original view">Reset zoom</button>
+        <svg id="map" role="img" aria-label="Choropleth map of U.S. states"></svg>
+        <div id="legend" aria-hidden="false"></div>
+        <p class="map-note" id="coverage-note"></p>
+        <p class="map-tip" id="map-tip">Tip: <strong>click</strong> a state to lock the panel on the right and pin it for side-by-side comparison (up to 2). Click the same state (or empty space) to unlock. <strong>Scroll</strong> on the map to zoom.</p>
+      </div>
     </div>
-  </section>
 
-  <section class="info-section" aria-label="Variable definition">
-    <div class="info-pane">
-      <h2 id="info-label">Variable</h2>
-      <p class="info-meta">
-        <span id="info-category" class="chip"></span>
-        <span id="info-unit" class="chip chip-muted"></span>
-        <span id="info-coverage" class="chip chip-muted"></span>
-      </p>
-      <p id="info-definition"></p>
-      <p class="info-source"><strong>Source:</strong> <span id="info-source"></span></p>
-      <p class="info-caveat" id="info-caveat" hidden></p>
-    </div>
-  </section>
+    <aside class="details-column" aria-label="Variable and state details">
+      <section class="info-section" aria-label="Variable definition">
+        <div class="info-pane">
+          <h2 id="info-label">Variable</h2>
+          <p class="info-meta">
+            <span id="info-category" class="chip"></span>
+            <span id="info-unit" class="chip chip-muted"></span>
+            <span id="info-coverage" class="chip chip-muted"></span>
+          </p>
+          <p id="info-definition"></p>
+          <p class="info-source"><strong>Source:</strong> <span id="info-source"></span></p>
+          <p class="info-caveat" id="info-caveat" hidden></p>
+        </div>
+      </section>
 
-  <section class="state-grid" aria-label="State / county details (side-by-side)">
-    <aside class="state-pane state-pane-primary" aria-label="Primary state details">
-      <h3 id="hover-heading">Selected state</h3>
-      <p id="hover-state" class="hover-state">Hover any state on the map.</p>
-      <div id="state-caveats" class="state-caveats" hidden></div>
-      <div id="hover-links" class="hover-links"></div>
-      <table class="hover-table" id="hover-table"></table>
-    </aside>
-    <aside class="state-pane state-pane-compare" aria-label="Compare-state details">
-      <h3 id="compare-heading">Compare state</h3>
-      <p id="compare-state" class="hover-state">Click a second state on the map to pin it here.</p>
-      <div id="compare-caveats" class="state-caveats" hidden></div>
-      <div id="compare-links" class="hover-links"></div>
-      <table class="hover-table" id="compare-table-side"></table>
+      <section class="state-stack" aria-label="State / county details">
+        <article class="state-pane state-pane-primary" aria-label="Primary state details">
+          <h3 id="hover-heading">Selected state</h3>
+          <p id="hover-state" class="hover-state">Hover any state on the map.</p>
+          <div id="state-caveats" class="state-caveats" hidden></div>
+          <div id="hover-links" class="hover-links"></div>
+          <table class="hover-table" id="hover-table"></table>
+        </article>
+        <article class="state-pane state-pane-compare" aria-label="Compare-state details">
+          <h3 id="compare-heading">Compare state</h3>
+          <p id="compare-state" class="hover-state">Click a second state on the map to pin it here.</p>
+          <div id="compare-caveats" class="state-caveats" hidden></div>
+          <div id="compare-links" class="hover-links"></div>
+          <table class="hover-table" id="compare-table-side"></table>
+        </article>
+      </section>
     </aside>
   </section>
 

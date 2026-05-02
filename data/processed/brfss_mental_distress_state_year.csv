@@ -1,0 +1,1327 @@
+state_fips,state_abbr,state,year,freq_mental_distress_pct
+01,AL,Alabama,1999,0.0
+01,AL,Alabama,2000,0.0
+01,AL,Alabama,2001,0.0
+01,AL,Alabama,2002,0.0
+01,AL,Alabama,2003,0.0
+01,AL,Alabama,2004,0.0
+01,AL,Alabama,2005,0.0
+01,AL,Alabama,2006,0.0
+01,AL,Alabama,2007,0.0
+01,AL,Alabama,2008,0.0
+01,AL,Alabama,2009,0.0
+01,AL,Alabama,2010,0.0
+01,AL,Alabama,2011,0.0
+01,AL,Alabama,2012,0.0
+01,AL,Alabama,2013,0.0
+01,AL,Alabama,2014,0.0
+01,AL,Alabama,2015,0.0
+01,AL,Alabama,2016,0.0
+01,AL,Alabama,2017,0.0
+01,AL,Alabama,2018,0.0
+01,AL,Alabama,2019,17.5
+01,AL,Alabama,2020,15.8
+01,AL,Alabama,2021,18.4
+01,AL,Alabama,2022,18.1
+01,AL,Alabama,2023,15.9
+01,AL,Alabama,2024,17.99
+02,AK,Alaska,1999,0.0
+02,AK,Alaska,2000,0.0
+02,AK,Alaska,2001,0.0
+02,AK,Alaska,2002,0.0
+02,AK,Alaska,2003,0.0
+02,AK,Alaska,2004,0.0
+02,AK,Alaska,2005,0.0
+02,AK,Alaska,2006,0.0
+02,AK,Alaska,2007,0.0
+02,AK,Alaska,2008,0.0
+02,AK,Alaska,2009,0.0
+02,AK,Alaska,2010,0.0
+02,AK,Alaska,2011,0.0
+02,AK,Alaska,2012,0.0
+02,AK,Alaska,2013,0.0
+02,AK,Alaska,2014,0.0
+02,AK,Alaska,2015,0.0
+02,AK,Alaska,2016,0.0
+02,AK,Alaska,2017,0.0
+02,AK,Alaska,2018,0.0
+02,AK,Alaska,2019,12.0
+02,AK,Alaska,2020,9.9
+02,AK,Alaska,2021,14.0
+02,AK,Alaska,2022,15.2
+02,AK,Alaska,2023,14.9
+02,AK,Alaska,2024,15.69
+04,AZ,Arizona,1999,0.0
+04,AZ,Arizona,2000,0.0
+04,AZ,Arizona,2001,0.0
+04,AZ,Arizona,2002,0.0
+04,AZ,Arizona,2003,0.0
+04,AZ,Arizona,2004,0.0
+04,AZ,Arizona,2005,0.0
+04,AZ,Arizona,2006,0.0
+04,AZ,Arizona,2007,0.0
+04,AZ,Arizona,2008,0.0
+04,AZ,Arizona,2009,0.0
+04,AZ,Arizona,2010,0.0
+04,AZ,Arizona,2011,0.0
+04,AZ,Arizona,2012,0.0
+04,AZ,Arizona,2013,0.0
+04,AZ,Arizona,2014,0.0
+04,AZ,Arizona,2015,0.0
+04,AZ,Arizona,2016,0.0
+04,AZ,Arizona,2017,0.0
+04,AZ,Arizona,2018,0.0
+04,AZ,Arizona,2019,14.4
+04,AZ,Arizona,2020,13.5
+04,AZ,Arizona,2021,15.4
+04,AZ,Arizona,2022,16.8
+04,AZ,Arizona,2023,14.7
+04,AZ,Arizona,2024,14.2
+05,AR,Arkansas,1999,0.0
+05,AR,Arkansas,2000,0.0
+05,AR,Arkansas,2001,0.0
+05,AR,Arkansas,2002,0.0
+05,AR,Arkansas,2003,0.0
+05,AR,Arkansas,2004,0.0
+05,AR,Arkansas,2005,0.0
+05,AR,Arkansas,2006,0.0
+05,AR,Arkansas,2007,0.0
+05,AR,Arkansas,2008,0.0
+05,AR,Arkansas,2009,0.0
+05,AR,Arkansas,2010,0.0
+05,AR,Arkansas,2011,0.0
+05,AR,Arkansas,2012,0.0
+05,AR,Arkansas,2013,0.0
+05,AR,Arkansas,2014,0.0
+05,AR,Arkansas,2015,0.0
+05,AR,Arkansas,2016,0.0
+05,AR,Arkansas,2017,0.0
+05,AR,Arkansas,2018,0.0
+05,AR,Arkansas,2019,17.8
+05,AR,Arkansas,2020,17.8
+05,AR,Arkansas,2021,18.4
+05,AR,Arkansas,2022,20.4
+05,AR,Arkansas,2023,18.9
+05,AR,Arkansas,2024,19.91
+06,CA,California,1999,0.0
+06,CA,California,2000,0.0
+06,CA,California,2001,0.0
+06,CA,California,2002,0.0
+06,CA,California,2003,0.0
+06,CA,California,2004,0.0
+06,CA,California,2005,0.0
+06,CA,California,2006,0.0
+06,CA,California,2007,0.0
+06,CA,California,2008,0.0
+06,CA,California,2009,0.0
+06,CA,California,2010,0.0
+06,CA,California,2011,0.0
+06,CA,California,2012,0.0
+06,CA,California,2013,0.0
+06,CA,California,2014,0.0
+06,CA,California,2015,0.0
+06,CA,California,2016,0.0
+06,CA,California,2017,0.0
+06,CA,California,2018,0.0
+06,CA,California,2019,11.9
+06,CA,California,2020,12.7
+06,CA,California,2021,14.4
+06,CA,California,2022,14.3
+06,CA,California,2023,14.7
+06,CA,California,2024,14.85
+08,CO,Colorado,1999,0.0
+08,CO,Colorado,2000,0.0
+08,CO,Colorado,2001,0.0
+08,CO,Colorado,2002,0.0
+08,CO,Colorado,2003,0.0
+08,CO,Colorado,2004,0.0
+08,CO,Colorado,2005,0.0
+08,CO,Colorado,2006,0.0
+08,CO,Colorado,2007,0.0
+08,CO,Colorado,2008,0.0
+08,CO,Colorado,2009,0.0
+08,CO,Colorado,2010,0.0
+08,CO,Colorado,2011,0.0
+08,CO,Colorado,2012,0.0
+08,CO,Colorado,2013,0.0
+08,CO,Colorado,2014,0.0
+08,CO,Colorado,2015,0.0
+08,CO,Colorado,2016,0.0
+08,CO,Colorado,2017,0.0
+08,CO,Colorado,2018,0.0
+08,CO,Colorado,2019,12.3
+08,CO,Colorado,2020,12.8
+08,CO,Colorado,2021,14.2
+08,CO,Colorado,2022,15.9
+08,CO,Colorado,2023,15.5
+08,CO,Colorado,2024,15.16
+09,CT,Connecticut,1999,0.0
+09,CT,Connecticut,2000,0.0
+09,CT,Connecticut,2001,0.0
+09,CT,Connecticut,2002,0.0
+09,CT,Connecticut,2003,0.0
+09,CT,Connecticut,2004,0.0
+09,CT,Connecticut,2005,0.0
+09,CT,Connecticut,2006,0.0
+09,CT,Connecticut,2007,0.0
+09,CT,Connecticut,2008,0.0
+09,CT,Connecticut,2009,0.0
+09,CT,Connecticut,2010,0.0
+09,CT,Connecticut,2011,0.0
+09,CT,Connecticut,2012,0.0
+09,CT,Connecticut,2013,0.0
+09,CT,Connecticut,2014,0.0
+09,CT,Connecticut,2015,0.0
+09,CT,Connecticut,2016,0.0
+09,CT,Connecticut,2017,0.0
+09,CT,Connecticut,2018,0.0
+09,CT,Connecticut,2019,11.3
+09,CT,Connecticut,2020,12.6
+09,CT,Connecticut,2021,12.8
+09,CT,Connecticut,2022,14.5
+09,CT,Connecticut,2023,14.3
+09,CT,Connecticut,2024,13.94
+10,DE,Delaware,1999,0.0
+10,DE,Delaware,2000,0.0
+10,DE,Delaware,2001,0.0
+10,DE,Delaware,2002,0.0
+10,DE,Delaware,2003,0.0
+10,DE,Delaware,2004,0.0
+10,DE,Delaware,2005,0.0
+10,DE,Delaware,2006,0.0
+10,DE,Delaware,2007,0.0
+10,DE,Delaware,2008,0.0
+10,DE,Delaware,2009,0.0
+10,DE,Delaware,2010,0.0
+10,DE,Delaware,2011,0.0
+10,DE,Delaware,2012,0.0
+10,DE,Delaware,2013,0.0
+10,DE,Delaware,2014,0.0
+10,DE,Delaware,2015,0.0
+10,DE,Delaware,2016,0.0
+10,DE,Delaware,2017,0.0
+10,DE,Delaware,2018,0.0
+10,DE,Delaware,2019,13.5
+10,DE,Delaware,2020,12.3
+10,DE,Delaware,2021,13.0
+10,DE,Delaware,2022,14.4
+10,DE,Delaware,2023,14.2
+10,DE,Delaware,2024,16.14
+11,DC,District of Columbia,1999,0.0
+11,DC,District of Columbia,2000,0.0
+11,DC,District of Columbia,2001,0.0
+11,DC,District of Columbia,2002,0.0
+11,DC,District of Columbia,2003,0.0
+11,DC,District of Columbia,2004,0.0
+11,DC,District of Columbia,2005,0.0
+11,DC,District of Columbia,2006,0.0
+11,DC,District of Columbia,2007,0.0
+11,DC,District of Columbia,2008,0.0
+11,DC,District of Columbia,2009,0.0
+11,DC,District of Columbia,2010,0.0
+11,DC,District of Columbia,2011,0.0
+11,DC,District of Columbia,2012,0.0
+11,DC,District of Columbia,2013,0.0
+11,DC,District of Columbia,2014,0.0
+11,DC,District of Columbia,2015,0.0
+11,DC,District of Columbia,2016,0.0
+11,DC,District of Columbia,2017,0.0
+11,DC,District of Columbia,2018,0.0
+11,DC,District of Columbia,2019,11.5
+11,DC,District of Columbia,2020,14.5
+11,DC,District of Columbia,2021,14.2
+11,DC,District of Columbia,2022,13.5
+11,DC,District of Columbia,2023,13.2
+11,DC,District of Columbia,2024,13.28
+12,FL,Florida,1999,0.0
+12,FL,Florida,2000,0.0
+12,FL,Florida,2001,0.0
+12,FL,Florida,2002,0.0
+12,FL,Florida,2003,0.0
+12,FL,Florida,2004,0.0
+12,FL,Florida,2005,0.0
+12,FL,Florida,2006,0.0
+12,FL,Florida,2007,0.0
+12,FL,Florida,2008,0.0
+12,FL,Florida,2009,0.0
+12,FL,Florida,2010,0.0
+12,FL,Florida,2011,0.0
+12,FL,Florida,2012,0.0
+12,FL,Florida,2013,0.0
+12,FL,Florida,2014,0.0
+12,FL,Florida,2015,0.0
+12,FL,Florida,2016,0.0
+12,FL,Florida,2017,0.0
+12,FL,Florida,2018,0.0
+12,FL,Florida,2019,13.8
+12,FL,Florida,2020,12.3
+12,FL,Florida,2021,
+12,FL,Florida,2022,15.0
+12,FL,Florida,2023,15.0
+12,FL,Florida,2024,15.64
+13,GA,Georgia,1999,0.0
+13,GA,Georgia,2000,0.0
+13,GA,Georgia,2001,0.0
+13,GA,Georgia,2002,0.0
+13,GA,Georgia,2003,0.0
+13,GA,Georgia,2004,0.0
+13,GA,Georgia,2005,0.0
+13,GA,Georgia,2006,0.0
+13,GA,Georgia,2007,0.0
+13,GA,Georgia,2008,0.0
+13,GA,Georgia,2009,0.0
+13,GA,Georgia,2010,0.0
+13,GA,Georgia,2011,0.0
+13,GA,Georgia,2012,0.0
+13,GA,Georgia,2013,0.0
+13,GA,Georgia,2014,0.0
+13,GA,Georgia,2015,0.0
+13,GA,Georgia,2016,0.0
+13,GA,Georgia,2017,0.0
+13,GA,Georgia,2018,0.0
+13,GA,Georgia,2019,15.4
+13,GA,Georgia,2020,14.3
+13,GA,Georgia,2021,14.8
+13,GA,Georgia,2022,16.1
+13,GA,Georgia,2023,15.6
+13,GA,Georgia,2024,16.1
+15,HI,Hawaii,1999,0.0
+15,HI,Hawaii,2000,0.0
+15,HI,Hawaii,2001,0.0
+15,HI,Hawaii,2002,0.0
+15,HI,Hawaii,2003,0.0
+15,HI,Hawaii,2004,0.0
+15,HI,Hawaii,2005,0.0
+15,HI,Hawaii,2006,0.0
+15,HI,Hawaii,2007,0.0
+15,HI,Hawaii,2008,0.0
+15,HI,Hawaii,2009,0.0
+15,HI,Hawaii,2010,0.0
+15,HI,Hawaii,2011,0.0
+15,HI,Hawaii,2012,0.0
+15,HI,Hawaii,2013,0.0
+15,HI,Hawaii,2014,0.0
+15,HI,Hawaii,2015,0.0
+15,HI,Hawaii,2016,0.0
+15,HI,Hawaii,2017,0.0
+15,HI,Hawaii,2018,0.0
+15,HI,Hawaii,2019,11.1
+15,HI,Hawaii,2020,10.7
+15,HI,Hawaii,2021,10.7
+15,HI,Hawaii,2022,11.5
+15,HI,Hawaii,2023,12.9
+15,HI,Hawaii,2024,12.65
+16,ID,Idaho,1999,0.0
+16,ID,Idaho,2000,0.0
+16,ID,Idaho,2001,0.0
+16,ID,Idaho,2002,0.0
+16,ID,Idaho,2003,0.0
+16,ID,Idaho,2004,0.0
+16,ID,Idaho,2005,0.0
+16,ID,Idaho,2006,0.0
+16,ID,Idaho,2007,0.0
+16,ID,Idaho,2008,0.0
+16,ID,Idaho,2009,0.0
+16,ID,Idaho,2010,0.0
+16,ID,Idaho,2011,0.0
+16,ID,Idaho,2012,0.0
+16,ID,Idaho,2013,0.0
+16,ID,Idaho,2014,0.0
+16,ID,Idaho,2015,0.0
+16,ID,Idaho,2016,0.0
+16,ID,Idaho,2017,0.0
+16,ID,Idaho,2018,0.0
+16,ID,Idaho,2019,13.5
+16,ID,Idaho,2020,12.6
+16,ID,Idaho,2021,14.6
+16,ID,Idaho,2022,15.1
+16,ID,Idaho,2023,14.8
+16,ID,Idaho,2024,15.6
+17,IL,Illinois,1999,0.0
+17,IL,Illinois,2000,0.0
+17,IL,Illinois,2001,0.0
+17,IL,Illinois,2002,0.0
+17,IL,Illinois,2003,0.0
+17,IL,Illinois,2004,0.0
+17,IL,Illinois,2005,0.0
+17,IL,Illinois,2006,0.0
+17,IL,Illinois,2007,0.0
+17,IL,Illinois,2008,0.0
+17,IL,Illinois,2009,0.0
+17,IL,Illinois,2010,0.0
+17,IL,Illinois,2011,0.0
+17,IL,Illinois,2012,0.0
+17,IL,Illinois,2013,0.0
+17,IL,Illinois,2014,0.0
+17,IL,Illinois,2015,0.0
+17,IL,Illinois,2016,0.0
+17,IL,Illinois,2017,0.0
+17,IL,Illinois,2018,0.0
+17,IL,Illinois,2019,12.4
+17,IL,Illinois,2020,10.0
+17,IL,Illinois,2021,12.9
+17,IL,Illinois,2022,13.6
+17,IL,Illinois,2023,13.7
+17,IL,Illinois,2024,12.99
+18,IN,Indiana,1999,0.0
+18,IN,Indiana,2000,0.0
+18,IN,Indiana,2001,0.0
+18,IN,Indiana,2002,0.0
+18,IN,Indiana,2003,0.0
+18,IN,Indiana,2004,0.0
+18,IN,Indiana,2005,0.0
+18,IN,Indiana,2006,0.0
+18,IN,Indiana,2007,0.0
+18,IN,Indiana,2008,0.0
+18,IN,Indiana,2009,0.0
+18,IN,Indiana,2010,0.0
+18,IN,Indiana,2011,0.0
+18,IN,Indiana,2012,0.0
+18,IN,Indiana,2013,0.0
+18,IN,Indiana,2014,0.0
+18,IN,Indiana,2015,0.0
+18,IN,Indiana,2016,0.0
+18,IN,Indiana,2017,0.0
+18,IN,Indiana,2018,0.0
+18,IN,Indiana,2019,14.3
+18,IN,Indiana,2020,15.3
+18,IN,Indiana,2021,16.0
+18,IN,Indiana,2022,16.8
+18,IN,Indiana,2023,17.0
+18,IN,Indiana,2024,16.92
+19,IA,Iowa,1999,0.0
+19,IA,Iowa,2000,0.0
+19,IA,Iowa,2001,0.0
+19,IA,Iowa,2002,0.0
+19,IA,Iowa,2003,0.0
+19,IA,Iowa,2004,0.0
+19,IA,Iowa,2005,0.0
+19,IA,Iowa,2006,0.0
+19,IA,Iowa,2007,0.0
+19,IA,Iowa,2008,0.0
+19,IA,Iowa,2009,0.0
+19,IA,Iowa,2010,0.0
+19,IA,Iowa,2011,0.0
+19,IA,Iowa,2012,0.0
+19,IA,Iowa,2013,0.0
+19,IA,Iowa,2014,0.0
+19,IA,Iowa,2015,0.0
+19,IA,Iowa,2016,0.0
+19,IA,Iowa,2017,0.0
+19,IA,Iowa,2018,0.0
+19,IA,Iowa,2019,12.3
+19,IA,Iowa,2020,13.0
+19,IA,Iowa,2021,13.9
+19,IA,Iowa,2022,13.5
+19,IA,Iowa,2023,15.2
+19,IA,Iowa,2024,14.88
+20,KS,Kansas,1999,0.0
+20,KS,Kansas,2000,0.0
+20,KS,Kansas,2001,0.0
+20,KS,Kansas,2002,0.0
+20,KS,Kansas,2003,0.0
+20,KS,Kansas,2004,0.0
+20,KS,Kansas,2005,0.0
+20,KS,Kansas,2006,0.0
+20,KS,Kansas,2007,0.0
+20,KS,Kansas,2008,0.0
+20,KS,Kansas,2009,0.0
+20,KS,Kansas,2010,0.0
+20,KS,Kansas,2011,0.0
+20,KS,Kansas,2012,0.0
+20,KS,Kansas,2013,0.0
+20,KS,Kansas,2014,0.0
+20,KS,Kansas,2015,0.0
+20,KS,Kansas,2016,0.0
+20,KS,Kansas,2017,0.0
+20,KS,Kansas,2018,0.0
+20,KS,Kansas,2019,13.9
+20,KS,Kansas,2020,14.0
+20,KS,Kansas,2021,15.2
+20,KS,Kansas,2022,15.9
+20,KS,Kansas,2023,15.6
+20,KS,Kansas,2024,15.87
+21,KY,Kentucky,1999,0.0
+21,KY,Kentucky,2000,0.0
+21,KY,Kentucky,2001,0.0
+21,KY,Kentucky,2002,0.0
+21,KY,Kentucky,2003,0.0
+21,KY,Kentucky,2004,0.0
+21,KY,Kentucky,2005,0.0
+21,KY,Kentucky,2006,0.0
+21,KY,Kentucky,2007,0.0
+21,KY,Kentucky,2008,0.0
+21,KY,Kentucky,2009,0.0
+21,KY,Kentucky,2010,0.0
+21,KY,Kentucky,2011,0.0
+21,KY,Kentucky,2012,0.0
+21,KY,Kentucky,2013,0.0
+21,KY,Kentucky,2014,0.0
+21,KY,Kentucky,2015,0.0
+21,KY,Kentucky,2016,0.0
+21,KY,Kentucky,2017,0.0
+21,KY,Kentucky,2018,0.0
+21,KY,Kentucky,2019,17.2
+21,KY,Kentucky,2020,17.4
+21,KY,Kentucky,2021,18.0
+21,KY,Kentucky,2022,16.1
+21,KY,Kentucky,2023,
+21,KY,Kentucky,2024,18.41
+22,LA,Louisiana,1999,0.0
+22,LA,Louisiana,2000,0.0
+22,LA,Louisiana,2001,0.0
+22,LA,Louisiana,2002,0.0
+22,LA,Louisiana,2003,0.0
+22,LA,Louisiana,2004,0.0
+22,LA,Louisiana,2005,0.0
+22,LA,Louisiana,2006,0.0
+22,LA,Louisiana,2007,0.0
+22,LA,Louisiana,2008,0.0
+22,LA,Louisiana,2009,0.0
+22,LA,Louisiana,2010,0.0
+22,LA,Louisiana,2011,0.0
+22,LA,Louisiana,2012,0.0
+22,LA,Louisiana,2013,0.0
+22,LA,Louisiana,2014,0.0
+22,LA,Louisiana,2015,0.0
+22,LA,Louisiana,2016,0.0
+22,LA,Louisiana,2017,0.0
+22,LA,Louisiana,2018,0.0
+22,LA,Louisiana,2019,18.5
+22,LA,Louisiana,2020,17.6
+22,LA,Louisiana,2021,17.8
+22,LA,Louisiana,2022,20.1
+22,LA,Louisiana,2023,18.7
+22,LA,Louisiana,2024,19.8
+23,ME,Maine,1999,0.0
+23,ME,Maine,2000,0.0
+23,ME,Maine,2001,0.0
+23,ME,Maine,2002,0.0
+23,ME,Maine,2003,0.0
+23,ME,Maine,2004,0.0
+23,ME,Maine,2005,0.0
+23,ME,Maine,2006,0.0
+23,ME,Maine,2007,0.0
+23,ME,Maine,2008,0.0
+23,ME,Maine,2009,0.0
+23,ME,Maine,2010,0.0
+23,ME,Maine,2011,0.0
+23,ME,Maine,2012,0.0
+23,ME,Maine,2013,0.0
+23,ME,Maine,2014,0.0
+23,ME,Maine,2015,0.0
+23,ME,Maine,2016,0.0
+23,ME,Maine,2017,0.0
+23,ME,Maine,2018,0.0
+23,ME,Maine,2019,14.2
+23,ME,Maine,2020,12.6
+23,ME,Maine,2021,15.2
+23,ME,Maine,2022,16.3
+23,ME,Maine,2023,18.0
+23,ME,Maine,2024,16.44
+24,MD,Maryland,1999,0.0
+24,MD,Maryland,2000,0.0
+24,MD,Maryland,2001,0.0
+24,MD,Maryland,2002,0.0
+24,MD,Maryland,2003,0.0
+24,MD,Maryland,2004,0.0
+24,MD,Maryland,2005,0.0
+24,MD,Maryland,2006,0.0
+24,MD,Maryland,2007,0.0
+24,MD,Maryland,2008,0.0
+24,MD,Maryland,2009,0.0
+24,MD,Maryland,2010,0.0
+24,MD,Maryland,2011,0.0
+24,MD,Maryland,2012,0.0
+24,MD,Maryland,2013,0.0
+24,MD,Maryland,2014,0.0
+24,MD,Maryland,2015,0.0
+24,MD,Maryland,2016,0.0
+24,MD,Maryland,2017,0.0
+24,MD,Maryland,2018,0.0
+24,MD,Maryland,2019,11.8
+24,MD,Maryland,2020,12.2
+24,MD,Maryland,2021,12.7
+24,MD,Maryland,2022,14.5
+24,MD,Maryland,2023,13.8
+24,MD,Maryland,2024,14.24
+25,MA,Massachusetts,1999,0.0
+25,MA,Massachusetts,2000,0.0
+25,MA,Massachusetts,2001,0.0
+25,MA,Massachusetts,2002,0.0
+25,MA,Massachusetts,2003,0.0
+25,MA,Massachusetts,2004,0.0
+25,MA,Massachusetts,2005,0.0
+25,MA,Massachusetts,2006,0.0
+25,MA,Massachusetts,2007,0.0
+25,MA,Massachusetts,2008,0.0
+25,MA,Massachusetts,2009,0.0
+25,MA,Massachusetts,2010,0.0
+25,MA,Massachusetts,2011,0.0
+25,MA,Massachusetts,2012,0.0
+25,MA,Massachusetts,2013,0.0
+25,MA,Massachusetts,2014,0.0
+25,MA,Massachusetts,2015,0.0
+25,MA,Massachusetts,2016,0.0
+25,MA,Massachusetts,2017,0.0
+25,MA,Massachusetts,2018,0.0
+25,MA,Massachusetts,2019,12.5
+25,MA,Massachusetts,2020,12.9
+25,MA,Massachusetts,2021,13.2
+25,MA,Massachusetts,2022,14.6
+25,MA,Massachusetts,2023,14.8
+25,MA,Massachusetts,2024,13.32
+26,MI,Michigan,1999,0.0
+26,MI,Michigan,2000,0.0
+26,MI,Michigan,2001,0.0
+26,MI,Michigan,2002,0.0
+26,MI,Michigan,2003,0.0
+26,MI,Michigan,2004,0.0
+26,MI,Michigan,2005,0.0
+26,MI,Michigan,2006,0.0
+26,MI,Michigan,2007,0.0
+26,MI,Michigan,2008,0.0
+26,MI,Michigan,2009,0.0
+26,MI,Michigan,2010,0.0
+26,MI,Michigan,2011,0.0
+26,MI,Michigan,2012,0.0
+26,MI,Michigan,2013,0.0
+26,MI,Michigan,2014,0.0
+26,MI,Michigan,2015,0.0
+26,MI,Michigan,2016,0.0
+26,MI,Michigan,2017,0.0
+26,MI,Michigan,2018,0.0
+26,MI,Michigan,2019,16.2
+26,MI,Michigan,2020,15.8
+26,MI,Michigan,2021,15.5
+26,MI,Michigan,2022,16.7
+26,MI,Michigan,2023,17.1
+26,MI,Michigan,2024,17.03
+27,MN,Minnesota,1999,0.0
+27,MN,Minnesota,2000,0.0
+27,MN,Minnesota,2001,0.0
+27,MN,Minnesota,2002,0.0
+27,MN,Minnesota,2003,0.0
+27,MN,Minnesota,2004,0.0
+27,MN,Minnesota,2005,0.0
+27,MN,Minnesota,2006,0.0
+27,MN,Minnesota,2007,0.0
+27,MN,Minnesota,2008,0.0
+27,MN,Minnesota,2009,0.0
+27,MN,Minnesota,2010,0.0
+27,MN,Minnesota,2011,0.0
+27,MN,Minnesota,2012,0.0
+27,MN,Minnesota,2013,0.0
+27,MN,Minnesota,2014,0.0
+27,MN,Minnesota,2015,0.0
+27,MN,Minnesota,2016,0.0
+27,MN,Minnesota,2017,0.0
+27,MN,Minnesota,2018,0.0
+27,MN,Minnesota,2019,11.6
+27,MN,Minnesota,2020,12.2
+27,MN,Minnesota,2021,12.4
+27,MN,Minnesota,2022,14.8
+27,MN,Minnesota,2023,14.2
+27,MN,Minnesota,2024,14.04
+28,MS,Mississippi,1999,0.0
+28,MS,Mississippi,2000,0.0
+28,MS,Mississippi,2001,0.0
+28,MS,Mississippi,2002,0.0
+28,MS,Mississippi,2003,0.0
+28,MS,Mississippi,2004,0.0
+28,MS,Mississippi,2005,0.0
+28,MS,Mississippi,2006,0.0
+28,MS,Mississippi,2007,0.0
+28,MS,Mississippi,2008,0.0
+28,MS,Mississippi,2009,0.0
+28,MS,Mississippi,2010,0.0
+28,MS,Mississippi,2011,0.0
+28,MS,Mississippi,2012,0.0
+28,MS,Mississippi,2013,0.0
+28,MS,Mississippi,2014,0.0
+28,MS,Mississippi,2015,0.0
+28,MS,Mississippi,2016,0.0
+28,MS,Mississippi,2017,0.0
+28,MS,Mississippi,2018,0.0
+28,MS,Mississippi,2019,17.3
+28,MS,Mississippi,2020,14.4
+28,MS,Mississippi,2021,14.7
+28,MS,Mississippi,2022,15.7
+28,MS,Mississippi,2023,15.4
+28,MS,Mississippi,2024,13.55
+29,MO,Missouri,1999,0.0
+29,MO,Missouri,2000,0.0
+29,MO,Missouri,2001,0.0
+29,MO,Missouri,2002,0.0
+29,MO,Missouri,2003,0.0
+29,MO,Missouri,2004,0.0
+29,MO,Missouri,2005,0.0
+29,MO,Missouri,2006,0.0
+29,MO,Missouri,2007,0.0
+29,MO,Missouri,2008,0.0
+29,MO,Missouri,2009,0.0
+29,MO,Missouri,2010,0.0
+29,MO,Missouri,2011,0.0
+29,MO,Missouri,2012,0.0
+29,MO,Missouri,2013,0.0
+29,MO,Missouri,2014,0.0
+29,MO,Missouri,2015,0.0
+29,MO,Missouri,2016,0.0
+29,MO,Missouri,2017,0.0
+29,MO,Missouri,2018,0.0
+29,MO,Missouri,2019,14.9
+29,MO,Missouri,2020,15.2
+29,MO,Missouri,2021,16.2
+29,MO,Missouri,2022,17.3
+29,MO,Missouri,2023,16.7
+29,MO,Missouri,2024,17.52
+30,MT,Montana,1999,0.0
+30,MT,Montana,2000,0.0
+30,MT,Montana,2001,0.0
+30,MT,Montana,2002,0.0
+30,MT,Montana,2003,0.0
+30,MT,Montana,2004,0.0
+30,MT,Montana,2005,0.0
+30,MT,Montana,2006,0.0
+30,MT,Montana,2007,0.0
+30,MT,Montana,2008,0.0
+30,MT,Montana,2009,0.0
+30,MT,Montana,2010,0.0
+30,MT,Montana,2011,0.0
+30,MT,Montana,2012,0.0
+30,MT,Montana,2013,0.0
+30,MT,Montana,2014,0.0
+30,MT,Montana,2015,0.0
+30,MT,Montana,2016,0.0
+30,MT,Montana,2017,0.0
+30,MT,Montana,2018,0.0
+30,MT,Montana,2019,13.9
+30,MT,Montana,2020,12.9
+30,MT,Montana,2021,14.8
+30,MT,Montana,2022,16.4
+30,MT,Montana,2023,17.8
+30,MT,Montana,2024,16.3
+31,NE,Nebraska,1999,0.0
+31,NE,Nebraska,2000,0.0
+31,NE,Nebraska,2001,0.0
+31,NE,Nebraska,2002,0.0
+31,NE,Nebraska,2003,0.0
+31,NE,Nebraska,2004,0.0
+31,NE,Nebraska,2005,0.0
+31,NE,Nebraska,2006,0.0
+31,NE,Nebraska,2007,0.0
+31,NE,Nebraska,2008,0.0
+31,NE,Nebraska,2009,0.0
+31,NE,Nebraska,2010,0.0
+31,NE,Nebraska,2011,0.0
+31,NE,Nebraska,2012,0.0
+31,NE,Nebraska,2013,0.0
+31,NE,Nebraska,2014,0.0
+31,NE,Nebraska,2015,0.0
+31,NE,Nebraska,2016,0.0
+31,NE,Nebraska,2017,0.0
+31,NE,Nebraska,2018,0.0
+31,NE,Nebraska,2019,11.3
+31,NE,Nebraska,2020,11.9
+31,NE,Nebraska,2021,13.1
+31,NE,Nebraska,2022,12.1
+31,NE,Nebraska,2023,13.4
+31,NE,Nebraska,2024,13.45
+32,NV,Nevada,1999,0.0
+32,NV,Nevada,2000,0.0
+32,NV,Nevada,2001,0.0
+32,NV,Nevada,2002,0.0
+32,NV,Nevada,2003,0.0
+32,NV,Nevada,2004,0.0
+32,NV,Nevada,2005,0.0
+32,NV,Nevada,2006,0.0
+32,NV,Nevada,2007,0.0
+32,NV,Nevada,2008,0.0
+32,NV,Nevada,2009,0.0
+32,NV,Nevada,2010,0.0
+32,NV,Nevada,2011,0.0
+32,NV,Nevada,2012,0.0
+32,NV,Nevada,2013,0.0
+32,NV,Nevada,2014,0.0
+32,NV,Nevada,2015,0.0
+32,NV,Nevada,2016,0.0
+32,NV,Nevada,2017,0.0
+32,NV,Nevada,2018,0.0
+32,NV,Nevada,2019,14.9
+32,NV,Nevada,2020,17.3
+32,NV,Nevada,2021,17.6
+32,NV,Nevada,2022,14.8
+32,NV,Nevada,2023,19.9
+32,NV,Nevada,2024,18.11
+33,NH,New Hampshire,1999,0.0
+33,NH,New Hampshire,2000,0.0
+33,NH,New Hampshire,2001,0.0
+33,NH,New Hampshire,2002,0.0
+33,NH,New Hampshire,2003,0.0
+33,NH,New Hampshire,2004,0.0
+33,NH,New Hampshire,2005,0.0
+33,NH,New Hampshire,2006,0.0
+33,NH,New Hampshire,2007,0.0
+33,NH,New Hampshire,2008,0.0
+33,NH,New Hampshire,2009,0.0
+33,NH,New Hampshire,2010,0.0
+33,NH,New Hampshire,2011,0.0
+33,NH,New Hampshire,2012,0.0
+33,NH,New Hampshire,2013,0.0
+33,NH,New Hampshire,2014,0.0
+33,NH,New Hampshire,2015,0.0
+33,NH,New Hampshire,2016,0.0
+33,NH,New Hampshire,2017,0.0
+33,NH,New Hampshire,2018,0.0
+33,NH,New Hampshire,2019,13.9
+33,NH,New Hampshire,2020,13.7
+33,NH,New Hampshire,2021,14.6
+33,NH,New Hampshire,2022,16.7
+33,NH,New Hampshire,2023,15.4
+33,NH,New Hampshire,2024,14.99
+34,NJ,New Jersey,1999,0.0
+34,NJ,New Jersey,2000,0.0
+34,NJ,New Jersey,2001,0.0
+34,NJ,New Jersey,2002,0.0
+34,NJ,New Jersey,2003,0.0
+34,NJ,New Jersey,2004,0.0
+34,NJ,New Jersey,2005,0.0
+34,NJ,New Jersey,2006,0.0
+34,NJ,New Jersey,2007,0.0
+34,NJ,New Jersey,2008,0.0
+34,NJ,New Jersey,2009,0.0
+34,NJ,New Jersey,2010,0.0
+34,NJ,New Jersey,2011,0.0
+34,NJ,New Jersey,2012,0.0
+34,NJ,New Jersey,2013,0.0
+34,NJ,New Jersey,2014,0.0
+34,NJ,New Jersey,2015,0.0
+34,NJ,New Jersey,2016,0.0
+34,NJ,New Jersey,2017,0.0
+34,NJ,New Jersey,2018,0.0
+34,NJ,New Jersey,2019,
+34,NJ,New Jersey,2020,12.3
+34,NJ,New Jersey,2021,13.3
+34,NJ,New Jersey,2022,13.7
+34,NJ,New Jersey,2023,13.9
+34,NJ,New Jersey,2024,13.24
+35,NM,New Mexico,1999,0.0
+35,NM,New Mexico,2000,0.0
+35,NM,New Mexico,2001,0.0
+35,NM,New Mexico,2002,0.0
+35,NM,New Mexico,2003,0.0
+35,NM,New Mexico,2004,0.0
+35,NM,New Mexico,2005,0.0
+35,NM,New Mexico,2006,0.0
+35,NM,New Mexico,2007,0.0
+35,NM,New Mexico,2008,0.0
+35,NM,New Mexico,2009,0.0
+35,NM,New Mexico,2010,0.0
+35,NM,New Mexico,2011,0.0
+35,NM,New Mexico,2012,0.0
+35,NM,New Mexico,2013,0.0
+35,NM,New Mexico,2014,0.0
+35,NM,New Mexico,2015,0.0
+35,NM,New Mexico,2016,0.0
+35,NM,New Mexico,2017,0.0
+35,NM,New Mexico,2018,0.0
+35,NM,New Mexico,2019,14.8
+35,NM,New Mexico,2020,13.1
+35,NM,New Mexico,2021,14.5
+35,NM,New Mexico,2022,15.9
+35,NM,New Mexico,2023,16.0
+35,NM,New Mexico,2024,18.21
+36,NY,New York,1999,0.0
+36,NY,New York,2000,0.0
+36,NY,New York,2001,0.0
+36,NY,New York,2002,0.0
+36,NY,New York,2003,0.0
+36,NY,New York,2004,0.0
+36,NY,New York,2005,0.0
+36,NY,New York,2006,0.0
+36,NY,New York,2007,0.0
+36,NY,New York,2008,0.0
+36,NY,New York,2009,0.0
+36,NY,New York,2010,0.0
+36,NY,New York,2011,0.0
+36,NY,New York,2012,0.0
+36,NY,New York,2013,0.0
+36,NY,New York,2014,0.0
+36,NY,New York,2015,0.0
+36,NY,New York,2016,0.0
+36,NY,New York,2017,0.0
+36,NY,New York,2018,0.0
+36,NY,New York,2019,11.8
+36,NY,New York,2020,12.7
+36,NY,New York,2021,13.0
+36,NY,New York,2022,15.4
+36,NY,New York,2023,14.2
+36,NY,New York,2024,14.17
+37,NC,North Carolina,1999,0.0
+37,NC,North Carolina,2000,0.0
+37,NC,North Carolina,2001,0.0
+37,NC,North Carolina,2002,0.0
+37,NC,North Carolina,2003,0.0
+37,NC,North Carolina,2004,0.0
+37,NC,North Carolina,2005,0.0
+37,NC,North Carolina,2006,0.0
+37,NC,North Carolina,2007,0.0
+37,NC,North Carolina,2008,0.0
+37,NC,North Carolina,2009,0.0
+37,NC,North Carolina,2010,0.0
+37,NC,North Carolina,2011,0.0
+37,NC,North Carolina,2012,0.0
+37,NC,North Carolina,2013,0.0
+37,NC,North Carolina,2014,0.0
+37,NC,North Carolina,2015,0.0
+37,NC,North Carolina,2016,0.0
+37,NC,North Carolina,2017,0.0
+37,NC,North Carolina,2018,0.0
+37,NC,North Carolina,2019,13.8
+37,NC,North Carolina,2020,12.9
+37,NC,North Carolina,2021,13.8
+37,NC,North Carolina,2022,15.3
+37,NC,North Carolina,2023,15.2
+37,NC,North Carolina,2024,14.71
+38,ND,North Dakota,1999,0.0
+38,ND,North Dakota,2000,0.0
+38,ND,North Dakota,2001,0.0
+38,ND,North Dakota,2002,0.0
+38,ND,North Dakota,2003,0.0
+38,ND,North Dakota,2004,0.0
+38,ND,North Dakota,2005,0.0
+38,ND,North Dakota,2006,0.0
+38,ND,North Dakota,2007,0.0
+38,ND,North Dakota,2008,0.0
+38,ND,North Dakota,2009,0.0
+38,ND,North Dakota,2010,0.0
+38,ND,North Dakota,2011,0.0
+38,ND,North Dakota,2012,0.0
+38,ND,North Dakota,2013,0.0
+38,ND,North Dakota,2014,0.0
+38,ND,North Dakota,2015,0.0
+38,ND,North Dakota,2016,0.0
+38,ND,North Dakota,2017,0.0
+38,ND,North Dakota,2018,0.0
+38,ND,North Dakota,2019,11.3
+38,ND,North Dakota,2020,11.3
+38,ND,North Dakota,2021,12.6
+38,ND,North Dakota,2022,14.1
+38,ND,North Dakota,2023,13.1
+38,ND,North Dakota,2024,12.6
+39,OH,Ohio,1999,0.0
+39,OH,Ohio,2000,0.0
+39,OH,Ohio,2001,0.0
+39,OH,Ohio,2002,0.0
+39,OH,Ohio,2003,0.0
+39,OH,Ohio,2004,0.0
+39,OH,Ohio,2005,0.0
+39,OH,Ohio,2006,0.0
+39,OH,Ohio,2007,0.0
+39,OH,Ohio,2008,0.0
+39,OH,Ohio,2009,0.0
+39,OH,Ohio,2010,0.0
+39,OH,Ohio,2011,0.0
+39,OH,Ohio,2012,0.0
+39,OH,Ohio,2013,0.0
+39,OH,Ohio,2014,0.0
+39,OH,Ohio,2015,0.0
+39,OH,Ohio,2016,0.0
+39,OH,Ohio,2017,0.0
+39,OH,Ohio,2018,0.0
+39,OH,Ohio,2019,16.3
+39,OH,Ohio,2020,15.3
+39,OH,Ohio,2021,16.3
+39,OH,Ohio,2022,18.3
+39,OH,Ohio,2023,17.1
+39,OH,Ohio,2024,17.0
+40,OK,Oklahoma,1999,0.0
+40,OK,Oklahoma,2000,0.0
+40,OK,Oklahoma,2001,0.0
+40,OK,Oklahoma,2002,0.0
+40,OK,Oklahoma,2003,0.0
+40,OK,Oklahoma,2004,0.0
+40,OK,Oklahoma,2005,0.0
+40,OK,Oklahoma,2006,0.0
+40,OK,Oklahoma,2007,0.0
+40,OK,Oklahoma,2008,0.0
+40,OK,Oklahoma,2009,0.0
+40,OK,Oklahoma,2010,0.0
+40,OK,Oklahoma,2011,0.0
+40,OK,Oklahoma,2012,0.0
+40,OK,Oklahoma,2013,0.0
+40,OK,Oklahoma,2014,0.0
+40,OK,Oklahoma,2015,0.0
+40,OK,Oklahoma,2016,0.0
+40,OK,Oklahoma,2017,0.0
+40,OK,Oklahoma,2018,0.0
+40,OK,Oklahoma,2019,15.6
+40,OK,Oklahoma,2020,15.9
+40,OK,Oklahoma,2021,17.4
+40,OK,Oklahoma,2022,18.1
+40,OK,Oklahoma,2023,17.1
+40,OK,Oklahoma,2024,18.58
+41,OR,Oregon,1999,0.0
+41,OR,Oregon,2000,0.0
+41,OR,Oregon,2001,0.0
+41,OR,Oregon,2002,0.0
+41,OR,Oregon,2003,0.0
+41,OR,Oregon,2004,0.0
+41,OR,Oregon,2005,0.0
+41,OR,Oregon,2006,0.0
+41,OR,Oregon,2007,0.0
+41,OR,Oregon,2008,0.0
+41,OR,Oregon,2009,0.0
+41,OR,Oregon,2010,0.0
+41,OR,Oregon,2011,0.0
+41,OR,Oregon,2012,0.0
+41,OR,Oregon,2013,0.0
+41,OR,Oregon,2014,0.0
+41,OR,Oregon,2015,0.0
+41,OR,Oregon,2016,0.0
+41,OR,Oregon,2017,0.0
+41,OR,Oregon,2018,0.0
+41,OR,Oregon,2019,14.1
+41,OR,Oregon,2020,13.9
+41,OR,Oregon,2021,16.4
+41,OR,Oregon,2022,17.8
+41,OR,Oregon,2023,17.2
+41,OR,Oregon,2024,18.97
+42,PA,Pennsylvania,1999,0.0
+42,PA,Pennsylvania,2000,0.0
+42,PA,Pennsylvania,2001,0.0
+42,PA,Pennsylvania,2002,0.0
+42,PA,Pennsylvania,2003,0.0
+42,PA,Pennsylvania,2004,0.0
+42,PA,Pennsylvania,2005,0.0
+42,PA,Pennsylvania,2006,0.0
+42,PA,Pennsylvania,2007,0.0
+42,PA,Pennsylvania,2008,0.0
+42,PA,Pennsylvania,2009,0.0
+42,PA,Pennsylvania,2010,0.0
+42,PA,Pennsylvania,2011,0.0
+42,PA,Pennsylvania,2012,0.0
+42,PA,Pennsylvania,2013,0.0
+42,PA,Pennsylvania,2014,0.0
+42,PA,Pennsylvania,2015,0.0
+42,PA,Pennsylvania,2016,0.0
+42,PA,Pennsylvania,2017,0.0
+42,PA,Pennsylvania,2018,0.0
+42,PA,Pennsylvania,2019,13.7
+42,PA,Pennsylvania,2020,14.2
+42,PA,Pennsylvania,2021,14.0
+42,PA,Pennsylvania,2022,14.9
+42,PA,Pennsylvania,2023,
+42,PA,Pennsylvania,2024,15.99
+44,RI,Rhode Island,1999,0.0
+44,RI,Rhode Island,2000,0.0
+44,RI,Rhode Island,2001,0.0
+44,RI,Rhode Island,2002,0.0
+44,RI,Rhode Island,2003,0.0
+44,RI,Rhode Island,2004,0.0
+44,RI,Rhode Island,2005,0.0
+44,RI,Rhode Island,2006,0.0
+44,RI,Rhode Island,2007,0.0
+44,RI,Rhode Island,2008,0.0
+44,RI,Rhode Island,2009,0.0
+44,RI,Rhode Island,2010,0.0
+44,RI,Rhode Island,2011,0.0
+44,RI,Rhode Island,2012,0.0
+44,RI,Rhode Island,2013,0.0
+44,RI,Rhode Island,2014,0.0
+44,RI,Rhode Island,2015,0.0
+44,RI,Rhode Island,2016,0.0
+44,RI,Rhode Island,2017,0.0
+44,RI,Rhode Island,2018,0.0
+44,RI,Rhode Island,2019,13.9
+44,RI,Rhode Island,2020,13.3
+44,RI,Rhode Island,2021,14.3
+44,RI,Rhode Island,2022,15.5
+44,RI,Rhode Island,2023,16.2
+44,RI,Rhode Island,2024,14.49
+45,SC,South Carolina,1999,0.0
+45,SC,South Carolina,2000,0.0
+45,SC,South Carolina,2001,0.0
+45,SC,South Carolina,2002,0.0
+45,SC,South Carolina,2003,0.0
+45,SC,South Carolina,2004,0.0
+45,SC,South Carolina,2005,0.0
+45,SC,South Carolina,2006,0.0
+45,SC,South Carolina,2007,0.0
+45,SC,South Carolina,2008,0.0
+45,SC,South Carolina,2009,0.0
+45,SC,South Carolina,2010,0.0
+45,SC,South Carolina,2011,0.0
+45,SC,South Carolina,2012,0.0
+45,SC,South Carolina,2013,0.0
+45,SC,South Carolina,2014,0.0
+45,SC,South Carolina,2015,0.0
+45,SC,South Carolina,2016,0.0
+45,SC,South Carolina,2017,0.0
+45,SC,South Carolina,2018,0.0
+45,SC,South Carolina,2019,13.0
+45,SC,South Carolina,2020,14.7
+45,SC,South Carolina,2021,16.7
+45,SC,South Carolina,2022,15.7
+45,SC,South Carolina,2023,16.0
+45,SC,South Carolina,2024,15.21
+46,SD,South Dakota,1999,0.0
+46,SD,South Dakota,2000,0.0
+46,SD,South Dakota,2001,0.0
+46,SD,South Dakota,2002,0.0
+46,SD,South Dakota,2003,0.0
+46,SD,South Dakota,2004,0.0
+46,SD,South Dakota,2005,0.0
+46,SD,South Dakota,2006,0.0
+46,SD,South Dakota,2007,0.0
+46,SD,South Dakota,2008,0.0
+46,SD,South Dakota,2009,0.0
+46,SD,South Dakota,2010,0.0
+46,SD,South Dakota,2011,0.0
+46,SD,South Dakota,2012,0.0
+46,SD,South Dakota,2013,0.0
+46,SD,South Dakota,2014,0.0
+46,SD,South Dakota,2015,0.0
+46,SD,South Dakota,2016,0.0
+46,SD,South Dakota,2017,0.0
+46,SD,South Dakota,2018,0.0
+46,SD,South Dakota,2019,10.6
+46,SD,South Dakota,2020,9.4
+46,SD,South Dakota,2021,11.4
+46,SD,South Dakota,2022,12.8
+46,SD,South Dakota,2023,14.3
+46,SD,South Dakota,2024,13.76
+47,TN,Tennessee,1999,0.0
+47,TN,Tennessee,2000,0.0
+47,TN,Tennessee,2001,0.0
+47,TN,Tennessee,2002,0.0
+47,TN,Tennessee,2003,0.0
+47,TN,Tennessee,2004,0.0
+47,TN,Tennessee,2005,0.0
+47,TN,Tennessee,2006,0.0
+47,TN,Tennessee,2007,0.0
+47,TN,Tennessee,2008,0.0
+47,TN,Tennessee,2009,0.0
+47,TN,Tennessee,2010,0.0
+47,TN,Tennessee,2011,0.0
+47,TN,Tennessee,2012,0.0
+47,TN,Tennessee,2013,0.0
+47,TN,Tennessee,2014,0.0
+47,TN,Tennessee,2015,0.0
+47,TN,Tennessee,2016,0.0
+47,TN,Tennessee,2017,0.0
+47,TN,Tennessee,2018,0.0
+47,TN,Tennessee,2019,15.8
+47,TN,Tennessee,2020,16.1
+47,TN,Tennessee,2021,18.0
+47,TN,Tennessee,2022,20.3
+47,TN,Tennessee,2023,19.6
+47,TN,Tennessee,2024,
+48,TX,Texas,1999,0.0
+48,TX,Texas,2000,0.0
+48,TX,Texas,2001,0.0
+48,TX,Texas,2002,0.0
+48,TX,Texas,2003,0.0
+48,TX,Texas,2004,0.0
+48,TX,Texas,2005,0.0
+48,TX,Texas,2006,0.0
+48,TX,Texas,2007,0.0
+48,TX,Texas,2008,0.0
+48,TX,Texas,2009,0.0
+48,TX,Texas,2010,0.0
+48,TX,Texas,2011,0.0
+48,TX,Texas,2012,0.0
+48,TX,Texas,2013,0.0
+48,TX,Texas,2014,0.0
+48,TX,Texas,2015,0.0
+48,TX,Texas,2016,0.0
+48,TX,Texas,2017,0.0
+48,TX,Texas,2018,0.0
+48,TX,Texas,2019,12.2
+48,TX,Texas,2020,13.2
+48,TX,Texas,2021,14.0
+48,TX,Texas,2022,16.2
+48,TX,Texas,2023,16.1
+48,TX,Texas,2024,15.7
+49,UT,Utah,1999,0.0
+49,UT,Utah,2000,0.0
+49,UT,Utah,2001,0.0
+49,UT,Utah,2002,0.0
+49,UT,Utah,2003,0.0
+49,UT,Utah,2004,0.0
+49,UT,Utah,2005,0.0
+49,UT,Utah,2006,0.0
+49,UT,Utah,2007,0.0
+49,UT,Utah,2008,0.0
+49,UT,Utah,2009,0.0
+49,UT,Utah,2010,0.0
+49,UT,Utah,2011,0.0
+49,UT,Utah,2012,0.0
+49,UT,Utah,2013,0.0
+49,UT,Utah,2014,0.0
+49,UT,Utah,2015,0.0
+49,UT,Utah,2016,0.0
+49,UT,Utah,2017,0.0
+49,UT,Utah,2018,0.0
+49,UT,Utah,2019,14.2
+49,UT,Utah,2020,15.0
+49,UT,Utah,2021,17.1
+49,UT,Utah,2022,16.6
+49,UT,Utah,2023,16.2
+49,UT,Utah,2024,15.47
+50,VT,Vermont,1999,0.0
+50,VT,Vermont,2000,0.0
+50,VT,Vermont,2001,0.0
+50,VT,Vermont,2002,0.0
+50,VT,Vermont,2003,0.0
+50,VT,Vermont,2004,0.0
+50,VT,Vermont,2005,0.0
+50,VT,Vermont,2006,0.0
+50,VT,Vermont,2007,0.0
+50,VT,Vermont,2008,0.0
+50,VT,Vermont,2009,0.0
+50,VT,Vermont,2010,0.0
+50,VT,Vermont,2011,0.0
+50,VT,Vermont,2012,0.0
+50,VT,Vermont,2013,0.0
+50,VT,Vermont,2014,0.0
+50,VT,Vermont,2015,0.0
+50,VT,Vermont,2016,0.0
+50,VT,Vermont,2017,0.0
+50,VT,Vermont,2018,0.0
+50,VT,Vermont,2019,14.0
+50,VT,Vermont,2020,14.2
+50,VT,Vermont,2021,15.6
+50,VT,Vermont,2022,16.2
+50,VT,Vermont,2023,15.8
+50,VT,Vermont,2024,15.11
+51,VA,Virginia,1999,0.0
+51,VA,Virginia,2000,0.0
+51,VA,Virginia,2001,0.0
+51,VA,Virginia,2002,0.0
+51,VA,Virginia,2003,0.0
+51,VA,Virginia,2004,0.0
+51,VA,Virginia,2005,0.0
+51,VA,Virginia,2006,0.0
+51,VA,Virginia,2007,0.0
+51,VA,Virginia,2008,0.0
+51,VA,Virginia,2009,0.0
+51,VA,Virginia,2010,0.0
+51,VA,Virginia,2011,0.0
+51,VA,Virginia,2012,0.0
+51,VA,Virginia,2013,0.0
+51,VA,Virginia,2014,0.0
+51,VA,Virginia,2015,0.0
+51,VA,Virginia,2016,0.0
+51,VA,Virginia,2017,0.0
+51,VA,Virginia,2018,0.0
+51,VA,Virginia,2019,12.7
+51,VA,Virginia,2020,12.2
+51,VA,Virginia,2021,14.7
+51,VA,Virginia,2022,16.4
+51,VA,Virginia,2023,15.4
+51,VA,Virginia,2024,15.72
+53,WA,Washington,1999,0.0
+53,WA,Washington,2000,0.0
+53,WA,Washington,2001,0.0
+53,WA,Washington,2002,0.0
+53,WA,Washington,2003,0.0
+53,WA,Washington,2004,0.0
+53,WA,Washington,2005,0.0
+53,WA,Washington,2006,0.0
+53,WA,Washington,2007,0.0
+53,WA,Washington,2008,0.0
+53,WA,Washington,2009,0.0
+53,WA,Washington,2010,0.0
+53,WA,Washington,2011,0.0
+53,WA,Washington,2012,0.0
+53,WA,Washington,2013,0.0
+53,WA,Washington,2014,0.0
+53,WA,Washington,2015,0.0
+53,WA,Washington,2016,0.0
+53,WA,Washington,2017,0.0
+53,WA,Washington,2018,0.0
+53,WA,Washington,2019,13.6
+53,WA,Washington,2020,13.7
+53,WA,Washington,2021,15.4
+53,WA,Washington,2022,16.5
+53,WA,Washington,2023,16.1
+53,WA,Washington,2024,16.33
+54,WV,West Virginia,1999,0.0
+54,WV,West Virginia,2000,0.0
+54,WV,West Virginia,2001,0.0
+54,WV,West Virginia,2002,0.0
+54,WV,West Virginia,2003,0.0
+54,WV,West Virginia,2004,0.0
+54,WV,West Virginia,2005,0.0
+54,WV,West Virginia,2006,0.0
+54,WV,West Virginia,2007,0.0
+54,WV,West Virginia,2008,0.0
+54,WV,West Virginia,2009,0.0
+54,WV,West Virginia,2010,0.0
+54,WV,West Virginia,2011,0.0
+54,WV,West Virginia,2012,0.0
+54,WV,West Virginia,2013,0.0
+54,WV,West Virginia,2014,0.0
+54,WV,West Virginia,2015,0.0
+54,WV,West Virginia,2016,0.0
+54,WV,West Virginia,2017,0.0
+54,WV,West Virginia,2018,0.0
+54,WV,West Virginia,2019,20.6
+54,WV,West Virginia,2020,17.5
+54,WV,West Virginia,2021,19.4
+54,WV,West Virginia,2022,21.1
+54,WV,West Virginia,2023,22.0
+54,WV,West Virginia,2024,19.33
+55,WI,Wisconsin,1999,0.0
+55,WI,Wisconsin,2000,0.0
+55,WI,Wisconsin,2001,0.0
+55,WI,Wisconsin,2002,0.0
+55,WI,Wisconsin,2003,0.0
+55,WI,Wisconsin,2004,0.0
+55,WI,Wisconsin,2005,0.0
+55,WI,Wisconsin,2006,0.0
+55,WI,Wisconsin,2007,0.0
+55,WI,Wisconsin,2008,0.0
+55,WI,Wisconsin,2009,0.0
+55,WI,Wisconsin,2010,0.0
+55,WI,Wisconsin,2011,0.0
+55,WI,Wisconsin,2012,0.0
+55,WI,Wisconsin,2013,0.0
+55,WI,Wisconsin,2014,0.0
+55,WI,Wisconsin,2015,0.0
+55,WI,Wisconsin,2016,0.0
+55,WI,Wisconsin,2017,0.0
+55,WI,Wisconsin,2018,0.0
+55,WI,Wisconsin,2019,12.7
+55,WI,Wisconsin,2020,12.5
+55,WI,Wisconsin,2021,13.6
+55,WI,Wisconsin,2022,16.1
+55,WI,Wisconsin,2023,14.7
+55,WI,Wisconsin,2024,17.23
+56,WY,Wyoming,1999,0.0
+56,WY,Wyoming,2000,0.0
+56,WY,Wyoming,2001,0.0
+56,WY,Wyoming,2002,0.0
+56,WY,Wyoming,2003,0.0
+56,WY,Wyoming,2004,0.0
+56,WY,Wyoming,2005,0.0
+56,WY,Wyoming,2006,0.0
+56,WY,Wyoming,2007,0.0
+56,WY,Wyoming,2008,0.0
+56,WY,Wyoming,2009,0.0
+56,WY,Wyoming,2010,0.0
+56,WY,Wyoming,2011,0.0
+56,WY,Wyoming,2012,0.0
+56,WY,Wyoming,2013,0.0
+56,WY,Wyoming,2014,0.0
+56,WY,Wyoming,2015,0.0
+56,WY,Wyoming,2016,0.0
+56,WY,Wyoming,2017,0.0
+56,WY,Wyoming,2018,0.0
+56,WY,Wyoming,2019,12.6
+56,WY,Wyoming,2020,12.1
+56,WY,Wyoming,2021,15.1
+56,WY,Wyoming,2022,14.8
+56,WY,Wyoming,2023,14.2
+56,WY,Wyoming,2024,15.43

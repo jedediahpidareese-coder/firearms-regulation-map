@@ -98,6 +98,64 @@ def load_religion() -> pd.DataFrame:
     return pd.read_csv(p)[["state_abbr", "religion_adherents_pct_2020"]]
 
 
+def load_fentanyl_deaths() -> pd.DataFrame:
+    """CDC VSRR T40.4 synthetic-opioid death rate per 100k. Built by
+    scripts/build_fentanyl_deaths_state_year.py. Pre-1999 zero-fill;
+    post-coverage carry-forward."""
+    p = PROC / "fentanyl_deaths_state_year.csv"
+    if not p.exists():
+        return pd.DataFrame(columns=["state_abbr", "year"])
+    return pd.read_csv(p)[["state_abbr", "year", "synthetic_opioid_death_rate"]]
+
+
+def load_brfss_mental_distress() -> pd.DataFrame:
+    """CDC BRFSS frequent-mental-distress prevalence (% adults reporting
+    >=14 poor mental-health days in past 30). Built by
+    scripts/build_brfss_mental_distress_state_year.py."""
+    p = PROC / "brfss_mental_distress_state_year.csv"
+    if not p.exists():
+        return pd.DataFrame(columns=["state_abbr", "year"])
+    return pd.read_csv(p)[["state_abbr", "year", "freq_mental_distress_pct"]]
+
+
+def load_nsduh() -> pd.DataFrame:
+    """SAMHSA NSDUH state-year prevalence of any mental illness, serious
+    mental illness, and major depressive episode (past year). Two-year
+    rolling averages assigned to the upper year."""
+    p = PROC / "nsduh_mental_illness_state_year.csv"
+    if not p.exists():
+        return pd.DataFrame(columns=["state_abbr", "year"])
+    return pd.read_csv(p)[["state_abbr", "year", "ami_pct", "smi_pct", "mde_pct"]]
+
+
+def load_lcm_thresholds() -> pd.DataFrame:
+    """Hand-coded current-statute LCM round-count thresholds for the 12 states +
+    DC + Delaware that have an active large-capacity magazine ban.
+
+    Returned as a state-level (no year) lookup keyed by postal abbreviation; the
+    panel builder broadcasts the threshold across all years where Tufts
+    `magazine == 1`. This means early adopters whose threshold has shifted
+    (NJ 15 -> 10 in 2018; NY 10 -> 7 -> 10 from 1994/2013/2014) are shown at
+    their CURRENT statutory threshold across the full ban period. That's a
+    descriptive simplification, documented in
+    data/processed/lcm_thresholds_state.csv (column `notes`).
+    """
+    p = PROC / "lcm_thresholds_state.csv"
+    if not p.exists():
+        return pd.DataFrame(columns=["state_abbr",
+                                      "magazine_threshold_handgun",
+                                      "magazine_threshold_long_gun"])
+    df = pd.read_csv(p)
+    df = df.rename(columns={
+        "postal": "state_abbr",
+        "threshold_handgun": "magazine_threshold_handgun",
+        "threshold_long_gun": "magazine_threshold_long_gun",
+    })
+    return df[["state_abbr",
+               "magazine_threshold_handgun",
+               "magazine_threshold_long_gun"]]
+
+
 def load_panel_market() -> pd.DataFrame:
     """Adds NICS to core, 1999-2024."""
     return pd.read_csv(PROC / "panel_market_1999_2024.csv")
@@ -264,9 +322,25 @@ def build_panel() -> pd.DataFrame:
         "law_banned_weapons_index", "law_buyer_restriction_index",
         "law_dv_index", "law_storage_cap_index",
     ] + [c for c in [
-        "universal", "magazine", "assault", "gvro", "locked",
+        "universal", "magazine", "magazinepreowned", "assault",
+        "assaultlist", "onefeature", "assaultregister", "assaulttransfer",
+        "gvro", "locked",
         "permitconcealed", "mayissue", "waiting", "onepermonth", "mcdvsurrender",
     ] if c in core.columns]].copy()
+
+    # Derived: effective fixed-magazine regime (the closest U.S.\ analogue
+    # to a "detachable-magazine ban" for rifles). 1 iff the state has all
+    # three of: an AWB (assault), a one-feature AWB definition (onefeature),
+    # and a large-capacity-magazine sale ban (magazine). The combination
+    # forces semi-automatic rifles into fixed-magazine, bolt-action, lever-
+    # action, pump-action, or single-shot configurations.
+    fm_components = ["assault", "onefeature", "magazine"]
+    if all(c in base.columns for c in fm_components):
+        base["fixed_magazine_regime"] = (
+            (base["assault"] == 1)
+            & (base["onefeature"] == 1)
+            & (base["magazine"] == 1)
+        ).astype(int)
 
     # Granular crime (1979-2024 where available) overrides aggregate columns when present.
     base = base.merge(
@@ -335,6 +409,33 @@ def build_panel() -> pd.DataFrame:
     rel = load_religion()
     if not rel.empty:
         base = base.merge(rel, on="state_abbr", how="left")
+
+    # Deaths-of-despair stack (added 2026-05-02): synthetic-opioid death
+    # rate (CDC VSRR T40.4 fentanyl-era), BRFSS frequent mental distress,
+    # NSDUH any-mental-illness / serious-mental-illness / major-depressive-
+    # episode prevalence. Motivated by Case-Deaton (2015, 2017), Czeisler
+    # et al. (2020), Pirkis et al. (2021).
+    fent = load_fentanyl_deaths()
+    if not fent.empty:
+        base = base.merge(fent, on=["state_abbr", "year"], how="left")
+    brfss = load_brfss_mental_distress()
+    if not brfss.empty:
+        base = base.merge(brfss, on=["state_abbr", "year"], how="left")
+    nsduh = load_nsduh()
+    if not nsduh.empty:
+        base = base.merge(nsduh, on=["state_abbr", "year"], how="left")
+
+    # LCM round-count thresholds (hand-coded current statute for ~14 states/DC).
+    # Broadcast the threshold to every year a state has magazine == 1 in Tufts
+    # so users can see "10 rounds in CA, 15 in CO, 17 in DE", etc. State-years
+    # without an active LCM ban (magazine == 0 or NaN) get NaN thresholds.
+    lcm = load_lcm_thresholds()
+    if not lcm.empty:
+        base = base.merge(lcm, on="state_abbr", how="left")
+        if "magazine" in base.columns:
+            mask = base["magazine"].fillna(0) != 1
+            base.loc[mask, "magazine_threshold_handgun"] = np.nan
+            base.loc[mask, "magazine_threshold_long_gun"] = np.nan
 
     return base.sort_values(["state_abbr", "year"]).reset_index(drop=True)
 
@@ -444,15 +545,50 @@ VARIABLE_METADATA = {
         "scale": "sequential",
     },
     "magazine": {
-        "label": "Large-capacity magazine ban (binary)",
+        "label": "LCM sale ban (binary)",
         "category": "Regulation",
         "unit": "Yes / No",
         "format": "binary",
-        "definition": "1 if state bans the sale of large-capacity magazines beyond just assault-pistol ammunition.",
+        "definition": "1 if the state bans the sale of large-capacity magazines (LCMs) beyond just assault-pistol ammunition. The threshold for what counts as \"large capacity\" varies by state; see the magazine_threshold_handgun and magazine_threshold_long_gun variables for the round count.",
         "source": "Tufts State Firearm Laws",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
         "year_range": [1979, 2024],
         "scale": "binary",
+    },
+    "magazinepreowned": {
+        "label": "LCM possession ban (binary)",
+        "category": "Regulation",
+        "unit": "Yes / No",
+        "format": "binary",
+        "definition": "1 if the state additionally prohibits possession of pre-owned large-capacity magazines (i.e. magazines acquired before the state's LCM sale ban took effect). 0 means owners may keep grandfathered LCMs even if new sales are banned. This is a stricter form of LCM regulation: California adopted an LCM possession ban in 2017 (Prop 63), New Jersey lowered its threshold and eliminated grandfathering in 2018, and DC's LCM ban has always covered possession.",
+        "source": "Tufts State Firearm Laws",
+        "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
+        "year_range": [1979, 2024],
+        "scale": "binary",
+    },
+    "magazine_threshold_handgun": {
+        "label": "LCM round-count threshold (handguns)",
+        "category": "Regulation",
+        "unit": "rounds",
+        "format": "integer",
+        "definition": "Round-count threshold above which a handgun magazine is classified as a \"large-capacity magazine\" under the state's LCM sale ban. Most banning states use 10 rounds (CA, CT, MA, MD, NY, NJ, OR, WA, HI, DC); Colorado uses 15 (HB13-1224, 2013); Vermont uses 15 for handguns (2018); Illinois uses 15 for handguns (PICA, 2023); Delaware uses 17 (HB 450, 2022). NaN for state-years without an active LCM sale ban. Hand-coded from public state-by-state summaries (Giffords Law Center, RAND Smart Policy) — see data/processed/lcm_thresholds_state.csv. Note: the threshold shown is the CURRENT statute and is broadcast across all ban years; states whose threshold shifted mid-period (e.g. NJ 15->10 in 2018) display the current value.",
+        "source": "Hand-coded from Giffords / RAND state-by-state LCM summaries",
+        "source_url": "https://giffords.org/lawcenter/gun-laws/policy-areas/hardware-ammunition/large-capacity-magazines/",
+        "year_range": [1979, 2024],
+        "scale": "sequential",
+        "caveat": "Current-statute snapshot broadcast to all ban years; threshold changes within a state are not time-resolved.",
+    },
+    "magazine_threshold_long_gun": {
+        "label": "LCM round-count threshold (long guns)",
+        "category": "Regulation",
+        "unit": "rounds",
+        "format": "integer",
+        "definition": "Round-count threshold above which a long-gun magazine is classified as a \"large-capacity magazine\" under the state's LCM sale ban. Most banning states match their handgun threshold; Vermont (10 long-gun vs. 15 handgun) and Illinois (10 long-gun vs. 15 handgun under PICA) use a stricter limit for rifles. Hawaii's LCM ban applies to handgun magazines only — long-gun magazines are unrestricted, so this column is NaN for HI. NaN for state-years without an active LCM sale ban. Same source and current-statute caveat as magazine_threshold_handgun.",
+        "source": "Hand-coded from Giffords / RAND state-by-state LCM summaries",
+        "source_url": "https://giffords.org/lawcenter/gun-laws/policy-areas/hardware-ammunition/large-capacity-magazines/",
+        "year_range": [1979, 2024],
+        "scale": "sequential",
+        "caveat": "Current-statute snapshot broadcast to all ban years; threshold changes within a state are not time-resolved. Hawaii's LCM ban does not cover long-gun magazines (NaN).",
     },
     "assault": {
         "label": "Assault weapons ban (binary)",
@@ -461,6 +597,61 @@ VARIABLE_METADATA = {
         "format": "binary",
         "definition": "1 if state bans the sale of assault weapons beyond assault pistols.",
         "source": "Tufts State Firearm Laws",
+        "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
+        "year_range": [1979, 2024],
+        "scale": "binary",
+    },
+    "assaultlist": {
+        "label": "AWB by named-list definition (binary)",
+        "category": "Regulation",
+        "unit": "Yes / No",
+        "format": "binary",
+        "definition": "1 if the state's assault-weapons ban includes an explicit list of named/banned models (e.g., AR-15, AK-47 variants). Most states with an AWB use a list approach.",
+        "source": "Tufts State Firearm Laws",
+        "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
+        "year_range": [1979, 2024],
+        "scale": "binary",
+    },
+    "onefeature": {
+        "label": "AWB by one-feature definition (binary)",
+        "category": "Regulation",
+        "unit": "Yes / No",
+        "format": "binary",
+        "definition": "1 if the state's assault-weapons ban uses a one-feature test: any semi-automatic rifle with a detachable magazine PLUS one military-style feature (pistol grip, telescoping stock, flash hider, etc.) qualifies as an assault weapon. Combined with a low-round LCM ban, this regime effectively forces semi-automatic rifles into fixed-magazine, bolt-action, or single-shot configurations. CA, CT, IL, NY, WA, MA, NJ, DE use this test.",
+        "source": "Tufts State Firearm Laws",
+        "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
+        "year_range": [1979, 2024],
+        "scale": "binary",
+    },
+    "assaultregister": {
+        "label": "Grandfathered AWs must be registered (binary)",
+        "category": "Regulation",
+        "unit": "Yes / No",
+        "format": "binary",
+        "definition": "1 if owners of pre-existing (grandfathered) assault weapons must register them with the state. A more restrictive AWB feature.",
+        "source": "Tufts State Firearm Laws",
+        "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
+        "year_range": [1979, 2024],
+        "scale": "binary",
+    },
+    "assaulttransfer": {
+        "label": "Transfer of grandfathered AWs prohibited (binary)",
+        "category": "Regulation",
+        "unit": "Yes / No",
+        "format": "binary",
+        "definition": "1 if grandfathered assault weapons cannot be sold or transferred (only kept by the original registered owner). Among the most restrictive AWB features.",
+        "source": "Tufts State Firearm Laws",
+        "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
+        "year_range": [1979, 2024],
+        "scale": "binary",
+    },
+    "fixed_magazine_regime": {
+        "label": "Effective fixed-magazine regime (binary, derived)",
+        "category": "Regulation",
+        "unit": "Yes / No",
+        "format": "binary",
+        "definition": "1 if the state has all three: an assault-weapons ban (assault), a one-feature definition (onefeature), and a large-capacity-magazine sale ban (magazine). The combination effectively forces semi-automatic rifles to be configured with fixed magazines, switched to bolt-action / lever-action / pump / single-shot, or sold elsewhere. This is the closest analogue in U.S.\\ law to a 'detachable-magazine ban' for rifles. Derived from Tufts variables; not an independent statute.",
+        "source": "Derived from Tufts State Firearm Laws (assault, onefeature, magazine)",
         "source_url": "https://www.tuftsctsi.org/state-firearm-laws/",
         "year_range": [1979, 2024],
         "scale": "binary",
@@ -919,6 +1110,46 @@ VARIABLE_METADATA = {
         "year_range": [1979, 2024],
         "scale": "sequential",
         "higher_is": "more religious adherents",
+    },
+    # ---- Deaths-of-despair stack (added 2026-05-02 to absorb the post-2019
+    # mental-health crisis and the fentanyl-driven overdose epidemic that
+    # overlap with the permitless-carry adoption window). Motivated by
+    # Case-Deaton (2015, 2017), Czeisler et al. (2020), Pirkis et al. (2021).
+    "synthetic_opioid_death_rate": {
+        "label": "Synthetic opioid (fentanyl) death rate",
+        "category": "Health & substances",
+        "unit": "Deaths per 100,000 residents",
+        "format": "rate",
+        "definition": "State-year synthetic-opioid (fentanyl-included) overdose death rate per 100,000, drawn from CDC Vital Statistics Rapid Release / Multiple Cause of Death using ICD-10 underlying cause T40.4. The post-2014 fentanyl-era surge nearly fully accounts for the rise in total drug-overdose deaths through 2022. Pre-1999 zero-fill; post-coverage carry-forward from the latest observed year. Used as a deaths-of-despair control alongside BRFSS frequent mental distress and NSDUH any-mental-illness prevalence.",
+        "source": "CDC VSRR / NCHS Multiple Cause of Death (T40.4)",
+        "source_url": "https://wonder.cdc.gov/mcd-icd10.html",
+        "year_range": [1999, 2024],
+        "scale": "sequential",
+        "higher_is": "more fentanyl deaths",
+    },
+    "freq_mental_distress_pct": {
+        "label": "Frequent mental distress (BRFSS)",
+        "category": "Health & substances",
+        "unit": "% of adults reporting >=14 poor mental-health days in past 30",
+        "format": "percent_pre",
+        "definition": "State-year prevalence of frequent mental distress, defined as adults reporting >=14 of the past 30 days when their mental health was not good. From the CDC Behavioral Risk Factor Surveillance System (BRFSS) Healthy Days module. Coverage 1993 onward; pre-1993 zero-fill. Used as a deaths-of-despair control alongside synthetic-opioid death rate and NSDUH any-mental-illness prevalence.",
+        "source": "CDC BRFSS Healthy Days",
+        "source_url": "https://www.cdc.gov/brfss/brfssprevalence/index.html",
+        "year_range": [1993, 2024],
+        "scale": "sequential",
+        "higher_is": "more frequent mental distress",
+    },
+    "ami_pct": {
+        "label": "Any mental illness prevalence (NSDUH)",
+        "category": "Health & substances",
+        "unit": "% of adults, past year",
+        "format": "percent_pre",
+        "definition": "State-year prevalence of any mental illness (AMI) in the past year among adults, from SAMHSA's National Survey on Drug Use and Health. NSDUH publishes state estimates as two-year rolling averages; we assign each estimate to the upper year. Coverage roughly 2008 onward (state-level NSDUH start); pre-2008 zero-fill. Used as a deaths-of-despair control alongside synthetic-opioid death rate and BRFSS frequent mental distress.",
+        "source": "SAMHSA NSDUH state-level prevalence",
+        "source_url": "https://www.samhsa.gov/data/nsduh/state-reports",
+        "year_range": [2008, 2024],
+        "scale": "sequential",
+        "higher_is": "more mental illness",
     },
 }
 
