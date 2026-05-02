@@ -111,7 +111,7 @@ async function main() {
   const dashboard = workbook.worksheets.add("Dashboard");
   dashboard.getRange("A1").values = [["Firearms Regulation and Crime: Balanced State-Year Panels"]];
   dashboard.getRange("A2").values = [[
-    "Balanced panels restricted to the 50 states. The latest fully balanced annual panel ends in 2024 because firearm-law and violent/property crime series do not yet overlap through 2025-2026. A long-run demographic panel now extends race, Hispanic origin, sex, age, income, poverty, and education controls back to 1990.",
+    "Balanced panels restricted to the 50 states. The latest fully balanced annual panel ends in 2024 because firearm-law and violent/property crime series do not yet overlap through 2025-2026. A long-run demographic panel now extends race, Hispanic origin, sex, age, income, poverty, and education controls back to 1990, using observed annual education values where available and explicit interpolation flags for the remaining gaps.",
   ]];
   dashboard.getRange("A1").format.font = { bold: true, size: 20, color: "#12325A" };
   dashboard.getRange("A2").format.font = { italic: true, color: "#475467" };
@@ -128,7 +128,7 @@ async function main() {
     "panel_core_1979_2024: long-run laws + crime + unemployment + real per-capita income.",
   ]];
   dashboard.getRange("H6").values = [[
-    "panel_demographic_1990_2024: adds long-run Census/SAIPE demographics and interpolated education.",
+    "panel_demographic_1990_2024: adds long-run Census/SAIPE demographics, observed annual education where available, and row-level interpolation flags.",
   ]];
   dashboard.getRange("H7").values = [[
     "panel_market_1999_2024: adds annual NICS firearm background check measures.",

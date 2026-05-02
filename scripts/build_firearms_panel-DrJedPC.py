@@ -21,6 +21,18 @@ EDUCATION_TABLE_PDF_PATH = DATA_DIR / "11s0229.pdf"
 
 FRED_CPI_SERIES = "CPIAUCSL"
 USER_AGENT = "Mozilla/5.0"
+HISTORICAL_EDUCATION_URLS = {
+    1995: "https://www2.census.gov/programs-surveys/demo/tables/educational-attainment/1995/p20-489/p20489ta.pdf",
+    1996: "https://www2.census.gov/programs-surveys/demo/tables/educational-attainment/1996/p20-493/p20-493u.pdf",
+    1997: "https://www2.census.gov/programs-surveys/demo/tables/educational-attainment/1997/p20-505/p20-505u.pdf",
+    1998: "https://www2.census.gov/programs-surveys/demo/tables/educational-attainment/1998/p20-513/p20-513u.pdf",
+    1999: "https://www2.census.gov/programs-surveys/demo/tables/educational-attainment/1999/p20-528/tab13.pdf",
+    2000: "https://www2.census.gov/programs-surveys/demo/tables/educational-attainment/2000/p20-536/tab13.pdf",
+    2001: "https://www2.census.gov/programs-surveys/demo/tables/educational-attainment/2001/cps-detailed-tables/tab13.xls",
+    2002: "https://www2.census.gov/programs-surveys/demo/tables/educational-attainment/2002/cps-detailed-tables/tab13.xls",
+    2003: "https://www2.census.gov/programs-surveys/demo/tables/educational-attainment/2003/p20-550/tab13.xls",
+    2004: "https://www2.census.gov/programs-surveys/demo/tables/educational-attainment/2004/cps-detailed-tables/tab13.xls",
+}
 
 
 STATE_FIPS_TO_ABBR = {
@@ -280,7 +292,7 @@ CUSTOM_DICTIONARY_ROWS = [
         "variable_name": "median_hh_income_nominal",
         "group": "Demographic / economic control",
         "label": "Median household income (nominal)",
-        "description": "State annual median household income in current dollars. The modern panel uses ACS values; the long-run demographic panel uses SAIPE with interpolation for 1990-1992 and 1994.",
+        "description": "State annual median household income in current dollars. The modern panel uses ACS values; the long-run demographic panel uses SAIPE values and flags the interpolated 1990-1992 and 1994 gaps.",
         "source": "ACS 1-year / Census SAIPE",
     },
     {
@@ -294,7 +306,7 @@ CUSTOM_DICTIONARY_ROWS = [
         "variable_name": "poverty_rate",
         "group": "Demographic / economic control",
         "label": "Poverty rate",
-        "description": "Share of persons below the poverty line. The modern panel uses ACS values; the long-run demographic panel uses SAIPE with interpolation for 1990-1992 and 1994.",
+        "description": "Share of persons below the poverty line. The modern panel uses ACS values; the long-run demographic panel uses SAIPE values and flags the interpolated 1990-1992 and 1994 gaps.",
         "source": "ACS 1-year / Census SAIPE",
     },
     {
@@ -322,8 +334,8 @@ CUSTOM_DICTIONARY_ROWS = [
         "variable_name": "share_bachelors_plus",
         "group": "Demographic control",
         "label": "Share bachelor's degree or higher",
-        "description": "Share of the education universe with a bachelor's degree or more. The long-run demographic panel uses Census anchors in 1990, 2000, and 2008 with interpolation before 2008, then ACS actuals.",
-        "source": "ACS 1-year / Census Statistical Abstract Table 229",
+        "description": "Share of the education universe with a bachelor's degree or more. The long-run demographic panel uses a 1990 Census Statistical Abstract anchor, exact annual CPS/Census state tables for 1995-2004, exact ACS values for 2005-2024, and flags the interpolated 1991-1994 gap years.",
+        "source": "ACS / Census Statistical Abstract Table 229 / Census CPS state tables",
     },
     {
         "variable_name": "share_male",
@@ -347,11 +359,39 @@ CUSTOM_DICTIONARY_ROWS = [
         "source": "ACS 1-year / Census population estimates",
     },
     {
-        "variable_name": "acs_dataset",
+        "variable_name": "controls_source",
         "group": "Metadata",
-        "label": "ACS dataset used",
-        "description": "Mostly ACS 1-year; 2020 uses ACS 5-year because the 2020 ACS 1-year release was not produced.",
-        "source": "ACS API",
+        "label": "Demographic controls source",
+        "description": "Source family used for the demographic control bundle: ACS 1-year in most observed ACS years, ACS 5-year in 2020, and a labeled long-run historical mix in the 1990-2024 demographic panel.",
+        "source": "ACS API / Census historical files / Census SAIPE",
+    },
+    {
+        "variable_name": "education_source",
+        "group": "Metadata",
+        "label": "Education source",
+        "description": "Observed source for the bachelor's-degree share in the long-run demographic panel: 1990 Statistical Abstract anchor, 1995-2004 CPS/Census state tables, 2005-2024 ACS, or interpolation for 1991-1994.",
+        "source": "ACS / Census Statistical Abstract Table 229 / Census CPS state tables",
+    },
+    {
+        "variable_name": "income_interpolated",
+        "group": "Metadata",
+        "label": "Income interpolated",
+        "description": "Indicator for state-years where long-run median household income is linearly interpolated because SAIPE does not publish 1990-1992 or 1994 estimates.",
+        "source": "Derived from Census SAIPE coverage gaps",
+    },
+    {
+        "variable_name": "poverty_interpolated",
+        "group": "Metadata",
+        "label": "Poverty interpolated",
+        "description": "Indicator for state-years where long-run poverty rates are linearly interpolated because SAIPE does not publish 1990-1992 or 1994 estimates.",
+        "source": "Derived from Census SAIPE coverage gaps",
+    },
+    {
+        "variable_name": "education_interpolated",
+        "group": "Metadata",
+        "label": "Education interpolated",
+        "description": "Indicator for state-years where the long-run bachelor's-degree share is linearly interpolated rather than taken from an observed state table or ACS release.",
+        "source": "Derived from observed education series coverage",
     },
 ]
 
@@ -581,7 +621,7 @@ def build_core_controls(state_abbrs: list[str]) -> pd.DataFrame:
 
 
 def build_acs_controls(state_lookup: pd.DataFrame) -> pd.DataFrame:
-    acs_vars = [
+    common_vars = [
         "NAME",
         "B01003_001E",
         "B19013_001E",
@@ -591,13 +631,9 @@ def build_acs_controls(state_lookup: pd.DataFrame) -> pd.DataFrame:
         "B03002_003E",
         "B03002_004E",
         "B03002_012E",
-        "B15003_001E",
-        "B15003_022E",
-        "B15003_023E",
-        "B15003_024E",
-        "B15003_025E",
         "B01001_001E",
         "B01001_002E",
+        "B01001_006E",
         "B01001_007E",
         "B01001_008E",
         "B01001_009E",
@@ -606,9 +642,8 @@ def build_acs_controls(state_lookup: pd.DataFrame) -> pd.DataFrame:
         "B01001_012E",
         "B01001_013E",
         "B01001_014E",
-        "B01001_015E",
-        "B01001_016E",
-        "B01001_017E",
+        "B01001_030E",
+        "B01001_031E",
         "B01001_032E",
         "B01001_033E",
         "B01001_034E",
@@ -616,15 +651,31 @@ def build_acs_controls(state_lookup: pd.DataFrame) -> pd.DataFrame:
         "B01001_036E",
         "B01001_037E",
         "B01001_038E",
-        "B01001_039E",
-        "B01001_040E",
-        "B01001_041E",
-        "B01001_042E",
     ]
-    years = list(range(2008, 2025))
+    early_education_vars = [
+        "B15002_001E",
+        "B15002_015E",
+        "B15002_016E",
+        "B15002_017E",
+        "B15002_018E",
+        "B15002_032E",
+        "B15002_033E",
+        "B15002_034E",
+        "B15002_035E",
+    ]
+    late_education_vars = [
+        "B15003_001E",
+        "B15003_022E",
+        "B15003_023E",
+        "B15003_024E",
+        "B15003_025E",
+    ]
+    years = list(range(2005, 2025))
     frames: list[pd.DataFrame] = []
     for year in years:
         dataset = "acs5" if year == 2020 else "acs1"
+        education_vars = early_education_vars if year <= 2007 else late_education_vars
+        acs_vars = common_vars + education_vars
         url = (
             f"https://api.census.gov/data/{year}/acs/{dataset}?get="
             f"{urllib.parse.quote(','.join(acs_vars), safe=',')}&for=state:*"
@@ -632,11 +683,11 @@ def build_acs_controls(state_lookup: pd.DataFrame) -> pd.DataFrame:
         data = fetch_json(url)
         df = pd.DataFrame(data[1:], columns=data[0])
         df["year"] = year
-        df["acs_dataset"] = dataset
+        df["controls_source"] = dataset
         frames.append(df)
 
     acs = pd.concat(frames, ignore_index=True)
-    numeric_cols = [c for c in acs.columns if c not in {"NAME", "state", "acs_dataset"}]
+    numeric_cols = [c for c in acs.columns if c not in {"NAME", "state", "controls_source"}]
     for col in numeric_cols:
         acs[col] = pd.to_numeric(acs[col], errors="coerce")
 
@@ -652,36 +703,48 @@ def build_acs_controls(state_lookup: pd.DataFrame) -> pd.DataFrame:
     acs["share_white_nh"] = acs["B03002_003E"] / acs["B03002_001E"]
     acs["share_black_nh"] = acs["B03002_004E"] / acs["B03002_001E"]
     acs["share_hispanic"] = acs["B03002_012E"] / acs["B03002_001E"]
-    acs["share_bachelors_plus"] = (
-        acs["B15003_022E"] + acs["B15003_023E"] + acs["B15003_024E"] + acs["B15003_025E"]
-    ) / acs["B15003_001E"]
+    acs["share_bachelors_plus"] = pd.NA
+    early_mask = acs["year"] <= 2007
+    late_mask = acs["year"] >= 2008
+    acs.loc[early_mask, "share_bachelors_plus"] = (
+        acs.loc[early_mask, "B15002_015E"]
+        + acs.loc[early_mask, "B15002_016E"]
+        + acs.loc[early_mask, "B15002_017E"]
+        + acs.loc[early_mask, "B15002_018E"]
+        + acs.loc[early_mask, "B15002_032E"]
+        + acs.loc[early_mask, "B15002_033E"]
+        + acs.loc[early_mask, "B15002_034E"]
+        + acs.loc[early_mask, "B15002_035E"]
+    ) / acs.loc[early_mask, "B15002_001E"]
+    acs.loc[late_mask, "share_bachelors_plus"] = (
+        acs.loc[late_mask, "B15003_022E"]
+        + acs.loc[late_mask, "B15003_023E"]
+        + acs.loc[late_mask, "B15003_024E"]
+        + acs.loc[late_mask, "B15003_025E"]
+    ) / acs.loc[late_mask, "B15003_001E"]
     acs["share_male"] = acs["B01001_002E"] / acs["B01001_001E"]
 
     age_15_24_cols = [
+        "B01001_006E",
         "B01001_007E",
         "B01001_008E",
         "B01001_009E",
         "B01001_010E",
-        "B01001_011E",
+        "B01001_030E",
+        "B01001_031E",
         "B01001_032E",
         "B01001_033E",
         "B01001_034E",
-        "B01001_035E",
-        "B01001_036E",
     ]
     age_25_44_cols = [
+        "B01001_011E",
         "B01001_012E",
         "B01001_013E",
         "B01001_014E",
-        "B01001_015E",
-        "B01001_016E",
-        "B01001_017E",
+        "B01001_035E",
+        "B01001_036E",
         "B01001_037E",
         "B01001_038E",
-        "B01001_039E",
-        "B01001_040E",
-        "B01001_041E",
-        "B01001_042E",
     ]
     acs["share_age_15_24"] = acs[age_15_24_cols].sum(axis=1) / acs["B01001_001E"]
     acs["share_age_25_44"] = acs[age_25_44_cols].sum(axis=1) / acs["B01001_001E"]
@@ -693,7 +756,7 @@ def build_acs_controls(state_lookup: pd.DataFrame) -> pd.DataFrame:
         "state",
         "state_abbr",
         "year",
-        "acs_dataset",
+        "controls_source",
         "median_hh_income_nominal",
         "median_hh_income_real_2024",
         "poverty_rate",
@@ -915,10 +978,7 @@ def build_saipe_controls(state_lookup: pd.DataFrame) -> pd.DataFrame:
     return saipe.drop(columns=["cpi_avg"])
 
 
-def build_historical_education_series(
-    state_lookup: pd.DataFrame,
-    acs_controls: pd.DataFrame,
-) -> pd.DataFrame:
+def extract_education_1990_anchor(state_lookup: pd.DataFrame) -> pd.DataFrame:
     ensure_download(
         "https://www2.census.gov/library/publications/2010/compendia/statab/130ed/tables/11s0229.pdf",
         EDUCATION_TABLE_PDF_PATH,
@@ -934,7 +994,6 @@ def build_historical_education_series(
             line.replace("New Y ork", "New York")
             .replace("T ennessee", "Tennessee")
             .replace("T exas", "Texas")
-            .replace("District of Columbia", "District of Columbia")
         )
         numbers = [float(value) for value in re.findall(number_pattern, normalized)]
         if len(numbers) != 9:
@@ -951,39 +1010,134 @@ def build_historical_education_series(
         rows.append(
             {
                 "state": state_name,
-                "share_bachelors_1990": numbers[1] / 100.0,
-                "share_bachelors_2000": numbers[4] / 100.0,
-                "share_bachelors_2008_anchor": numbers[7] / 100.0,
+                "year": 1990,
+                "share_bachelors_plus": numbers[1] / 100.0,
+                "education_source": "stat_abstract_229_anchor",
             }
         )
 
     education = pd.DataFrame(rows)
-    if education.shape[0] != 50:
-        raise ValueError(f"Education anchor extraction failed; expected 50 states, found {education.shape[0]}")
+    if education.shape[0] != state_lookup.shape[0]:
+        raise ValueError(
+            f"Education anchor extraction failed; expected {state_lookup.shape[0]} states, found {education.shape[0]}"
+        )
+    return education
 
-    acs = acs_controls[["state", "year", "share_bachelors_plus"]].copy()
-    acs = acs.loc[acs["year"].between(2008, 2024)].copy()
 
-    interpolated_rows: list[dict[str, object]] = []
-    for row in education.itertuples(index=False):
-        for year in range(1990, 2008):
-            if year == 1990:
-                value = row.share_bachelors_1990
-            elif year == 2000:
-                value = row.share_bachelors_2000
-            elif year < 2000:
-                fraction = (year - 1990) / (2000 - 1990)
-                value = row.share_bachelors_1990 + fraction * (row.share_bachelors_2000 - row.share_bachelors_1990)
-            else:
-                fraction = (year - 2000) / (2008 - 2000)
-                value = row.share_bachelors_2000 + fraction * (row.share_bachelors_2008_anchor - row.share_bachelors_2000)
-            interpolated_rows.append({"state": row.state, "year": year, "share_bachelors_plus": float(value)})
+def parse_historical_education_pdf(path: Path, allowed_states: set[str]) -> pd.DataFrame:
+    state_aliases = {"Dist. of Columbia": "District of Columbia"}
+    state_keys = sorted(set(allowed_states).union(state_aliases), key=len, reverse=True)
+    decimal_pattern = re.compile(r"[0-9]*\.[0-9]+")
+    rows: dict[str, float] = {}
+    reader = PdfReader(path)
+    for page in reader.pages:
+        text = page.extract_text() or ""
+        for raw_line in text.splitlines():
+            line = re.sub(r"\s+", " ", raw_line).strip()
+            if not line:
+                continue
+            normalized = re.sub(r"/leaderdash", " ", line)
+            normalized = re.sub(r"\s+", " ", normalized).strip()
+            for state_key in state_keys:
+                if not (normalized.startswith(state_key + " ") or normalized == state_key):
+                    continue
+                state_name = state_aliases.get(state_key, state_key)
+                if state_name not in allowed_states:
+                    break
+                decimals = [float(value) for value in decimal_pattern.findall(normalized[len(state_key) :])]
+                if len(decimals) < 4:
+                    break
+                rows[state_name] = decimals[2] / 100.0
+                break
+    return pd.DataFrame(
+        [{"state": state, "share_bachelors_plus": value} for state, value in sorted(rows.items())]
+    )
 
-    interpolated = pd.DataFrame(interpolated_rows)
-    combined = pd.concat([interpolated, acs], ignore_index=True, sort=False)
-    combined = combined.merge(state_lookup, on="state", how="left")
-    combined = combined.sort_values(["state_abbr", "year"]).reset_index(drop=True)
-    return combined[["state", "state_abbr", "year", "share_bachelors_plus"]]
+
+def parse_historical_education_xls(path: Path, allowed_states: set[str]) -> pd.DataFrame:
+    raw = pd.read_excel(path, header=None, engine="xlrd")
+    data = raw.iloc[:, :5].copy()
+    data = data.rename(
+        columns={
+            0: "state",
+            1: "education_population_25_plus_thousands",
+            2: "high_school_percent",
+            3: "high_school_ci",
+            4: "bachelors_percent",
+        }
+    )
+    data["state"] = data["state"].astype(str).str.strip()
+    data = data.loc[data["state"].isin(allowed_states)].copy()
+    data["share_bachelors_plus"] = pd.to_numeric(data["bachelors_percent"], errors="coerce") / 100.0
+    return data[["state", "share_bachelors_plus"]].reset_index(drop=True)
+
+
+def build_observed_historical_education(state_lookup: pd.DataFrame) -> pd.DataFrame:
+    allowed_states = set(state_lookup["state"]).union({"District of Columbia"})
+    frames: list[pd.DataFrame] = []
+    for year, url in sorted(HISTORICAL_EDUCATION_URLS.items()):
+        suffix = Path(url).suffix
+        path = ensure_download(url, HISTORICAL_DEMOGRAPHIC_DIR / "education" / f"tab13_{year}{suffix}")
+        if suffix.lower() == ".pdf":
+            frame = parse_historical_education_pdf(path, allowed_states)
+        else:
+            frame = parse_historical_education_xls(path, allowed_states)
+        frame["year"] = year
+        frame["education_source"] = "cps_state_table"
+        frames.append(frame)
+
+    education = pd.concat(frames, ignore_index=True)
+    education = education.merge(state_lookup[["state", "state_abbr"]], on="state", how="left")
+    education = education.dropna(subset=["state_abbr"]).copy()
+    return education[["state", "state_abbr", "year", "share_bachelors_plus", "education_source"]]
+
+
+def build_historical_education_series(
+    state_lookup: pd.DataFrame,
+    acs_controls: pd.DataFrame,
+) -> pd.DataFrame:
+    anchor_1990 = extract_education_1990_anchor(state_lookup)
+    anchor_1990 = anchor_1990.merge(state_lookup[["state", "state_abbr"]], on="state", how="left")
+
+    cps_education = build_observed_historical_education(state_lookup)
+    acs_education = acs_controls.loc[acs_controls["year"].between(2005, 2024)].copy()
+    acs_education = acs_education[
+        ["state", "state_abbr", "year", "share_bachelors_plus", "controls_source"]
+    ].rename(columns={"controls_source": "education_source"})
+
+    observed = pd.concat([anchor_1990, cps_education, acs_education], ignore_index=True, sort=False)
+    observed = observed.sort_values(["state_abbr", "year"]).reset_index(drop=True)
+    if observed.duplicated(["state_abbr", "year"]).any():
+        raise ValueError("Observed education series contains duplicate state-year rows")
+
+    full_index = pd.MultiIndex.from_product(
+        [sorted(state_lookup["state_abbr"].unique()), range(1990, 2025)],
+        names=["state_abbr", "year"],
+    )
+    combined = observed.set_index(["state_abbr", "year"]).reindex(full_index).reset_index()
+    combined = combined.merge(state_lookup, on="state_abbr", how="left", suffixes=("", "_lookup"))
+    combined["state"] = combined["state"].fillna(combined["state_lookup"])
+    combined = combined.drop(columns=["state_lookup"])
+    combined["share_bachelors_plus"] = pd.to_numeric(combined["share_bachelors_plus"], errors="coerce")
+    combined["education_interpolated"] = combined["share_bachelors_plus"].isna()
+    combined["share_bachelors_plus"] = (
+        combined.groupby("state_abbr")["share_bachelors_plus"]
+        .transform(lambda frame: frame.interpolate(method="linear", limit_direction="both"))
+    )
+    combined["education_source"] = combined["education_source"].where(
+        ~combined["education_interpolated"],
+        "interpolated",
+    )
+    return combined[
+        [
+            "state",
+            "state_abbr",
+            "year",
+            "share_bachelors_plus",
+            "education_source",
+            "education_interpolated",
+        ]
+    ].sort_values(["state_abbr", "year"]).reset_index(drop=True)
 
 
 def build_historical_demographics(
@@ -1046,12 +1200,15 @@ def build_historical_demographics(
                 "median_hh_income_nominal",
                 "median_hh_income_real_2024",
                 "poverty_rate",
+                "income_interpolated",
+                "poverty_interpolated",
             ]
         ],
         on=["state", "state_abbr", "year"],
         how="left",
     )
     historical = historical.merge(education, on=["state", "state_abbr", "year"], how="left")
+    historical["controls_source"] = "historical_demographic_mix"
 
     expected_rows = state_lookup.shape[0] * len(range(1990, 2025))
     if historical.shape[0] != expected_rows:
@@ -1089,14 +1246,14 @@ def build_historical_demographics(
                 "source_name": "Census SAIPE API",
                 "coverage": "1989, 1993, 1995-2024",
                 "geography": "50 states + DC",
-                "notes": "Panel uses actual SAIPE values when available and linearly interpolates 1990-1992 and 1994 within state.",
+                "notes": "Panel uses actual SAIPE values when available and carries row-level interpolation flags for the missing 1990-1992 and 1994 state estimates.",
             },
             {
                 "component": "Educational attainment",
-                "source_name": "Census Statistical Abstract Table 229 + ACS",
-                "coverage": "1990, 2000, 2008 anchors and 2008-2024 actuals",
+                "source_name": "Census Statistical Abstract Table 229 + CPS state tables + ACS",
+                "coverage": "1990 anchor, 1995-2004 CPS/Census tables, 2005-2024 ACS actuals",
                 "geography": "50 states",
-                "notes": "1991-1999 and 2001-2007 bachelor's-degree shares are interpolated between Census anchors; 2008-2024 use ACS values.",
+                "notes": "The 1990 bachelor's-degree share comes from Statistical Abstract Table 229, 1995-2004 use observed CPS/Census state tables, 2005-2024 use ACS values, and only 1991-1994 remain interpolated with row-level flags.",
             },
         ]
     )
@@ -1301,6 +1458,7 @@ def main() -> None:
     state_population = build_state_population(keep_abbrs)
     core_controls = build_core_controls(keep_abbrs)
     acs_controls = build_acs_controls(state_lookup)
+    modern_acs_controls = acs_controls.loc[acs_controls["year"].between(2008, 2024)].copy()
     historical_demographics, historical_demographic_counts, saipe_controls, historical_demographic_notes = build_historical_demographics(
         state_lookup,
         acs_controls,
@@ -1319,7 +1477,7 @@ def main() -> None:
 
     market_base = base.merge(nics_annual, on=["state", "state_abbr", "year"], how="left")
     market_base["nics_total_per_100k"] = market_base["nics_total"] / market_base["population"] * 100000
-    modern_base = market_base.merge(acs_controls, on=["state", "state_abbr", "year"], how="left")
+    modern_base = market_base.merge(modern_acs_controls, on=["state", "state_abbr", "year"], how="left")
     demographic_base = base.merge(historical_demographics, on=["state", "state_abbr", "year"], how="left")
 
     core_required = law_vars + [
@@ -1347,7 +1505,7 @@ def main() -> None:
     ]
 
     modern_required = market_required + [
-        "acs_dataset",
+        "controls_source",
         "median_hh_income_nominal",
         "median_hh_income_real_2024",
         "poverty_rate",
@@ -1395,7 +1553,18 @@ def main() -> None:
 
     id_cols = ["state", "state_abbr", "year"]
     core_export_cols = id_cols + [c for c in core_required if c not in id_cols]
-    demographic_export_cols = id_cols + [c for c in demographic_required if c not in id_cols]
+    demographic_metadata_cols = [
+        "controls_source",
+        "education_source",
+        "income_interpolated",
+        "poverty_interpolated",
+        "education_interpolated",
+    ]
+    demographic_export_cols = (
+        id_cols
+        + [c for c in demographic_required if c not in id_cols]
+        + [c for c in demographic_metadata_cols if c not in id_cols]
+    )
     market_export_cols = id_cols + [c for c in market_required if c not in id_cols]
     modern_export_cols = id_cols + [c for c in modern_required if c not in id_cols]
 
@@ -1439,7 +1608,7 @@ def main() -> None:
             },
             {
                 "panel_name": "panel_demographic",
-                "description": "Balanced 1990-2024 panel adding long-run demographic and socioeconomic controls reconstructed from Census historical files and SAIPE.",
+                "description": "Balanced 1990-2024 panel adding long-run demographic and socioeconomic controls reconstructed from Census historical files, SAIPE, observed annual education series where available, and row-level interpolation flags.",
                 "start_year": int(demographic_panel["year"].min()),
                 "end_year": int(demographic_panel["year"].max()),
                 "states": int(demographic_panel["state_abbr"].nunique()),
@@ -1457,7 +1626,7 @@ def main() -> None:
             },
             {
                 "panel_name": "panel_modern",
-                "description": "Balanced panel adding ACS demographic and socioeconomic controls plus NICS.",
+                "description": "Balanced 2008-2024 panel adding exact ACS demographic and socioeconomic controls plus NICS.",
                 "start_year": int(modern_panel["year"].min()),
                 "end_year": int(modern_panel["year"].max()),
                 "states": int(modern_panel["state_abbr"].nunique()),
@@ -1504,7 +1673,7 @@ def main() -> None:
                 "url": "https://www.tuftsctsi.org/state-firearm-laws/",
                 "coverage": "1976-2024",
                 "geography": "50 states",
-                "integrated_into": "panel_core, panel_market, panel_modern",
+                "integrated_into": "panel_core, panel_demographic, panel_market, panel_modern",
                 "notes": "72 firearm law indicators plus lawtotal.",
             },
             {
@@ -1512,7 +1681,7 @@ def main() -> None:
                 "url": "https://www.opencrime.us/downloads",
                 "coverage": "1979-2024",
                 "geography": "50 states + DC",
-                "integrated_into": "panel_core, panel_market, panel_modern",
+                "integrated_into": "panel_core, panel_demographic, panel_market, panel_modern",
                 "notes": "Processed FBI-derived counts feed; the raw file duplicated North Carolina 2022 and omitted North Dakota 2022, so the mislabeled duplicate row was reassigned to North Dakota before panel construction.",
             },
             {
@@ -1520,7 +1689,7 @@ def main() -> None:
                 "url": "https://fred.stlouisfed.org/",
                 "coverage": "1900-2025",
                 "geography": "50 states + DC",
-                "integrated_into": "panel_core, panel_market, panel_modern",
+                "integrated_into": "panel_core, panel_demographic, panel_market, panel_modern",
                 "notes": "Annual state resident population series from Census, used as the common population denominator for crime rates.",
             },
             {
@@ -1528,7 +1697,7 @@ def main() -> None:
                 "url": "https://fred.stlouisfed.org/",
                 "coverage": "1976-2026-01",
                 "geography": "50 states",
-                "integrated_into": "panel_core, panel_market, panel_modern, current_partial",
+                "integrated_into": "panel_core, panel_demographic, panel_market, panel_modern, current_partial",
                 "notes": "Monthly UR series annualized to annual average for balanced panels.",
             },
             {
@@ -1536,16 +1705,16 @@ def main() -> None:
                 "url": "https://fred.stlouisfed.org/",
                 "coverage": "varies by state to 2024",
                 "geography": "50 states",
-                "integrated_into": "panel_core, panel_market, panel_modern",
+                "integrated_into": "panel_core, panel_demographic, panel_market, panel_modern",
                 "notes": "BEA per capita personal income series, kept nominal and deflated to 2024 dollars with CPI-U.",
             },
             {
-                "source_name": "ACS 1-year detailed tables",
+                "source_name": "ACS detailed tables",
                 "url": "https://www.census.gov/programs-surveys/acs/data/data-via-api.html",
-                "coverage": "2008-2024",
+                "coverage": "2005-2024",
                 "geography": "50 states + DC",
                 "integrated_into": "panel_modern, panel_demographic",
-                "notes": "State-level demographic and socioeconomic controls; the long-run demographic panel uses ACS directly from 2008 onward and as the observed segment for educational attainment.",
+                "notes": "State-level demographic and socioeconomic controls for the exact-ACS modern panel; the long-run demographic panel uses ACS as the observed education segment from 2005 onward, with ACS 5-year used in 2020.",
             },
             {
                 "source_name": "Census historical state ASRH files",
@@ -1577,15 +1746,23 @@ def main() -> None:
                 "coverage": "1989, 1993, 1995-2024",
                 "geography": "50 states + DC",
                 "integrated_into": "panel_demographic",
-                "notes": "Median household income and poverty rate; missing 1990-1992 and 1994 are interpolated within state to keep the panel balanced.",
+                "notes": "Median household income and poverty rate; missing 1990-1992 and 1994 are interpolated within state and flagged to keep the panel balanced.",
             },
             {
                 "source_name": "Census Statistical Abstract Table 229",
                 "url": "https://www2.census.gov/library/publications/2010/compendia/statab/130ed/tables/11s0229.pdf",
-                "coverage": "1990, 2000, 2008 anchors",
+                "coverage": "1990 anchor",
                 "geography": "50 states",
                 "integrated_into": "panel_demographic",
-                "notes": "Educational attainment anchors used with ACS actuals to interpolate annual bachelor's-degree shares before 2008.",
+                "notes": "Provides the 1990 bachelor's-degree anchor for the long-run education series before observed annual CPS and ACS state tables begin.",
+            },
+            {
+                "source_name": "Census / CPS state educational attainment tables",
+                "url": "https://www.census.gov/data/tables/time-series/demo/educational-attainment.html",
+                "coverage": "1995-2004",
+                "geography": "50 states + DC",
+                "integrated_into": "panel_demographic",
+                "notes": "Observed annual state bachelor's-degree shares from CPS/Census Table 13 releases used to replace most of the formerly interpolated pre-2008 education segment.",
             },
             {
                 "source_name": "Data Liberation Project NICS",
@@ -1614,7 +1791,8 @@ def main() -> None:
     save_csv(panel_summary, "panel_summary.csv")
     save_csv(dashboard_trends, "dashboard_trends.csv")
     save_csv(highlight_laws, "highlight_law_variables.csv")
-    save_csv(acs_controls.sort_values(["state", "year"]), "acs_controls_2008_2024.csv")
+    save_csv(acs_controls.sort_values(["state", "year"]), "acs_controls_2005_2024.csv")
+    save_csv(modern_acs_controls.sort_values(["state", "year"]), "acs_controls_2008_2024.csv")
     save_csv(historical_demographics.sort_values(["state", "year"]), "historical_demographics_1990_2024.csv")
     save_csv(
         historical_demographic_counts.sort_values(["state_abbr", "year"]),
