@@ -131,21 +131,46 @@ a:hover { text-decoration: underline; }
   color: var(--accent);
 }
 
-.map-section {
-  margin-bottom: 18px;
-}
-.info-section {
-  margin-bottom: 18px;
-}
-.state-grid {
+/* Two-column dashboard: map on the left, persistent details column on the
+ * right. Above ~960px viewport width we use a 60/40 grid; below that we
+ * stack vertically so phones and small tablets get the map first, details
+ * scroll below. */
+.dashboard {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);
   gap: 18px;
   align-items: start;
   margin-bottom: 18px;
 }
-@media (max-width: 800px) {
-  .state-grid { grid-template-columns: 1fr; }
+@media (max-width: 960px) {
+  .dashboard { grid-template-columns: 1fr; }
+}
+.map-section {
+  margin-bottom: 0;
+}
+.info-section {
+  margin-bottom: 14px;
+}
+.details-column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: sticky;
+  top: 12px;
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+}
+@media (max-width: 960px) {
+  .details-column {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+}
+.state-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 .state-pane {
   background: var(--surface);

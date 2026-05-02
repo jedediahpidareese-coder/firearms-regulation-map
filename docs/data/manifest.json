@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-01T21:16:49Z",
+  "generated_at": "2026-05-02T17:29:38Z",
   "year_range": [
     1979,
     2024
@@ -65,7 +65,15 @@
     "law_dv_index",
     "law_storage_cap_index",
     "magazine",
+    "magazinepreowned",
+    "magazine_threshold_handgun",
+    "magazine_threshold_long_gun",
     "assault",
+    "assaultlist",
+    "onefeature",
+    "assaultregister",
+    "assaulttransfer",
+    "fixed_magazine_regime",
     "gvro",
     "universal",
     "permitconcealed",
@@ -109,6 +117,10 @@
   "categories": {
     "Regulation": [
       "assault",
+      "assaultlist",
+      "assaultregister",
+      "assaulttransfer",
+      "fixed_magazine_regime",
       "gvro",
       "law_banned_weapons_index",
       "law_bg_check_index",
@@ -118,7 +130,11 @@
       "law_storage_cap_index",
       "lawtotal",
       "magazine",
+      "magazine_threshold_handgun",
+      "magazine_threshold_long_gun",
+      "magazinepreowned",
       "mayissue",
+      "onefeature",
       "permitconcealed",
       "universal"
     ],
